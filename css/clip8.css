@@ -1,0 +1,42 @@
+html,body {
+    font-family: "Courier New", monospace;
+    border: 0px;
+    padding: 0;
+    margin: 0;
+    width:100%;
+}
+
+svg {
+    background-color:#888888;
+}
+
+.clip8OP {
+    pointer-events:none;
+    stroke: #ff8888;
+    vector-effect:non-scaling-stroke;
+}
+
+.clip8cut {
+    stroke-dasharray: 6, 2;
+}
+
+.clip8alignrel {
+    stroke-dasharray: 2, 4;
+    stroke-width:2;
+    marker-start:url(#clip8alignrel-start);
+    marker-end:url(#clip8alignrel-end);
+}
+
+.clip8alignrel-marker {
+    markerWidth:3;
+    markerHeight:3;
+    fill: #ff8888;
+    stroke: #ff8888;
+    stroke-width:4;
+    orient:auto;
+}
+
+.value {
+    stroke: #ffffff;
+}
+

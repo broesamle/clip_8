@@ -1,0 +1,42 @@
+body {
+    counter-reset: h2counter;
+    counter-reset: h3counter;
+}
+
+h1 {
+    counter-reset: h2counter;
+}
+
+h2 {
+    counter-reset: h3counter;
+}
+
+h2:before {
+    content: counter(h2counter) ".\0000a0\0000a0";
+    counter-increment: h2counter;
+    counter-reset: h3counter;
+}
+h3:before {
+    content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+    counter-increment: h3counter;
+}
+
+.DOMreftest {
+    font-size:20px;
+}
+
+.DOMreftest svg {
+    vertical-align: middle;
+}
+
+.DOMreftest-passed {
+    font-size:25px;
+    font-weight: bold;
+    color: #669977;
+}
+
+.DOMreftest-failed {
+    font-size:25px;
+    font-weight: bold;
+    color: #ee2244;
+}
