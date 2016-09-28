@@ -19,12 +19,11 @@
 <p>This test sheet tests the generic testing environment. Some tests are built to fail in a specific way. Please read and investigate carefully.</p>
 
 <p>
-<b>Report Format:</b> [&nbsp;validTest&nbsp;&nbsp;test==pre&nbsp;&nbsp;invoke&nbsp;&nbsp;test==post&nbsp;]<br>
-<b>Example:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-&nbsp;&nbsp;&nbsp;<span class="DOMreftest-failed">×</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="DOMreftest-passed">•</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="DOMreftest-failed">×</span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="DOMreftest-failed">×</span>
+<b>Report Format:</b><br> [&nbsp;test==pre&nbsp;&nbsp;execution&nbsp;&nbsp;test==post&nbsp;]
+<br>
+<span class="DOMreftest-passed">•</span>
+<span class="DOMreftest-failed">×</span>
+<span class="DOMreftest-failed">×</span>
 </p>
 
 <h1>clip_8: Selftest, getSVGRoot</h1>
@@ -126,7 +125,7 @@ For the present operation, the post reference can only match if the operation is
 
 <h3>valid operation present</h3>
 
-<p>.testDOM matches pre, post (except for the operation)</>
+<p>.testDOM matches pre, post (except for the operation)</p>
 <p class="DOMreftest envokeOperation" id="SVGvalid_OPpresent_prepost">
 <span class="pre-reference">
 <svg viewbox="-2 -2 68 68" width="68" height="68">
@@ -243,6 +242,8 @@ For the present operation, the post reference can only match if the operation is
 <rect class="value" x="0" y="0" width="32" height="32" />
 </svg>
 </span>
+</p>
+
 
 <p>all absent (matching), execution should fail</p>
 <p class="DOMreftest envokeOperation" id="SVGbroke-svgabsent">
@@ -253,8 +254,23 @@ For the present operation, the post reference can only match if the operation is
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-</svg>
 </span>
+</p>
+
+<p>replaced by span elements. should only fail if the operation detects it.</p>
+<p class="DOMreftest envokeOperation" id="SVGbroke-spaninsteadsvg">
+<span class="pre-reference" >
+<span>not svg</span>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<span>not svg</span>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<span>not svg</span>
+</span>
+</p>
 
 <h3>svg elements with ids</h3>
 
@@ -282,6 +298,7 @@ In addition, in clip_8, the id identifies the svgroot and, ideally, restored aft
 <rect class="value" x="0" y="0" width="32" height="32" />
 </svg>
 </span>
+</p>
 
 <p>.testDOM matches pre, post; id at pre </p>
 <p class="DOMreftest envokeOperation" id="SVGbroke-idpre">
@@ -302,6 +319,7 @@ In addition, in clip_8, the id identifies the svgroot and, ideally, restored aft
 <rect class="value" x="0" y="0" width="32" height="32" />
 </svg>
 </span>
+</p>
 
 <p>.testDOM matches pre, post; id at post </p>
 <p class="DOMreftest envokeOperation" id="SVGbroke-idpost">
@@ -322,6 +340,7 @@ In addition, in clip_8, the id identifies the svgroot and, ideally, restored aft
 <rect class="value" x="0" y="0" width="32" height="32" />
 </svg>
 </span>
+</p>
 
 <p>.testDOM matches pre, post; id at test </p>
 <p class="DOMreftest envokeOperation" id="SVGbroke-idtest">
@@ -342,6 +361,7 @@ In addition, in clip_8, the id identifies the svgroot and, ideally, restored aft
 <rect class="value" x="0" y="0" width="32" height="32" />
 </svg>
 </span>
+</p>
 
 <p>.testDOM matches pre, post; id at test, pre, post (matching). Last test passes if id restored correctly, ignoring the fact that there are two identical ids. </p>
 <p class="DOMreftest envokeOperation" id="SVGbroke-idtestpost">
@@ -362,6 +382,7 @@ In addition, in clip_8, the id identifies the svgroot and, ideally, restored aft
 <rect class="value" x="0" y="0" width="32" height="32" />
 </svg>
 </span>
+</p>
 
 <script src="../spec/spec_DOMrefsheet.js"></script>
 
