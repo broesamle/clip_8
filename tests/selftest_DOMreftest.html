@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>clip8:selftest:getSVGRoot</title>
+
+<link rel="shortcut icon" type="image/png" href="../lib/jasmine-2.5/jasmine_favicon.png">
+<link rel="stylesheet" href="../lib/jasmine-2.5/jasmine.css">
+<link rel="stylesheet" href="../css/refsheet.css">
+<link rel="stylesheet" href="../css/clip8.css">
+
+<script src="../lib/jasmine-2.5/jasmine.js"></script>
+<script src="../lib/jasmine-2.5/jasmine-html.js"></script>
+<script src="../lib/jasmine-2.5/boot.js"></script>
+<script src="../js/selftest_pseudoclip8-getSVGRoot.js"></script> 
+<!-- 
+<script src="../js/selftest_pseudoclip8.js"></script> 
+-->
+</head>
+
+<body>
+<p>This test sheet tests the generic testing environment. Some tests are built to fail in a specific way. Please read and investigate carefully.</p>
+
+<p><b>Report Format:</b> [&nbsp;test==pre&nbsp;&nbsp;invoke&nbsp;&nbsp;test==post&nbsp;]<br>
+<b>Example:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="DOMreftest-passed">•</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="DOMreftest-failed">×</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="DOMreftest-failed">×</span>&nbsp;
+</p>
+
+
+
+<h1>clip_8: Selftest, getSVGRoot</h1>
+<p>envokeOperation accesses #clip8svgroot and prints it to the console.</p>
+
+<h2>.testDOM contains valid svg element</h2>
+
+<p>
+The svg element is valid for the whole section.<br>
+For the present operation, the post reference can only match if the operation is removed.
+</p>
+
+<h3>valid operation absent</h3>
+
+<p>.testDOM matches pre, post</>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPabsent_prepost">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+</p>
+
+<p>.testDOM matches pre</>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPabsent_pre">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+</p>
+
+<p>.testDOM matches post</p>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPabsent_post">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+</svg>
+</span>
+</p>
+
+<p>.testDOM matches none</p>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPabsent_none">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="32" y="0" width="32" height="8" />
+</svg>
+</span>
+</p>
+
+<h3>valid operation present</h3>
+
+<p>.testDOM matches pre, post (except for the operation)</>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPpresent_prepost">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+</p>
+
+<p>.testDOM matches pre</p>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPpresent_pre">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+</p>
+
+<p>.testDOM matches post (except for the operation)</p>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPpresent_post">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+</p>
+
+<p>.testDOM matches none</p>
+<p class="DOMreftest envokeOperation" id="SVGvalid_OPpresent_none">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="16" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="32" y="0" width="32" height="8" />
+<circle class="clip8OP noop" cx="32" cy="32" r="10" />
+</svg>
+</span>
+</p>
+
+<h2>.testDOM contains invalid svg element</h2>
+
+<h3></h3>
+<p>
+Since the svg element is valid the execution should always pass.<br>
+Since the getSVGRoot version never touches the operation there should be no difference between present/absent operation.
+</p>
+
+
+<script src="../spec/spec_DOMrefsheet.js"></script>
+
+</body>
+</html>

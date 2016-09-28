@@ -13,6 +13,7 @@ svg {
 .clip8OP {
     pointer-events:none;
     stroke: #ff8888;
+    fill:none;
     vector-effect:non-scaling-stroke;
 }
 
