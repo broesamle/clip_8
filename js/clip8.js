@@ -5,16 +5,14 @@ function clip8getClassListSVG(el) {
 function clip8envokeOperation() {
     var svgroot = document.getElementById("clip8svgroot");
     console.log("clip8envokeOperation:", svgroot);
-    if (! svgroot) throw "FEHLER";
-    /*
-    var op = svgroot.firstChild;
-    console.log("OP", op);
-    console.log("OP", op.nextSibling);
-    console.log("OP", op.nextSibling.nextSibling);
-    while (op = op.nextSibling) {
-        console.log("OPw", op);
-        x = clip8getClassListSVG(op);
-        console.log("OPC", x, x.contains("clip8OP"));
+    if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
+    var oper = [];
+    for ( var i = 0; i < svgroot.childNodes.length; i++ ) {
+        if ( svgroot.childNodes[i] instanceof Element && svgroot.childNodes[i].classList.contains("clip8OP") ) {
+            oper.push(svgroot.childNodes[i]);
+        }
     }
-    */
+    console.log("oper", oper);
+    if (oper.length == 0)
+        { throw "clip8: no operation found."; }
 }
