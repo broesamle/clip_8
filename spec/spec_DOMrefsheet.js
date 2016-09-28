@@ -60,7 +60,7 @@ function addTest_invokeOperation(reftestElement) {
         var proc = getTestDOM(reftestElement);
         expect(pre.firstElementChild).toBeElement();
         expect(post.firstElementChild).toBeElement();
-        expect(p.firstElementChild).toBeElement();
+        expect(proc.firstElementChild).toBeElement();
         done();
     });
 
