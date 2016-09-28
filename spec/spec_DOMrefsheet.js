@@ -77,6 +77,7 @@ function addTest_invokeOperation(reftestElement) {
         expect(svgroot.id).toBe("");
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
+        expect(clip8envokeOperation).not.toThrow();
         clip8envokeOperation();
         svgroot.removeAttribute("id", reftestElement.id);
         done();
@@ -103,6 +104,8 @@ function addTest_invokeOperation(reftestElement) {
 describe("Reference Sheet Tester", function(){
     beforeEach(function() {
         jasmine.addMatchers(customMatchers);
+        var oldroot = document.getElementById("clip8svgroot");
+        if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
     });
 
     var  tests = document.getElementsByClassName("DOMreftest");
