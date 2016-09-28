@@ -30,7 +30,7 @@
 <h1>clip_8: Selftest, getSVGRoot</h1>
 <p>envokeOperation accesses #clip8svgroot and prints it to the console.</p>
 
-<h2>.testDOM contains valid svg element</h2>
+<h2>reference sheet itself is well-formed</h2>
 
 <p>
 The svg element is valid for the whole section.<br>
@@ -217,14 +217,116 @@ For the present operation, the post reference can only match if the operation is
 </span>
 </p>
 
-<h2>.testDOM contains invalid svg element</h2>
+<h2>reference sheet itself invalid</h2>
 
-<h3></h3>
+<p>This section tests the generic test's robustness when the reference sheet test definitions are not well-formed.</p>
+
+<h3>svg elements with ids</h3>
 <p>
-Since the svg element is valid the execution should always pass.<br>
-Since the getSVGRoot version never touches the operation there should be no difference between present/absent operation.
+Ids should be unique. Reference test elements should be identical, which contradicts the idea of having a unique id.
+In addition, in clip_8, the id identifies the svgroot and, ideally, restored after test execution.
 </p>
 
+<p>.testDOM matches pre, post; no id </>
+<p class="DOMreftest envokeOperation" id="SVGbroke-idnone_OPabsent_prepost">
+<span class="pre-reference" >
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+
+
+<p>.testDOM matches pre, post; id at pre </>
+<p class="DOMreftest envokeOperation" id="SVGbroke-idpre_OPabsent_prepost">
+<span class="pre-reference" >
+<svg viewbox="-2 -2 68 68" width="68" height="68" id="A">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+
+<p>.testDOM matches pre, post; id at post </>
+<p class="DOMreftest envokeOperation" id="SVGbroke-idpost_OPabsent_prepost">
+<span class="pre-reference" >
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68" id="B">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+
+<p>.testDOM matches pre, post; id at test </>
+<p class="DOMreftest envokeOperation" id="SVGbroke-idtest_OPabsent_prepost">
+<span class="pre-reference" >
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68" id="C">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+
+<p>.testDOM matches pre, post; id at test, pre, post (matching). Last test passes if id restored correctly, ignoring the fact that there are two identical ids. </p>
+<p class="DOMreftest envokeOperation" id="SVGbroke-idtestpost_OPabsent_prepost">
+<span class="pre-reference" >
+<svg viewbox="-2 -2 68 68" width="68" height="68" id="D">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68" id="D">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68" id="D">
+<rect class="value" x="0" y="0" width="32" height="32" />
+</svg>
+</span>
 
 <script src="../spec/spec_DOMrefsheet.js"></script>
 
