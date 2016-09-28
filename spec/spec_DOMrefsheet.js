@@ -54,25 +54,13 @@ function getTestDOM(reftestElement) { return reftestElement.firstElementChild.ne
 function addTest_invokeOperation(reftestElement) {
     var spec;
 
-    spec = it("["+reftestElement.id+"] PRE, POST, TEST should contain HTML or SVG elements.", function(done) {
-        var pre = getPrecondition(reftestElement);
-        var post = getPostcondition(reftestElement);
-        var proc = getTestDOM(reftestElement);
-        expect(pre.firstElementChild).toBeElement();
-        expect(post.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toBeElement();
-        done();
-    });
-
-    console.log("addTest_invokeOperation: sepc:", spec.id, reftestElement.id);
-    test_specids.push(spec.id);
-    test_domids.push(reftestElement.id);
-
     spec = it("["+reftestElement.id+"] PRE and TEST should be equal", function(done) {
         var pre = getPrecondition(reftestElement);
         var proc = getTestDOM(reftestElement);
         expect(pre.classList).toContain("pre-reference");
         expect(proc.classList).toContain("testDOM");
+        expect(proc.firstElementChild).toBeElement();
+        expect(pre.firstElementChild).toBeElement();
         expect(proc.firstElementChild).toMatchReference(pre.firstElementChild);
         done();
     });
@@ -85,7 +73,7 @@ function addTest_invokeOperation(reftestElement) {
         var proc = getTestDOM(reftestElement);
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
-        var oldId = svgroot.id;
+        expect(svgroot.id).toBe("");
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
         clip8envokeOperation();
@@ -99,9 +87,10 @@ function addTest_invokeOperation(reftestElement) {
     spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
         var proc = getTestDOM(reftestElement);
         var post = getPostcondition(reftestElement);
-
         expect(proc.classList).toContain("testDOM");
         expect(post.classList).toContain("post-reference");
+        expect(proc.firstElementChild).toBeElement();
+        expect(post.firstElementChild).toBeElement();
         expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
         done();
     });
