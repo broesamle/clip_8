@@ -73,6 +73,7 @@ function addTest_invokeOperation(reftestElement) {
         var proc = getTestDOM(reftestElement);
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
+        expect(svgroot).toBeElement();
         expect(svgroot.id).toBe("");
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
