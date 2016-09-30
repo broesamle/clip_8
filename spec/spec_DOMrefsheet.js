@@ -16,7 +16,10 @@ toMatchReference:
         return {
             compare: function(actual, expected) {
                 var result = {};
-                result.pass = actual.isEqualNode(expected);
+                var cmpA = actual.outerHTML.replace(/\s+/gm, " ");
+                var cmpB = expected.outerHTML.replace(/\s+/gm, " ")
+                result.pass = cmpA==cmpB;
+                console.log("tests: ", cmpA, "==", cmpB, result.pass);
                 result.message = "Expected " + actual + " to equal " + expected + ".";
                 return result;
             }
