@@ -19,53 +19,6 @@
 
 <h1>clip_8: SVG Paper Operations, Reference Sheet A</h1>
 
-<h2>Testing the tests</h2>
-
-<h3>should fail</h3>
-<p class="DOMreftest envokeOperation"  id="pre-post-differ_invalid-processor">
-<span class="pre-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
-<rect class="value" x="0" y="0" width="32" height="32" />
-<rect class="value" x="32" y="32" width="16" height="32" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
-<rect class="value" x="0" y="0" width="32" height="16" />
-<rect class="value" x="32" y="32" width="16" height="32" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-Nothing we can operate on!
-</span>
-</p>
-
-<h3>should succeed</h3>
-<p class="DOMreftest envokeOperation" id="pre-post-proc_all-equal">
-<span class="pre-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
-<rect class="value" x="0" y="0" width="32" height="32" />
-<rect class="value" x="32" y="32" width="16" height="32" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
-<rect class="value" x="0" y="0" width="32" height="32" />
-<rect class="value" x="32" y="32" width="16" height="32" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
-<rect class="value" x="0" y="0" width="32" height="32" />
-<rect class="value" x="32" y="32" width="16" height="32" />
-</svg>
-</span>
-</p>
-
 <h2>cut</h2>
 <h3>hCutLine: cut along horizontal line</h3>
 <p class="DOMreftest envokeOperation" id="singlecut">
@@ -126,7 +79,6 @@ Nothing we can operate on!
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
 <svg viewbox="-2 -2 68 68" width="68" height="68">
-<rect class="value" x="16" y="0" width="32" height="64" />
 <rect class="value" x="16" y="0" width="32" height="64" />
 </svg>
 </span>
@@ -210,7 +162,6 @@ Nothing we can operate on!
 </svg>
 </span>
 </p>
-
 <script src="../spec/spec_DOMrefsheet.js"></script>
 
 </body>
