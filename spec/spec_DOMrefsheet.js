@@ -81,7 +81,6 @@ function addTest_invokeOperation(reftestElement) {
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
         expect(clip8envokeOperation).not.toThrow();
-        clip8envokeOperation();
         svgroot.removeAttribute("id", reftestElement.id);
         done();
     });

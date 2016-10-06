@@ -12,6 +12,7 @@ function clip8envokeOperation() {
             oper.push(svgroot.childNodes[i]);
         }
     }
+    console.log("OPS:", oper, oper.length);
     if (oper.length == 0) { throw "clip8: no operation found."; }
     for ( var i = 0; i < oper.length; i++ ) {
         svgroot.removeChild(oper[i]);
