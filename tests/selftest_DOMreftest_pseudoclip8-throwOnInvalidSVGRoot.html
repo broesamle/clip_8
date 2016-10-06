@@ -12,7 +12,7 @@
 <script src="../lib/jasmine-2.5/jasmine.js"></script>
 <script src="../lib/jasmine-2.5/jasmine-html.js"></script>
 <script src="../lib/jasmine-2.5/boot.js"></script>
-<script src="../js/selftest_pseudoclip8-getSVGRoot.js"></script>
+<script src="../js/selftest_pseudoclip8-throwOnInvalidSVGRoot.js"></script>
 </head>
 
 <body>
@@ -26,9 +26,10 @@
 <span class="DOMreftest-failed">×</span>
 </p>
 
-<h1>clip_8: Selftest, getSVGRoot</h1>
 
-<p>envokeOperation accesses #clip8svgroot and prints it to the console.</p>
+<h1>clip_8: Selftest<br><span class="sndtitle">_pseudoclip8-throwOnInvalidSVGRoot.js</span></h1>
+
+<p>EnvokeOperation accesses #clip8svgroot and prints it to the console and throws if there is no valid SVG root.</p>
 
 <h2>reference sheet itself is well-formed</h2>
 

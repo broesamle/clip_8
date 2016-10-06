@@ -21,6 +21,10 @@ h3:before {
     counter-increment: h3counter;
 }
 
+.sndtitle {
+    font-weight:lighter;
+}
+
 .DOMreftest {
     font-size:20px;
 }
