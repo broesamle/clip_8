@@ -25,7 +25,14 @@ function clip8envokeOperation() {
     console.log("ELS:", els, els.length);
 
     if          ( oper[0].classList.contains("clip8alignrel") ) {
-        alignrelLeft_SVGElements(els);
+        if (!(oper[0] instanceof SVGLineElement)) { throw "[clip8] OP alignrel must be SVGLineElement."; }
+        switch (clip8directionOfSVGLine(oper[0])) {
+            case "top":  alignrelTop_SVGElements(els); break;
+            case "bottom":
+            case "left": alignrelLeft_SVGElements(els); break;
+            case "right":
+        }
+
     }
     else if     ( oper[0].classList.contains("clip8cut") ) {
         throw "clip8cut not implemented.";
