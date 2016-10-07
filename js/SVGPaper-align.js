@@ -9,7 +9,7 @@ function alignLeft_SVGElement(left, elem) {
 
 function alignRight_SVGElement(right, elem) {
     if (!(elem instanceof SVGElement)) { throw "SVGPaper: not implemented for "+elem.constructor.name; }
-    elem.x = right-elem.width;
+    elem.setAttributeNS(null,"x",right-elem.width.baseVal.value);
     return elem;
 }
 
@@ -21,7 +21,7 @@ function alignTop_SVGElement(toppp, elem) {
 
 function alignBottom_SVGElement(bottom, elem) {
     if (!(elem instanceof SVGElement)) { throw "SVGPaper: not implemented for "+el.constructor.name; }
-    elem.y = bottom-elem.height;
+    elem.setAttributeNS(null,"y",bottom-elem.height.baseVal.value);
     return elem;
 }
 
@@ -36,6 +36,17 @@ function alignrelLeft_SVGElements (elems) {
         alignLeft_SVGElement(left, elems[i]);
 }
 
+function alignrelRight_SVGElements (elems) {
+    console.log("alignrelLeft_SVGElements:", elems);
+    var right = elems[elems.length-1].x.baseVal.value;  // might be undefined if no elems is empty, but then the loops will never run
+    // find maximum x coordinate of all right edges
+    for ( var i = 0; i < elems.length; i++)
+        if (right < (elems[i].x.baseVal.value+elems[i].width.baseVal.value)) right = elems[i].x.baseVal.value+elems[i].width.baseVal.value;
+    console.log("right", right);
+    for ( var i = 0; i < elems.length; i++)
+        alignRight_SVGElement(right, elems[i]);
+}
+
 function alignrelTop_SVGElements (elems) {
     console.log("alignreltop_SVGElements:", elems);
     var toppp = elems[elems.length-1].y.baseVal.value;  // might be undefined if no elems is empty, but then the loops will never run
@@ -45,4 +56,15 @@ function alignrelTop_SVGElements (elems) {
     console.log("toppp", toppp);
     for ( var i = 0; i < elems.length; i++)
         alignTop_SVGElement(toppp, elems[i]);
+}
+
+function alignrelBottom_SVGElements (elems) {
+    console.log("alignrelLeft_SVGElements:", elems);
+    var bottom = elems[elems.length-1].y.baseVal.value;  // might be undefined if no elems is empty, but then the loops will never run
+    // find maximum y coordinate of all bottom edges
+    for ( var i = 0; i < elems.length; i++)
+        if (bottom < (elems[i].y.baseVal.value+elems[i].height.baseVal.value)) bottom = elems[i].y.baseVal.value+elems[i].height.baseVal.value;
+    console.log("bottom", bottom);
+    for ( var i = 0; i < elems.length; i++)
+        alignBottom_SVGElement(bottom, elems[i]);
 }

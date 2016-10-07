@@ -27,10 +27,10 @@ function clip8envokeOperation() {
     if          ( oper[0].classList.contains("clip8alignrel") ) {
         if (!(oper[0] instanceof SVGLineElement)) { throw "[clip8] OP alignrel must be SVGLineElement."; }
         switch (clip8directionOfSVGLine(oper[0])) {
-            case "top":  alignrelTop_SVGElements(els); break;
-            case "bottom":
-            case "left": alignrelLeft_SVGElements(els); break;
-            case "right":
+            case "top":     alignrelTop_SVGElements(els); break;
+            case "bottom":  alignrelBottom_SVGElements(els); break;
+            case "left":    alignrelLeft_SVGElements(els); break;
+            case "right":   alignrelRight_SVGElements(els); break;
         }
 
     }
