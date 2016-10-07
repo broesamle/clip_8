@@ -1,4 +1,4 @@
-/** Align SVG elemangles.
+/** Align SVG elements.
 */
 
 function alignLeft_SVGElement(left, elem) {
@@ -31,7 +31,6 @@ function alignrelLeft_SVGElements (elems) {
     // find minimum x coordinate
     for ( var i = 0; i < elems.length; i++)
         if (left > elems[i].x.baseVal.value) left = elems[i].x.baseVal.value;
-    console.log("left", left);
     for ( var i = 0; i < elems.length; i++)
         alignLeft_SVGElement(left, elems[i]);
 }
@@ -42,7 +41,6 @@ function alignrelRight_SVGElements (elems) {
     // find maximum x coordinate of all right edges
     for ( var i = 0; i < elems.length; i++)
         if (right < (elems[i].x.baseVal.value+elems[i].width.baseVal.value)) right = elems[i].x.baseVal.value+elems[i].width.baseVal.value;
-    console.log("right", right);
     for ( var i = 0; i < elems.length; i++)
         alignRight_SVGElement(right, elems[i]);
 }
@@ -53,7 +51,6 @@ function alignrelTop_SVGElements (elems) {
     // find minimum y coordinate
     for ( var i = 0; i < elems.length; i++)
         if (toppp > elems[i].y.baseVal.value) toppp = elems[i].y.baseVal.value;
-    console.log("toppp", toppp);
     for ( var i = 0; i < elems.length; i++)
         alignTop_SVGElement(toppp, elems[i]);
 }
@@ -64,7 +61,6 @@ function alignrelBottom_SVGElements (elems) {
     // find maximum y coordinate of all bottom edges
     for ( var i = 0; i < elems.length; i++)
         if (bottom < (elems[i].y.baseVal.value+elems[i].height.baseVal.value)) bottom = elems[i].y.baseVal.value+elems[i].height.baseVal.value;
-    console.log("bottom", bottom);
     for ( var i = 0; i < elems.length; i++)
         alignBottom_SVGElement(bottom, elems[i]);
 }

@@ -24,7 +24,7 @@ function clip8envokeOperation() {
             els.push(svgroot.childNodes[i]);
     console.log("ELS:", els, els.length);
 
-    if          ( oper[0].classList.contains("clip8alignrel") ) {
+    if ( oper[0].classList.contains("clip8alignrel") ) {
         if (!(oper[0] instanceof SVGLineElement)) { throw "[clip8] OP alignrel must be SVGLineElement."; }
         switch (clip8directionOfSVGLine(oper[0])) {
             case "top":     alignrelTop_SVGElements(els); break;
@@ -32,9 +32,8 @@ function clip8envokeOperation() {
             case "left":    alignrelLeft_SVGElements(els); break;
             case "right":   alignrelRight_SVGElements(els); break;
         }
-
     }
-    else if     ( oper[0].classList.contains("clip8cut") ) {
+    else if ( oper[0].classList.contains("clip8cut") ) {
         throw "clip8cut not implemented.";
     }
 }
