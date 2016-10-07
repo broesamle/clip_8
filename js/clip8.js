@@ -17,4 +17,17 @@ function clip8envokeOperation() {
     for ( var i = 0; i < oper.length; i++ ) {
         svgroot.removeChild(oper[i]);
     }
+
+    var els = [];
+    for ( var i = 0; i < svgroot.childNodes.length; i++ )
+        if ( svgroot.childNodes[i] instanceof SVGElement )
+            els.push(svgroot.childNodes[i]);
+    console.log("ELS:", els, els.length);
+
+    if          ( oper[0].classList.contains("clip8alignrel") ) {
+        alignrelLeft_SVGElements(els);
+    }
+    else if     ( oper[0].classList.contains("clip8cut") ) {
+        throw "clip8cut not implemented.";
+    }
 }
