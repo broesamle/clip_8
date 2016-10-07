@@ -12,6 +12,8 @@
 <script src="../lib/jasmine-2.5/jasmine.js"></script>
 <script src="../lib/jasmine-2.5/jasmine-html.js"></script>
 <script src="../lib/jasmine-2.5/boot.js"></script>
+<script src="../js/SVGPaper-align.js"></script>
+<script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
 </head>
 
@@ -98,9 +100,7 @@
 <svg width=".5em" height=".5em">
 <defs>
 <marker id="clip8alignrel-start" viewBox="0 0 20 20" refX="10" refY="10" class="clip8alignrel-marker" orient="auto">
-<line x1="18" y1="10" x2="0" y2="2"/>
-<line x1="18" y1="10" x2="0" y2="18"/>
-<line x1="2" y1="2" x2="2" y2="18"/>
+<polygon points="18,10 0,2 0,18"/>
 </marker>
 <marker id="clip8alignrel-end" viewBox="0 0 12 12" refX="6" refY="6" class="clip8alignrel-marker" orient="auto">
 <line x1="6" y1="0" x2="6" y2="12"/>
@@ -137,6 +137,32 @@
 </span>
 </p>
 
+<div>right:</div>
+<p class="DOMreftest envokeOperation" id="align-right">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="16" y="7" width="10" height="20"/>
+<rect class="value" x="42" y="30" width="14" height="20"/>
+<line class="clip8OP clip8alignrel" x1="10" y1="55" x2="50" y2="55" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="46" y="7" width="10" height="20"/>
+<rect class="value" x="42" y="30" width="14" height="20"/>
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="16" y="7" width="10" height="20"/>
+<rect class="value" x="42" y="30" width="14" height="20"/>
+<line class="clip8OP clip8alignrel" x1="10" y1="55" x2="50" y2="55" />
+</svg>
+</span>
+</p>
+
 <div>top:</div>
 <p class="DOMreftest envokeOperation" id="align-top">
 <span class="pre-reference">
@@ -162,6 +188,33 @@
 </svg>
 </span>
 </p>
+
+<div>bottom:</div>
+<p class="DOMreftest envokeOperation" id="align-bottom">
+<span class="pre-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="16" y="34" width="10" height="20"/>
+<rect class="value" x="42" y="13" width="10" height="29"/>
+<line class="clip8OP clip8alignrel" x1="10" y1="10" x2="10" y2="55" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="16" y="34" width="10" height="20"/>
+<rect class="value" x="42" y="25" width="10" height="29"/>
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="-2 -2 68 68" width="68" height="68">
+<rect class="value" x="16" y="34" width="10" height="20"/>
+<rect class="value" x="42" y="13" width="10" height="29"/>
+<line class="clip8OP clip8alignrel" x1="10" y1="10" x2="10" y2="55" />
+</svg>
+</span>
+</p>
+
 <script src="../spec/spec_DOMrefsheet.js"></script>
 
 </body>
