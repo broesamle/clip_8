@@ -30,7 +30,7 @@ Header = Template("""
 
 Body = Template("""
 <body>
-<h1>clip_8: SVG Paper Operations, Reference Sheet A</h1>
+<h1>$refsheettitle</h1>
 $TESTSECTIONS
 <script src="../spec/spec_DOMrefsheet.js"></script>
 </body>
@@ -38,7 +38,7 @@ $TESTSECTIONS
 
 Testsection = Template("""
 <h3>$testsectiontitle</h3>
-$TESTS
+$THEITEMS
 """)
 
 SingleReferenceTest = Template("""
@@ -46,13 +46,13 @@ SingleReferenceTest = Template("""
 <p class="DOMreftest envokeOperation" id="$testid">
 <span class="pre-reference">
 <svg viewbox="-2 -2 68 68" width="68" height="68">
-$pre-reference
+$pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
 <svg viewbox="-2 -2 68 68" width="68" height="68">
-$post-reference
+$post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
