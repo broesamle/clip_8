@@ -1,6 +1,7 @@
 import os, io, codecs
-from PyBroeModules.ItemsCollectionA import ItemsCollection
 import xml.etree.ElementTree as ET
+
+from PyBroeModules.ItemsCollectionA import ItemsCollection
 from PyBroeModules.StripNamespace import stripNamespace
 
 import RefsheetTemplates as TEM
@@ -55,9 +56,7 @@ class SVGGroupCollection(XMLNodesCollection):
             ## TODO: extract correct bits from SVG and define `pre`, `post` and `testDOM`.
             self.addItem(id, newitem)
         except ValueError:
-            pass
-
-
+            pass    # ignore any elements where the id could not be translated into a key
 
 tests = SVGGroupCollection(
     os.path.join("..","svg","TEST-prototypeAI1.svg"),
