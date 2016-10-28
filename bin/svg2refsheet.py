@@ -5,6 +5,13 @@ from PyBroeModules.ItemsCollectionA import ItemsCollection
 from PyBroeModules.StripNamespace import stripNamespace
 
 import RefsheetTemplates as TEM
+import CFG
+
+inDIRabs = os.path.join(CFG.rootDIRabs, CFG.refsheetsvgDIR)
+outDIRabs = os.path.join(CFG.rootDIRabs, CFG.testsDIR)
+outprefix = ""
+outsuffix = CFG.testfile_generatedFromSVG_suffix
+outext = CFG.testfile_ext
 
 def allChildrenToSVG(el):
     return u"".join ( [ stripNamespace(ET.tostring(child, encoding='utf-8').decode('utf8')) for child in el ] )
@@ -58,21 +65,27 @@ class SVGGroupCollection(XMLNodesCollection):
         except ValueError:
             pass    # ignore any elements where the id could not be translated into a key
 
-tests = SVGGroupCollection(
-    os.path.join("..","svg","TEST-prototypeAI1.svg"),
-    "TEST-",
-    defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
-    strictsubstitute=True)
+for file in os.listdir( inDIRabs ):
+    inFN = os.path.join(inDIRabs, file)
+    outFN = os.path.join(outDIRabs, outprefix+os.path.splitext(file)[0]+outsuffix+'.'+outext)
+    print("Processing IN:", inFN, "OUT:", outFN)
+    if os.path.isfile(inFN):
+        tests = SVGGroupCollection(
+            inFN,
+            "TEST-",
+            defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
+            strictsubstitute=True)
 
-testsectionsHTML = tests.generateSeries(
-    itemTEM=TEM.SingleReferenceTest,
-    seriesTEM=TEM.Testsection,
-    seriesData={'testsectiontitle':"--TEST-SECTION-TITLE-TBA--"}
-    )
+        testsectionsHTML = tests.generateSeries(
+            itemTEM=TEM.SingleReferenceTest,
+            seriesTEM=TEM.Testsection,
+            seriesData={'testsectiontitle':"--TEST-SECTION-TITLE-TBA--"}
+            )
 
-bodyHTML = TEM.Body.substitute(refsheettitle="Title t.b.a.", TESTSECTIONS=testsectionsHTML)
-headerHTML = TEM.Header.substitute(refsheettitle="Title t.b.a.")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
-output_file = codecs.open(os.path.join("..","tests", "test_prototypeAI1.html"), "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+        bodyHTML = TEM.Body.substitute(refsheettitle="Title t.b.a.", TESTSECTIONS=testsectionsHTML)
+        headerHTML = TEM.Header.substitute(refsheettitle="Title t.b.a.")
+        documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+        output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+        output_file.write(documentHTML)
+        output_file.close()
+
