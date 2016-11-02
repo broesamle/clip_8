@@ -1,4 +1,4 @@
-import os, io, codecs
+import os, io, codecs, fnmatch
 import xml.etree.ElementTree as ET
 
 from PyBroeModules.ItemsCollectionA import ItemsCollection
@@ -67,9 +67,9 @@ class SVGGroupCollection(XMLNodesCollection):
 
 for file in os.listdir( inDIRabs ):
     inFN = os.path.join(inDIRabs, file)
-    outFN = os.path.join(outDIRabs, outprefix+os.path.splitext(file)[0]+outsuffix+'.'+outext)
-    print("Processing IN:", inFN, "OUT:", outFN)
-    if os.path.isfile(inFN):
+    if  os.path.isfile(inFN) and fnmatch.fnmatch(file, CFG.svgtestfile_pattern):
+        outFN = os.path.join(outDIRabs, outprefix+os.path.splitext(file)[0]+outsuffix+'.'+outext)
+        print("Processing IN:", inFN, "OUT:", outFN)
         tests = SVGGroupCollection(
             inFN,
             "TEST-",
