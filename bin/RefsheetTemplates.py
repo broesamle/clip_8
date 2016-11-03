@@ -22,7 +22,7 @@ Header = Template("""
 <script src="../lib/jasmine-2.5/jasmine.js"></script>
 <script src="../lib/jasmine-2.5/jasmine-html.js"></script>
 <script src="../lib/jasmine-2.5/boot.js"></script>
-<script src="../js/SVGPaper-align.js"></script>
+<script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
 </head>

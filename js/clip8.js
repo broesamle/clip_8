@@ -1,3 +1,5 @@
+"use strict";
+
 function clip8getClassListSVG(el) {
     return el.getAttributeNS(null, "class").split(' ');
 }
@@ -27,10 +29,10 @@ function clip8envokeOperation() {
     if ( oper[0].classList.contains("clip8alignrel") ) {
         if (!(oper[0] instanceof SVGLineElement)) { throw "[clip8] OP alignrel must be SVGLineElement."; }
         switch (clip8directionOfSVGLine(oper[0])) {
-            case "top":     alignrelTop_SVGElements(els); break;
-            case "bottom":  alignrelBottom_SVGElements(els); break;
-            case "left":    alignrelLeft_SVGElements(els); break;
-            case "right":   alignrelRight_SVGElements(els); break;
+            case "top":     paperclip_alignrelTop(els); break;
+            case "bottom":  paperclip_alignrelBottom(els); break;
+            case "left":    paperclip_alignrelLeft(els); break;
+            case "right":   paperclip_alignrelRight(els); break;
         }
     }
     else if ( oper[0].classList.contains("clip8cut") ) {
