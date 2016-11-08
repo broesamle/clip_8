@@ -36,15 +36,16 @@ function clip8initControlFlow(svgroot) {
     if (debug) console.log("clip8initControlFlow: els at initial location.", hitlist);
     for ( var i = 0; i < hitlist.length; i++ )
         if (hitlist[i].tagName == "path") return hitlist[i];
-    throw "failed to idendify point of entry."
+    throw "Failed to idendify point of entry."
 }
 
 function clip8envokeOperation() {
+    var debug = true;
     var svgroot = document.getElementById("clip8svgroot");
     console.log("clip8envokeOperation:", svgroot);
     if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
 
     svgdom_setSVGNS(svgroot.namespaceURI);
-    var ip = clip8initControlFlow(svgroot);
-    console.log("clip8envokeOperation: IP", ip);
+    var ip = clip8initControlFlow(svgroot);     // instruction pointer: the active control flow path
+    if (debug) console.log("clip8envokeOperation: IP", ip);
 }
