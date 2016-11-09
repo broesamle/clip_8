@@ -5,6 +5,7 @@ from PyBroeModules.ItemsCollectionA import ItemsCollection
 from PyBroeModules.StripNamespace import stripNamespace
 
 import RefsheetTemplates as TEM
+import Sections as SCT
 import CFG
 
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.refsheetsvgDIR)
@@ -65,6 +66,8 @@ class SVGGroupCollection(XMLNodesCollection):
         except ValueError:
             pass    # ignore any elements where the id could not be translated into a key
 
+alltests = {}
+
 for file in os.listdir( inDIRabs ):
     inFN = os.path.join(inDIRabs, file)
     if  os.path.isfile(inFN) and fnmatch.fnmatch(file, CFG.svgtestfile_pattern):
@@ -75,6 +78,7 @@ for file in os.listdir( inDIRabs ):
             "TEST-",
             defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
             strictsubstitute=True)
+        alltests[file] = tests
 
         testsectionsHTML = tests.generateSeries(
             itemTEM=TEM.SingleReferenceTest,
@@ -89,3 +93,26 @@ for file in os.listdir( inDIRabs ):
         output_file.write(documentHTML)
         output_file.close()
 
+testsectionsHTML = ""
+for subsection in alltests.keys():
+    print("Compile subsection into overview:", subsection)
+    try:
+        tit = SCT.subsectiontitle[subsection]
+    except KeyError:
+        tit = "--TEST-SECTION-TITLE-TBA--"
+
+    testsectionsHTML += alltests[subsection].generateSeries(
+            itemTEM=TEM.SingleReferenceTest_light,
+            seriesTEM=TEM.Testsection,
+            seriesData={'testsectiontitle':tit}
+            )
+
+
+bodyHTML = TEM.Body.substitute(refsheettitle="clip_8 | Reference tests overview", TESTSECTIONS=testsectionsHTML)
+headerHTML = TEM.Header.substitute(refsheettitle="clip_8 | Reference tests overview")
+documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+
+outFN = os.path.join(outDIRabs, "reference-tests_overview.html")
+output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+output_file.write(documentHTML)
+output_file.close()

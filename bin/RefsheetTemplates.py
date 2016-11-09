@@ -65,3 +65,25 @@ $testDOM
 </span>
 </p>
 """)
+
+SingleReferenceTest_light = Template("""
+<p class="DOMreftest envokeOperation" id="$testid">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+$pre
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+$post
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+$testDOM
+</svg>
+</span>
+</p>
+""")
