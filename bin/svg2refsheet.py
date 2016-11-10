@@ -94,7 +94,7 @@ for file in os.listdir( inDIRabs ):
         output_file.close()
 
 testsectionsHTML = ""
-for subsection in alltests.keys():
+for subsection in SCT.subsectiontitle.keys():
     print("Compile subsection into overview:", subsection)
     try:
         tit = SCT.subsectiontitle[subsection]
