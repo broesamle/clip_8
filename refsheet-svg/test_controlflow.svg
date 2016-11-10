@@ -3,18 +3,6 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g id="TEST-intitial-and-terminal2">
-	<g id="t1_x5F_intitial-and-terminal2" opacity="0.5">
-	</g>
-	<g id="t0_x5F_intitial-and-terminal2" opacity="0.5">
-	</g>
-	<g id="I_x5F_intitial-and-terminal2">
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="12" cy="32.012" r="1"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="47.75" cy="32" r="1"/>
-		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="47.75" cy="32" r="2.25"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M47.75,32c0,0-18.75,0-35.75,0.012"/>
-	</g>
-</g>
 <g id="TEST-intitial-and-terminal">
 	<g id="t1_x5F_intitial-and-terminal" opacity="0.5">
 	</g>
@@ -24,7 +12,32 @@
 		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="12" cy="32.012" r="1"/>
 		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="47.75" cy="32" r="1"/>
 		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="47.75" cy="32" r="2.25"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M47.75,32C38,22,28,37,12,32.012"/>
+		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M12,32c9.75,9.999,19.75-5,35.75-0.013"/>
+	</g>
+</g>
+<g id="TEST-intitial-and-terminal2">
+	<g id="t1_x5F_intitial-and-terminal2" opacity="0.5">
+	</g>
+	<g id="t0_x5F_intitial-and-terminal2" opacity="0.5">
+	</g>
+	<g id="I_x5F_intitial-and-terminal2">
+		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="12" cy="32.012" r="1"/>
+		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="47.75" cy="32" r="1"/>
+		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="47.75" cy="32" r="2.25"/>
+		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M12,32.012c0,0,18.75,0,35.75-0.012"/>
+	</g>
+</g>
+<g id="TEST-intitial-and-terminal3">
+	<g id="t1_x5F_intitial-and-terminal3" opacity="0.5">
+	</g>
+	<g id="t0_x5F_intitial-and-terminal_1_" opacity="0.5">
+	</g>
+	<g id="I_x5F_intitial-and-terminal3">
+		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="44.537" cy="44.05" r="1"/>
+		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="17.419" cy="20.755" r="1"/>
+		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="17.419" cy="20.755" r="2.25"/>
+		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M44.537,44.051c0,0-14.219-12.223-27.119-23.295
+			"/>
 	</g>
 </g>
 </svg>
