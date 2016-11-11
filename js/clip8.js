@@ -39,6 +39,31 @@ function clip8initControlFlow(svgroot) {
     throw "Failed to idendify point of entry."
 }
 
+function clip8getPrimInstruction (ip, svgroot) {
+    var debug = true;
+    if (debug) console.log("clip8getPrimInstruction", ip, svgroot);
+    if (!(ip.tagName == "path"))
+        throw "[clip8] ip element is not a path.";
+    var epsilon = 0.5;
+    var endarearect = svgdom_EndOfPathArea(ip, epsilon);
+    endarearect.setAttribute("fill", "#FFEE22");
+    if (debug) console.log("end of path area rect", endarearect);
+    svgroot.appendChild(endarearect);
+    var endarea = svgretrieve_selectorFromRect(endarearect, svgroot);
+    svgroot.removeChild(endarearect);
+    var hitlist = svgroot.getIntersectionList(endarea, svgroot);
+    if (debug) console.log("clip8getPrimInstruction: empty hitlist");
+    if (hitlist.length == 0) throw " ip element is not a path.";
+    var instr1 = svgdom_addGroup(svgroot);
+    for ( var i = 0; i < hitlist.length; i++ )
+        if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
+            hitlist[i].tagName == "circle") {
+            instr1.appendChild(hitlist[i].cloneNode(false));
+            instr1.lastElementChild.setAttribute("stroke", "#FFEE22");
+        }
+    return instr1;
+}
+
 function clip8envokeOperation() {
     var debug = true;
     var svgroot = document.getElementById("clip8svgroot");
@@ -48,4 +73,5 @@ function clip8envokeOperation() {
     svgdom_setSVGNS(svgroot.namespaceURI);
     var ip = clip8initControlFlow(svgroot);     // instruction pointer: the active control flow path
     if (debug) console.log("clip8envokeOperation: IP", ip);
+    var instr1 = clip8getPrimInstruction(ip, svgroot);
 }
