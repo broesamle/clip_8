@@ -13,7 +13,8 @@ function svgdom_addGroup(parentel) {
 }
 
 function svgdom_newRect(x,y,w,h) {
-    console.log("svgdom_newRect:",x,y,w,h);
+    var debug = false;
+    if (debug) console.log("svgdom_newRect:",x,y,w,h);
     var r = document.createElementNS(SVGNS, "rect");
     //var r = document.createElement("XXX", "rect");
     r.setAttribute("x",x);
