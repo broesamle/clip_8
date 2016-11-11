@@ -40,7 +40,7 @@ function clip8initControlFlow(svgroot) {
 }
 
 function clip8getPrimInstruction (ip, svgroot) {
-    var debug = true;
+    var debug = false;
     if (debug) console.log("clip8getPrimInstruction", ip, svgroot);
     if (!(ip.tagName == "path"))
         throw "[clip8] ip element is not a path.";
@@ -52,7 +52,7 @@ function clip8getPrimInstruction (ip, svgroot) {
     var endarea = svgretrieve_selectorFromRect(endarearect, svgroot);
     svgroot.removeChild(endarearect);
     var hitlist = svgroot.getIntersectionList(endarea, svgroot);
-    if (debug) console.log("clip8getPrimInstruction: empty hitlist");
+    if (debug) console.log("clip8getPrimInstruction: hitlist", hitlist);
     if (hitlist.length == 0) throw " ip element is not a path.";
     var sel = svgdom_addGroup(svgroot);
     var instr1 = svgdom_addGroup(svgroot);
@@ -78,7 +78,37 @@ function clip8envokeOperation() {
 
     svgdom_setSVGNS(svgroot.namespaceURI);
     var ip = clip8initControlFlow(svgroot);     // instruction pointer: the active control flow path
-    if (debug) console.log("clip8envokeOperation: IP", ip);
-    var instr1 = clip8getPrimInstruction(ip, svgroot)[0];
-    var sel1 = clip8getPrimInstruction(ip, svgroot)[1];
+    var running = true;
+    while (running) {
+        if (debug) console.log("clip8envokeOperation: IP", ip);
+        var instrNsel = clip8getPrimInstruction(ip, svgroot)
+        var instr1 = instrNsel[0];
+        var sel1 = instrNsel[1];
+        // decode instruction
+        if (debug) console.log("clip8envokeOperation: INSTR1, SEL1", instr1, sel1);
+        switch (instr1.childElementCount) {
+            case 1:
+                break;
+            case 2:
+                if (debug) console.log("clip8envokeOperation: 2");
+                if (instr1.childNodes[0].tagName == "circle" &&
+                    instr1.childNodes[1].tagName == "circle") {
+                    if (debug) console.log("clip8envokeOperation: TERMINAL.");
+                    running = false; // two concentric circles: terminal.
+                }
+                else throw "Could not decode instruction A"+instr1;
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            default:
+                throw "Could not decode instruction X"+instr1;
+        }
+        svgroot.removeChild(instr1);
+        svgroot.removeChild(sel1);
+        if (debug) console.log("clip8envokeOperation: removed instr1, sel1", instr1, sel1);
+    }
 }
