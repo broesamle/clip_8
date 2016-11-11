@@ -15,11 +15,12 @@ toMatchReference:
     function (util, customEqualityTesters) {
         return {
             compare: function(actual, expected) {
+                var debug = false;
                 var result = {};
                 var cmpA = actual.outerHTML.replace(/\s+/gm, " ");
                 var cmpB = expected.outerHTML.replace(/\s+/gm, " ")
                 result.pass = cmpA==cmpB;
-                console.log("tests: ", cmpA, "==", cmpB, result.pass);
+                if (debug) console.log("tests: ", cmpA, "==", cmpB, result.pass);
                 result.message = "Expected " + actual + " to equal " + expected + ".";
                 return result;
             }

@@ -3,6 +3,9 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<g id="Background">
+	<rect fill="#808080" width="64" height="64"/>
+</g>
 <g id="TEST-align-rel-right">
 	<g id="t1_x5F_right" opacity="0.5">
 		<rect x="44" y="12" width="8" height="16"/>
@@ -15,67 +18,67 @@
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_right">
-		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
+		<rect x="8" y="10" fill="none" stroke="#E0E0E0" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="39"/>
+			<line fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="39"/>
 		
-			<polyline fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			<polyline fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			57,12 60,10 57,8 		"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
-		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0,5.367,3.318,0,6"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0,5.367,3.318,0,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
 	</g>
 </g>
-<g id="TEST-align-rel-left">
-	<g id="t1_x5F_left" opacity="0.5">
+<g id="TEST-align-rel-left" display="none">
+	<g id="t1_x5F_left" display="inline" opacity="0.5">
 		<rect x="12" y="12" width="8" height="16"/>
 		<rect x="12" y="44" width="12" height="8"/>
 		<rect x="12" y="28" width="12" height="12"/>
 	</g>
-	<g id="t0_x5F_left" opacity="0.5">
+	<g id="t0_x5F_left" display="inline" opacity="0.5">
 		<rect x="12" y="12" width="8" height="16"/>
 		<rect x="24" y="44" width="12" height="8"/>
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_left">
-		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
+	<g id="I_x5F_left" display="inline">
+		<rect x="8" y="10" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="10" x2="8" y2="39"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="10" x2="8" y2="39"/>
 		
-			<polyline fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			<polyline fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			11,12 8,10 11,8 		"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
-		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
 	</g>
 </g>
-<g id="TEST-align-rel-bottom">
-	<g id="t1_x5F_bottom" opacity="0.5">
+<g id="TEST-align-rel-bottom" display="none">
+	<g id="t1_x5F_bottom" display="inline" opacity="0.5">
 		<rect x="12" y="36" width="8" height="16"/>
 		<rect x="24" y="44" width="12" height="8"/>
 		<rect x="40" y="40" width="12" height="12"/>
 	</g>
-	<g id="t0_x5F_bottom" opacity="0.5">
+	<g id="t0_x5F_bottom" display="inline" opacity="0.5">
 		<rect x="12" y="12" width="8" height="16"/>
 		<rect x="24" y="44" width="12" height="8"/>
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_bottom">
-		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
-		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+	<g id="I_x5F_bottom" display="inline">
+		<rect x="8" y="10" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="56" x2="33" y2="56"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="56" x2="33" y2="56"/>
 		
-			<polyline fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			<polyline fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			10,53 8,56 6,53 		"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M60,4C45,5,8,32.653,8,56"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c3,3-1,31,4,52"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4C45,5,8,32.653,8,56"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c3,3-1,31,4,52"/>
 	</g>
 </g>
 <g id="TEST-align-rel-top">
@@ -90,18 +93,18 @@
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_top">
-		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
+		<rect x="8" y="10" fill="none" stroke="#E0E0E0" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="10" x2="33" y2="10"/>
+			<line fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="10" x2="33" y2="10"/>
 		
-			<polyline fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			<polyline fill="none" stroke="#E0E0E0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			10,13 8,10 6,13 		"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
-		<circle fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
-		<circle fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
-		<path fill="#C63434" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M6,5"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
-		<path fill="none" stroke="#C63434" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M6,5"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
 	</g>
 </g>
 </svg>

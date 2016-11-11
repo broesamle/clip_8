@@ -14,7 +14,9 @@
 <script src="../lib/jasmine-2.5/jasmine.js"></script>
 <script src="../lib/jasmine-2.5/jasmine-html.js"></script>
 <script src="../lib/jasmine-2.5/boot.js"></script>
-<script src="../js/SVGPaper-align.js"></script>
+<script src="../js/svgdom.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
 </head>
@@ -26,84 +28,84 @@
 <h3>--TEST-SECTION-TITLE-TBA--</h3>
 
 <div>--TEST-DESCRIPTION-TBA--</div>
-<p class="DOMreftest envokeOperation" id="align-rel-right">
+<p class="DOMreftest envokeOperation" id="align-abs-right">
 <span class="pre-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="60" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0,5.367,3.318,0,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="55" y="55" />
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="52" y="12" /><rect height="8" width="12" x="48" y="44" /><rect height="12" width="12" x="48" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="60" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0,5.367,3.318,0,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="55" y="55" />
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="60" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0,5.367,3.318,0,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="55" y="55" />
 </svg>
 </span>
 </p>
 
 <div>--TEST-DESCRIPTION-TBA--</div>
-<p class="DOMreftest envokeOperation" id="align-rel-left">
+<p class="DOMreftest envokeOperation" id="align-abs-left">
 <span class="pre-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="60" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0-52,0-52,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="8" y="55" />
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="8" y="12" /><rect height="8" width="12" x="8" y="44" /><rect height="12" width="12" x="8" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="60" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0-52,0-52,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="8" y="55" />
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="60" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0-52,0-52,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="8" y="55" />
 </svg>
 </span>
 </p>
 
 <div>--TEST-DESCRIPTION-TBA--</div>
-<p class="DOMreftest envokeOperation" id="align-rel-bottom">
+<p class="DOMreftest envokeOperation" id="align-abs-bottom">
 <span class="pre-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="62" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M60,4C45,5,8,32.653,8,56" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="57" y="51" />
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="40" /><rect height="8" width="12" x="24" y="48" /><rect height="12" width="12" x="40" y="44" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="62" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M60,4C45,5,8,32.653,8,56" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="57" y="51" />
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="62" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M60,4C45,5,8,32.653,8,56" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="57" y="51" />
 </svg>
 </span>
 </p>
 
 <div>--TEST-DESCRIPTION-TBA--</div>
-<p class="DOMreftest envokeOperation" id="align-rel-top">
+<p class="DOMreftest envokeOperation" id="align-abs-top">
 <span class="pre-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="61" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="#C63434" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0-52,0-52,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="56" y="10" />
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="10" /><rect height="8" width="12" x="24" y="10" /><rect height="12" width="12" x="40" y="10" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="61" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="#C63434" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0-52,0-52,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="56" y="10" />
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 <rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="61" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#C63434" r="1" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="#C63434" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,4c0,0-52,0-52,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#C63434" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="56" y="10" />
 </svg>
 </span>

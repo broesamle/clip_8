@@ -22,7 +22,9 @@ Header = Template("""
 <script src="../lib/jasmine-2.5/jasmine.js"></script>
 <script src="../lib/jasmine-2.5/jasmine-html.js"></script>
 <script src="../lib/jasmine-2.5/boot.js"></script>
-<script src="../js/SVGPaper-align.js"></script>
+<script src="../js/svgdom.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
 </head>
@@ -45,19 +47,41 @@ SingleReferenceTest = Template("""
 <div>$testdescription</div>
 <p class="DOMreftest envokeOperation" id="$testid">
 <span class="pre-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="-2 -2 68 68" width="68" height="68">
+<svg viewbox="0 0 64 64" width="64" height="64">
+$testDOM
+</svg>
+</span>
+</p>
+""")
+
+SingleReferenceTest_light = Template("""
+<p class="DOMreftest envokeOperation" id="$testid">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+$pre
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+$post
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
 $testDOM
 </svg>
 </span>
