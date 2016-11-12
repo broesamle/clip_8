@@ -1,8 +1,11 @@
 "use strict";
 
+// drawing precision tolerances
+var epsilon = 0.5;  // maximal difference for two coordinates to be considered equal
+var minlen = 3;     // minimal size of a graphics element to be "meaningful"
+
 function clip8initControlFlow(svgroot, tracesvgroot) {
     var debug = false;
-    var epsilon = 1;
     var circles = svgroot.getElementsByTagName("circle");
     var centres = svgdom_addGroup(svgroot);
     var initialflow = null;
@@ -38,7 +41,6 @@ function clip8getPrimInstruction (ip, svgroot) {
     if (debug) console.log("clip8getPrimInstruction", ip, svgroot);
     if (!(ip.tagName == "path"))
         throw "[clip8] ip element is not a path.";
-    var epsilon = 0.5;
     var endarearect = svgdom_EndOfPathArea(ip, epsilon);
     endarearect.setAttribute("fill", "#FFEE22");
     if (debug) console.log("end of path area rect", endarearect);
