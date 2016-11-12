@@ -37,6 +37,13 @@ function svgdom_CentreArea(circle, epsilon) {
     return svgdom_newRect(circle.cx.baseVal.value-epsilon, circle.cy.baseVal.value-epsilon, epsilon*2, epsilon*2);
 }
 
+function svgdom_EndOfLineArea(line, epsilon) {
+    /** Returns an SVG rect `r` around the endpoint of `line`.
+    *   `width == 2*epsilon`.
+    */
+    return svgdom_newRect(line.x2.baseVal.value-epsilon, line.y2.baseVal.value-epsilon, epsilon*2, epsilon*2);
+}
+
 function svgdom_EndOfPathArea(path, epsilon) {
     /** Returns an SVG rect `r` around the endpoint of a path.
     *   `width == 2*epsilon`.
