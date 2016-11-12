@@ -29,7 +29,7 @@ h3:before {
     font-size:20px;
 }
 
-.DOMreftest .testDOM {
+.DOMreftest .pre-reference, .post-reference, .testDOM {
     font-size:0px;  // make sure tracesvgroot overlays svgroot with no offset
 }
 

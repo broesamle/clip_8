@@ -56,6 +56,7 @@ function getPostcondition(reftestElement) { return reftestElement.firstElementCh
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
 
 function addTest_invokeOperation(reftestElement) {
+    console.log("addTest_invokeOperation: ", reftestElement);
     var spec;
 
     spec = it("["+reftestElement.id+"] PRE and TEST should be equal", function(done) {
@@ -69,7 +70,6 @@ function addTest_invokeOperation(reftestElement) {
         done();
     });
 
-    console.log("addTest_invokeOperation: sepc:", spec.id, reftestElement.id);
     test_specids.push(spec.id);
     test_domids.push(reftestElement.id);
 
@@ -85,7 +85,6 @@ function addTest_invokeOperation(reftestElement) {
         svgroot.removeAttribute("id", reftestElement.id);
         done();
     });
-    console.log("addTest_invokeOperation: sepc:", spec.id, reftestElement.id);
     test_specids.push(spec.id);
     test_domids.push(reftestElement.id);
 
@@ -99,7 +98,6 @@ function addTest_invokeOperation(reftestElement) {
         expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
         done();
     });
-    console.log("addTest_invokeOperation: sepc:", spec.id, reftestElement.id);
     test_specids.push(spec.id);
     test_domids.push(reftestElement.id);
 }
