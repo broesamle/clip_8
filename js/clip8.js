@@ -2,7 +2,7 @@
 
 // drawing precision tolerances
 var epsilon = 0.5;  // maximal difference for two coordinates to be considered equal
-var minlen = 3;     // minimal size of a graphics element to be "meaningful"
+var minlen = 1.5;     // minimal size of a graphics element to be "meaningful"
 
 function clip8initControlFlow(svgroot, tracesvgroot) {
     var debug = false;
@@ -118,11 +118,22 @@ function clip8envokeOperation() {
             var theline = instr1.getElementsByTagName("line")[0];
             var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
             if (debug) console.log("clip8envokeOperation: direction", linedir);
+            var thepoly = instr1.getElementsByTagName("polyline")[0];
+            var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
+            if (debug) console.log("clip8envokeOperation: angle direction", angledir);
             switch (linedir) {
-                case 'UP':      paperclip_alignrelLeft (selectedelements1); break;
-                case 'DOWN':    paperclip_alignrelRight (selectedelements1); break;
-                case 'LEFT':    paperclip_alignrelTop (selectedelements1); break;
-                case 'RIGHT':   paperclip_alignrelBottom (selectedelements1); break;
+                case 'UP':
+                case 'DOWN':
+                    if (angledir == 'LEFT')         paperclip_alignrelLeft (selectedelements1);
+                    else if (angledir == 'RIGHT')   paperclip_alignrelRight (selectedelements1);
+                    else throw "[clip8envokeOperation] Encountered invalid line arrow combination (a).";
+                    break;
+                case 'LEFT':
+                case 'RIGHT':
+                    if (angledir == 'UP')           paperclip_alignrelTop (selectedelements1);
+                    else if (angledir == 'DOWN')    paperclip_alignrelBottom (selectedelements1);
+                    else throw "[clip8envokeOperation] Encountered invalid line arrow combination (b).";
+                    break;
                 default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
             }
             running = false;
