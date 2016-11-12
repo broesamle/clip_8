@@ -78,8 +78,7 @@ function clip8envokeOperation() {
     svgroot.parentNode.appendChild(tracesvgroot);
     tracesvgroot.setAttribute("style", "margin-left:-64; background:none;");
     var ip = clip8initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
-    var running = true;
-    while (running) {
+
         if (debug) console.log("clip8envokeOperation: IP", ip);
         var instrNsel = clip8getPrimInstruction(ip, svgroot)
         var instr1 = instrNsel[0];
@@ -109,7 +108,6 @@ function clip8envokeOperation() {
             if (instr1.childNodes[0].tagName == "circle" &&
                 instr1.childNodes[1].tagName == "circle") {
                 if (debug) console.log("clip8envokeOperation: TERMINAL.");
-                running = false; // two concentric circles: terminal.
             }
             else throw "Could not decode instruction A"+instr1;
         }
@@ -136,7 +134,6 @@ function clip8envokeOperation() {
                     break;
                 default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
             }
-            running = false;
         }
         else
             throw "Could not decode instruction X"+instr1;
@@ -145,7 +142,7 @@ function clip8envokeOperation() {
         tracesvgroot.appendChild(instr1);
         tracesvgroot.appendChild(sel1);
         if (debug) console.log("clip8envokeOperation: removed instr1, sel1", instr1, sel1);
-    }
+
     var erasetracetimer = setInterval( function() { eraseTrace(tracesvgroot) }, 60 );
     setTimeout ( function () { clearInterval(erasetracetimer) }, 10000 );   // stop erasor after some time
 }
