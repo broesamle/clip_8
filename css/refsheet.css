@@ -29,6 +29,10 @@ h3:before {
     font-size:20px;
 }
 
+.DOMreftest .testDOM {
+    font-size:0px;  // make sure tracesvgroot overlays svgroot with no offset
+}
+
 .DOMreftest svg {
     vertical-align: middle;
 }
