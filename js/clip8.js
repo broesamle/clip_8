@@ -84,29 +84,51 @@ function clip8envokeOperation() {
         var instrNsel = clip8getPrimInstruction(ip, svgroot)
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
-        // decode instruction
         if (debug) console.log("clip8envokeOperation: INSTR1, SEL1", instr1, sel1);
-        switch (instr1.childElementCount) {
-            case 1:
-                break;
-            case 2:
-                if (debug) console.log("clip8envokeOperation: 2");
-                if (instr1.childNodes[0].tagName == "circle" &&
-                    instr1.childNodes[1].tagName == "circle") {
-                    if (debug) console.log("clip8envokeOperation: TERMINAL.");
-                    running = false; // two concentric circles: terminal.
-                }
-                else throw "Could not decode instruction A"+instr1;
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            default:
-                throw "Could not decode instruction X"+instr1;
+
+        // List of selected Elements based on primary selector
+        var selectedelements1 = [];
+        if (sel1.firstChild instanceof SVGRectElement) {
+            var s = svgretrieve_selectorFromRect(sel1.firstChild, svgroot);
+            if (debug) console.log("clip8envokeOperation: selector from rect in sel1", s);
+            var hitlist = svgroot.getEnclosureList(s, svgroot);
+            for ( var i = 0; i < hitlist.length; i++ )
+                if ( hitlist[i].tagName == "rect" &&
+                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
+                     selectedelements1.push(hitlist[i]);
         }
+        else selectedelements1 = undefined;
+
+        if (debug) console.log("clip8envokeOperation: selectedelements1", selectedelements1);
+
+        // decode instruction
+        var signature = clip8countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
+        if (debug) console.log("clip8envokeOperation: signature", signature);
+        if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
+            if (debug) console.log("clip8envokeOperation: two circles");
+            if (instr1.childNodes[0].tagName == "circle" &&
+                instr1.childNodes[1].tagName == "circle") {
+                if (debug) console.log("clip8envokeOperation: TERMINAL.");
+                running = false; // two concentric circles: terminal.
+            }
+            else throw "Could not decode instruction A"+instr1;
+        }
+        else if ( signature.toString() === [0, 0, 0, 1, 1].toString() ) {
+            if (debug) console.log("clip8envokeOperation: 1 line, 1 polyline.");
+            var theline = instr1.getElementsByTagName("line")[0];
+            var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
+            if (debug) console.log("clip8envokeOperation: direction", linedir);
+            switch (linedir) {
+                case 'UP':      paperclip_alignrelLeft (selectedelements1); break;
+                case 'DOWN':    paperclip_alignrelRight (selectedelements1); break;
+                case 'LEFT':    paperclip_alignrelTop (selectedelements1); break;
+                case 'RIGHT':   paperclip_alignrelBottom (selectedelements1); break;
+                default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
+            }
+            running = false;
+        }
+        else
+            throw "Could not decode instruction X"+instr1;
         svgroot.removeChild(instr1);
         svgroot.removeChild(sel1);
         tracesvgroot.appendChild(instr1);
