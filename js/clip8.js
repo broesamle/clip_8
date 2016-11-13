@@ -38,40 +38,38 @@ var Clip8 = {
         throw "Failed to idendify point of entry."
     },
 
-    getPrimInstruction: function (ip, svgroot) {
-        var debug = false;
-        if (debug) console.log("clip8getPrimInstruction", ip, svgroot);
-        if (!(ip.tagName == "path"))
-            throw "[clip8] ip element is not a path.";
-        var endarearect = svgdom_EndOfPathArea(ip, epsilon);
-        endarearect.setAttribute("fill", "#FFEE22");
-        if (debug) console.log("end of path area rect", endarearect);
-        svgroot.appendChild(endarearect);
-        var endarea = svgretrieve_selectorFromRect(endarearect, svgroot);
-        svgroot.removeChild(endarearect);
-        var hitlist = svgroot.getIntersectionList(endarea, svgroot);
-        if (debug) console.log("clip8getPrimInstruction: hitlist", hitlist);
-        if (hitlist.length == 0) throw " ip element is not a path.";
-        var sel = svgdom_addGroup(svgroot);
-        var instr1 = svgdom_addGroup(svgroot);
-        for ( var i = 0; i < hitlist.length; i++ )
-            if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
-                hitlist[i].tagName == "circle") {
-                instr1.appendChild(hitlist[i].cloneNode(false));
-                instr1.lastElementChild.setAttribute("stroke", "#fff");
-            }
-            else if (hitlist[i].getAttribute("stroke-dasharray") &&
-                hitlist[i].tagName == "rect") {
-                sel.appendChild(hitlist[i].cloneNode(false));
-                sel.lastElementChild.setAttribute("stroke", "#fff");
-            }
-        return [instr1,sel];
-    },
+    getInstrEls_asGroups:
+        function (arearect, svgroot) {
+            var debug = false;
+            if (debug) console.log("[getInstrEls_asGroups] arearect, svgroot", arearect, svgroot);
+            arearect.setAttribute("fill", "#FFEE22");
+            svgroot.appendChild(arearect);
+            var s = svgretrieve_selectorFromRect(arearect, svgroot);
+            svgroot.removeChild(arearect);
+            var hitlist = svgroot.getIntersectionList(s, svgroot);
+            if (hitlist.length == 0) throw "[clip8getInstrEls_asGroups] empty hitlist.";
+            var sel = svgdom_addGroup(svgroot);
+            var instr = svgdom_addGroup(svgroot);
+            for ( var i = 0; i < hitlist.length; i++ )
+                if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
+                    hitlist[i].tagName == "circle") {
+                    instr.appendChild(hitlist[i].cloneNode(false));
+                    instr.lastElementChild.setAttribute("stroke", "#fff");
+                }
+                else if (hitlist[i].getAttribute("stroke-dasharray") &&
+                    hitlist[i].tagName == "rect") {
+                    sel.appendChild(hitlist[i].cloneNode(false));
+                    sel.lastElementChild.setAttribute("stroke", "#fff");
+                }
+            return [instr,sel];
+        },
 
     executeOneOperation: function(ip, svgroot, tracesvgroot) {
-        var debug = false;
-        if (debug) console.log("clip8envokeOperation: IP", ip);
-        var instrNsel = Clip8.getPrimInstruction(ip, svgroot)
+        var debug = true;
+        if (debug) console.log("[executeOneOperation] ip, svgroot, tracesvgroot:", ip, svgroot, tracesvgroot);
+        if (ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
+        var arearect = svgdom_EndOfPathArea(ip, epsilon);
+        var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
         if (debug) console.log("clip8envokeOperation: INSTR1, SEL1", instr1, sel1);
@@ -110,6 +108,14 @@ var Clip8 = {
             var thepoly = instr1.getElementsByTagName("polyline")[0];
             var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("clip8envokeOperation: angle direction", angledir);
+            /* FIXME: Make sure no elements get double-selected
+            var arearect = svgdom_EndOfLineArea(theline, epsilon);
+            var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
+            var instr2 = instrNsel[0];
+            var sel2 = instrNsel[1];
+            if (debug) console.log("[clip8envokeOperation] instr2, sel2:", instr2, sel2);
+            */
+
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
@@ -128,11 +134,18 @@ var Clip8 = {
         }
         else
             throw "Could not decode instruction X"+instr1;
+        if (debug) console.log("clip8envokeOperation: remove instr1, sel1", instr1, sel1);
         svgroot.removeChild(instr1);
         svgroot.removeChild(sel1);
         tracesvgroot.appendChild(instr1);
         tracesvgroot.appendChild(sel1);
-        if (debug) console.log("clip8envokeOperation: removed instr1, sel1", instr1, sel1);
+        /* FIXME: see fix above.
+        if (debug) console.log("clip8envokeOperation: remove instr2, sel2", instr2, sel2);
+        svgroot.removeChild(instr2);
+        svgroot.removeChild(sel2);
+        tracesvgroot.appendChild(instr2);
+        tracesvgroot.appendChild(sel2);
+        */
         Clip8.clearExecTimer();
     },
 
