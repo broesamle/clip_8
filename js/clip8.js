@@ -5,7 +5,6 @@ var epsilon = 0.5;  // maximal difference for two coordinates to be considered e
 var minlen = 1.5;     // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
-    teminate: false,
     exectimer: null,
     initControlFlow: function (svgroot, tracesvgroot) {
         var debug = false;
@@ -70,11 +69,6 @@ var Clip8 = {
     },
 
     executeOneOperation: function(ip, svgroot, tracesvgroot) {
-        if (Clip8.teminate) {
-            console.log("terminate");
-            return;
-        }
-        console.log("running");
         var debug = false;
         if (debug) console.log("clip8envokeOperation: IP", ip);
         var instrNsel = Clip8.getPrimInstruction(ip, svgroot)
@@ -139,7 +133,7 @@ var Clip8 = {
         tracesvgroot.appendChild(instr1);
         tracesvgroot.appendChild(sel1);
         if (debug) console.log("clip8envokeOperation: removed instr1, sel1", instr1, sel1);
-        Clip8.teminate = true;
+        Clip8.clearExecTimer();
     },
 
     envokeOperation: function () {
@@ -154,10 +148,13 @@ var Clip8 = {
         svgroot.parentNode.appendChild(tracesvgroot);
         tracesvgroot.setAttribute("style", "margin-left:-64; background:none;");
         var ip = Clip8.initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
-        Clip8.teminate = false;
-        var exect = setInterval( function() { Clip8.executeOneOperation(ip, svgroot, tracesvgroot) }, 100 );
+        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(ip, svgroot, tracesvgroot) }, 100 );
         var erasetracetimer = setInterval( function() { eraseTrace(tracesvgroot) }, 60 );
-        setTimeout ( function () { clearInterval(erasetracetimer) }, 10000 );   // stop erasor after some time
+        setTimeout ( function () { clearInterval(erasetracetimer); }, 1000 );   // stop erasor after some time
+    },
+
+    clearExecTimer: function () {
+        clearInterval(Clip8.exectimer);
     }
 };
 
