@@ -81,7 +81,8 @@ function addTest_invokeOperation(reftestElement) {
         expect(svgroot.id).toBe("");
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
-        expect(clip8envokeOperation).not.toThrow();
+        expect(Clip8.envokeOperation).not.toThrow();
+        expect(Clip8.getPrimInstruction).toHaveBeenCalled();
         svgroot.removeAttribute("id", reftestElement.id);
         done();
     });
@@ -107,6 +108,7 @@ describe("Reference Sheet Tester", function(){
         jasmine.addMatchers(customMatchers);
         var oldroot = document.getElementById("clip8svgroot");
         if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
+        spyOn(Clip8,"getPrimInstruction").and.callThrough();
     });
 
     var  tests = document.getElementsByClassName("DOMreftest");
