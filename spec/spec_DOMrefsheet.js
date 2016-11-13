@@ -74,6 +74,7 @@ function addTest_invokeOperation(reftestElement) {
     test_domids.push(reftestElement.id);
 
     spec = it("["+reftestElement.id+"] EXECUTE the operation without error", function(done) {
+        jasmine.clock().install();
         var proc = getTestDOM(reftestElement);
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
@@ -81,8 +82,13 @@ function addTest_invokeOperation(reftestElement) {
         expect(svgroot.id).toBe("");
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
-        expect(clip8envokeOperation).not.toThrow();
+        expect(Clip8.envokeOperation).not.toThrow();
+        jasmine.clock().tick(10000);
+        expect(Clip8.executeOneOperation).toHaveBeenCalled();
+        expect(Clip8.executeOneOperation.calls.count()).toBeLessThan(20);
+        expect(Clip8.clearExecTimer).toHaveBeenCalled();
         svgroot.removeAttribute("id", reftestElement.id);
+        jasmine.clock().uninstall();
         done();
     });
     test_specids.push(spec.id);
@@ -107,6 +113,8 @@ describe("Reference Sheet Tester", function(){
         jasmine.addMatchers(customMatchers);
         var oldroot = document.getElementById("clip8svgroot");
         if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
+        spyOn(Clip8,"executeOneOperation").and.callThrough();
+        spyOn(Clip8,"clearExecTimer").and.callThrough();
     });
 
     var  tests = document.getElementsByClassName("DOMreftest");
