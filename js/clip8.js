@@ -67,6 +67,73 @@ var Clip8 = {
         return [instr1,sel];
     },
 
+    executeOneOperation: function(ip, svgroot, tracesvgroot) {
+        var debug = false;
+        if (debug) console.log("clip8envokeOperation: IP", ip);
+        var instrNsel = Clip8.getPrimInstruction(ip, svgroot)
+        var instr1 = instrNsel[0];
+        var sel1 = instrNsel[1];
+        if (debug) console.log("clip8envokeOperation: INSTR1, SEL1", instr1, sel1);
+
+        // List of selected Elements based on primary selector
+        var selectedelements1 = [];
+        if (sel1.firstChild instanceof SVGRectElement) {
+            var s = svgretrieve_selectorFromRect(sel1.firstChild, svgroot);
+            if (debug) console.log("clip8envokeOperation: selector from rect in sel1", s);
+            var hitlist = svgroot.getEnclosureList(s, svgroot);
+            for ( var i = 0; i < hitlist.length; i++ )
+                if ( hitlist[i].tagName == "rect" &&
+                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
+                     selectedelements1.push(hitlist[i]);
+        }
+        else selectedelements1 = undefined;
+
+        if (debug) console.log("clip8envokeOperation: selectedelements1", selectedelements1);
+
+        // decode instruction
+        var signature = clip8countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
+        if (debug) console.log("clip8envokeOperation: signature", signature);
+        if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
+            if (debug) console.log("clip8envokeOperation: two circles");
+            if (instr1.childNodes[0].tagName == "circle" &&
+                instr1.childNodes[1].tagName == "circle") {
+                if (debug) console.log("clip8envokeOperation: TERMINAL.");
+            }
+            else throw "Could not decode instruction A"+instr1;
+        }
+        else if ( signature.toString() === [0, 0, 0, 1, 1].toString() ) {
+            if (debug) console.log("clip8envokeOperation: 1 line, 1 polyline.");
+            var theline = instr1.getElementsByTagName("line")[0];
+            var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
+            if (debug) console.log("clip8envokeOperation: direction", linedir);
+            var thepoly = instr1.getElementsByTagName("polyline")[0];
+            var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
+            if (debug) console.log("clip8envokeOperation: angle direction", angledir);
+            switch (linedir) {
+                case 'UP':
+                case 'DOWN':
+                    if (angledir == 'LEFT')         paperclip_alignrelLeft (selectedelements1);
+                    else if (angledir == 'RIGHT')   paperclip_alignrelRight (selectedelements1);
+                    else throw "[clip8envokeOperation] Encountered invalid line arrow combination (a).";
+                    break;
+                case 'LEFT':
+                case 'RIGHT':
+                    if (angledir == 'UP')           paperclip_alignrelTop (selectedelements1);
+                    else if (angledir == 'DOWN')    paperclip_alignrelBottom (selectedelements1);
+                    else throw "[clip8envokeOperation] Encountered invalid line arrow combination (b).";
+                    break;
+                default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
+            }
+        }
+        else
+            throw "Could not decode instruction X"+instr1;
+        svgroot.removeChild(instr1);
+        svgroot.removeChild(sel1);
+        tracesvgroot.appendChild(instr1);
+        tracesvgroot.appendChild(sel1);
+        if (debug) console.log("clip8envokeOperation: removed instr1, sel1", instr1, sel1);
+    },
+
     envokeOperation: function () {
         var debug = true;
         var svgroot = document.getElementById("clip8svgroot");
@@ -80,69 +147,7 @@ var Clip8 = {
         tracesvgroot.setAttribute("style", "margin-left:-64; background:none;");
         var ip = Clip8.initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
 
-            if (debug) console.log("clip8envokeOperation: IP", ip);
-            var instrNsel = Clip8.getPrimInstruction(ip, svgroot)
-            var instr1 = instrNsel[0];
-            var sel1 = instrNsel[1];
-            if (debug) console.log("clip8envokeOperation: INSTR1, SEL1", instr1, sel1);
-
-            // List of selected Elements based on primary selector
-            var selectedelements1 = [];
-            if (sel1.firstChild instanceof SVGRectElement) {
-                var s = svgretrieve_selectorFromRect(sel1.firstChild, svgroot);
-                if (debug) console.log("clip8envokeOperation: selector from rect in sel1", s);
-                var hitlist = svgroot.getEnclosureList(s, svgroot);
-                for ( var i = 0; i < hitlist.length; i++ )
-                    if ( hitlist[i].tagName == "rect" &&
-                         (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
-                         selectedelements1.push(hitlist[i]);
-            }
-            else selectedelements1 = undefined;
-
-            if (debug) console.log("clip8envokeOperation: selectedelements1", selectedelements1);
-
-            // decode instruction
-            var signature = clip8countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
-            if (debug) console.log("clip8envokeOperation: signature", signature);
-            if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
-                if (debug) console.log("clip8envokeOperation: two circles");
-                if (instr1.childNodes[0].tagName == "circle" &&
-                    instr1.childNodes[1].tagName == "circle") {
-                    if (debug) console.log("clip8envokeOperation: TERMINAL.");
-                }
-                else throw "Could not decode instruction A"+instr1;
-            }
-            else if ( signature.toString() === [0, 0, 0, 1, 1].toString() ) {
-                if (debug) console.log("clip8envokeOperation: 1 line, 1 polyline.");
-                var theline = instr1.getElementsByTagName("line")[0];
-                var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
-                if (debug) console.log("clip8envokeOperation: direction", linedir);
-                var thepoly = instr1.getElementsByTagName("polyline")[0];
-                var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
-                if (debug) console.log("clip8envokeOperation: angle direction", angledir);
-                switch (linedir) {
-                    case 'UP':
-                    case 'DOWN':
-                        if (angledir == 'LEFT')         paperclip_alignrelLeft (selectedelements1);
-                        else if (angledir == 'RIGHT')   paperclip_alignrelRight (selectedelements1);
-                        else throw "[clip8envokeOperation] Encountered invalid line arrow combination (a).";
-                        break;
-                    case 'LEFT':
-                    case 'RIGHT':
-                        if (angledir == 'UP')           paperclip_alignrelTop (selectedelements1);
-                        else if (angledir == 'DOWN')    paperclip_alignrelBottom (selectedelements1);
-                        else throw "[clip8envokeOperation] Encountered invalid line arrow combination (b).";
-                        break;
-                    default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
-                }
-            }
-            else
-                throw "Could not decode instruction X"+instr1;
-            svgroot.removeChild(instr1);
-            svgroot.removeChild(sel1);
-            tracesvgroot.appendChild(instr1);
-            tracesvgroot.appendChild(sel1);
-            if (debug) console.log("clip8envokeOperation: removed instr1, sel1", instr1, sel1);
+        Clip8.executeOneOperation(ip, svgroot, tracesvgroot);
 
         var erasetracetimer = setInterval( function() { eraseTrace(tracesvgroot) }, 60 );
         setTimeout ( function () { clearInterval(erasetracetimer) }, 10000 );   // stop erasor after some time
