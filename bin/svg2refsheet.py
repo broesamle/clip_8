@@ -66,53 +66,65 @@ class SVGGroupCollection(XMLNodesCollection):
         except ValueError:
             pass    # ignore any elements where the id could not be translated into a key
 
+appendixsectionsHTML = ""
+tocsectionsHTML = ""
 alltests = {}
-allhrefs = {}
 
-for file in os.listdir( inDIRabs ):
-    inFN = os.path.join(inDIRabs, file)
-    if  os.path.isfile(inFN) and fnmatch.fnmatch(file, CFG.svgtestfile_pattern):
-        outfile = outprefix+os.path.splitext(file)[0]+outsuffix+'.'+outext
-        outFN = os.path.join(outDIRabs, outfile)
-        print("Processing IN:", inFN, "OUT:", outFN)
+chaptercnt = 0
+lastchapter = None
+backlinktitle, backhref = "Table of Contents", "toc.html"
+SCT.sections.reverse()
+while len(SCT.sections) > 0:
+    chapter, section, infile = SCT.sections.pop()
+    if len(SCT.sections) > 0:
+        _, nextlinktitle, nexthref = SCT.sections[-1]
+        nexthref = outprefix+os.path.splitext(nexthref)[0]+outsuffix+'.'+outext
+    else:
+        nexthref, nextlinktitle = "reference-tests_overview.html", "Appendix"
+    outfile = outprefix+os.path.splitext(infile)[0]+outsuffix+'.'+outext
+    inFN = os.path.join(inDIRabs, infile)
+    outFN = os.path.join(outDIRabs, outfile)
+    if os.path.isfile(inFN):
+        print("Processing", infile, 'BACK:', backhref, 'next:', nexthref)
+        if chapter == lastchapter: sectioncnt += 1
+        else:
+            chaptercnt += 1
+            sectioncnt = 1
         tests = SVGGroupCollection(
             inFN,
             "TEST-",
             defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
             strictsubstitute=True)
-        alltests[file] = tests
-        allhrefs[file] = outfile
+        alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
             itemTEM=TEM.SingleReferenceTest,
             seriesTEM=TEM.Testsection,
-            seriesData={'testsectiontitle':SCT.subsectiontitle[file], 'testsectioncounter':str(list(SCT.subsectiontitle).index(file)+1)}
+            seriesData={'testsectiontitle':section, 'testsectioncounter':str(sectioncnt)}
             )
 
-        bodyHTML = TEM.Body.substitute(refsheettitle="Title t.b.a.", TESTSECTIONS=testsectionsHTML)
-        headerHTML = TEM.Header.substitute(refsheettitle="Title t.b.a.")
+        backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
+        nextlinkHTML = TEM.Linknext.substitute(href=nexthref, linktext=nextlinktitle)
+
+        bodyHTML = TEM.Body.substitute(pagetitle="clip_8", pagesndtitle=section, TESTSECTIONS=testsectionsHTML, link1=backlinkHTML, link2=nextlinkHTML)
+        headerHTML = TEM.Header.substitute(refsheettitle="tba", dependencies=TEM.DependJasmine_str+TEM.DependClip8_str)
         documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
         output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
         output_file.write(documentHTML)
         output_file.close()
+        backhref, backlinktitle = outfile, section
 
-testsectionsHTML = ""
-for file in SCT.subsectiontitle.keys():
-    print("Compile subsection into overview:", file)
-    try:
-        tit = SCT.subsectiontitle[file]
-    except KeyError:
-        tit = "--TEST-SECTION-TITLE-TBA--"
-
-    testsectionsHTML += alltests[file].generateSeries(
+        appendixsectionsHTML += alltests[infile].generateSeries(
             itemTEM=TEM.SingleReferenceTest_light,
             seriesTEM=TEM.Testsection_inclHref,
-            seriesData={'testsectiontitle':tit, 'testsectionhref':allhrefs[file], 'testsectioncounter':str(list(SCT.subsectiontitle).index(file)+1)}
+            seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'testsectioncounter':sectioncnt}
             )
+    else:
+        print ("Sections.py mentions a non existing file:", infile)
 
-
-bodyHTML = TEM.Body.substitute(refsheettitle="clip_8 | Reference tests overview", TESTSECTIONS=testsectionsHTML)
-headerHTML = TEM.Header.substitute(refsheettitle="clip_8 | Reference tests overview")
+backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
+bodyHTML = TEM.Body.substitute(pagetitle="clip_8", pagesndtitle="Appendix", TESTSECTIONS=appendixsectionsHTML, link1=backlinkHTML, link2="")
+headerHTML = TEM.Header.substitute(refsheettitle="tba", dependencies=TEM.DependJasmine_str+TEM.DependClip8_str)
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "reference-tests_overview.html")
