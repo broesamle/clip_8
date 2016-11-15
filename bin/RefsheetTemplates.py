@@ -32,6 +32,7 @@ Header = Template("""
 
 Body = Template("""
 <body>
+<a href="reference-tests_overview.html">OVERVIEW</a>
 <h1>$refsheettitle</h1>
 $TESTSECTIONS
 <script src="../spec/spec_DOMrefsheet.js"></script>
@@ -39,7 +40,12 @@ $TESTSECTIONS
 """)
 
 Testsection = Template("""
-<h3>$testsectiontitle</h3>
+<h3>$testsectioncounter&nbsp;&nbsp;$testsectiontitle</h3>
+$THEITEMS
+""")
+
+Testsection_inclHref = Template("""
+<h3>$testsectioncounter&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a></h3>
 $THEITEMS
 """)
 
