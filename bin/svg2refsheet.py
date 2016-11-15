@@ -67,11 +67,13 @@ class SVGGroupCollection(XMLNodesCollection):
             pass    # ignore any elements where the id could not be translated into a key
 
 alltests = {}
+allhrefs = {}
 
 for file in os.listdir( inDIRabs ):
     inFN = os.path.join(inDIRabs, file)
     if  os.path.isfile(inFN) and fnmatch.fnmatch(file, CFG.svgtestfile_pattern):
-        outFN = os.path.join(outDIRabs, outprefix+os.path.splitext(file)[0]+outsuffix+'.'+outext)
+        outfile = outprefix+os.path.splitext(file)[0]+outsuffix+'.'+outext
+        outFN = os.path.join(outDIRabs, outfile)
         print("Processing IN:", inFN, "OUT:", outFN)
         tests = SVGGroupCollection(
             inFN,
@@ -79,11 +81,12 @@ for file in os.listdir( inDIRabs ):
             defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
             strictsubstitute=True)
         alltests[file] = tests
+        allhrefs[file] = outfile
 
         testsectionsHTML = tests.generateSeries(
             itemTEM=TEM.SingleReferenceTest,
             seriesTEM=TEM.Testsection,
-            seriesData={'testsectiontitle':"--TEST-SECTION-TITLE-TBA--"}
+            seriesData={'testsectiontitle':SCT.subsectiontitle[file], 'testsectioncounter':str(list(SCT.subsectiontitle).index(file)+1)}
             )
 
         bodyHTML = TEM.Body.substitute(refsheettitle="Title t.b.a.", TESTSECTIONS=testsectionsHTML)
@@ -94,17 +97,17 @@ for file in os.listdir( inDIRabs ):
         output_file.close()
 
 testsectionsHTML = ""
-for subsection in SCT.subsectiontitle.keys():
-    print("Compile subsection into overview:", subsection)
+for file in SCT.subsectiontitle.keys():
+    print("Compile subsection into overview:", file)
     try:
-        tit = SCT.subsectiontitle[subsection]
+        tit = SCT.subsectiontitle[file]
     except KeyError:
         tit = "--TEST-SECTION-TITLE-TBA--"
 
-    testsectionsHTML += alltests[subsection].generateSeries(
+    testsectionsHTML += alltests[file].generateSeries(
             itemTEM=TEM.SingleReferenceTest_light,
-            seriesTEM=TEM.Testsection,
-            seriesData={'testsectiontitle':tit}
+            seriesTEM=TEM.Testsection_inclHref,
+            seriesData={'testsectiontitle':tit, 'testsectionhref':allhrefs[file], 'testsectioncounter':str(list(SCT.subsectiontitle).index(file)+1)}
             )
 
 
