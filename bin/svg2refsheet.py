@@ -86,10 +86,12 @@ while len(SCT.sections) > 0:
     outFN = os.path.join(outDIRabs, outfile)
     if os.path.isfile(inFN):
         print("Processing", infile, 'BACK:', backhref, 'next:', nexthref)
-        if chapter == lastchapter: sectioncnt += 1
+        if chapter == lastchapter:
+            sectioncnt += 1
         else:
             chaptercnt += 1
             sectioncnt = 1
+            lastchapter = chapter
         tests = SVGGroupCollection(
             inFN,
             "TEST-",
@@ -106,7 +108,7 @@ while len(SCT.sections) > 0:
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
         nextlinkHTML = TEM.Linknext.substitute(href=nexthref, linktext=nextlinktitle)
 
-        bodyHTML = TEM.Body.substitute(pagetitle="clip_8", pagesndtitle=section, TESTSECTIONS=testsectionsHTML, link1=backlinkHTML, link2=nextlinkHTML)
+        bodyHTML = TEM.Body.substitute(pagetitle="clip_8", chapter=chapter, chaptercnt="Chapter "+str(chaptercnt), TESTSECTIONS=testsectionsHTML, link1=backlinkHTML, link2=nextlinkHTML)
         headerHTML = TEM.Header.substitute(refsheettitle="tba", dependencies=TEM.DependJasmine_str+TEM.DependClip8_str)
         documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
         output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
@@ -123,7 +125,7 @@ while len(SCT.sections) > 0:
         print ("Sections.py mentions a non existing file:", infile)
 
 backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
-bodyHTML = TEM.Body.substitute(pagetitle="clip_8", pagesndtitle="Appendix", TESTSECTIONS=appendixsectionsHTML, link1=backlinkHTML, link2="")
+bodyHTML = TEM.Body.substitute(pagetitle="clip_8", chapter="Appendix", chaptercnt="Appendix A", TESTSECTIONS=appendixsectionsHTML, link1=backlinkHTML, link2="")
 headerHTML = TEM.Header.substitute(refsheettitle="tba", dependencies=TEM.DependJasmine_str+TEM.DependClip8_str)
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 

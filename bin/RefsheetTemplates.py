@@ -37,23 +37,27 @@ $dependencies
 
 Linkback = Template("""
 <div class="leftlink">
-<a href="$href">$linktext</a>
-XXXXXX
+<a href="$href">$linktext<br>
+&lt;&lt;&lt;&lt;
+</a>
 </div>
 """)
 
 Linknext = Template("""
 <div class="rightlink">
-<a href="$href">$linktext</a>
-XXXXXX
+<a href="$href">$linktext<br>
+&gt;&gt;&gt;&gt;</a>
 </div>
 """)
 
 Body = Template("""
 <body>
 $link1
+<div class="chapternavtitle">$chaptercnt</div>
 $link2
-<h1>$pagetitle&nbsp;<span class="sndtitle">|&nbsp;$pagesndtitle</h1>
+<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
+
+
 $TESTSECTIONS
 <script src="../spec/spec_DOMrefsheet.js"></script>
 </body>
