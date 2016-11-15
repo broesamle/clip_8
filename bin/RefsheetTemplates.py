@@ -30,7 +30,7 @@ DependClip8_str = """
 Header = Template("""
 <head>
 <meta charset="utf-8">
-<title>$refsheettitle</title>
+<title>clip8 | $chapter</title>
 $dependencies
 </head>
 """)
@@ -52,9 +52,11 @@ Linknext = Template("""
 
 Body = Template("""
 <body>
+<nav>
 $link1
 <div class="chapternavtitle">$chaptercnt</div>
 $link2
+</nav>
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
 
 
@@ -64,13 +66,17 @@ $TESTSECTIONS
 """)
 
 Testsection = Template("""
-<h3>$testsectioncounter&nbsp;&nbsp;$testsectiontitle</h3>
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
 $THEITEMS
 """)
 
 Testsection_inclHref = Template("""
-<h3>$testsectioncounter&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a></h3>
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a></h3>
 $THEITEMS
+""")
+
+TOCsection = Template("""
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a></h3>
 """)
 
 SingleReferenceTest = Template("""

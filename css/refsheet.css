@@ -9,6 +9,8 @@ html,body {
 a:link		{ outline: none; text-decoration: none; color:#97b595; }
 a:visited 	{ outline: none; text-decoration: none; color:#adbeab; fill:#adbeab; }
 
+h1, h2, h3 { clear:left; }
+
 .sndtitle {
     font-weight:lighter;
 }
