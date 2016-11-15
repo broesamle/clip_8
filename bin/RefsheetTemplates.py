@@ -9,44 +9,74 @@ $BODY
 </html>
 """)
 
-Header = Template("""
-<head>
-<meta charset="utf-8">
-<title>$refsheettitle</title>
-
+DependJasmine_str = """
 <link rel="shortcut icon" type="image/png" href="../lib/jasmine-2.5/jasmine_favicon.png">
-<link rel="stylesheet" href="../lib/jasmine-2.5/jasmine.css">
+<link rel="stylesheet" href="../css/jasmine.css">
+<script src="../js/jasmine/jasmine.js"></script>
+<script src="../js/jasmine/jasmine-html.js"></script>
+<script src="../js/jasmine/boot.js"></script>
+"""
+
+DependClip8_str = """
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-
-<script src="../lib/jasmine-2.5/jasmine.js"></script>
-<script src="../lib/jasmine-2.5/jasmine-html.js"></script>
-<script src="../lib/jasmine-2.5/boot.js"></script>
 <script src="../js/svgdom.js"></script>
 <script src="../js/svgretrieve.js"></script>
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+"""
+
+Header = Template("""
+<head>
+<meta charset="utf-8">
+<title>clip8 | $chapter</title>
+$dependencies
 </head>
+""")
+
+Linkback = Template("""
+<div class="leftlink">
+<a href="$href">$linktext<br>
+&lt;&lt;&lt;&lt;
+</a>
+</div>
+""")
+
+Linknext = Template("""
+<div class="rightlink">
+<a href="$href">$linktext<br>
+&gt;&gt;&gt;&gt;</a>
+</div>
 """)
 
 Body = Template("""
 <body>
-<a href="reference-tests_overview.html">OVERVIEW</a>
-<h1>$refsheettitle</h1>
+<nav>
+$link1
+<div class="chapternavtitle">$chaptercnt</div>
+$link2
+</nav>
+<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
+
+
 $TESTSECTIONS
 <script src="../spec/spec_DOMrefsheet.js"></script>
 </body>
 """)
 
 Testsection = Template("""
-<h3>$testsectioncounter&nbsp;&nbsp;$testsectiontitle</h3>
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
 $THEITEMS
 """)
 
 Testsection_inclHref = Template("""
-<h3>$testsectioncounter&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a></h3>
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a></h3>
 $THEITEMS
+""")
+
+TOCsection = Template("""
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a></h3>
 """)
 
 SingleReferenceTest = Template("""

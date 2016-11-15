@@ -1,7 +1,6 @@
 from collections import OrderedDict
 
-subsectiontitle  =  OrderedDict()
-
-subsectiontitle['test_controlflow.svg'] = "Control flow"
-subsectiontitle['test_alignrel.svg'] = "Align relative"
-subsectiontitle['test_alignabs.svg'] = "Align absolute"
+sections = [
+    ("Iconic Instruction Language", "Control flow", 'test_controlflow.svg'),
+    ("Paper inspired Operations", "Align relative", 'test_alignrel.svg'),
+    ("Paper inspired Operations", "Align absolute", 'test_alignabs.svg') ]

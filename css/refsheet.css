@@ -1,5 +1,37 @@
+html,body {
+    font-family: "Courier New", monospace;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    width:100%;
+}
+
+a:link		{ outline: none; text-decoration: none; color:#97b595; }
+a:visited 	{ outline: none; text-decoration: none; color:#adbeab; fill:#adbeab; }
+
+h1, h2, h3 { clear:left; }
+
 .sndtitle {
     font-weight:lighter;
+}
+
+.leftlink {
+    width:33%;
+    float: left;
+}
+
+.rightlink {
+    width:33%;
+    float: left;
+    text-align: right;
+}
+
+.chapternavtitle {
+    width:33%;
+    float: left;
+    text-align: center;
+    font-weight:bold;
+    margin-bottom:50px;
 }
 
 .DOMreftest {
