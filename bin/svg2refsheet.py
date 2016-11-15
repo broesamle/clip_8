@@ -157,7 +157,7 @@ tocsectionsHTML += TEM.TOCsection.substitute(
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8', chapter="Table of Contents", chaptercnt="", TESTSECTIONS=tocsectionsHTML, link1=backlinkHTML, link2=nextlinkHTML)
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter=chapter)
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "toc.html")
