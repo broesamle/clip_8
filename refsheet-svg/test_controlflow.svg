@@ -46,13 +46,15 @@
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Control flow as a straight `path`,  </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">up-left direction.</tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 1;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="SECTION">
+<g id="SECTIONINFO">
 	<rect y="-64" fill="none" width="64" height="64"/>
 	<text transform="matrix(1 0 0 1 0 -61.5479)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Control from a an initial </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">node (one filled circle) </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">to a terminal node (two </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">concentric circles).</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">All control flow elements </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">need to have a visible </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">contour, including the </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">filled circle.</tspan></text>
-	<circle fill="#C63434" stroke="#C63434" stroke-width="1.0714" stroke-miterlimit="10" cx="4.143" cy="45.032" r="2.143"/>
-	<circle fill="#C63434" stroke="#C63434" stroke-width="1.0714" stroke-miterlimit="10" cx="57.179" cy="23.604" r="2.143"/>
-	<circle fill="none" stroke="#C63434" stroke-width="1.5" stroke-miterlimit="10" cx="57.179" cy="23.604" r="4.821"/>
-	<path fill="none" stroke="#C63434" stroke-width="1.5" stroke-miterlimit="10" d="M4.143,45.007
-		c20.893,21.427,18.75-32.118,53.036-21.43"/>
+	<g id="I">
+		<circle fill="#C63434" stroke="#C63434" stroke-width="1.0714" stroke-miterlimit="10" cx="4.143" cy="45.032" r="2.143"/>
+		<circle fill="#C63434" stroke="#C63434" stroke-width="1.0714" stroke-miterlimit="10" cx="57.179" cy="23.604" r="2.143"/>
+		<circle fill="none" stroke="#C63434" stroke-width="1.5" stroke-miterlimit="10" cx="57.179" cy="23.604" r="4.821"/>
+		<path fill="none" stroke="#C63434" stroke-width="1.5" stroke-miterlimit="10" d="M4.143,45.007
+			c20.893,21.427,18.75-32.118,53.036-21.43"/>
+	</g>
 </g>
 </svg>
