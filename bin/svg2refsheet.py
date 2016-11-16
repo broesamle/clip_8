@@ -20,18 +20,18 @@ def allChildrenToSVG(el):
 
 class XMLNodesCollection(ItemsCollection):
     """ Read a number of nodes from an XML file"""
-    def __init__(self,filename,elementXpath,namespaces={},reverse=False,**kwargs):
-        ItemsCollection.__init__(self,**kwargs)
+    def __init__(self, filename, elementXpath, namespaces={}, reverse=False, **kwargs):
+        ItemsCollection.__init__(self, **kwargs)
         tree = ET.parse(filename)
         root = tree.getroot()
         for el in root.findall(elementXpath, namespaces):
             self.processElement(el)
-
     def processElement(self,el):
         """ PLEASE OVERLOAD! The default implementation derives the key from the node id and adds the xml in the field `XML_CONTENT`."""
         raise NotImplementedError()
 
 class SVGGroupCollection(XMLNodesCollection):
+    """ Collect SVG groups by prefix in the element's id `<g id="someprefix_. . ."></g>`."""
     def __init__(self, filename, idprefix, *args, **kwargs):
         self.prefix = idprefix
         XMLNodesCollection.__init__(self, filename, elementXpath='.//svg:g[@id]', namespaces = {'svg':'http://www.w3.org/2000/svg'}, *args, **kwargs)
