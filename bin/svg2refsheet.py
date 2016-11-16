@@ -1,4 +1,5 @@
 import os, io, codecs, fnmatch
+from tinycss.css21 import CSS21Parser
 import xml.etree.ElementTree as ET
 
 from PyBroeModules.ItemsCollectionA import ItemsCollection
@@ -61,8 +62,22 @@ class SVGGroupCollection(XMLNodesCollection):
                 elif stripNamespaceFromTag(child.tag) == "g":
                     print("WARNING: Encountered invalid sublayer or group %s in test %s." % (child.get('id',"--unknown--"),id))
                 elif stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
-                    newitem['testdescription'] = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
-                    newitem['testdescription'] = " ".join(newitem['testdescription'].split()) # remove unnecessary whitespace (kills newline etc)
+                    descriptionfromsvg = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
+                    descriptionfromsvg = " ".join(descriptionfromsvg.split()) # remove unnecessary whitespace (kills newline etc)
+                    index = descriptionfromsvg.find("META")
+                    if index == "-1":
+                        newitem['testdescription'] = descriptionfromsvg
+                    else:
+                        newitem['testdescription'] = descriptionfromsvg[:index]
+                        meta = descriptionfromsvg[index:]
+                        parsedmeta = CSS21Parser().parse_stylesheet(meta)
+                        if len(parsedmeta.errors): print (parsedmeta.errors)
+                        try:
+                            for decl in parsedmeta.rules[0].declarations:
+                                newitem[decl.name] = decl.value.as_css()
+                        except IndexError:
+                            print ("Empty META Block")
+
                 elif stripNamespaceFromTag(child.tag) == "rect":
                     pass # we don't care, illustrator puts them together with text
                 else:
@@ -108,10 +123,16 @@ while len(SCT.sections) > 0:
         tests = SVGGroupCollection(
             inFN,
             "TEST-",
-            defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
+            defaults={
+                'testdescription':"--TEST-DESCRIPTION-TBA--",
+                'testid':"--TEST-ID-TBA--",
+                'post':"--POST--",
+                'testDOM':"--TEST--",
+                'testtype':"--TYPE--",
+                'cycles':-1},
             strictsubstitute=True)
         for thetest in tests.values():
-            print (thetest['testid'], thetest['testdescription']  )
+            print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'])
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
