@@ -164,7 +164,6 @@ while len(SCT.sections) > 0:
             sectioncnt = 1
             lastchapter = chapter
         tests = TestSection(inFN, strictsubstitute=True)
-        print (section, tests['_sectiondescription'], tests['_sectioninstructionicon'])
         for thetest in tests.values():
             print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'])
         alltests[infile] = tests
