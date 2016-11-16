@@ -98,7 +98,7 @@ while len(SCT.sections) > 0:
     inFN = os.path.join(inDIRabs, infile)
     outFN = os.path.join(outDIRabs, outfile)
     if os.path.isfile(inFN):
-        print("Processing", infile, 'BACK:', backhref, 'next:', nexthref)
+        print("Processing:", infile)
         if chapter == lastchapter:
             sectioncnt += 1
         else:
@@ -110,6 +110,8 @@ while len(SCT.sections) > 0:
             "TEST-",
             defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
             strictsubstitute=True)
+        for thetest in tests.values():
+            print (thetest['testid'], thetest['testdescription']  )
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
