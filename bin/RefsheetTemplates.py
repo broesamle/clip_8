@@ -66,7 +66,7 @@ $TESTSECTIONS
 Testsection = Template("""
 <h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
 <p class="sectionintro">
-<svg class="sectioninstructionicon" viewbox="0 0 64 64" background-color="#ffffff">
+<svg class="sectioninstructionicon" viewbox="0 0 64 64">
 $sectioninstructionicon
 </svg>
 <div class="sectiondescription">
@@ -83,7 +83,7 @@ $THEITEMS
 
 TOCsection = Template("""
 <h3>
-<svg class="sectioninstructionicon" viewbox="0 0 64 64" background-color="#ffffff">
+<svg class="sectioninstructionicon" viewbox="0 0 64 64">
 $sectioninstructionicon
 </svg>
 $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a>
