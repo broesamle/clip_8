@@ -81,9 +81,9 @@ class TestSection(SVGGroupCollection):
                 if stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
                     textfromsvg = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
                     textfromsvg = " ".join(textfromsvg.split()) # remove unnecessary whitespace (kills newline etc)
-                    self['_sectiondescription'] = textfromsvg
+                    self.sectiondescription = textfromsvg
                 elif child.get('id',"").startswith("I"):
-                    self['_sectioninstructionicon'] = allChildrenToSVG(child)
+                    self.sectioninstructionicon = allChildrenToSVG(child)
                 elif stripNamespaceFromTag(child.tag) == "rect":
                     pass # we don't care, illustrator puts them together with text
                 else:
