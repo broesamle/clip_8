@@ -2,7 +2,7 @@ import os, io, codecs, fnmatch
 import xml.etree.ElementTree as ET
 
 from PyBroeModules.ItemsCollectionA import ItemsCollection
-from PyBroeModules.StripNamespace import stripNamespace
+from PyBroeModules.StripNamespace import stripNamespace, stripNamespaceFromTag
 
 import RefsheetTemplates as TEM
 import Sections as SCT
@@ -58,8 +58,15 @@ class SVGGroupCollection(XMLNodesCollection):
                     newitem['pre'] += allChildrenToSVG(child)
                     newitem['post'] += allChildrenToSVG(child)
                     newitem['testDOM'] += allChildrenToSVG(child)
+                elif stripNamespaceFromTag(child.tag) == "g":
+                    print("WARNING: Encountered invalid sublayer or group %s in test %s." % (child.get('id',"--unknown--"),id))
+                elif stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
+                    newitem['testdescription'] = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
+                    newitem['testdescription'] = " ".join(newitem['testdescription'].split()) # remove unnecessary whitespace (kills newline etc)
+                elif stripNamespaceFromTag(child.tag) == "rect":
+                    pass # we don't care, illustrator puts them together with text
                 else:
-                    print("WARNING: Encountered invalid sublayer %s in test %s." % (child.get('id',"--unknown--"),id))
+                    print("WARNING: UDO (unknown data object ;-) in test element:", child, child.get('id',"--unknown--"), id)
             newitem['testid'] = id
             ## TODO: extract correct bits from SVG and define `pre`, `post` and `testDOM`.
             self.addItem(id, newitem)
