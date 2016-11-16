@@ -62,7 +62,7 @@ class TestSection(SVGGroupCollection):
         SVGGroupCollection.__init__(
             self,
             filename,
-            idprefixes=["TEST-"],
+            idprefixes=["TEST-", "SECTION"],
             defaults={
                 'testdescription':"--TEST-DESCRIPTION-TBA--",
                 'testid':"--TEST-ID-TBA--",
@@ -73,8 +73,15 @@ class TestSection(SVGGroupCollection):
             *args, **kwargs)
 
     def processElement(self, el):
-        try:
-            id = self.keyFromId(el.get('id',""))
+        elid = el.get('id',"")
+        if elid == "SECTION":
+            ## process section wide information here
+            pass
+        else:
+            try:
+                key = self.keyFromId(elid)
+            except ValueError:
+                return    # ignore any elements where the id could not be translated into a key
             newitem = {}
             for child in el:
                 if child.get('id',"").startswith("t0"):
@@ -87,7 +94,7 @@ class TestSection(SVGGroupCollection):
                     newitem['post'] += allChildrenToSVG(child)
                     newitem['testDOM'] += allChildrenToSVG(child)
                 elif stripNamespaceFromTag(child.tag) == "g":
-                    print("WARNING: Encountered invalid sublayer or group %s in test %s." % (child.get('id',"--unknown--"),id))
+                    print("WARNING: Encountered invalid sublayer or group %s in test %s." % (child.get('id',"--unknown--"), key))
                 elif stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
                     descriptionfromsvg = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
                     descriptionfromsvg = " ".join(descriptionfromsvg.split()) # remove unnecessary whitespace (kills newline etc)
@@ -108,12 +115,10 @@ class TestSection(SVGGroupCollection):
                 elif stripNamespaceFromTag(child.tag) == "rect":
                     pass # we don't care, illustrator puts them together with text
                 else:
-                    print("WARNING: UDO (unknown data object ;-) in test element:", child, child.get('id',"--unknown--"), id)
-            newitem['testid'] = id
+                    print("WARNING: UDO (unknown data object ;-) in test element:", child, child.get('id',"--unknown--"), key)
+            newitem['testid'] = key
             ## TODO: extract correct bits from SVG and define `pre`, `post` and `testDOM`.
-            self.addItem(id, newitem)
-        except ValueError:
-            pass    # ignore any elements where the id could not be translated into a key
+            self.addItem(key, newitem)
 
 appendixsectionsHTML = ""
 tocsectionsHTML = ""
