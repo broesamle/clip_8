@@ -46,6 +46,28 @@ class SVGGroupCollection(XMLNodesCollection):
         return result
 
     def processElement(self, el):
+        """ Please overload this method.
+            It just adds a string to demonstrate what it could do."""
+        id = self.keyFromId(el.get('id',""))
+        newitem = "Create something useful to be added as item!"
+        self.addItem(id, newitem)
+
+class TestSection(SVGGroupCollection):
+    def __init__(self, filename, *args, **kwargs):
+        SVGGroupCollection.__init__(
+            self,
+            filename,
+            idprefix="TEST-",
+            defaults={
+                'testdescription':"--TEST-DESCRIPTION-TBA--",
+                'testid':"--TEST-ID-TBA--",
+                'post':"--POST--",
+                'testDOM':"--TEST--",
+                'testtype':"--TYPE--",
+                'cycles':"-1"},
+            *args, **kwargs)
+
+    def processElement(self, el):
         try:
             id = self.keyFromId(el.get('id',""))
             newitem = {}
@@ -120,17 +142,7 @@ while len(SCT.sections) > 0:
             chaptercnt += 1
             sectioncnt = 1
             lastchapter = chapter
-        tests = SVGGroupCollection(
-            inFN,
-            "TEST-",
-            defaults={
-                'testdescription':"--TEST-DESCRIPTION-TBA--",
-                'testid':"--TEST-ID-TBA--",
-                'post':"--POST--",
-                'testDOM':"--TEST--",
-                'testtype':"--TYPE--",
-                'cycles':-1},
-            strictsubstitute=True)
+        tests = TestSection(inFN, strictsubstitute=True)
         for thetest in tests.values():
             print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'])
         alltests[infile] = tests
