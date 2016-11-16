@@ -59,6 +59,8 @@ class SVGGroupCollection(XMLNodesCollection):
 
 class TestSection(SVGGroupCollection):
     def __init__(self, filename, *args, **kwargs):
+        self.sectiondescription = "--SECTION-DESCRIPTION-TBA--"
+        self.sectioninstructionicon = TEM.QuestionmarkIcon_svg
         SVGGroupCollection.__init__(
             self,
             filename,
@@ -171,7 +173,12 @@ while len(SCT.sections) > 0:
         testsectionsHTML = tests.generateSeries(
             itemTEM=TEM.SingleReferenceTest,
             seriesTEM=TEM.Testsection,
-            seriesData={'testsectiontitle':section, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt}
+            seriesData={
+                'testsectiontitle':section,
+                'chaptercnt':chaptercnt,
+                'sectioncnt':sectioncnt,
+                'sectiondescription': tests.sectiondescription,
+                'sectioninstructionicon': tests.sectioninstructionicon}
             )
 
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
@@ -195,7 +202,8 @@ while len(SCT.sections) > 0:
             testsectiontitle=section,
             testsectionhref=outfile,
             chaptercnt=chaptercnt,
-            sectioncnt=sectioncnt)
+            sectioncnt=sectioncnt,
+            sectioninstructionicon=tests.sectioninstructionicon)
     else:
         print ("Sections.py mentions a non existing file:", infile)
 
@@ -215,7 +223,8 @@ tocsectionsHTML += TEM.TOCsection.substitute(
     testsectiontitle="Appendix: All Tests",
     testsectionhref="appendix.html",
     chaptercnt="A",
-    sectioncnt="")
+    sectioncnt="",
+    sectioninstructionicon="")
 
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
