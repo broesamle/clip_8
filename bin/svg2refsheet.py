@@ -1,8 +1,9 @@
 import os, io, codecs, fnmatch
+from tinycss.css21 import CSS21Parser
 import xml.etree.ElementTree as ET
 
 from PyBroeModules.ItemsCollectionA import ItemsCollection
-from PyBroeModules.StripNamespace import stripNamespace
+from PyBroeModules.StripNamespace import stripNamespace, stripNamespaceFromTag
 
 import RefsheetTemplates as TEM
 import Sections as SCT
@@ -19,34 +20,81 @@ def allChildrenToSVG(el):
 
 class XMLNodesCollection(ItemsCollection):
     """ Read a number of nodes from an XML file"""
-    def __init__(self,filename,elementXpath,namespaces={},reverse=False,**kwargs):
-        ItemsCollection.__init__(self,**kwargs)
+    def __init__(self, filename, elementXpath, namespaces={}, reverse=False, **kwargs):
+        ItemsCollection.__init__(self, **kwargs)
         tree = ET.parse(filename)
         root = tree.getroot()
         for el in root.findall(elementXpath, namespaces):
             self.processElement(el)
-
     def processElement(self,el):
         """ PLEASE OVERLOAD! The default implementation derives the key from the node id and adds the xml in the field `XML_CONTENT`."""
         raise NotImplementedError()
 
 class SVGGroupCollection(XMLNodesCollection):
-    def __init__(self, filename, idprefix, *args, **kwargs):
-        self.prefix = idprefix
+    """ Collect SVG groups by prefixes in the element's id `<g id="someprefix_. . ."></g>`."""
+    def __init__(self, filename, idprefixes, *args, **kwargs):
+        self.prefixes = idprefixes
         XMLNodesCollection.__init__(self, filename, elementXpath='.//svg:g[@id]', namespaces = {'svg':'http://www.w3.org/2000/svg'}, *args, **kwargs)
 
     def keyFromId(self,id):
-        """ Check whether the id is valid, and then generate a key for the item from it.
-            The default case checks the presence of the prefix and removes it. """
-        if id.startswith(self.prefix):
-            result = id[len(self.prefix):]
-        else:
-            raise ValueError("Invalid ID: "+id+" pre:"+self.prefix)
-        return result
+        """ Check whether the id has one of the prefixes, and then generate a key for the item from it.
+            The default case checks the presence of the prefix and removes it.
+            No prefix should be prefix of other prefixes; the first hit wins.
+            """
+        for prefix in self.prefixes:
+            if id.startswith(prefix):
+                key = id[len(prefix):]
+                if key in self:
+                    raise ValueError("Generated key already exists in collection:", key, id)
+                else:
+                    return key
+        raise ValueError("Invalid ID: "+id+" pre:"+prefix)
 
     def processElement(self, el):
-        try:
-            id = self.keyFromId(el.get('id',""))
+        """ Please overload this method.
+            It just adds a string to demonstrate what it could do."""
+        id = self.keyFromId(el.get('id',""))
+        newitem = "Create something useful to be added as item!"
+        self.addItem(id, newitem)
+
+class TestSection(SVGGroupCollection):
+    def __init__(self, filename, *args, **kwargs):
+        self.sectiondescription = "--SECTION-DESCRIPTION-TBA--"
+        self.sectioninstructionicon = TEM.QuestionmarkIcon_svg
+        SVGGroupCollection.__init__(
+            self,
+            filename,
+            idprefixes=["TEST-", "SECTION"],
+            defaults={
+                'testdescription':"--TEST-DESCRIPTION-TBA--",
+                'testid':"--TEST-ID-TBA--",
+                'post':"--POST--",
+                'testDOM':"--TEST--",
+                'testtype':"--TYPE--",
+                'cycles':"-1"},
+            *args, **kwargs)
+
+    def processElement(self, el):
+        elid = el.get('id',"")
+        if elid == "SECTIONINFO":
+            ## process section wide information here
+            for child in el:
+                print(child, child.get('id',""))
+                if stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
+                    textfromsvg = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
+                    textfromsvg = " ".join(textfromsvg.split()) # remove unnecessary whitespace (kills newline etc)
+                    self.sectiondescription = textfromsvg
+                elif child.get('id',"").startswith("I"):
+                    self.sectioninstructionicon = allChildrenToSVG(child)
+                elif stripNamespaceFromTag(child.tag) == "rect":
+                    pass # we don't care, illustrator puts them together with text
+                else:
+                    print("WARNING: UDO (unknown data object ;-) in SECTION description element:", child, child.get('id',"--unknown--"))
+        else:
+            try:
+                key = self.keyFromId(elid)
+            except ValueError:
+                return    # ignore any elements where the id could not be translated into a key
             newitem = {}
             for child in el:
                 if child.get('id',"").startswith("t0"):
@@ -58,13 +106,32 @@ class SVGGroupCollection(XMLNodesCollection):
                     newitem['pre'] += allChildrenToSVG(child)
                     newitem['post'] += allChildrenToSVG(child)
                     newitem['testDOM'] += allChildrenToSVG(child)
+                elif stripNamespaceFromTag(child.tag) == "g":
+                    print("WARNING: Encountered invalid sublayer or group %s in test %s." % (child.get('id',"--unknown--"), key))
+                elif stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
+                    descriptionfromsvg = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
+                    descriptionfromsvg = " ".join(descriptionfromsvg.split()) # remove unnecessary whitespace (kills newline etc)
+                    index = descriptionfromsvg.find("META")
+                    if index == "-1":
+                        newitem['testdescription'] = descriptionfromsvg
+                    else:
+                        newitem['testdescription'] = descriptionfromsvg[:index]
+                        meta = descriptionfromsvg[index:]
+                        parsedmeta = CSS21Parser().parse_stylesheet(meta)
+                        if len(parsedmeta.errors): print (parsedmeta.errors)
+                        try:
+                            for decl in parsedmeta.rules[0].declarations:
+                                newitem[decl.name] = decl.value.as_css()
+                        except IndexError:
+                            print ("Empty META Block")
+
+                elif stripNamespaceFromTag(child.tag) == "rect":
+                    pass # we don't care, illustrator puts them together with text
                 else:
-                    print("WARNING: Encountered invalid sublayer %s in test %s." % (child.get('id',"--unknown--"),id))
-            newitem['testid'] = id
+                    print("WARNING: UDO (unknown data object ;-) in test element:", child, child.get('id',"--unknown--"), key)
+            newitem['testid'] = key
             ## TODO: extract correct bits from SVG and define `pre`, `post` and `testDOM`.
-            self.addItem(id, newitem)
-        except ValueError:
-            pass    # ignore any elements where the id could not be translated into a key
+            self.addItem(key, newitem)
 
 appendixsectionsHTML = ""
 tocsectionsHTML = ""
@@ -91,24 +158,27 @@ while len(SCT.sections) > 0:
     inFN = os.path.join(inDIRabs, infile)
     outFN = os.path.join(outDIRabs, outfile)
     if os.path.isfile(inFN):
-        print("Processing", infile, 'BACK:', backhref, 'next:', nexthref)
+        print("Processing:", infile)
         if chapter == lastchapter:
             sectioncnt += 1
         else:
             chaptercnt += 1
             sectioncnt = 1
             lastchapter = chapter
-        tests = SVGGroupCollection(
-            inFN,
-            "TEST-",
-            defaults={'testdescription':"--TEST-DESCRIPTION-TBA--", 'testid':"--TEST-ID-TBA--", 'post':"--POST--", 'testDOM':"--TEST--" },
-            strictsubstitute=True)
+        tests = TestSection(inFN, strictsubstitute=True)
+        for thetest in tests.values():
+            print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'])
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
             itemTEM=TEM.SingleReferenceTest,
             seriesTEM=TEM.Testsection,
-            seriesData={'testsectiontitle':section, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt}
+            seriesData={
+                'testsectiontitle':section,
+                'chaptercnt':chaptercnt,
+                'sectioncnt':sectioncnt,
+                'sectiondescription': tests.sectiondescription,
+                'sectioninstructionicon': tests.sectioninstructionicon}
             )
 
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
@@ -132,7 +202,8 @@ while len(SCT.sections) > 0:
             testsectiontitle=section,
             testsectionhref=outfile,
             chaptercnt=chaptercnt,
-            sectioncnt=sectioncnt)
+            sectioncnt=sectioncnt,
+            sectioninstructionicon=tests.sectioninstructionicon)
     else:
         print ("Sections.py mentions a non existing file:", infile)
 
@@ -152,7 +223,8 @@ tocsectionsHTML += TEM.TOCsection.substitute(
     testsectiontitle="Appendix: All Tests",
     testsectionhref="appendix.html",
     chaptercnt="A",
-    sectioncnt="")
+    sectioncnt="",
+    sectioninstructionicon="")
 
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)

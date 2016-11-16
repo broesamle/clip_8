@@ -9,7 +9,19 @@ html,body {
 a:link		{ outline: none; text-decoration: none; color:#97b595; }
 a:visited 	{ outline: none; text-decoration: none; color:#adbeab; fill:#adbeab; }
 
-h1, h2, h3 { clear:left; }
+h1, h2, h3, p { clear:left; }
+
+.sectionintro svg {
+    background: white;
+    float: left;
+    margin: 10px;
+    width: 40%;
+}
+
+h3 svg {
+    background: white;
+    height: 2em;
+}
 
 .sndtitle {
     font-weight:lighter;
