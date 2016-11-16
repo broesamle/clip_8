@@ -31,19 +31,24 @@ class XMLNodesCollection(ItemsCollection):
         raise NotImplementedError()
 
 class SVGGroupCollection(XMLNodesCollection):
-    """ Collect SVG groups by prefix in the element's id `<g id="someprefix_. . ."></g>`."""
-    def __init__(self, filename, idprefix, *args, **kwargs):
-        self.prefix = idprefix
+    """ Collect SVG groups by prefixes in the element's id `<g id="someprefix_. . ."></g>`."""
+    def __init__(self, filename, idprefixes, *args, **kwargs):
+        self.prefixes = idprefixes
         XMLNodesCollection.__init__(self, filename, elementXpath='.//svg:g[@id]', namespaces = {'svg':'http://www.w3.org/2000/svg'}, *args, **kwargs)
 
     def keyFromId(self,id):
-        """ Check whether the id is valid, and then generate a key for the item from it.
-            The default case checks the presence of the prefix and removes it. """
-        if id.startswith(self.prefix):
-            result = id[len(self.prefix):]
-        else:
-            raise ValueError("Invalid ID: "+id+" pre:"+self.prefix)
-        return result
+        """ Check whether the id has one of the prefixes, and then generate a key for the item from it.
+            The default case checks the presence of the prefix and removes it.
+            No prefix should be prefix of other prefixes; the first hit wins.
+            """
+        for prefix in self.prefixes:
+            if id.startswith(prefix):
+                key = id[len(prefix):]
+                if key in self:
+                    raise ValueError("Generated key already exists in collection:", key, id)
+                else:
+                    return key
+        raise ValueError("Invalid ID: "+id+" pre:"+prefix)
 
     def processElement(self, el):
         """ Please overload this method.
@@ -57,7 +62,7 @@ class TestSection(SVGGroupCollection):
         SVGGroupCollection.__init__(
             self,
             filename,
-            idprefix="TEST-",
+            idprefixes=["TEST-"],
             defaults={
                 'testdescription':"--TEST-DESCRIPTION-TBA--",
                 'testid':"--TEST-ID-TBA--",
