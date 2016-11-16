@@ -74,9 +74,20 @@ class TestSection(SVGGroupCollection):
 
     def processElement(self, el):
         elid = el.get('id',"")
-        if elid == "SECTION":
+        if elid == "SECTIONINFO":
             ## process section wide information here
-            pass
+            for child in el:
+                print(child, child.get('id',""))
+                if stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
+                    textfromsvg = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
+                    textfromsvg = " ".join(textfromsvg.split()) # remove unnecessary whitespace (kills newline etc)
+                    self['_sectiondescription'] = textfromsvg
+                elif child.get('id',"").startswith("I"):
+                    self['_sectioninstructionicon'] = allChildrenToSVG(child)
+                elif stripNamespaceFromTag(child.tag) == "rect":
+                    pass # we don't care, illustrator puts them together with text
+                else:
+                    print("WARNING: UDO (unknown data object ;-) in SECTION description element:", child, child.get('id',"--unknown--"))
         else:
             try:
                 key = self.keyFromId(elid)
@@ -153,6 +164,7 @@ while len(SCT.sections) > 0:
             sectioncnt = 1
             lastchapter = chapter
         tests = TestSection(inFN, strictsubstitute=True)
+        print (section, tests['_sectiondescription'], tests['_sectioninstructionicon'])
         for thetest in tests.values():
             print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'])
         alltests[infile] = tests
