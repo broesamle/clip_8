@@ -27,6 +27,10 @@ h3 svg {
     height: 2em;
 }
 
+.testmetainfo {
+    color: #bbb;
+}
+
 .sndtitle {
     font-weight: lighter;
 }
