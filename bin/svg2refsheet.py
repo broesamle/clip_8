@@ -79,11 +79,20 @@ class TestSection(SVGGroupCollection):
         if elid == "SECTIONINFO":
             ## process section wide information here
             for child in el:
-                print(child, child.get('id',""))
                 if stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
-                    textfromsvg = "".join([x+' ' for x in child.itertext()]) # text from all subnodes, separated by ' '
-                    textfromsvg = " ".join(textfromsvg.split()) # remove unnecessary whitespace (kills newline etc)
-                    self.sectiondescription = textfromsvg
+                    # This is a bit of a hack: Illustrator does not give paragraphs indicators.
+                    # Rather, it arranges text snippets at x,y coordinates. We try to infer paragraphs
+                    # based on text snippets that start with a "+".
+
+                    textfromsvg = "__|__" + "__|__".join([x for x in child.itertext()]) # text from all subnodes, separated by '__|__'
+                    textfromsvg = textfromsvg.replace("__|__+", "__P__")
+                    textfromsvg = textfromsvg.replace("__|__", " ")
+                    paragraphs = textfromsvg.split("__P__")
+                    paragraphs = [ " ".join(par.split()) for par in paragraphs ] # remove unnecessary whitespace
+                    try: paragraphs.remove("")
+                    except ValueError: pass
+                    print(paragraphs)
+                    self.sectiondescription = paragraphs
                 elif child.get('id',"").startswith("I"):
                     self.sectioninstructionicon = allChildrenToSVG(child)
                 elif stripNamespaceFromTag(child.tag) == "rect":
@@ -177,7 +186,7 @@ while len(SCT.sections) > 0:
                 'testsectiontitle':section,
                 'chaptercnt':chaptercnt,
                 'sectioncnt':sectioncnt,
-                'sectiondescription': tests.sectiondescription,
+                'sectiondescription': "\n<p>" + "</p>\n<p>".join(tests.sectiondescription) + "</p>",
                 'sectioninstructionicon': tests.sectioninstructionicon}
             )
 
