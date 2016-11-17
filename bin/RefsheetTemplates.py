@@ -65,14 +65,12 @@ $TESTSECTIONS
 
 Testsection = Template("""
 <h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
-<p class="sectionintro">
+<div class="sectionintro">
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
 $sectioninstructionicon
 </svg>
-<div class="sectiondescription">
 $sectiondescription
 </div>
-</p>
 $THEITEMS
 """)
 
@@ -91,7 +89,7 @@ $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle<
 """)
 
 SingleReferenceTest = Template("""
-<div>$testdescription</div>
+<p>$testdescription</p>
 <p class="DOMreftest envokeOperation" id="$testid">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="64" height="64">
