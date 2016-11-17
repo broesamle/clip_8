@@ -3,11 +3,12 @@ html,body {
     border: 0;
     padding: 0;
     margin: 0;
-    width:100%;
+    width: 100%;
+    max-width: 1024px;
 }
 
 a:link		{ outline: none; text-decoration: none; color:#97b595; }
-a:visited 	{ outline: none; text-decoration: none; color:#adbeab; fill:#adbeab; }
+a:visited 	{ outline: none; text-decoration: none; color:#adbeab; }
 
 h1, h2, h3, p { clear:left; }
 
@@ -24,48 +25,49 @@ h3 svg {
 }
 
 .sndtitle {
-    font-weight:lighter;
+    font-weight: lighter;
 }
 
 .leftlink {
-    width:33%;
+    width: 33%;
     float: left;
 }
 
 .rightlink {
-    width:33%;
+    width: 33%;
     float: left;
     text-align: right;
 }
 
 .chapternavtitle {
-    width:33%;
+    width: 33%;
     float: left;
     text-align: center;
-    font-weight:bold;
-    margin-bottom:50px;
+    font-weight: bold;
+    margin-bottom: 50px;
 }
 
 .DOMreftest {
-    font-size:20px;
+    font-size: 20px;
 }
 
-.DOMreftest .pre-reference, .post-reference, .testDOM {
-    font-size:0px;  // make sure tracesvgroot overlays svgroot with no offset
-}
+/* make sure tracesvgroot overlays svgroot with no offset */
+.DOMreftest .pre-reference  { font-size: 0px; }
+.DOMreftest .post-reference { font-size: 0px; }
+.DOMreftest .testDOM        { font-size: 0px; }
 
 .DOMreftest svg {
     vertical-align: middle;
 }
 
 .DOMreftest-passed {
-    font-size:25px;
+    font-size: 25px;
     font-weight: bold;
     color: #669977;
 }
 
 .DOMreftest-failed {
-    font-size:25px;
+    font-size: 25px;
     font-weight: bold;
     color: #ee2244;
 }
