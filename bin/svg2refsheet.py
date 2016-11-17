@@ -84,7 +84,7 @@ class TestSection(SVGGroupCollection):
                     # Rather, it arranges text snippets at x,y coordinates. We try to infer paragraphs
                     # based on text snippets that start with a "+".
 
-                    textfromsvg = "__|__" + "__|__".join([x for x in child.itertext()]) # text from all subnodes, separated by ' '
+                    textfromsvg = "__|__" + "__|__".join([x for x in child.itertext()]) # text from all subnodes, separated by '__|__'
                     textfromsvg = textfromsvg.replace("__|__+", "__P__")
                     textfromsvg = textfromsvg.replace("__|__", " ")
                     paragraphs = textfromsvg.split("__P__")
