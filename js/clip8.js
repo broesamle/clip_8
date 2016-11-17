@@ -161,7 +161,7 @@ var Clip8 = {
         svgroot.parentNode.appendChild(tracesvgroot);
         tracesvgroot.setAttribute("style", "margin-left:-64; background:none;");
         var ip = Clip8.initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
-        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(ip, svgroot, tracesvgroot) }, 100 );
+        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(ip, svgroot, tracesvgroot) }, 50 );
         var erasetracetimer = setInterval( function() { eraseTrace(tracesvgroot) }, 60 );
         setTimeout ( function () { clearInterval(erasetracetimer); }, 1000 );   // stop erasor after some time
     },

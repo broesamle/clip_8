@@ -1,4 +1,6 @@
 
+var CLIP8_RUNNINGTIME = 500
+
 var customMatchers = {
 toBeElement:
     function (util, customEqualityTesters) {
@@ -55,6 +57,7 @@ function getPrecondition(reftestElement) { return reftestElement.firstElementChi
 function getPostcondition(reftestElement) { return reftestElement.firstElementChild.nextElementSibling; }
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
 
+
 function addTest_invokeOperation(reftestElement, cycles) {
     console.log("[TEST_NORMEXEC] cycles:", cycles );
     var spec;
@@ -83,7 +86,7 @@ function addTest_invokeOperation(reftestElement, cycles) {
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
         expect(Clip8.envokeOperation).not.toThrow();
-        jasmine.clock().tick(10000);
+        jasmine.clock().tick(CLIP8_RUNNINGTIME);
         expect(Clip8.executeOneOperation).toHaveBeenCalled();
         expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles, "(instruction of cycles)");
         expect(Clip8.clearExecTimer).toHaveBeenCalled();
