@@ -66,6 +66,7 @@ var Clip8 = {
 
     executeOneOperation: function(ip, svgroot, tracesvgroot) {
         var debug = true;
+        var terminate = false;  // This is a local variable, not a global running flag.
         if (debug) console.log("[executeOneOperation] ip, svgroot, tracesvgroot:", ip, svgroot, tracesvgroot);
         if (ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
         var arearect = svgdom_EndOfPathArea(ip, epsilon);
@@ -97,6 +98,7 @@ var Clip8 = {
             if (instr1.childNodes[0].tagName == "circle" &&
                 instr1.childNodes[1].tagName == "circle") {
                 if (debug) console.log("clip8envokeOperation: TERMINAL.");
+                terminate = true;
             }
             else throw "Could not decode instruction A"+instr1;
         }
@@ -146,7 +148,7 @@ var Clip8 = {
         tracesvgroot.appendChild(instr2);
         tracesvgroot.appendChild(sel2);
         */
-        Clip8.clearExecTimer();
+        if (terminate) Clip8.clearExecTimer();
     },
 
     envokeOperation: function () {
