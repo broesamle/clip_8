@@ -6,18 +6,18 @@
 <g id="Background">
 	<rect fill="#808080" width="64" height="64"/>
 </g>
-<g id="TEST-align-abs-right" display="none">
-	<g id="t1_x5F_right" display="inline" opacity="0.5">
+<g id="TEST-align-abs-right">
+	<g id="t1_x5F_right" opacity="0.5">
 		<rect x="52" y="12" width="8" height="16"/>
 		<rect x="48" y="44" width="12" height="8"/>
 		<rect x="48" y="28" width="12" height="12"/>
 	</g>
-	<g id="t0_x5F_right" display="inline" opacity="0.5">
+	<g id="t0_x5F_right" opacity="0.5">
 		<rect x="12" y="12" width="8" height="16"/>
 		<rect x="24" y="44" width="12" height="8"/>
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_right" display="inline">
+	<g id="I_x5F_right">
 		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
 		
 			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="60"/>
@@ -27,26 +27,26 @@
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0,5.367,3.318,0,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,10c0,0,5.367-3.318,0-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
 		
 			<rect x="55" y="55" fill="#FF8888" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="5" height="5"/>
 	</g>
-	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">right edges along an given </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">`absolute` line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="64" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">right edges along an given </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">`absolute` line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-align-abs-left" display="none">
-	<g id="t1_x5F_left" display="inline" opacity="0.5">
+<g id="TEST-align-abs-left">
+	<g id="t1_x5F_left" opacity="0.5">
 		<rect x="8" y="12" width="8" height="16"/>
 		<rect x="8" y="44" width="12" height="8"/>
 		<rect x="8" y="28" width="12" height="12"/>
 	</g>
-	<g id="t0_x5F_left" display="inline" opacity="0.5">
+	<g id="t0_x5F_left" opacity="0.5">
 		<rect x="12" y="12" width="8" height="16"/>
 		<rect x="24" y="44" width="12" height="8"/>
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_left" display="inline">
+	<g id="I_x5F_left">
 		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
 		
 			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="10" x2="8" y2="60"/>
@@ -56,26 +56,26 @@
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M8,10c0,0,52,0,52-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
 		
 			<rect x="8" y="55" fill="#FF8888" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="5" height="5"/>
 	</g>
-	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">left edges along an given </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">`absolute` line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="64" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">left edges along an given </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">`absolute` line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-align-abs-bottom" display="none">
-	<g id="t1_x5F_bottom" display="inline" opacity="0.5">
+<g id="TEST-align-abs-bottom">
+	<g id="t1_x5F_bottom" opacity="0.5">
 		<rect x="12" y="40" width="8" height="16"/>
 		<rect x="24" y="48" width="12" height="8"/>
 		<rect x="40" y="44" width="12" height="12"/>
 	</g>
-	<g id="t0_x5F_bottom" display="inline" opacity="0.5">
+	<g id="t0_x5F_bottom" opacity="0.5">
 		<rect x="12" y="12" width="8" height="16"/>
 		<rect x="24" y="44" width="12" height="8"/>
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_bottom" display="inline">
+	<g id="I_x5F_bottom">
 		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
@@ -85,26 +85,26 @@
 		
 			<polyline fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			10,53 8,56 6,53 		"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4C45,5,8,32.653,8,56"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M8,56c15-1,52-28.653,52-52"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c3,3-1,31,4,52"/>
 		
 			<rect x="57" y="51" fill="#FF8888" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="5" height="5"/>
 	</g>
-	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">bottom edges along an given </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">`absolute` line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="64" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">bottom edges along an given </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">`absolute` line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-align-abs-top" display="none">
-	<g id="t1_x5F_top" display="inline" opacity="0.5">
+<g id="TEST-align-abs-top">
+	<g id="t1_x5F_top" opacity="0.5">
 		<rect x="12" y="10" width="8" height="16"/>
 		<rect x="24" y="10" width="12" height="8"/>
 		<rect x="40" y="10" width="12" height="12"/>
 	</g>
-	<g id="t0_x5F_top" display="inline" opacity="0.5">
+	<g id="t0_x5F_top" opacity="0.5">
 		<rect x="12" y="12" width="8" height="16"/>
 		<rect x="24" y="44" width="12" height="8"/>
 		<rect x="40" y="28" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_top" display="inline">
+	<g id="I_x5F_top">
 		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="2,5" width="52" height="46"/>
 		
 			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="10" x2="61" y2="10"/>
@@ -115,13 +115,13 @@
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M6,5"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M8,10c0,0,52,0,52-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
 		
 			<rect x="56" y="10" fill="#FF8888" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="5" height="5"/>
 	</g>
-	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">top edges along an given `absolute` </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="64" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Align a set of objects with their </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">top edges along an given `absolute` </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">line `l`. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
 <g id="SECTIONINFO">
 	<rect y="-64" fill="none" width="119" height="55"/>
