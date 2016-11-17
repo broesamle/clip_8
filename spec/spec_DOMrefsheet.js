@@ -55,8 +55,8 @@ function getPrecondition(reftestElement) { return reftestElement.firstElementChi
 function getPostcondition(reftestElement) { return reftestElement.firstElementChild.nextElementSibling; }
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
 
-function addTest_invokeOperation(reftestElement) {
-    console.log("addTest_invokeOperation: ", reftestElement);
+function addTest_invokeOperation(reftestElement, cycles) {
+    console.log("[TEST_NORMEXEC] cycles:", cycles );
     var spec;
 
     spec = it("["+reftestElement.id+"] PRE and TEST should be equal", function(done) {
@@ -72,7 +72,7 @@ function addTest_invokeOperation(reftestElement) {
 
     test_specids.push(spec.id);
     test_domids.push(reftestElement.id);
-
+    
     spec = it("["+reftestElement.id+"] EXECUTE the operation without error", function(done) {
         jasmine.clock().install();
         var proc = getTestDOM(reftestElement);
@@ -85,7 +85,7 @@ function addTest_invokeOperation(reftestElement) {
         expect(Clip8.envokeOperation).not.toThrow();
         jasmine.clock().tick(10000);
         expect(Clip8.executeOneOperation).toHaveBeenCalled();
-        expect(Clip8.executeOneOperation.calls.count()).toBeLessThan(20);
+        expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles, "(instruction of cycles)");
         expect(Clip8.clearExecTimer).toHaveBeenCalled();
         svgroot.removeAttribute("id", reftestElement.id);
         jasmine.clock().uninstall();
@@ -119,6 +119,11 @@ describe("Reference Sheet Tester", function(){
 
     var  tests = document.getElementsByClassName("DOMreftest");
     for (var i = 0; i < tests.length; i++) {
-        addTest_invokeOperation(tests[i]);
+        if (tests[i].classList[1] === "normal_execution") {
+            cycles = parseInt(tests[i].classList[2]);
+            addTest_invokeOperation(tests[i], cycles);
+        }
+        else throw "Found test without supported testtype." + reftestElement.classList;
+
     }
 });
