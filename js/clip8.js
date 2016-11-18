@@ -5,6 +5,7 @@ var epsilon = 0.5;  // maximal difference for two coordinates to be considered e
 var minlen = 1.5;     // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
+    ip: null,
     exectimer: null,
     initControlFlow: function (svgroot, tracesvgroot) {
         var debug = false;
@@ -38,41 +39,50 @@ var Clip8 = {
         throw "Failed to idendify point of entry."
     },
 
-    getInstrEls_asGroups:
-        function (arearect, svgroot) {
-            var debug = false;
-            if (debug) console.log("[getInstrEls_asGroups] arearect, svgroot", arearect, svgroot);
-            arearect.setAttribute("fill", "#FFEE22");
-            svgroot.appendChild(arearect);
-            var s = svgretrieve_selectorFromRect(arearect, svgroot);
-            svgroot.removeChild(arearect);
-            var hitlist = svgroot.getIntersectionList(s, svgroot);
-            if (hitlist.length == 0) throw "[clip8getInstrEls_asGroups] empty hitlist.";
-            var sel = svgdom_addGroup(svgroot);
-            var instr = svgdom_addGroup(svgroot);
-            for ( var i = 0; i < hitlist.length; i++ )
-                if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
-                    hitlist[i].tagName == "circle") {
-                    instr.appendChild(hitlist[i].cloneNode(false));
-                    instr.lastElementChild.setAttribute("stroke", "#fff");
-                }
-                else if (hitlist[i].getAttribute("stroke-dasharray") &&
-                    hitlist[i].tagName == "rect") {
-                    sel.appendChild(hitlist[i].cloneNode(false));
-                    sel.lastElementChild.setAttribute("stroke", "#fff");
-                }
-            return [instr,sel];
-        },
+    getInstrEls_asGroups: function (arearect, svgroot) {
+        var debug = false;
+        if (debug) console.log("[getInstrEls_asGroups] arearect, svgroot", arearect, svgroot);
+        arearect.setAttribute("fill", "#FFEE22");
+        svgroot.appendChild(arearect);
+        var s = svgretrieve_selectorFromRect(arearect, svgroot);
+        svgroot.removeChild(arearect);
+        var hitlist = svgroot.getIntersectionList(s, svgroot);
+        if (debug)  console.log("[getInstrEls_asGroups] hitlist:", hitlist);
+        if (hitlist.length == 0) throw "[clip8getInstrEls_asGroups] empty hitlist.";
+        var sel = svgdom_addGroup(svgroot);
+        var instr = svgdom_addGroup(svgroot);
+        var nextIP = null;
+        for ( var i = 0; i < hitlist.length; i++ )
+            if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
+                hitlist[i].tagName == "circle") {
+                instr.appendChild(hitlist[i].cloneNode(false));
+                instr.lastElementChild.setAttribute("stroke", "#fff");
+            }
+            else if (hitlist[i].getAttribute("stroke-dasharray") &&
+                hitlist[i].tagName == "rect") {
+                sel.appendChild(hitlist[i].cloneNode(false));
+                sel.lastElementChild.setAttribute("stroke", "#fff");
+            }
+            else if (hitlist[i].getAttribute("stroke-linecap") != "round" &&
+                hitlist[i].tagName == "path" )
+                if (hitlist[i] != Clip8.ip)     //make sure it is not the old ip
+                    if (nextIP == null) nextIP = hitlist[i]
+                    else throw "Instruction Pointer ambiguous.";
+                console.log("in the loop: nextIP", nextIP);
+        return [instr, sel, nextIP];
+    },
 
-    executeOneOperation: function(ip, svgroot, tracesvgroot) {
+    executeOneOperation: function(svgroot, tracesvgroot) {
         var debug = true;
-        if (debug) console.log("[executeOneOperation] ip, svgroot, tracesvgroot:", ip, svgroot, tracesvgroot);
-        if (ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
-        var arearect = svgdom_EndOfPathArea(ip, epsilon);
+        var terminate = false;  // This is a local variable, not a global running flag.
+        if (debug) console.log("[executeOneOperation] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
+        if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
+        var arearect = svgdom_EndOfPathArea(Clip8.ip, epsilon);
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
+        if (debug) console.log("[clip8envokeOperation] instrNsel: ", instrNsel);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
-        if (debug) console.log("clip8envokeOperation: INSTR1, SEL1", instr1, sel1);
+        Clip8.ip = instrNsel[2];
 
         // List of selected Elements based on primary selector
         var selectedelements1 = [];
@@ -97,6 +107,7 @@ var Clip8 = {
             if (instr1.childNodes[0].tagName == "circle" &&
                 instr1.childNodes[1].tagName == "circle") {
                 if (debug) console.log("clip8envokeOperation: TERMINAL.");
+                terminate = true;
             }
             else throw "Could not decode instruction A"+instr1;
         }
@@ -146,7 +157,7 @@ var Clip8 = {
         tracesvgroot.appendChild(instr2);
         tracesvgroot.appendChild(sel2);
         */
-        Clip8.clearExecTimer();
+        if (terminate) Clip8.clearExecTimer();
     },
 
     envokeOperation: function () {
@@ -160,8 +171,8 @@ var Clip8 = {
         var tracesvgroot = svgroot.cloneNode(false);
         svgroot.parentNode.appendChild(tracesvgroot);
         tracesvgroot.setAttribute("style", "margin-left:-64; background:none;");
-        var ip = Clip8.initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
-        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(ip, svgroot, tracesvgroot) }, 100 );
+        Clip8.ip = Clip8.initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
+        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot, tracesvgroot) }, 50 );
         var erasetracetimer = setInterval( function() { eraseTrace(tracesvgroot) }, 60 );
         setTimeout ( function () { clearInterval(erasetracetimer); }, 1000 );   // stop erasor after some time
     },

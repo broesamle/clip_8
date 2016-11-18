@@ -27,7 +27,7 @@
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0,5.367,3.318,0,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,10c0,0,5.367-3.318,0-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
@@ -54,7 +54,7 @@
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M8,10c0,0,52,0,52-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
@@ -81,7 +81,7 @@
 		
 			<polyline fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			10,53 8,56 6,53 		"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4C45,5,8,32.653,8,56"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M8,56c15-1,52-28.653,52-52"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c3,3-1,31,4,52"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
@@ -109,7 +109,7 @@
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M6,5"/>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c0,0-52,0-52,6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M8,10c0,0,52,0,52-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,4,0,4,6"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
