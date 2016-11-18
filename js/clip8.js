@@ -150,6 +150,9 @@ var Clip8 = {
             if (debug) console.log("[clip8envokeOperation] instrNsel (2): ", instrNsel);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
+            var snd_signature = clip8countTags(instr2, ["rect"]);
+            if (snd_signature.toString() === [1].toString() )
+                selectedelements1.push(instr2.firstChild); // Add the absolute rectangle to the selected set.
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
@@ -165,6 +168,11 @@ var Clip8 = {
                     break;
                 default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
             }
+            if (debug) console.log("clip8envokeOperation: remove instr2, sel2", instr2, sel2);
+            svgroot.removeChild(instr2);
+            svgroot.removeChild(sel2);
+            tracesvgroot.appendChild(instr2);
+            tracesvgroot.appendChild(sel2);
         }
         else
             throw "Could not decode instruction X"+instr1;
@@ -173,13 +181,6 @@ var Clip8 = {
         svgroot.removeChild(sel1);
         tracesvgroot.appendChild(instr1);
         tracesvgroot.appendChild(sel1);
-        /* FIXME: see fix above.
-        if (debug) console.log("clip8envokeOperation: remove instr2, sel2", instr2, sel2);
-        svgroot.removeChild(instr2);
-        svgroot.removeChild(sel2);
-        tracesvgroot.appendChild(instr2);
-        tracesvgroot.appendChild(sel2);
-        */
         if (terminate) Clip8.clearExecTimer();
     },
 
