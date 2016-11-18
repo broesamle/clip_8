@@ -59,7 +59,7 @@ var Clip8 = {
 
     getInstrEls_asGroups: function (arearect, svgroot) {
         var debug = false;
-        if (debug) console.log("[getInstrEls_asGroups] arearect, svgroot", arearect, svgroot);
+        if (debug) console.log("[GETINSTRELS_ASGROUPS] arearect, svgroot", arearect, svgroot);
         arearect.setAttribute("fill", "#FFEE22");
         svgroot.appendChild(arearect);
         var s = svgretrieve_selectorFromRect(arearect, svgroot);
@@ -105,7 +105,7 @@ var Clip8 = {
         var arearect = svgdom_EndOfPathArea(Clip8.ip, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-        if (debug) console.log("[clip8envokeOperation] instrNsel: ", instrNsel);
+        if (debug) console.log("[clip8envokeOperation] instrNsel (1): ", instrNsel);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
         Clip8.ip = instrNsel[2];
@@ -147,9 +147,9 @@ var Clip8 = {
             if (debug) console.log("clip8envokeOperation: angle direction", angledir);
             var arearect = svgdom_EndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
+            if (debug) console.log("[clip8envokeOperation] instrNsel (2): ", instrNsel);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
-            if (debug) console.log("[clip8envokeOperation] instr2, sel2:", instr2, sel2);
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
