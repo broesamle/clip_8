@@ -58,7 +58,7 @@ function getPostcondition(reftestElement) { return reftestElement.firstElementCh
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
 
 
-function addTest_invokeOperation(reftestElement, cycles) {
+function addTest_normal_execution(reftestElement, cycles) {
     console.log("[TEST_NORMEXEC] cycles:", cycles );
     var spec;
 
@@ -124,7 +124,7 @@ describe("Reference Sheet Tester", function(){
     for (var i = 0; i < tests.length; i++) {
         if (tests[i].classList[1] === "normal_execution") {
             cycles = parseInt(tests[i].classList[2]);
-            addTest_invokeOperation(tests[i], cycles);
+            addTest_normal_execution(tests[i], cycles);
         }
         else throw "Found test without supported testtype." + reftestElement.classList;
 
