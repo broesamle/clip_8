@@ -5,8 +5,26 @@ var epsilon = 0.5;  // maximal difference for two coordinates to be considered e
 var minlen = 1.5;     // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
-    ip: null,
     exectimer: null,
+    ip: null,       // instruction pointer
+    blocklist: [],  // list of elements already retrieved during current instruction cycle.
+
+    _isBlocklisted: function (el) {
+        var debug = false;
+        for (var i = 0; i < Clip8.blocklist.length; i++)
+            if (el == Clip8.blocklist[i]) {
+                if (debug) console.log("[_isBlocklisted] TRUE ... el, Clip8.blocklist", el, Clip8.blocklist);
+                return true;
+            }
+        if (debug) console.log("[_isBlocklisted] FALSE ... el, Clip8.blocklist", el, Clip8.blocklist);
+        return false;
+    },
+
+    _setRetrievedAttribs: function (el) {
+        el.setAttribute("stroke", "#fff");
+        el.setAttribute("pointer-events", "none");
+    },
+
     initControlFlow: function (svgroot, tracesvgroot) {
         var debug = false;
         var circles = svgroot.getElementsByTagName("circle");
@@ -52,23 +70,30 @@ var Clip8 = {
         var sel = svgdom_addGroup(svgroot);
         var instr = svgdom_addGroup(svgroot);
         var nextIP = null;
-        for ( var i = 0; i < hitlist.length; i++ )
-            if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
-                hitlist[i].tagName == "circle") {
-                instr.appendChild(hitlist[i].cloneNode(false));
-                instr.lastElementChild.setAttribute("stroke", "#fff");
+        for ( var i = 0; i < hitlist.length; i++ ) {
+            if (!Clip8._isBlocklisted(hitlist[i])) {
+                if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
+                    hitlist[i].tagName == "circle") {
+                    instr.appendChild(hitlist[i].cloneNode(false));
+                    Clip8._setRetrievedAttribs(instr.lastElementChild);
+                    Clip8.blocklist.push(hitlist[i]);
+                }
+                else if (hitlist[i].getAttribute("stroke-dasharray") &&
+                    hitlist[i].tagName == "rect") {
+                    sel.appendChild(hitlist[i].cloneNode(false));
+                    Clip8._setRetrievedAttribs(sel.lastElementChild);
+                    Clip8.blocklist.push(hitlist[i]);
+                }
+                else if (hitlist[i].getAttribute("stroke-linecap") != "round" &&
+                    hitlist[i].tagName == "path" ) {
+                    if (hitlist[i] != Clip8.ip)     //make sure it is not the old ip
+                        if (nextIP == null) nextIP = hitlist[i];
+                        else throw "Instruction Pointer ambiguous.";
+                }
             }
-            else if (hitlist[i].getAttribute("stroke-dasharray") &&
-                hitlist[i].tagName == "rect") {
-                sel.appendChild(hitlist[i].cloneNode(false));
-                sel.lastElementChild.setAttribute("stroke", "#fff");
-            }
-            else if (hitlist[i].getAttribute("stroke-linecap") != "round" &&
-                hitlist[i].tagName == "path" )
-                if (hitlist[i] != Clip8.ip)     //make sure it is not the old ip
-                    if (nextIP == null) nextIP = hitlist[i]
-                    else throw "Instruction Pointer ambiguous.";
-                console.log("in the loop: nextIP", nextIP);
+            else
+                if (debug) console.log("[getInstrEls_asGroups] ignore blocklisted element: ", Clip8._isBlocklisted(hitlist[i]) );
+        }
         return [instr, sel, nextIP];
     },
 
@@ -78,6 +103,7 @@ var Clip8 = {
         if (debug) console.log("[executeOneOperation] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
         var arearect = svgdom_EndOfPathArea(Clip8.ip, epsilon);
+        Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
         if (debug) console.log("[clip8envokeOperation] instrNsel: ", instrNsel);
         var instr1 = instrNsel[0];
@@ -119,14 +145,11 @@ var Clip8 = {
             var thepoly = instr1.getElementsByTagName("polyline")[0];
             var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("clip8envokeOperation: angle direction", angledir);
-            /* FIXME: Make sure no elements get double-selected
             var arearect = svgdom_EndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
             if (debug) console.log("[clip8envokeOperation] instr2, sel2:", instr2, sel2);
-            */
-
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
