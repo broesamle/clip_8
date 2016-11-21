@@ -6,7 +6,7 @@
 <g id="Background">
 	<rect fill="#808080" width="64" height="64"/>
 </g>
-<g id="TEST-move-rel-dl">
+<g id="TEST-cut-horiz">
 	<g id="t1_x5F_downleft" opacity="0.5">
 		<rect x="32.499" y="34.781" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="13.719"/>
 		<rect x="32.499" y="12.625" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="22.157"/>
