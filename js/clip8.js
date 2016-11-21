@@ -13,10 +13,10 @@ var Clip8 = {
         var debug = false;
         for (var i = 0; i < Clip8.blocklist.length; i++)
             if (el == Clip8.blocklist[i]) {
-                if (debug) console.log("[_isBlocklisted] TRUE ... el, Clip8.blocklist", el, Clip8.blocklist);
+                if (debug) console.log("[_isBlocklisted] TRUE ... el, Clip8.blocklist:", el, Clip8.blocklist);
                 return true;
             }
-        if (debug) console.log("[_isBlocklisted] FALSE ... el, Clip8.blocklist", el, Clip8.blocklist);
+        if (debug) console.log("[_isBlocklisted] FALSE ... el, Clip8.blocklist:", el, Clip8.blocklist);
         return false;
     },
 
@@ -39,7 +39,7 @@ var Clip8 = {
         for ( var i = 0; i < centres.childNodes.length; i++ ) {
             var sel = svgretrieve_selectorFromRect(centres.childNodes[i], svgroot);
             var hitlist = svgroot.getIntersectionList(sel, centres);
-            if (debug)  console.log("clip8initControlFlow: hitlist", hitlist);
+            if (debug)  console.log("[clip8initControlFlow] hitlist:", hitlist);
             if (hitlist.length == 1) {
                 var initarea = svgretrieve_selectorFromRect(hitlist[0], svgroot);
                 // visualise initial control flow node
@@ -47,11 +47,11 @@ var Clip8 = {
                 clip8setTraceAttribs(tracerect);
                 svgroot.removeChild(centres);
                 hitlist = svgroot.getIntersectionList(initarea, svgroot);
-                if (debug)  console.log("clip8initControlFlow: initiallocation", hitlist);
+                if (debug)  console.log("[clip8initControlFlow] initiallocation:", hitlist);
                 break;
             }
         }
-        if (debug) console.log("clip8initControlFlow: els at initial location.", hitlist);
+        if (debug) console.log("[clip8initControlFlow] els at initial location:", hitlist);
         for ( var i = 0; i < hitlist.length; i++ )
             if (hitlist[i].tagName == "path") return hitlist[i];
         throw "Failed to idendify point of entry."
@@ -59,7 +59,7 @@ var Clip8 = {
 
     getInstrEls_asGroups: function (arearect, svgroot) {
         var debug = false;
-        if (debug) console.log("[GETINSTRELS_ASGROUPS] arearect, svgroot", arearect, svgroot);
+        if (debug) console.log("[GETINSTRELS_ASGROUPS] arearect, svgroot:", arearect, svgroot);
         arearect.setAttribute("fill", "#FFEE22");
         svgroot.appendChild(arearect);
         var s = svgretrieve_selectorFromRect(arearect, svgroot);
@@ -92,7 +92,7 @@ var Clip8 = {
                 }
             }
             else
-                if (debug) console.log("[getInstrEls_asGroups] ignore blocklisted element: ", Clip8._isBlocklisted(hitlist[i]) );
+                if (debug) console.log("[getInstrEls_asGroups] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
         }
         return [instr, sel, nextIP];
     },
@@ -100,12 +100,12 @@ var Clip8 = {
     executeOneOperation: function(svgroot, tracesvgroot) {
         var debug = true;
         var terminate = false;  // This is a local variable, not a global running flag.
-        if (debug) console.log("[executeOneOperation] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
+        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
         var arearect = svgdom_EndOfPathArea(Clip8.ip, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-        if (debug) console.log("[clip8envokeOperation] instrNsel (1): ", instrNsel);
+        if (debug) console.log("[clip8envokeOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0], instrNsel[1], instrNsel[2]);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
         Clip8.ip = instrNsel[2];
@@ -114,7 +114,7 @@ var Clip8 = {
         var selectedelements1 = [];
         if (sel1.firstChild instanceof SVGRectElement) {
             var s = svgretrieve_selectorFromRect(sel1.firstChild, svgroot);
-            if (debug) console.log("clip8envokeOperation: selector from rect in sel1", s);
+            if (debug) console.log("[clip8envokeOperation] selector from rect in sel1:", s);
             var hitlist = svgroot.getEnclosureList(s, svgroot);
             for ( var i = 0; i < hitlist.length; i++ )
                 if ( hitlist[i].tagName == "rect" &&
@@ -123,31 +123,32 @@ var Clip8 = {
         }
         else selectedelements1 = undefined;
 
-        if (debug) console.log("clip8envokeOperation: selectedelements1", selectedelements1);
+        if (debug) console.log("[clip8envokeOperation] selectedelements1:", selectedelements1);
 
         // decode instruction
         var signature = clip8countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
-        if (debug) console.log("clip8envokeOperation: signature", signature);
+        if (debug) console.log("[clip8envokeOperation] signature:", signature);
         if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
-            if (debug) console.log("clip8envokeOperation: two circles");
+            if (debug) console.log("[clip8envokeOperation] two circles.");
             if (instr1.childNodes[0].tagName == "circle" &&
                 instr1.childNodes[1].tagName == "circle") {
-                if (debug) console.log("clip8envokeOperation: TERMINAL.");
+                if (debug) console.log("[clip8envokeOperation] TERMINAL.");
                 terminate = true;
             }
             else throw "Could not decode instruction A"+instr1;
         }
         else if ( signature.toString() === [0, 0, 0, 1, 1].toString() ) {
-            if (debug) console.log("clip8envokeOperation: 1 line, 1 polyline.");
+            // ALIGN
+            if (debug) console.log("[clip8envokeOperation] 1 line, 1 polyline.");
             var theline = instr1.getElementsByTagName("line")[0];
             var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
-            if (debug) console.log("clip8envokeOperation: direction", linedir);
+            if (debug) console.log("[clip8envokeOperation] direction:", linedir);
             var thepoly = instr1.getElementsByTagName("polyline")[0];
             var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
-            if (debug) console.log("clip8envokeOperation: angle direction", angledir);
+            if (debug) console.log("[clip8envokeOperation] angle direction:", angledir);
             var arearect = svgdom_EndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-            if (debug) console.log("[clip8envokeOperation] instrNsel (2): ", instrNsel);
+            if (debug) console.log("[clip8envokeOperation] instrNsel(B) [0, 1]:", instrNsel[0], instrNsel[1]);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
             var snd_signature = clip8countTags(instr2, ["rect"]);
@@ -168,7 +169,7 @@ var Clip8 = {
                     break;
                 default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
             }
-            if (debug) console.log("clip8envokeOperation: remove instr2, sel2", instr2, sel2);
+            if (debug) console.log("[clip8envokeOperation] remove instr2, sel2:", instr2, sel2);
             svgroot.removeChild(instr2);
             svgroot.removeChild(sel2);
             tracesvgroot.appendChild(instr2);
@@ -176,7 +177,7 @@ var Clip8 = {
         }
         else
             throw "Could not decode instruction X"+instr1;
-        if (debug) console.log("clip8envokeOperation: remove instr1, sel1", instr1, sel1);
+        if (debug) console.log("[clip8envokeOperation] remove instr1, sel1:", instr1, sel1);
         svgroot.removeChild(instr1);
         svgroot.removeChild(sel1);
         tracesvgroot.appendChild(instr1);
@@ -187,7 +188,7 @@ var Clip8 = {
     envokeOperation: function () {
         var debug = true;
         var svgroot = document.getElementById("clip8svgroot");
-        console.log("clip8envokeOperation:", svgroot);
+        console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
 
         svgdom_setSVGNS(svgroot.namespaceURI);
