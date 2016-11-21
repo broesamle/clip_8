@@ -105,7 +105,7 @@ var Clip8 = {
         var arearect = svgdom_EndOfPathArea(Clip8.ip, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-        if (debug) console.log("[clip8envokeOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0], instrNsel[1], instrNsel[2]);
+        if (debug) console.log("[clip8envokeOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
         Clip8.ip = instrNsel[2];
@@ -148,7 +148,7 @@ var Clip8 = {
             if (debug) console.log("[clip8envokeOperation] angle direction:", angledir);
             var arearect = svgdom_EndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-            if (debug) console.log("[clip8envokeOperation] instrNsel(B) [0, 1]:", instrNsel[0], instrNsel[1]);
+            if (debug) console.log("[clip8envokeOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
             var snd_signature = clip8countTags(instr2, ["rect"]);
@@ -174,6 +174,10 @@ var Clip8 = {
             svgroot.removeChild(sel2);
             tracesvgroot.appendChild(instr2);
             tracesvgroot.appendChild(sel2);
+        }
+        else if ( signature.toString() === [0, 0, 0, 1, 0].toString() ) {
+            // MOVE, CUT
+            if (debug) console.log("[clip8envokeOperation] 1 line.");
         }
         else
             throw "Could not decode instruction X"+instr1;
