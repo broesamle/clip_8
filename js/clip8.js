@@ -157,14 +157,14 @@ var Clip8 = {
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
-                    if (angledir == 'LEFT')         paperclip_alignrelLeft (selectedelements1);
-                    else if (angledir == 'RIGHT')   paperclip_alignrelRight (selectedelements1);
+                    if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
+                    else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
                     else throw "[clip8envokeOperation] Encountered invalid line arrow combination (a).";
                     break;
                 case 'LEFT':
                 case 'RIGHT':
-                    if (angledir == 'UP')           paperclip_alignrelTop (selectedelements1);
-                    else if (angledir == 'DOWN')    paperclip_alignrelBottom (selectedelements1);
+                    if (angledir == 'UP')           Paperclip.alignrelTop (selectedelements1);
+                    else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
                     else throw "[clip8envokeOperation] Encountered invalid line arrow combination (b).";
                     break;
                 default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
@@ -178,6 +178,7 @@ var Clip8 = {
         else if ( signature.toString() === [0, 0, 0, 1, 0].toString() ) {
             // MOVE, CUT
             if (debug) console.log("[clip8envokeOperation] 1 line.");
+
         }
         else
             throw "Could not decode instruction X"+instr1;
