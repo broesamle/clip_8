@@ -178,6 +178,22 @@ var Clip8 = {
         else if ( signature.toString() === [0, 0, 0, 1, 0].toString() ) {
             // MOVE, CUT
             if (debug) console.log("[clip8envokeOperation] 1 line.");
+            var theline = instr1.getElementsByTagName("line")[0];
+            if (theline.getAttribute("stroke-dasharray")) {
+                var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
+                switch (linedir) {
+                    case 'UP':
+                    case 'DOWN':
+
+                        break;
+                    case 'LEFT':
+                    case 'RIGHT':
+                        break;
+                    default:        throw "[clip8envokeOperation] Encountered invalid line direction (b).";  break;
+                }
+            }
+            else
+                throw "Could not decode instruction M"+instr1;
 
         }
         else

@@ -67,5 +67,20 @@ var Paperclip = {
             if (bottom < (elems[i].y.baseVal.value+elems[i].height.baseVal.value)) bottom = elems[i].y.baseVal.value+elems[i].height.baseVal.value;
         for ( var i = 0; i < elems.length; i++)
             Paperclip._alignBottom(bottom, elems[i]);
+    },
+
+    // Cut
+    cutVertical: function (elems, cutX) {
+        for (i = 0; i < elems.length; i++) {
+            if ( ! elem instanceof SVGRectElement ) throw "[cutVertical] not implemented for "+elem.constructor.name;
+
+        }
+    },
+
+    cutHorizontal: function (elems, cutY) {
+        for (i = 0; i < elems.length; i++) {
+            if ( ! elem instanceof SVGRectElement ) throw "[cutHorizontal] not implemented for "+elem.constructor.name;
+
+        }
     }
 }

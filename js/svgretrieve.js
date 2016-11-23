@@ -52,6 +52,18 @@ var Svgretrieve = {
         return r;
     },
 
-    vFullHeightStripe: function(line, svgcontainer) {
+    enclosingFullHeightStripe: function(line, svgcontainer) {
+        /*  Determine the horizontal boundaries enclosing `line`.
+            Return a full-height vertical stripe/rectangle (from top to bottom of `svgcontainer`) with corresponding horizontal boundaries.
+            Initial use case: Select elements potentially affected by a horizontal cut.
+        */
+    },
+
+    enclosingFullWidthStripe: function(line, svgcontainer) {
+        /*  Determine the vertical boundaries enclosing `line`.
+            Return a full-width horizontal stripe/rectangle (from left to right of `svgcontainer`) with corresponding vertical boundaries.
+            Initial use case: Select elements potentially affected by a vertical cut.
+        */
     }
+
 }
