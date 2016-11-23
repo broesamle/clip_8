@@ -37,11 +37,11 @@ var Clip8 = {
             centres.appendChild(r);
         }
         for ( var i = 0; i < centres.childNodes.length; i++ ) {
-            var sel = svgretrieve.selectorFromRect(centres.childNodes[i], svgroot);
+            var sel = Svgretrieve.selectorFromRect(centres.childNodes[i], svgroot);
             var hitlist = svgroot.getIntersectionList(sel, centres);
             if (debug)  console.log("[clip8initControlFlow] hitlist:", hitlist);
             if (hitlist.length == 1) {
-                var initarea = svgretrieve.selectorFromRect(hitlist[0], svgroot);
+                var initarea = Svgretrieve.selectorFromRect(hitlist[0], svgroot);
                 // visualise initial control flow node
                 var tracerect = svgdom_addRect(tracesvgroot, initarea.x-3,initarea.y-3, initarea.width+6, initarea.height+6);
                 clip8setTraceAttribs(tracerect);
@@ -62,7 +62,7 @@ var Clip8 = {
         if (debug) console.log("[GETINSTRELS_ASGROUPS] arearect, svgroot:", arearect, svgroot);
         arearect.setAttribute("fill", "#FFEE22");
         svgroot.appendChild(arearect);
-        var s = svgretrieve.selectorFromRect(arearect, svgroot);
+        var s = Svgretrieve.selectorFromRect(arearect, svgroot);
         svgroot.removeChild(arearect);
         var hitlist = svgroot.getIntersectionList(s, svgroot);
         if (debug)  console.log("[getInstrEls_asGroups] hitlist:", hitlist);
@@ -113,7 +113,7 @@ var Clip8 = {
         // List of selected Elements based on primary selector
         var selectedelements1 = [];
         if (sel1.firstChild instanceof SVGRectElement) {
-            var s = svgretrieve.selectorFromRect(sel1.firstChild, svgroot);
+            var s = Svgretrieve.selectorFromRect(sel1.firstChild, svgroot);
             if (debug) console.log("[clip8envokeOperation] selector from rect in sel1:", s);
             var hitlist = svgroot.getEnclosureList(s, svgroot);
             for ( var i = 0; i < hitlist.length; i++ )
