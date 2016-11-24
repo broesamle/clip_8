@@ -91,7 +91,6 @@ class TestSection(SVGGroupCollection):
                     paragraphs = [ " ".join(par.split()) for par in paragraphs ] # remove unnecessary whitespace
                     try: paragraphs.remove("")
                     except ValueError: pass
-                    print(paragraphs)
                     self.sectiondescription = paragraphs
                 elif child.get('id',"").startswith("I"):
                     self.sectioninstructionicon = allChildrenToSVG(child)
@@ -176,7 +175,10 @@ while len(SCT.sections) > 0:
             lastchapter = chapter
         tests = TestSection(inFN, strictsubstitute=True)
         for thetest in tests.values():
-            print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'])
+            printid = thetest['testid'] + " "*max(0, 25-len(thetest['testid']))
+            printdescr = thetest['testdescription'][:min(len(thetest['testdescription']), 55)]
+            printdescr += " "* max(0, (55-len(printdescr)))
+            print ( "  [ %10s ] %s (%s/%s cycl.)" % (printid, printdescr, thetest['testtype'], thetest['cycles']) )
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
