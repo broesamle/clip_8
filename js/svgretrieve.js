@@ -57,6 +57,40 @@ var Svgretrieve = {
             Return a full-height vertical stripe/rectangle (from top to bottom of `svgcontainer`) with corresponding horizontal boundaries.
             Initial use case: Select elements potentially affected by a horizontal cut.
         */
+        var trafos = Svgretrieve._collectTrafos(line, svgcontainer)
+        var points = [svgcontainer.createSVGPoint(), svgcontainer.createSVGPoint()];
+        points[0].x = line.x1.baseVal.value;
+        points[0].y = line.y1.baseVal.value;
+        points[1].x = line.x2.baseVal.value;
+        points[1].y = line.y2.baseVal.value;
+        Svgretrieve._applyTrafos(points, trafos);
+        var stripe = svgcontainer.createSVGRect();
+        if (points[0].x < points[1].x)  { stripe.x = points[0].x; stripe.width  = points[1].x - points[0].x; }
+        else                            { stripe.x = points[1].x; stripe.width  = points[0].x - points[1].x; }
+        stripe.y = svgcontainer.getAttribute("viewBox").split(" ")[1];
+        stripe.height = svgcontainer.getAttribute("viewBox").split(" ")[3];
+        // above and below the line
+        var above = svgcontainer.createSVGRect();
+        var below = svgcontainer.createSVGRect();
+        // horizontal direction
+        above.x = stripe.x;
+        above.width = stripe.width;
+        below.x = stripe.x;
+        below.width = stripe.width;
+        // vertical direction
+        if (points[0].y < points[1].y) {
+            above.y = points[1].y;
+            above.height  = stripe.height - points[1].y;
+            below.y = stripe.y;
+            below.height  = stripe.height - points[0].y;
+        }
+        else {
+            above.y = points[0].y;
+            above.height  = stripe.height - points[0].y;
+            below.y = stripe.y;
+            below.height  = stripe.height - points[1].y;
+        }
+        return [stripe, above, below];
     },
 
     enclosingFullWidthStripe: function(line, svgcontainer) {
@@ -64,6 +98,6 @@ var Svgretrieve = {
             Return a full-width horizontal stripe/rectangle (from left to right of `svgcontainer`) with corresponding vertical boundaries.
             Initial use case: Select elements potentially affected by a vertical cut.
         */
+        throw "[enclosingFullWidthStripe] not implemented."
     }
-
 }

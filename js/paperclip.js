@@ -78,9 +78,14 @@ var Paperclip = {
     },
 
     cutHorizontal: function (elems, cutY) {
-        for (i = 0; i < elems.length; i++) {
-            if ( ! elem instanceof SVGRectElement ) throw "[cutHorizontal] not implemented for "+elem.constructor.name;
-
+        var theclone;
+        for (var i = 0; i < elems.length; i++) {
+            if ( ! elems[i] instanceof SVGRectElement ) throw "[cutHorizontal] not implemented for "+elems[i].constructor.name;
+            theclone = elems[i].cloneNode();
+            theclone.setAttribute("height", cutY - theclone.getAttribute("y") );
+            elems[i].setAttribute("y", cutY);
+            elems[i].setAttribute("height", elems[i].getAttribute("height") - theclone.getAttribute("height"));
+            elems[i].parentElement.insertBefore(theclone, elems[i]);
         }
     }
 }

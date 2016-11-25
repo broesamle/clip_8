@@ -180,6 +180,7 @@ var Clip8 = {
             if (debug) console.log("[clip8envokeOperation] 1 line.");
             var theline = instr1.getElementsByTagName("line")[0];
             if (theline.getAttribute("stroke-dasharray")) {
+                // CUT
                 var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
                 switch (linedir) {
                     case 'UP':
@@ -188,6 +189,19 @@ var Clip8 = {
                         break;
                     case 'LEFT':
                     case 'RIGHT':
+                        var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline, svgroot);
+                        var stripe = stripeNaboveNbelow[0];
+                        var above = stripeNaboveNbelow[1];
+                        var below = stripeNaboveNbelow[2];
+                        if (debug) console.log("[clip8envokeOperation] stripe, above, below:", stripe, above, below);
+                        var hitlist = svgroot.getEnclosureList(stripe, svgroot);
+                        if (debug) console.log("[clip8envokeOperation] hitlist:", hitlist);
+                        var selectedelements1 = []
+                        for (var i = 0; i < hitlist.length; i++)
+                            if ( svgroot.checkIntersection(hitlist[i], above) && svgroot.checkIntersection(hitlist[i], below) )
+                                selectedelements1.push(hitlist[i]);
+                        if (debug) console.log("[clip8envokeOperation] selectedelements1:", selectedelements1);
+                        Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
                         break;
                     default:        throw "[clip8envokeOperation] Encountered invalid line direction (b).";  break;
                 }
