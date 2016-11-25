@@ -8,17 +8,17 @@
 </g>
 <g id="TEST-cut-horiz">
 	<g id="t1_x5F_downleft" opacity="0.5">
-		<rect x="32.499" y="34.781" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="13.719"/>
 		<rect x="32.499" y="12.625" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="22.157"/>
+		<rect x="32.499" y="34.781" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="13.719"/>
 		<rect x="6.624" y="12.625" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="35.875"/>
 	</g>
 	<g id="t0_x5F_downleft" opacity="0.5">
-		<rect x="6.624" y="12.625" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="35.875"/>
 		<rect x="32.499" y="12.625" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="35.875"/>
+		<rect x="6.624" y="12.625" stroke="#FFFFFF" stroke-miterlimit="10" width="18.001" height="35.875"/>
 	</g>
 	<g id="I_x5F_downleft">
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="54" y1="34.699" x2="15.625" y2="34.699"/>
+			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="54" y1="34.781" x2="15.625" y2="34.781"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
