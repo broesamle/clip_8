@@ -105,7 +105,7 @@ var Clip8 = {
         var arearect = svgdom_EndOfPathArea(Clip8.ip, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-        if (debug) console.log("[clip8envokeOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
+        if (debug) console.log("[executeOneOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
         Clip8.ip = instrNsel[2];
@@ -114,7 +114,7 @@ var Clip8 = {
         var selectedelements1 = [];
         if (sel1.firstChild instanceof SVGRectElement) {
             var s = Svgretrieve.selectorFromRect(sel1.firstChild, svgroot);
-            if (debug) console.log("[clip8envokeOperation] selector from rect in sel1:", s);
+            if (debug) console.log("[executeOneOperation] selector from rect in sel1:", s);
             var hitlist = svgroot.getEnclosureList(s, svgroot);
             for ( var i = 0; i < hitlist.length; i++ )
                 if ( hitlist[i].tagName == "rect" &&
@@ -123,32 +123,32 @@ var Clip8 = {
         }
         else selectedelements1 = undefined;
 
-        if (debug) console.log("[clip8envokeOperation] selectedelements1:", selectedelements1);
+        if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         // decode instruction
         var signature = clip8countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
-        if (debug) console.log("[clip8envokeOperation] signature:", signature);
+        if (debug) console.log("[executeOneOperation] signature:", signature);
         if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
-            if (debug) console.log("[clip8envokeOperation] two circles.");
+            if (debug) console.log("[executeOneOperation] two circles.");
             if (instr1.childNodes[0].tagName == "circle" &&
                 instr1.childNodes[1].tagName == "circle") {
-                if (debug) console.log("[clip8envokeOperation] TERMINAL.");
+                if (debug) console.log("[executeOneOperation] TERMINAL.");
                 terminate = true;
             }
             else throw "Could not decode instruction A"+instr1;
         }
         else if ( signature.toString() === [0, 0, 0, 1, 1].toString() ) {
             // ALIGN
-            if (debug) console.log("[clip8envokeOperation] 1 line, 1 polyline.");
+            if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
             var theline = instr1.getElementsByTagName("line")[0];
             var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
-            if (debug) console.log("[clip8envokeOperation] direction:", linedir);
+            if (debug) console.log("[executeOneOperation] direction:", linedir);
             var thepoly = instr1.getElementsByTagName("polyline")[0];
             var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
-            if (debug) console.log("[clip8envokeOperation] angle direction:", angledir);
+            if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = svgdom_EndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-            if (debug) console.log("[clip8envokeOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
+            if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
             var snd_signature = clip8countTags(instr2, ["rect"]);
@@ -159,17 +159,17 @@ var Clip8 = {
                 case 'DOWN':
                     if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
                     else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
-                    else throw "[clip8envokeOperation] Encountered invalid line arrow combination (a).";
+                    else throw "[executeOneOperation] Encountered invalid line arrow combination (a).";
                     break;
                 case 'LEFT':
                 case 'RIGHT':
                     if (angledir == 'UP')           Paperclip.alignrelTop (selectedelements1);
                     else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
-                    else throw "[clip8envokeOperation] Encountered invalid line arrow combination (b).";
+                    else throw "[executeOneOperation] Encountered invalid line arrow combination (b).";
                     break;
-                default:        throw "[clip8envokeOperation] Encountered invalid line direction (a)."; break;
+                default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
             }
-            if (debug) console.log("[clip8envokeOperation] remove instr2, sel2:", instr2, sel2);
+            if (debug) console.log("[executeOneOperation] remove instr2, sel2:", instr2, sel2);
             svgroot.removeChild(instr2);
             svgroot.removeChild(sel2);
             tracesvgroot.appendChild(instr2);
@@ -177,7 +177,7 @@ var Clip8 = {
         }
         else if ( signature.toString() === [0, 0, 0, 1, 0].toString() ) {
             // MOVE, CUT
-            if (debug) console.log("[clip8envokeOperation] 1 line.");
+            if (debug) console.log("[executeOneOperation] 1 line.");
             var theline = instr1.getElementsByTagName("line")[0];
             if (theline.getAttribute("stroke-dasharray")) {
                 // CUT
@@ -193,17 +193,17 @@ var Clip8 = {
                         var stripe = stripeNaboveNbelow[0];
                         var above = stripeNaboveNbelow[1];
                         var below = stripeNaboveNbelow[2];
-                        if (debug) console.log("[clip8envokeOperation] stripe, above, below:", stripe, above, below);
+                        if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
                         var hitlist = svgroot.getEnclosureList(stripe, svgroot);
-                        if (debug) console.log("[clip8envokeOperation] hitlist:", hitlist);
+                        if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
                         var selectedelements1 = []
                         for (var i = 0; i < hitlist.length; i++)
                             if ( svgroot.checkIntersection(hitlist[i], above) && svgroot.checkIntersection(hitlist[i], below) )
                                 selectedelements1.push(hitlist[i]);
-                        if (debug) console.log("[clip8envokeOperation] selectedelements1:", selectedelements1);
+                        if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                         Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
                         break;
-                    default:        throw "[clip8envokeOperation] Encountered invalid line direction (b).";  break;
+                    default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
                 }
             }
             else
@@ -212,7 +212,7 @@ var Clip8 = {
         }
         else
             throw "Could not decode instruction X"+instr1;
-        if (debug) console.log("[clip8envokeOperation] remove instr1, sel1:", instr1, sel1);
+        if (debug) console.log("[executeOneOperation] remove instr1, sel1:", instr1, sel1);
         svgroot.removeChild(instr1);
         svgroot.removeChild(sel1);
         tracesvgroot.appendChild(instr1);
