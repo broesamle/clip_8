@@ -91,7 +91,7 @@ $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle<
 SingleReferenceTest = Template("""
 <p>$testdescription<span class="testmetainfo">[cycles:&nbsp;$cycles]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest $testtype $cycles" id="$testid">
+<p class="DOMreftest $testtype $cycles $matchprec" id="$testid">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="64" height="64">
 $pre

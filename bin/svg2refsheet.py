@@ -71,6 +71,7 @@ class TestSection(SVGGroupCollection):
                 'post':"--POST--",
                 'testDOM':"--TEST--",
                 'testtype':"--TYPE--",
+                'matchprec':"0",
                 'cycles':"-1"},
             *args, **kwargs)
 
@@ -176,7 +177,7 @@ while len(SCT.sections) > 0:
             lastchapter = chapter
         tests = TestSection(inFN, strictsubstitute=True)
         for thetest in tests.values():
-            print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'])
+            print ("  [", thetest['testid'], "] ", thetest['testdescription'], thetest['testtype'], thetest['cycles'], thetest['matchprec'])
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(

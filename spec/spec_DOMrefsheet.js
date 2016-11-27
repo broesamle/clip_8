@@ -20,10 +20,25 @@ toMatchReference:
                 var debug = false;
                 var result = {};
                 var cmpA = actual.outerHTML.replace(/\s+/gm, " ");
-                var cmpB = expected.outerHTML.replace(/\s+/gm, " ")
+                var cmpB = expected.outerHTML.replace(/\s+/gm, " ");
                 result.pass = cmpA==cmpB;
                 if (debug) console.log("tests: ", cmpA, "==", cmpB, result.pass);
-                result.message = "Expected " + actual + " to equal " + expected + ".";
+                result.message = "Expected " + cmpA + " to equal " + cmpB + ".";
+                return result;
+            }
+        };
+    }
+toMatchRounded:
+    function (util, customEqualityTesters, precision) {
+        return {
+            compare: function(actual, expected) {
+                var debug = false;
+                var result = {};
+                var cmpA = actual.outerHTML.replace(/\s+/gm, " ");
+                var cmpB = expected.outerHTML.replace(/\s+/gm, " ");
+                result.pass = cmpA==cmpB;
+                if (debug) console.log("tests: ", cmpA, "~=~", cmpB, result.pass);
+                result.message = "Expected (after rounding)" + cmpA + " to match " + cmpB + ".";
                 return result;
             }
         };
@@ -58,7 +73,7 @@ function getPostcondition(reftestElement) { return reftestElement.firstElementCh
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
 
 
-function addTest_normal_execution(reftestElement, cycles) {
+function addTest_normal_execution(reftestElement, cycles, matchprec) {
     console.log("[TEST_NORMEXEC] cycles:", cycles );
     var spec;
 
@@ -69,7 +84,10 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(proc.classList).toContain("testDOM");
         expect(proc.firstElementChild).toBeElement();
         expect(pre.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toMatchReference(pre.firstElementChild);
+        if (matchprec)
+            expect(proc.firstElementChild).toMatchRounded(pre.firstElementChild);
+        else
+            expect(proc.firstElementChild).toMatchReference(pre.firstElementChild);
         done();
     });
 
@@ -126,7 +144,8 @@ describe("Reference Sheet Tester", function(){
     for (var i = 0; i < tests.length; i++) {
         if (tests[i].classList[1] === "normal_execution") {
             cycles = parseInt(tests[i].classList[2]);
-            addTest_normal_execution(tests[i], cycles);
+            matchprec = parseInt(tests[i].classList[3]);
+            addTest_normal_execution(tests[i], cycles, matchprec);
         }
         else throw "Found test without supported testtype." + reftestElement.classList;
 

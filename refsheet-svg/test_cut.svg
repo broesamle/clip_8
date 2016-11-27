@@ -26,7 +26,7 @@
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c47.125,1.012,51.375-2.25,50,30.699"/>
 	</g>
 	<rect x="64" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Cut the right rectancle along a </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">horizontal cut.</tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Cut the right rectancle along a </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">horizontal cut.</tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">matchprec: 0.01;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
 <g id="SECTIONINFO">
 	<rect y="-64" fill="none" width="119" height="55"/>
