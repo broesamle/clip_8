@@ -28,11 +28,11 @@ var Clip8 = {
     initControlFlow: function (svgroot, tracesvgroot) {
         var debug = false;
         var circles = svgroot.getElementsByTagName("circle");
-        var centres = svgdom_addGroup(svgroot);
+        var centres = Svgdom.addGroup(svgroot);
         var initialflow = null;
 
         for ( var i = 0; i < circles.length; i++ ) {
-            var r = svgdom_CentreArea(circles[i], epsilon);
+            var r = Svgdom.CentreArea(circles[i], epsilon);
             r.setAttribute("fill", "#ffff33");
             centres.appendChild(r);
         }
@@ -43,7 +43,7 @@ var Clip8 = {
             if (hitlist.length == 1) {
                 var initarea = Svgretrieve.selectorFromRect(hitlist[0], svgroot);
                 // visualise initial control flow node
-                var tracerect = svgdom_addRect(tracesvgroot, initarea.x-3,initarea.y-3, initarea.width+6, initarea.height+6);
+                var tracerect = Svgdom.addRect(tracesvgroot, initarea.x-3,initarea.y-3, initarea.width+6, initarea.height+6);
                 clip8setTraceAttribs(tracerect);
                 svgroot.removeChild(centres);
                 hitlist = svgroot.getIntersectionList(initarea, svgroot);
@@ -67,8 +67,8 @@ var Clip8 = {
         var hitlist = svgroot.getIntersectionList(s, svgroot);
         if (debug)  console.log("[getInstrEls_asGroups] hitlist:", hitlist);
         if (hitlist.length == 0) throw "[clip8getInstrEls_asGroups] empty hitlist.";
-        var sel = svgdom_addGroup(svgroot);
-        var instr = svgdom_addGroup(svgroot);
+        var sel = Svgdom.addGroup(svgroot);
+        var instr = Svgdom.addGroup(svgroot);
         var nextIP = null;
         for ( var i = 0; i < hitlist.length; i++ ) {
             if (!Clip8._isBlocklisted(hitlist[i])) {
@@ -102,7 +102,7 @@ var Clip8 = {
         var terminate = false;  // This is a local variable, not a global running flag.
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
-        var arearect = svgdom_EndOfPathArea(Clip8.ip, epsilon);
+        var arearect = Svgdom.EndOfPathArea(Clip8.ip, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
         if (debug) console.log("[executeOneOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
@@ -146,7 +146,7 @@ var Clip8 = {
             var thepoly = instr1.getElementsByTagName("polyline")[0];
             var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-            var arearect = svgdom_EndOfLineArea(theline, epsilon);
+            var arearect = Svgdom.EndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
             if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
@@ -226,7 +226,7 @@ var Clip8 = {
         console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
 
-        svgdom_setSVGNS(svgroot.namespaceURI);
+        Svgdom.setSVGNS(svgroot.namespaceURI);
 
         var tracesvgroot = svgroot.cloneNode(false);
         svgroot.parentNode.appendChild(tracesvgroot);
