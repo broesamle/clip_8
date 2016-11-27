@@ -201,7 +201,7 @@ var Clip8 = {
                             if ( svgroot.checkIntersection(hitlist[i], above) && svgroot.checkIntersection(hitlist[i], below) )
                                 selectedelements1.push(hitlist[i]);
                         if (debug) console.log("[clip8envokeOperation] selectedelements1:", selectedelements1);
-                        Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                        Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"), 0.001);
                         break;
                     default:        throw "[clip8envokeOperation] Encountered invalid line direction (b).";  break;
                 }

@@ -77,15 +77,28 @@ var Paperclip = {
         }
     },
 
-    cutHorizontal: function (elems, cutY) {
+    cutHorizontal: function (elems, cutY, precision) {
         var theclone;
         for (var i = 0; i < elems.length; i++) {
             if ( ! elems[i] instanceof SVGRectElement ) throw "[cutHorizontal] not implemented for "+elems[i].constructor.name;
             theclone = elems[i].cloneNode();
-            theclone.setAttribute("height", cutY - theclone.getAttribute("y") );
+            theclone.setAttribute("height", Paperclip._round(cutY - theclone.getAttribute("y"), precision) );
             elems[i].setAttribute("y", cutY);
-            elems[i].setAttribute("height", elems[i].getAttribute("height") - theclone.getAttribute("height"));
+            elems[i].setAttribute("height", Paperclip._round(elems[i].getAttribute("height") - theclone.getAttribute("height"), precision));
             elems[i].parentElement.insertBefore(theclone, elems[i]);
         }
+    },
+
+    _round: function (value, precision) {
+        var result, pre, post;
+        if (precision)
+            result = (Math.round(value/precision)*precision).toString();
+            pre = result.split('.')[0]
+            post = result.split('.')[1]
+            if (post) result = pre+'.'+post.slice(0, -Math.log10(precision));
+        else
+            result = value;
+        console.log("[_round] precision, value, result:", precision, value, result);
+        return result;
     }
 }
