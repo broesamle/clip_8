@@ -57,12 +57,8 @@ function getPrecondition(reftestElement) { return reftestElement.firstElementChi
 function getPostcondition(reftestElement) { return reftestElement.firstElementChild.nextElementSibling; }
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
 
-
-function addTest_normal_execution(reftestElement, cycles) {
-    console.log("[TEST_NORMEXEC] cycles:", cycles );
-    var spec;
-
-    spec = it("["+reftestElement.id+"] PRE and TEST should be equal", function(done) {
+var GenericTestFns = {
+    matchPre: function (reftestElement) {
         var pre = getPrecondition(reftestElement);
         var proc = getTestDOM(reftestElement);
         expect(pre.classList).toContain("pre-reference");
@@ -70,6 +66,26 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(proc.firstElementChild).toBeElement();
         expect(pre.firstElementChild).toBeElement();
         expect(proc.firstElementChild).toMatchReference(pre.firstElementChild);
+    },
+
+    matchPost: function (reftestElement) {
+        var proc = getTestDOM(reftestElement);
+        var post = getPostcondition(reftestElement);
+        expect(proc.classList).toContain("testDOM");
+        expect(post.classList).toContain("post-reference");
+        expect(proc.firstElementChild).toBeElement();
+        expect(post.firstElementChild).toBeElement();
+        expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
+    }
+}
+
+function addTest_normal_execution(reftestElement, cycles) {
+    console.log("[TEST_NORMEXEC] cycles:", cycles );
+    var spec;
+
+    spec = it("["+reftestElement.id+"] PRE and TEST should be equal",
+        function(done) {
+        GenericTestFns.matchPre(reftestElement);
         done();
     });
 
@@ -96,13 +112,7 @@ function addTest_normal_execution(reftestElement, cycles) {
     test_domids.push(reftestElement.id);
 
     spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
-        var proc = getTestDOM(reftestElement);
-        var post = getPostcondition(reftestElement);
-        expect(proc.classList).toContain("testDOM");
-        expect(post.classList).toContain("post-reference");
-        expect(proc.firstElementChild).toBeElement();
-        expect(post.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
+        GenericTestFns.matchPost(reftestElement);
         done();
     });
     test_specids.push(spec.id);
