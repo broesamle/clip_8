@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>clip8 | Iconic Instruction Language</title>
+
+<link rel="shortcut icon" type="image/png" href="../js/jasmine/jasmine_favicon.png">
+<link rel="stylesheet" href="../css/jasmine.css">
+<script src="../js/jasmine/jasmine.js"></script>
+<script src="../js/jasmine/jasmine-html.js"></script>
+<script src="../js/jasmine/boot.js"></script>
+
+<link rel="stylesheet" href="../css/refsheet.css">
+<link rel="stylesheet" href="../css/clip8.css">
+<script src="../js/svgdom.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
+<script src="../js/clip8decode.js"></script>
+<script src="../js/clip8.js"></script>
+
+</head>
+
+
+<body>
+<nav>
+
+<div class="leftlink">
+<a href="test_controlflow_genfromSVG.html">Control flow<br>
+&lt;&lt;&lt;&lt;
+</a>
+</div>
+
+<div class="chapternavtitle">Chapter 1</div>
+
+<div class="rightlink">
+<a href="test_alignrel_genfromSVG.html">Align relative<br>
+&gt;&gt;&gt;&gt;</a>
+</div>
+
+</nav>
+<h1><span class="sndtitle"><a href="toc.html">clip_8</a>&nbsp;|</span>&nbsp;Iconic Instruction Language</h1>
+
+<h3>1.2&nbsp;&nbsp;Selectors</h3>
+<div class="sectionintro">
+<svg class="sectioninstructionicon" viewbox="0 0 64 64">
+<g>
+			<g>
+				<polyline fill="none" points="28,38.5 28,40 26.5,40     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="3.70588,8.647059" stroke-miterlimit="10" stroke-width="3" x1="17.853027" x2="9.82373" y1="40" y2="40" />
+				<polyline fill="none" points="5.5,40 4,40 4,38.5     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.67568,6.24324" stroke-miterlimit="10" stroke-width="3" x1="4" x2="4" y1="32.256836" y2="8.621582" />
+				<polyline fill="none" points="4,5.5 4,4 5.5,4     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="3.70588,8.647059" stroke-miterlimit="10" stroke-width="3" x1="14.146973" x2="22.17627" y1="4" y2="4" />
+				<polyline fill="none" points="26.5,4 28,4 28,5.5     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.67568,6.24324" stroke-miterlimit="10" stroke-width="3" x1="28" x2="28" y1="11.743164" y2="35.37793" />
+			</g>
+		</g><g>
+			<g>
+				<polyline fill="none" points="60,55.5 60,60 55.5,60     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="52.5" x2="42" y1="60" y2="60" />
+				<polyline fill="none" points="40.5,60 36,60 36,55.5     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="36" x2="36" y1="52.5" y2="30" />
+				<polyline fill="none" points="36,28.5 36,24 40.5,24     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="43.5" x2="54" y1="24" y2="24" />
+				<polyline fill="none" points="55.5,24 60,24 60,28.5     " stroke="#E8ACAC" stroke-miterlimit="10" stroke-width="3" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="60" x2="60" y1="31.5" y2="54" />
+			</g>
+		</g>
+</svg>
+
+<p>Select sets of objects.</p>
+<p>Selectors are attached to instructions in in order to define a selection (set) of object(s).</p>
+<p>How this set is used depends on the instruction. Typically, the selection defines those objects that will be affected by the instruction.</p>
+<p>For this section, selectors are presented in isolation, without any instruction. The point of attachment, otherwise appearent by the instruction, will be indicated by a small arrow.</p>
+<p>Similarly, the selection is indicated by colour for presentation purposes.</p>
+</div>
+
+<p>Select by an enclosing rectangle. <span class="testmetainfo">[selectionset 4,4 #9E005D]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest selectionset 4,4 #9E005D" id="enclose1">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="36" x="4" y="4" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect fill="#9E005D" height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="36" x="4" y="4" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="36" x="4" y="4" />
+</svg>
+</span>
+</p>
+<p>Select by an enclosing rectangle. A connector allows to define selection rectangles that are remote from the point of attachment (upper left corner). <span class="testmetainfo">[selectionset 4,4 #9E005D]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest selectionset 4,4 #9E005D" id="enclose2">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="40" x="20" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="20" y1="4" y2="60" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect fill="#9E005D" height="20" width="28" x="28" y="12" /><rect fill="#9E005D" height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="40" x="20" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="20" y1="4" y2="60" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="40" x="20" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="20" y1="4" y2="60" />
+</svg>
+</span>
+</p>
+<p>Select by an enclosing rectangle. <span class="testmetainfo">[selectionset 4,4 #9E005D]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest selectionset 4,4 #9E005D" id="intersect1">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="36" x="4" y="4" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect fill="#9E005D" height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect fill="#9E005D" height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="36" x="4" y="4" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="36" x="4" y="4" />
+</svg>
+</span>
+</p>
+<p>Select by an intersecting rectangle. A connector allows to define selection rectangles that are remote from the point of attachment (upper left corner). <span class="testmetainfo">[selectionset 4,4 #9E005D]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest selectionset 4,4 #9E005D" id="intersect2">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="24" x="36" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="36" y1="4" y2="60" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect fill="#9E005D" height="20" width="28" x="28" y="12" /><rect fill="#9E005D" height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="24" x="36" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="36" y1="4" y2="60" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="24" x="36" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="36" y1="4" y2="60" />
+</svg>
+</span>
+</p>
+
+<script src="../spec/spec_DOMrefsheet.js"></script>
+</body>
+
+</html>
