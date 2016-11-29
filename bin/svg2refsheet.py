@@ -129,7 +129,8 @@ class TestSection(SVGGroupCollection):
                         if len(parsedmeta.errors): print (parsedmeta.errors)
                         try:
                             for decl in parsedmeta.rules[0].declarations:
-                                newitem[decl.name] = decl.value.as_css()
+                                newitem[decl.name] = decl.value.as_css().replace(" ", "")  # Remove " ": use meta info in class lists
+
                         except IndexError:
                             print ("Empty META Block")
 
@@ -178,11 +179,11 @@ while len(SCT.sections) > 0:
             printid = thetest['testid'] + " "*max(0, 25-len(thetest['testid']))
             printdescr = thetest['testdescription'][:min(len(thetest['testdescription']), 55)]
             printdescr += " "* max(0, (55-len(printdescr)))
-            print ( "  [ %10s ] %s (%s/%s cycl.)" % (printid, printdescr, thetest['testtype'], thetest['cycles']) )
+            print ( "  [ %10s ] %s (%s)" % (printid, printdescr, thetest['testtype']) )
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
-            itemTEM=TEM.SingleReferenceTest,
+            itemTEM=TEM.ReftestWithIntro,
             seriesTEM=TEM.Testsection,
             seriesData={
                 'testsectiontitle':section,
@@ -204,7 +205,7 @@ while len(SCT.sections) > 0:
         backhref, backlinktitle = outfile, section
 
         appendixsectionsHTML += alltests[infile].generateSeries(
-            itemTEM=TEM.SingleReferenceTest_light,
+            itemTEM=TEM.ReftestCore,
             seriesTEM=TEM.Testsection_inclHref,
             seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt}
             )

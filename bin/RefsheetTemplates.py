@@ -88,10 +88,9 @@ $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle<
 </h3>
 """)
 
-SingleReferenceTest = Template("""
-<p>$testdescription<span class="testmetainfo">[cycles:&nbsp;$cycles]</span></p>
+reftestcorewrapper = """
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest $testtype $cycles" id="$testid">
+<p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="64" height="64">
 $pre
@@ -109,12 +108,16 @@ $post
 $testDOM
 </svg>
 </span>
-</p>
-""")
+</p>"""
 
-SingleReferenceTest_light = Template("""
+ReftestCore = MT.TemplateChoice(wrapper=reftestcorewrapper)
+ReftestCore.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
+ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
+
+reftestcorewrapper_withIntro = """
+<p>$testdescription<span class="testmetainfo">[$THESERIES]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest $testtype $cycles" id="$testid">
+<p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="64" height="64">
 $pre
@@ -132,8 +135,11 @@ $post
 $testDOM
 </svg>
 </span>
-</p>
-""")
+</p>"""
+
+ReftestWithIntro = MT.TemplateChoice(wrapper=reftestcorewrapper_withIntro)
+ReftestWithIntro.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
+ReftestWithIntro.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 
 QuestionmarkIcon_svg = """
 <path fill="#FF00A8" d="M33.057,35.523v4.277c0,1.006-0.201,1.73-0.604,2.163c-0.403,0.438-0.906,0.656-1.51,0.656c-0.638,0-1.157-0.218-1.56-0.656
