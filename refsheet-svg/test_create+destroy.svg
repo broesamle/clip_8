@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
+	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<g id="Background">
+	<rect fill="#808080" width="64" height="64"/>
+</g>
+<g id="TEST-clone1" display="none">
+	<g id="t1_x5F_clone1" display="inline" opacity="0.5">
+		<rect x="21" y="19" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="32"/>
+		<rect x="25" y="27" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="32"/>
+	</g>
+	<g id="t0_x5F_clone1" display="inline" opacity="0.5">
+		<rect x="21" y="19" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="32"/>
+	</g>
+	<g id="I_x5F_clone1" display="inline">
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M36,8c1-5,14-4,24-4"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c29,0,31-2,32,4"/>
+		
+			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="36" y1="8" x2="40" y2="16"/>
+		
+			<rect x="36" y="8" fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="5" height="1"/>
+		
+			<rect x="40" y="16" fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="5" height="1"/>
+		<rect x="28" y="8" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="3,1" width="8" height="16"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Cut the upper right rectancle along </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">a horizontal cut.</tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-cut-vertical" display="none">
+	<g id="t1_x5F_cut-vertical_1_" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+		<rect x="30" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="6" height="32"/>
+		<rect x="36" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="16" height="32"/>
+	</g>
+	<g id="t0_x5F_cut-vertical" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+		<rect x="30" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="32"/>
+	</g>
+	<g id="I_x5F_cut-vertical" display="inline">
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M36,8c0-4,16-4,24-4"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c11,0,32,0,32,4"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="36" y1="56" x2="36" y2="8"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Cut the upper right rectancle along </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">a vertical cut.</tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-cut-horiz" display="none">
+	<g id="t1_x5F_cut-horiz" display="inline" opacity="0.5">
+		<rect x="30" y="12" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="22"/>
+		<rect x="30" y="34" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="10"/>
+		<rect x="2" y="12" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#FFFFFF" stroke-miterlimit="10" width="12" height="12"/>
+	</g>
+	<g id="t0_x5F_cut-horiz" display="inline" opacity="0.5">
+		<rect x="30" y="12" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="32"/>
+		<rect x="2" y="12" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#FFFFFF" stroke-miterlimit="10" width="12" height="12"/>
+	</g>
+	<g id="I_x5F_cut-horiz" display="inline">
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M56,34c2-2,9-20.625,4-30"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c53-2,54-2,52,30"/>
+		
+			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="56" y1="34" x2="17" y2="34"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Cut the upper right rectancle along </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">a horizontal cut.</tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-delete1" display="none">
+	<g id="t1_x5F_delete1_1_" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+	</g>
+	<g id="t0_x5F_delete1" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+		<rect x="30" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="32"/>
+	</g>
+	<g id="I_x5F_delete1" display="inline">
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M27,8c0-4,25-4,33-4"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c11,0,23,0,23,4"/>
+		
+			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
+			M27,8"/>
+		
+			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
+			M55,52"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="55" y1="52" x2="27" y2="8"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="27" y1="52" x2="55" y2="8"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects, enclosed by the </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">rectangular area described by the </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-delete2" display="none">
+	<g id="t1_x5F_delete2" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+	</g>
+	<g id="t0_x5F_delete2" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+		<rect x="30" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="32"/>
+	</g>
+	<g id="I_x5F_delete2" display="inline">
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M27,8c0-4,25-4,33-4"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c11,0,23,0,23,4"/>
+		
+			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
+			M27,8"/>
+		
+			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
+			M55,52"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="55" y1="52" x2="27" y2="8"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="27" y1="52" x2="55" y2="8"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects, that intersect with </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the rectangular area described by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="SECTIONINFO" display="none">
+	<rect y="-82" display="inline" fill="none" width="119" height="73"/>
+	<text transform="matrix(1 0 0 1 0 -79.547852)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Cut objects into two parts along a line. Attach </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">a dashed cutter line at `p0`, indicating </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">direction and the set of affected objects. Only </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">objects that are fully traversed by the cutter </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">are affected.</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">+ Clone objecs. Attach at `p0` a straight line </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">(1) and a rectangle (2). Clone the box at the </tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">other end of the line (3). The line 1 indicates </tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">the offset applied to the cloned objects.</tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">+ Delete objects. Attach a cross or X of dashed, </tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">round-edged lines (1) to `p0`. Besides indicating </tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">the instruction itself, the cross (1) defines a </tspan><tspan x="0" y="67.200195" font-family="'CourierNewPSMT'" font-size="4">rectangular selection area of affected objects.</tspan></text>
+	<g id="I" display="inline">
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,4" x1="56" y1="8" x2="8.000488" y2="8"/>
+		<g>
+			
+				<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.000488" y1="37" x2="15.111816" y2="51.222656"/>
+			
+				<rect x="8.000488" y="37" fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8.888672" height="1.777344"/>
+			
+				<rect x="15.111816" y="51.222656" fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8.888672" height="1.777344"/>
+		</g>
+		<g>
+			
+				<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="2,7" x1="57" y1="53" x2="39" y2="21"/>
+			
+				<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="2,7" x1="39" y1="53" x2="57" y2="21"/>
+		</g>
+	</g>
+</g>
+</svg>
