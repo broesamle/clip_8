@@ -57,12 +57,8 @@ function getPrecondition(reftestElement) { return reftestElement.firstElementChi
 function getPostcondition(reftestElement) { return reftestElement.firstElementChild.nextElementSibling; }
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
 
-
-function addTest_normal_execution(reftestElement, cycles) {
-    console.log("[TEST_NORMEXEC] cycles:", cycles );
-    var spec;
-
-    spec = it("["+reftestElement.id+"] PRE and TEST should be equal", function(done) {
+var GenericTestFns = {
+    matchPre: function (reftestElement) {
         var pre = getPrecondition(reftestElement);
         var proc = getTestDOM(reftestElement);
         expect(pre.classList).toContain("pre-reference");
@@ -70,6 +66,26 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(proc.firstElementChild).toBeElement();
         expect(pre.firstElementChild).toBeElement();
         expect(proc.firstElementChild).toMatchReference(pre.firstElementChild);
+    },
+
+    matchPost: function (reftestElement) {
+        var proc = getTestDOM(reftestElement);
+        var post = getPostcondition(reftestElement);
+        expect(proc.classList).toContain("testDOM");
+        expect(post.classList).toContain("post-reference");
+        expect(proc.firstElementChild).toBeElement();
+        expect(post.firstElementChild).toBeElement();
+        expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
+    }
+}
+
+function addTest_normal_execution(reftestElement, cycles) {
+    console.log("[TEST_NORMEXEC] cycles:", cycles );
+    var spec;
+
+    spec = it("["+reftestElement.id+"] PRE and TEST should be equal",
+        function(done) {
+        GenericTestFns.matchPre(reftestElement);
         done();
     });
 
@@ -96,13 +112,44 @@ function addTest_normal_execution(reftestElement, cycles) {
     test_domids.push(reftestElement.id);
 
     spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
+        GenericTestFns.matchPost(reftestElement);
+        done();
+    });
+    test_specids.push(spec.id);
+    test_domids.push(reftestElement.id);
+}
+
+function addTest_selectionset(reftestElement, p0x, p0y, color) {
+    console.log("[TEST_SELECTIONSET] p0x, p0y, color:", p0x, p0y, color);
+    var spec;
+
+    spec = it("["+reftestElement.id+"] PRE and TEST should be equal",
+        function(done) {
+        GenericTestFns.matchPre(reftestElement);
+        done();
+    });
+    test_specids.push(spec.id);
+    test_domids.push(reftestElement.id);
+
+    spec = it("["+reftestElement.id+"] EXECUTE the operation without error", function(done) {
         var proc = getTestDOM(reftestElement);
-        var post = getPostcondition(reftestElement);
         expect(proc.classList).toContain("testDOM");
-        expect(post.classList).toContain("post-reference");
-        expect(proc.firstElementChild).toBeElement();
-        expect(post.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
+        var svgroot = proc.firstElementChild;
+        expect(svgroot).toBeElement();
+        var arearect = Svgdom.newRect(p0x-epsilon, p0y-epsilon, epsilon*2, epsilon*2);
+        var selectionset = Clip8.handleSelectorAt(arearect, svgroot);
+        for (var i = 0; i < selectionset.length; i++) {
+            console.log("[addTest_selectionset] selectionset[i]:", selectionset[i]);
+            if (selectionset[i] instanceof SVGElement)
+                selectionset[i].setAttribute("fill", color);
+        }
+        done();
+    });
+    test_specids.push(spec.id);
+    test_domids.push(reftestElement.id);
+
+    spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
+        GenericTestFns.matchPost(reftestElement);
         done();
     });
     test_specids.push(spec.id);
@@ -128,7 +175,12 @@ describe("Reference Sheet Tester", function(){
             cycles = parseInt(tests[i].classList[2]);
             addTest_normal_execution(tests[i], cycles);
         }
-        else throw "Found test without supported testtype." + reftestElement.classList;
-
+        else if (tests[i].classList[1] === "selectionset") {
+            p0x = parseFloat(tests[i].classList[2].split(",")[0]);
+            p0y = parseFloat(tests[i].classList[2].split(",")[1]);
+            color = tests[i].classList[3];
+            addTest_selectionset(tests[i], p0x, p0y, color);
+        }
+        else console.log("Found test without supported testtype.");
     }
 });
