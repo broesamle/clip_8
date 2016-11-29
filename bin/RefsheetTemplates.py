@@ -113,6 +113,7 @@ $testDOM
 ReftestCore = MT.TemplateChoice(wrapper=reftestcorewrapper)
 ReftestCore.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
 ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
+ReftestCore.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
 reftestcorewrapper_withIntro = """
 <p>$testdescription<span class="testmetainfo">[$THESERIES]</span></p>
@@ -140,6 +141,7 @@ $testDOM
 ReftestWithIntro = MT.TemplateChoice(wrapper=reftestcorewrapper_withIntro)
 ReftestWithIntro.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
 ReftestWithIntro.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
+ReftestWithIntro.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
 QuestionmarkIcon_svg = """
 <path fill="#FF00A8" d="M33.057,35.523v4.277c0,1.006-0.201,1.73-0.604,2.163c-0.403,0.438-0.906,0.656-1.51,0.656c-0.638,0-1.157-0.218-1.56-0.656
