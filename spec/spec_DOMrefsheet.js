@@ -119,6 +119,43 @@ function addTest_normal_execution(reftestElement, cycles) {
     test_domids.push(reftestElement.id);
 }
 
+function addTest_selectionset(reftestElement, p0x, p0y, color) {
+    console.log("[TEST_SELECTIONSET] p0x, p0y, color:", p0x, p0y, color);
+    var spec;
+
+    spec = it("["+reftestElement.id+"] PRE and TEST should be equal",
+        function(done) {
+        GenericTestFns.matchPre(reftestElement);
+        done();
+    });
+    test_specids.push(spec.id);
+    test_domids.push(reftestElement.id);
+
+    spec = it("["+reftestElement.id+"] EXECUTE the operation without error", function(done) {
+        var proc = getTestDOM(reftestElement);
+        expect(proc.classList).toContain("testDOM");
+        var svgroot = proc.firstElementChild;
+        expect(svgroot).toBeElement();
+        var arearect = Svgdom.newRect(p0x-epsilon, p0y-epsilon, epsilon*2, epsilon*2);
+        var selectionset = Clip8.handleSelectorAt(arearect, svgroot);
+        for (var i = 0; i < selectionset.length; i++) {
+            console.log("[addTest_selectionset] selectionset[i]:", selectionset[i]);
+            if (selectionset[i] instanceof SVGElement)
+                selectionset[i].setAttribute("fill", color);
+        }
+        done();
+    });
+    test_specids.push(spec.id);
+    test_domids.push(reftestElement.id);
+
+    spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
+        GenericTestFns.matchPost(reftestElement);
+        done();
+    });
+    test_specids.push(spec.id);
+    test_domids.push(reftestElement.id);
+}
+
 describe("Reference Sheet Tester", function(){
     beforeEach(function() {
         jasmine.clock().install();
@@ -137,6 +174,12 @@ describe("Reference Sheet Tester", function(){
         if (tests[i].classList[1] === "normal_execution") {
             cycles = parseInt(tests[i].classList[2]);
             addTest_normal_execution(tests[i], cycles);
+        }
+        else if (tests[i].classList[1] === "selectionset") {
+            p0x = parseFloat(tests[i].classList[2].split(",")[0]);
+            p0y = parseFloat(tests[i].classList[2].split(",")[1]);
+            color = tests[i].classList[3];
+            addTest_selectionset(tests[i], p0x, p0y, color);
         }
         else console.log("Found test without supported testtype.");
     }
