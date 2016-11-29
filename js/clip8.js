@@ -42,9 +42,6 @@ var Clip8 = {
             if (debug)  console.log("[clip8initControlFlow] hitlist:", hitlist);
             if (hitlist.length == 1) {
                 var initarea = Svgretrieve.selectorFromRect(hitlist[0], svgroot);
-                // visualise initial control flow node
-                var tracerect = Svgdom.addRect(tracesvgroot, initarea.x-3,initarea.y-3, initarea.width+6, initarea.height+6);
-                clip8setTraceAttribs(tracerect);
                 svgroot.removeChild(centres);
                 hitlist = svgroot.getIntersectionList(initarea, svgroot);
                 if (debug)  console.log("[clip8initControlFlow] initiallocation:", hitlist);
