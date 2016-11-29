@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>clip8 | Appendix A</title>
+<title>clip8 | Iconic Instruction Language</title>
 
 <link rel="shortcut icon" type="image/png" href="../js/jasmine/jasmine_favicon.png">
 <link rel="stylesheet" href="../css/jasmine.css">
@@ -27,18 +27,33 @@
 <nav>
 
 <div class="leftlink">
-<a href="test_cut_genfromSVG.html">Cut<br>
+<a href="toc.html">Table of Contents<br>
 &lt;&lt;&lt;&lt;
 </a>
 </div>
 
-<div class="chapternavtitle">Appendix A</div>
+<div class="chapternavtitle">Chapter 1</div>
+
+<div class="rightlink">
+<a href="test_selectors_genfromSVG.html">Selectors<br>
+&gt;&gt;&gt;&gt;</a>
+</div>
 
 </nav>
-<h1><span class="sndtitle"><a href="toc.html">clip_8</a>&nbsp;|</span>&nbsp;All tests</h1>
+<h1><span class="sndtitle"><a href="toc.html">clip_8</a>&nbsp;|</span>&nbsp;Iconic Instruction Language</h1>
 
-<h3>1.1&nbsp;&nbsp;<a href="test_controlflow-c2_genfromSVG.html">Control flow</a></h3>
+<h3>1.1&nbsp;&nbsp;Control flow</h3>
+<div class="sectionintro">
+<svg class="sectioninstructionicon" viewbox="0 0 64 64">
+<circle cx="4.143" cy="45.032" fill="#9BC9C7" r="2.143" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="57.179" cy="23.604" fill="#9BC9C7" r="2.143" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="57.179" cy="23.604" fill="none" r="4.821" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.5" /><path d="M4.143,45.007    c20.893,21.427,18.75-32.118,53.036-21.43" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
 
+<p>Control flow (1) starts at an initial node, indicated by one filled circle. (2) It follows the path originating at the centre area of the initial node. (3) The endpoint of the path is the primary centre `p0` of the next instruction.</p>
+<p>A filled circle surrounded by an other circle at `p0` indicates a terminal node. Control flow (and program execution stops).</p>
+<p>All control flow elements need to have a visible contour, including the filled circles.</p>
+</div>
+
+<p>Control flow as a curved `path`. <span class="testmetainfo">[normal_execution 1]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 1" id="intitial-and-terminal">
 <span class="pre-reference">
@@ -59,6 +74,7 @@
 </svg>
 </span>
 </p>
+<p>Control flow as a straight `path`, left to right. <span class="testmetainfo">[normal_execution 1]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 1" id="intitial-and-terminal2">
 <span class="pre-reference">
@@ -79,6 +95,7 @@
 </svg>
 </span>
 </p>
+<p>Control flow as a straight `path`, up-left direction. <span class="testmetainfo">[normal_execution 1]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 1" id="intitial-and-terminal3">
 <span class="pre-reference">
@@ -99,6 +116,7 @@
 </svg>
 </span>
 </p>
+<p>Flow follows the lower path and ends in the lower terminal node. <span class="testmetainfo">[normal_execution 3]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 3" id="alternative-join-combo">
 <span class="pre-reference">
@@ -206,6 +224,7 @@
 </svg>
 </span>
 </p>
+<p>Flow follows the upper path and ends in the upper terminal node. <span class="testmetainfo">[normal_execution 3]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 3" id="alternative-join-combo2">
 <span class="pre-reference">
@@ -313,6 +332,7 @@
 </svg>
 </span>
 </p>
+<p>Flow follows the lower path, then continues in the upper path, and ends in the upper terminal. <span class="testmetainfo">[normal_execution 4]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 4" id="alternative-join-combo3">
 <span class="pre-reference">
@@ -420,6 +440,7 @@
 </svg>
 </span>
 </p>
+<p>Flow follows the upper path and ends in the upper terminal. <span class="testmetainfo">[normal_execution 3]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 3" id="alternative-join-combo4">
 <span class="pre-reference">
@@ -530,6 +551,7 @@
 </svg>
 </span>
 </p>
+<p>Flow follows the lower path, continues in the upper path and ends in the upper terminal. <span class="testmetainfo">[normal_execution 4]</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 4" id="alternative-join-combo5">
 <span class="pre-reference">
@@ -637,361 +659,6 @@
 					<line fill="none" stroke="#9BC9C7" stroke-dasharray="1.1094,2.2188" stroke-miterlimit="10" x1="36.417" x2="36.417" y1="25.531" y2="19.984" />
 			</g>
 		</g>
-</svg>
-</span>
-</p>
-
-<h3>1.2&nbsp;&nbsp;<a href="test_selectors_genfromSVG.html">Selectors</a></h3>
-
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest selectionset 4,4 #9E005D" id="enclose1">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="36" x="4" y="4" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect fill="#9E005D" height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="36" x="4" y="4" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="36" x="4" y="4" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest selectionset 4,4 #9E005D" id="enclose2">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="40" x="20" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="20" y1="4" y2="60" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect fill="#9E005D" height="20" width="28" x="28" y="12" /><rect fill="#9E005D" height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="40" x="20" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="20" y1="4" y2="60" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="1,2" stroke-miterlimit="10" width="40" x="20" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="20" y1="4" y2="60" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest selectionset 4,4 #9E005D" id="intersect1">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="36" x="4" y="4" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect fill="#9E005D" height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect fill="#9E005D" height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="36" x="4" y="4" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="36" x="4" y="4" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest selectionset 4,4 #9E005D" id="intersect2">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="24" x="36" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="36" y1="4" y2="60" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect fill="#9E005D" height="20" width="28" x="28" y="12" /><rect fill="#9E005D" height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="24" x="36" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="36" y1="4" y2="60" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="20" width="28" x="28" y="12" /><rect height="16" width="11" x="45" y="36" /><rect height="40" width="16" x="8" y="12" /><rect fill="none" height="56" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="24" x="36" y="4" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="4" x2="36" y1="4" y2="60" />
-</svg>
-</span>
-</p>
-
-<h3>2.1&nbsp;&nbsp;<a href="test_alignrel_genfromSVG.html">Align relative</a></h3>
-
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-rel-right">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="39" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="44" y="12" /><rect height="8" width="12" x="40" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="39" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="39" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-rel-left">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="39" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="12" y="44" /><rect height="12" width="12" x="12" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="39" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="39" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-rel-bottom">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="33" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M8,56c15-1,52-28.653,52-52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="36" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="40" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="33" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M8,56c15-1,52-28.653,52-52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="33" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M8,56c15-1,52-28.653,52-52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-rel-top">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="33" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="12" /><rect height="12" width="12" x="40" y="12" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="33" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#E5B7B7" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="33" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" />
-</svg>
-</span>
-</p>
-
-<h3>2.2&nbsp;&nbsp;<a href="test_alignabs_genfromSVG.html">Align absolute</a></h3>
-
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-abs-right">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="60" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="55" y="55" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="52" y="12" /><rect height="8" width="12" x="48" y="44" /><rect height="12" width="12" x="48" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="60" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="55" y="55" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="60" /><polyline fill="none" points="    57,12 60,10 57,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="55" y="55" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-abs-left">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="60" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="8" y="55" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="8" y="12" /><rect height="8" width="12" x="8" y="44" /><rect height="12" width="12" x="8" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="60" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="8" y="55" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="8" y1="10" y2="60" /><polyline fill="none" points="    11,12 8,10 11,8   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="8" y="55" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-abs-bottom">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="62" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M8,56c15-1,52-28.653,52-52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="57" y="51" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="40" /><rect height="8" width="12" x="24" y="48" /><rect height="12" width="12" x="40" y="44" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="62" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M8,56c15-1,52-28.653,52-52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="57" y="51" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="62" y1="56" y2="56" /><polyline fill="none" points="    10,53 8,56 6,53   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="M8,56c15-1,52-28.653,52-52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c3,3-1,31,4,52" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="57" y="51" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="align-abs-top">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="61" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="#990000" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="56" y="10" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="10" /><rect height="8" width="12" x="24" y="10" /><rect height="12" width="12" x="40" y="10" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="61" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="#990000" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="56" y="10" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="12" y="12" /><rect height="8" width="12" x="24" y="44" /><rect height="12" width="12" x="40" y="28" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="2,5" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="8" x2="61" y1="10" y2="10" /><polyline fill="none" points="    10,13 8,10 6,13   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M6,5" fill="#990000" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M8,10c0,0,52,0,52-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,4,0,4,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><rect fill="#FF8888" height="5" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="56" y="10" />
-</svg>
-</span>
-</p>
-
-<h3>2.3&nbsp;&nbsp;<a href="test_moverel_genfromSVG.html">Move relative</a></h3>
-
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="move-rel-v-down">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="6" y="12" /><rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="42.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="42.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="8" width="12.001" x="21.999" y="44.5" /><rect height="12.001" width="12" x="37" y="49.333" /><path d="    M60,42.5" fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.2093" /><rect height="16" width="8" x="6" y="12" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="42.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="42.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="16" width="8" x="6" y="12" /><rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="42.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="42.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="move-rel-dl">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="41.001" y1="10" y2="19.499" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="41.001" cy="19.499" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="8" width="12.001" x="3" y="21.499" /><rect height="12.001" width="12" x="18.001" y="26.332" /><path d="    M41.001,19.499" fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.2093" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="41.001" y1="10" y2="19.499" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="41.001" cy="19.499" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="46" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="52" x="8" y="10" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="41.001" y1="10" y2="19.499" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="41.001" cy="19.499" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="move-bysize-down">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="7" width="2.25" x="6" y="8.687" /><rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="21.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="41" x="19" y="10" /><rect fill="none" height="41.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="7.625" x="3" y="7" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="37.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="1,1" stroke-miterlimit="10" x1="60" x2="10.625" y1="37.5" y2="48.375" /><circle cx="60" cy="37.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="8" width="12.001" x="21.999" y="19" /><rect height="12" width="12" x="37" y="23.833" /><path d="    M60,37.5" fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.2093" /><rect height="7" width="2.25" x="6" y="8.687" /><rect fill="none" height="21.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="41" x="19" y="10" /><rect fill="none" height="41.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="7.625" x="3" y="7" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="37.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="1,1" stroke-miterlimit="10" x1="60" x2="10.625" y1="37.5" y2="48.375" /><circle cx="60" cy="37.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="7" width="2.25" x="6" y="8.687" /><rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="21.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="41" x="19" y="10" /><rect fill="none" height="41.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="7.625" x="3" y="7" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="37.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="1,1" stroke-miterlimit="10" x1="60" x2="10.625" y1="37.5" y2="48.375" /><circle cx="60" cy="37.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-</p>
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="move-bysize-down2">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="33.167" width="2.25" x="6" y="8.687" /><rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="21.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="41" x="19" y="10" /><rect fill="none" height="41.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="7.625" x="3" y="7" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="37.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="1,1" stroke-miterlimit="10" x1="60" x2="10.625" y1="37.5" y2="48.375" /><circle cx="60" cy="37.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="8" width="12.001" x="21.999" y="45.166" /><rect height="12" width="12" x="37" y="50" /><path d="    M60,37.5" fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.2093" /><rect height="33.167" width="2.25" x="6" y="8.687" /><rect fill="none" height="21.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="41" x="19" y="10" /><rect fill="none" height="41.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="7.625" x="3" y="7" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="37.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="1,1" stroke-miterlimit="10" x1="60" x2="10.625" y1="37.5" y2="48.375" /><circle cx="60" cy="37.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="33.167" width="2.25" x="6" y="8.687" /><rect height="8" width="12.001" x="21.999" y="12" /><rect height="12" width="12" x="37" y="16.833" /><rect fill="none" height="21.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="41" x="19" y="10" /><rect fill="none" height="41.375" stroke="#FF8888" stroke-dasharray="1,2" stroke-miterlimit="10" width="7.625" x="3" y="7" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="60" x2="60" y1="10" y2="37.5" /><circle cx="4" cy="4.012" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M60,10c0,0,5.367-3.318,0-6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c0,0,56,1,56,6" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="1,1" stroke-miterlimit="10" x1="60" x2="10.625" y1="37.5" y2="48.375" /><circle cx="60" cy="37.5" fill="none" r="2.281" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
-</svg>
-</span>
-</p>
-
-<h3>2.4&nbsp;&nbsp;<a href="test_cut_genfromSVG.html">Cut</a></h3>
-
-<!-- NOTE: The first three items in class list define the test. Handle with care! -->
-<p class="DOMreftest normal_execution 2" id="cut-horiz">
-<span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="12" /><rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="2" y="12" /><circle cx="4" cy="4.012207" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M56,34c2-2,9-20.625,4-30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c53-2,54-2,52,30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="56" x2="17" y1="34" y2="34" />
-</svg>
-</span>
-&nbsp;==&gt;&nbsp;
-<span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="22" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="12" /><rect height="18" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="34" /><rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="2" y="12" /><circle cx="4" cy="4.012207" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M56,34c2-2,9-20.625,4-30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c53-2,54-2,52,30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="56" x2="17" y1="34" y2="34" />
-</svg>
-</span>
-&nbsp;:&nbsp;&nbsp;&nbsp;
-<span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
-<rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="12" /><rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="2" y="12" /><circle cx="4" cy="4.012207" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M56,34c2-2,9-20.625,4-30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c53-2,54-2,52,30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="56" x2="17" y1="34" y2="34" />
 </svg>
 </span>
 </p>
