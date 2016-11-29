@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>clip8 | Paper inspired Operations</title>
+
+<link rel="shortcut icon" type="image/png" href="../js/jasmine/jasmine_favicon.png">
+<link rel="stylesheet" href="../css/jasmine.css">
+<script src="../js/jasmine/jasmine.js"></script>
+<script src="../js/jasmine/jasmine-html.js"></script>
+<script src="../js/jasmine/boot.js"></script>
+
+<link rel="stylesheet" href="../css/refsheet.css">
+<link rel="stylesheet" href="../css/clip8.css">
+<script src="../js/svgdom.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
+<script src="../js/clip8decode.js"></script>
+<script src="../js/clip8.js"></script>
+
+</head>
+
+
+<body>
+<nav>
+
+<div class="leftlink">
+<a href="test_moverel_genfromSVG.html">Move relative<br>
+&lt;&lt;&lt;&lt;
+</a>
+</div>
+
+<div class="chapternavtitle">Chapter 2</div>
+
+<div class="rightlink">
+<a href="test_scale+resize_genfromSVG.html">Scale and resize<br>
+&gt;&gt;&gt;&gt;</a>
+</div>
+
+</nav>
+<h1><span class="sndtitle"><a href="toc.html">clip_8</a>&nbsp;|</span>&nbsp;Paper inspired Operations</h1>
+
+<h3>2.4&nbsp;&nbsp;Create and destroy</h3>
+<div class="sectionintro">
+<svg class="sectioninstructionicon" viewbox="0 0 64 64">
+<line fill="none" stroke="#E8ACAC" stroke-dasharray="6,4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="56" x2="8.000488" y1="8" y2="8" /><g>
+			
+				<line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="8.000488" x2="15.111816" y1="37" y2="51.222656" />
+			
+				<rect fill="none" height="1.777344" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" width="8.888672" x="8.000488" y="37" />
+			
+				<rect fill="none" height="1.777344" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" width="8.888672" x="15.111816" y="51.222656" />
+		</g><g>
+			
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="2,7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="57" x2="39" y1="53" y2="21" />
+			
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="2,7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="39" x2="57" y1="53" y2="21" />
+		</g>
+</svg>
+
+<p>Cut objects into two parts along a line. Attach a dashed cutter line at `p0`, indicating direction and the set of affected objects. Only objects that are fully traversed by the cutter are affected.</p>
+<p>Clone objecs. Attach at `p0` a straight line (1) and a rectangle (2). Clone the box at the other end of the line (3). The line 1 indicates the offset applied to the cloned objects.</p>
+<p>Delete objects. Attach a cross or X of dashed, round-edged lines (1) to `p0`. Besides indicating the instruction itself, the cross (1) defines a rectangular selection area of affected objects.</p>
+</div>
+
+<p>Cut the upper right rectancle along a horizontal cut. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="clone1">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="32" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="21" y="19" /><circle cx="4" cy="4.012207" fill="none" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M36,8c1-5,14-4,24-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c29,0,31-2,32,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="36" x2="40" y1="8" y2="16" /><rect fill="none" height="1" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="36" y="8" /><rect fill="none" height="1" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="40" y="16" /><rect fill="none" height="16" stroke="#FF8888" stroke-dasharray="3,1" stroke-miterlimit="10" width="8" x="28" y="8" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="32" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="21" y="19" /><rect height="32" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="25" y="27" /><circle cx="4" cy="4.012207" fill="none" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M36,8c1-5,14-4,24-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c29,0,31-2,32,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="36" x2="40" y1="8" y2="16" /><rect fill="none" height="1" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="36" y="8" /><rect fill="none" height="1" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="40" y="16" /><rect fill="none" height="16" stroke="#FF8888" stroke-dasharray="3,1" stroke-miterlimit="10" width="8" x="28" y="8" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="32" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="21" y="19" /><circle cx="4" cy="4.012207" fill="none" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M36,8c1-5,14-4,24-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c29,0,31-2,32,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="36" x2="40" y1="8" y2="16" /><rect fill="none" height="1" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="36" y="8" /><rect fill="none" height="1" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" width="5" x="40" y="16" /><rect fill="none" height="16" stroke="#FF8888" stroke-dasharray="3,1" stroke-miterlimit="10" width="8" x="28" y="8" />
+</svg>
+</span>
+</p>
+<p>Cut the upper right rectancle along a vertical cut. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="cut-vertical">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="30" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M36,8c0-4,16-4,24-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,32,0,32,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="36" x2="36" y1="56" y2="8" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="6" x="30" y="12" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="16" x="36" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M36,8c0-4,16-4,24-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,32,0,32,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="36" x2="36" y1="56" y2="8" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="30" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M36,8c0-4,16-4,24-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,32,0,32,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="36" x2="36" y1="56" y2="8" />
+</svg>
+</span>
+</p>
+<p>Cut the upper right rectancle along a horizontal cut. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="cut-horiz">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="32" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="12" /><rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#FFFFFF" stroke-miterlimit="10" width="12" x="32" y="48" /><circle cx="4" cy="4.012207" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M56,34c2-2,9-20.625,4-30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c53-2,54-2,52,30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="56" x2="17" y1="34" y2="34" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="22" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="12" /><rect height="10" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="34" /><rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#FFFFFF" stroke-miterlimit="10" width="12" x="32" y="48" /><circle cx="4" cy="4.012207" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M56,34c2-2,9-20.625,4-30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c53-2,54-2,52,30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="56" x2="17" y1="34" y2="34" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="32" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="30" y="12" /><rect height="40" stroke="#FFFFFF" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#FFFFFF" stroke-miterlimit="10" width="12" x="32" y="48" /><circle cx="4" cy="4.012207" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#990000" r="1" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M56,34c2-2,9-20.625,4-30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c53-2,54-2,52,30" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="0.5" /><line fill="none" stroke="#FF8888" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="56" x2="17" y1="34" y2="34" />
+</svg>
+</span>
+</p>
+<p>Delete objects, enclosed by the rectangular area described by the cross. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="delete1">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="30" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M27,8c0-4,25-4,33-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,23,0,23,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="    M27,8" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="    M55,52" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="55" x2="27" y1="52" y2="8" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="27" x2="55" y1="52" y2="8" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M27,8c0-4,25-4,33-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,23,0,23,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="    M27,8" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="    M55,52" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="55" x2="27" y1="52" y2="8" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="27" x2="55" y1="52" y2="8" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="30" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M27,8c0-4,25-4,33-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,23,0,23,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="    M27,8" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="    M55,52" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="55" x2="27" y1="52" y2="8" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="27" x2="55" y1="52" y2="8" />
+</svg>
+</span>
+</p>
+<p>Delete objects, that intersect with the rectangular area described by the cross. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="delete2">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="30" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M27,8c0-4,25-4,33-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,23,0,23,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="    M27,8" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="    M55,52" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="55" x2="27" y1="52" y2="8" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="27" x2="55" y1="52" y2="8" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M27,8c0-4,25-4,33-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,23,0,23,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="    M27,8" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="    M55,52" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="55" x2="27" y1="52" y2="8" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="27" x2="55" y1="52" y2="8" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="40" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="2" y="12" /><rect height="12" stroke="#A0A0A0" stroke-miterlimit="10" width="12" x="32" y="48" /><rect height="32" stroke="#A0A0A0" stroke-miterlimit="10" width="22" x="30" y="12" /><circle cx="4" cy="4.012207" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="60" cy="4" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M27,8c0-4,25-4,33-4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4,4c11,0,23,0,23,4" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="    M27,8" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><path d="    M55,52" fill="none" stroke="#E8ACAC" stroke-dasharray="6,3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="55" x2="27" y1="52" y2="8" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="27" x2="55" y1="52" y2="8" />
+</svg>
+</span>
+</p>
+
+<script src="../spec/spec_DOMrefsheet.js"></script>
+</body>
+
+</html>
