@@ -128,7 +128,6 @@ describe("Reference Sheet Tester", function(){
             cycles = parseInt(tests[i].classList[2]);
             addTest_normal_execution(tests[i], cycles);
         }
-        else throw "Found test without supported testtype." + reftestElement.classList;
-
+        else console.log("Found test without supported testtype.");
     }
 });
