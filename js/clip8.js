@@ -97,6 +97,11 @@ var Clip8 = {
         return [instr, sel, nextIP];
     },
 
+    handleSelectorAt: function(arearect, svgroot) {
+        console.log("[handleSelectorAt] arearect:", arearect, svgroot);
+        return svgroot.childNodes;  // Fake return to test the test.
+    },
+
     executeOneOperation: function(svgroot, tracesvgroot) {
         var debug = true;
         var terminate = false;  // This is a local variable, not a global running flag.
