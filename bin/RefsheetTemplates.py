@@ -50,6 +50,26 @@ Linknext = Template("""
 </div>
 """)
 
+FooterRefsheet = Template("""
+<footer>
+<p><b>Version $refsheet_version</b></p>
+</footer>
+""")
+
+FooterIntro = Template("""
+<footer>
+<p>
+<b>Version $refsheet_version</b> $refsheet_description<br>
+<p>
+© 2016, Martin Brösamle.<br>
+All rights reserved.
+</p>
+<p>
+Powered by Jasmine, SVG, Javascript, and the DOM.
+</p>
+</footer>
+""")
+
 Body = Template("""
 <body>
 <nav>
@@ -59,6 +79,7 @@ $link2
 </nav>
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
 $TESTSECTIONS
+$FOOTER
 <script src="../spec/spec_DOMrefsheet.js"></script>
 </body>
 """)
