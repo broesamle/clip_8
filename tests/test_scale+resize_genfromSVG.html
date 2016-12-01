@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>clip8 | Changing dimensions</title>
+
+<link rel="shortcut icon" type="image/png" href="../js/jasmine/jasmine_favicon.png">
+<link rel="stylesheet" href="../css/jasmine.css">
+<script src="../js/jasmine/jasmine.js"></script>
+<script src="../js/jasmine/jasmine-html.js"></script>
+<script src="../js/jasmine/boot.js"></script>
+
+<link rel="stylesheet" href="../css/refsheet.css">
+<link rel="stylesheet" href="../css/clip8.css">
+<script src="../js/svgdom.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
+<script src="../js/clip8decode.js"></script>
+<script src="../js/clip8.js"></script>
+
+</head>
+
+
+<body>
+<nav>
+
+<div class="leftlink">
+<a href="test_create+destroy_genfromSVG.html">Create and destroy<br>
+&lt;&lt;&lt;&lt;
+</a>
+</div>
+
+<div class="chapternavtitle">Chapter 3</div>
+
+<div class="rightlink">
+<a href="appendix.html">Appendix<br>
+&gt;&gt;&gt;&gt;</a>
+</div>
+
+</nav>
+<h1><span class="sndtitle"><a href="toc.html">clip_8</a>&nbsp;|</span>&nbsp;Changing dimensions</h1>
+
+<h3>3.1&nbsp;&nbsp;Scale and resize</h3>
+<div class="sectionintro">
+<svg class="sectioninstructionicon" viewbox="0 0 64 64">
+<g>
+			<g>
+				<polyline fill="none" points="56,31 56,28 53,28     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+				
+					<line fill="none" stroke="#990000" stroke-dasharray="3.6,1.2" stroke-miterlimit="10" stroke-width="2" x1="51.8" x2="47.6" y1="28" y2="28" />
+				<polyline fill="none" points="47,28 44,28 44,31     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+				
+					<line fill="none" stroke="#990000" stroke-dasharray="5.0769,1.6923" stroke-miterlimit="10" stroke-width="2" x1="44" x2="44" y1="32.692" y2="52.154" />
+				<polyline fill="none" points="44,53 44,56 47,56     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+				
+					<line fill="none" stroke="#990000" stroke-dasharray="3.6,1.2" stroke-miterlimit="10" stroke-width="2" x1="48.2" x2="52.4" y1="56" y2="56" />
+				<polyline fill="none" points="53,56 56,56 56,53     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+				
+					<line fill="none" stroke="#990000" stroke-dasharray="5.0769,1.6923" stroke-miterlimit="10" stroke-width="2" x1="56" x2="56" y1="51.308" y2="31.846" />
+			</g>
+		</g><line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="56" x2="56" y1="28" y2="12" /><polyline fill="none" points="    60,18 56,12 52,18   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="28" x2="44" y1="56" y2="56" /><polyline fill="none" points="    38,60 44,56 38,52   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><polyline fill="none" points="    16,4 4,4 4,16   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><polyline fill="none" points="    35,8 16,8 16,51   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4" x2="16" y1="4" y2="8" />
+</svg>
+
+<p>Scale objects by a certain transformation, typically defined by the arrangement of the instruction elements.</p>
+<p>Grow or shrink objects by a certain amount. Compared to scaling, all objects will change their dimensions by the same amount, independent of their location or size.</p>
+<p>Set the width or height to a certain size. Compared to grow/shrink, all objecs will have the same width/height, independent of their initial dimensions.</p>
+</div>
+
+<p>Scale the selected rectangle (blue). Operation transforms objects so as to transform the rectangular icon at `p0` into the the sibling (attached via straignt line). <span class="testmetainfo">[exec_approx-dim 2 #00998A,#990000]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest exec_approx-dim 2 #00998A,#990000" id="scale1">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect fill="#990000" height="8" width="8" x="41" y="37.167" /><rect fill="#00998A" height="12" width="12" x="28" y="24" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,20c0-9.988,26.898-12,47.896-12.012" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C12,8,12,13,12,20.001" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="43.918,22.666 43.918,21.666 42.918,21.666     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.3231,4.6461" stroke-miterlimit="10" x1="38.271" x2="26.657" y1="21.666" y2="21.666" />
+				<polyline fill="none" points="24.333,21.666 23.333,21.666 23.333,22.666     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9064,3.8127" stroke-miterlimit="10" x1="23.333" x2="23.333" y1="26.479" y2="36.011" />
+				<polyline fill="none" points="23.333,37.917 23.333,38.917 24.333,38.917     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.3231,4.6461" stroke-miterlimit="10" x1="28.979" x2="40.595" y1="38.917" y2="38.917" />
+				<polyline fill="none" points="42.918,38.917 43.918,38.917 43.918,37.917     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9064,3.8127" stroke-miterlimit="10" x1="43.918" x2="43.918" y1="34.104" y2="24.572" />
+			</g>
+		</g><polyline fill="none" points="12,28     12,20 20,20   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" /><polyline fill="none" points="    8.667,42.399 8.667,24.8 13.333,24.8   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="12" x2="8.667" y1="20" y2="24.8" /><g>
+			<g>
+				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="12" x2="12.495" y1="20" y2="20.073" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="0.9505,0.9505" stroke-miterlimit="10" x1="13.435" x2="22.369" y1="20.211" y2="21.524" />
+				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="22.839" x2="23.333" y1="21.593" y2="21.666" />
+			</g>
+		</g>
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect fill="#990000" height="8" width="8" x="41" y="37.167" /><rect fill="#00998A" height="26.399" width="7" x="18" y="33.6" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,20c0-9.988,26.898-12,47.896-12.012" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C12,8,12,13,12,20.001" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="43.918,22.666 43.918,21.666 42.918,21.666     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.3231,4.6461" stroke-miterlimit="10" x1="38.271" x2="26.657" y1="21.666" y2="21.666" />
+				<polyline fill="none" points="24.333,21.666 23.333,21.666 23.333,22.666     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9064,3.8127" stroke-miterlimit="10" x1="23.333" x2="23.333" y1="26.479" y2="36.011" />
+				<polyline fill="none" points="23.333,37.917 23.333,38.917 24.333,38.917     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.3231,4.6461" stroke-miterlimit="10" x1="28.979" x2="40.595" y1="38.917" y2="38.917" />
+				<polyline fill="none" points="42.918,38.917 43.918,38.917 43.918,37.917     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9064,3.8127" stroke-miterlimit="10" x1="43.918" x2="43.918" y1="34.104" y2="24.572" />
+			</g>
+		</g><polyline fill="none" points="12,28     12,20 20,20   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" /><polyline fill="none" points="    8.667,42.399 8.667,24.8 13.333,24.8   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="12" x2="8.667" y1="20" y2="24.8" /><g>
+			<g>
+				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="12" x2="12.495" y1="20" y2="20.073" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="0.9505,0.9505" stroke-miterlimit="10" x1="13.435" x2="22.369" y1="20.211" y2="21.524" />
+				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="22.839" x2="23.333" y1="21.593" y2="21.666" />
+			</g>
+		</g>
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect fill="#990000" height="8" width="8" x="41" y="37.167" /><rect fill="#00998A" height="12" width="12" x="28" y="24" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,20c0-9.988,26.898-12,47.896-12.012" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C12,8,12,13,12,20.001" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="43.918,22.666 43.918,21.666 42.918,21.666     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.3231,4.6461" stroke-miterlimit="10" x1="38.271" x2="26.657" y1="21.666" y2="21.666" />
+				<polyline fill="none" points="24.333,21.666 23.333,21.666 23.333,22.666     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9064,3.8127" stroke-miterlimit="10" x1="23.333" x2="23.333" y1="26.479" y2="36.011" />
+				<polyline fill="none" points="23.333,37.917 23.333,38.917 24.333,38.917     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="2.3231,4.6461" stroke-miterlimit="10" x1="28.979" x2="40.595" y1="38.917" y2="38.917" />
+				<polyline fill="none" points="42.918,38.917 43.918,38.917 43.918,37.917     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9064,3.8127" stroke-miterlimit="10" x1="43.918" x2="43.918" y1="34.104" y2="24.572" />
+			</g>
+		</g><polyline fill="none" points="12,28     12,20 20,20   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" /><polyline fill="none" points="    8.667,42.399 8.667,24.8 13.333,24.8   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="12" x2="8.667" y1="20" y2="24.8" /><g>
+			<g>
+				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="12" x2="12.495" y1="20" y2="20.073" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="0.9505,0.9505" stroke-miterlimit="10" x1="13.435" x2="22.369" y1="20.211" y2="21.524" />
+				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="22.839" x2="23.333" y1="21.593" y2="21.666" />
+			</g>
+		</g>
+</svg>
+</span>
+</p>
+<p>Shrink selected objects by the length of the arrow. Downward arrow at the upper edge of the selecor indicates to shrink the objects at their respective upper edge. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="shrink-upper">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="19" y2="24" /><polyline fill="none" points="    10,21 12,24 14,21   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="2" width="4" x="14" y="35" /><rect height="2" width="10" x="23" y="34" /><rect height="5" width="6" x="38" y="31" /><rect height="2" width="1" x="49" y="42" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="19" y2="24" /><polyline fill="none" points="    10,21 12,24 14,21   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="19" y2="24" /><polyline fill="none" points="    10,21 12,24 14,21   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+</p>
+<p>Grow selected objects by the length of the arrow. Upward arrow at the upper edge of the selecor indicates to grow the objects at their respective upper edge. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="grow-upper">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><polyline fill="none" points="    14,15 12,12 10,15   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="19" width="4" x="14" y="18" /><rect height="15" width="10" x="23" y="19" /><rect height="22" width="6" x="38" y="14" /><rect height="19" width="1" x="49" y="25" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><polyline fill="none" points="    14,15 12,12 10,15   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><polyline fill="none" points="    14,15 12,12 10,15   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+</p>
+<p>Grow selected objects by the length of the arrow. Right arrow at the right edge of the selecor indicates to grow the objects at their respective right edge. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="grow-right">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M52,46c0,11,17,28,7.896-38.012" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,36,2,46,52,46" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="52" x2="60" y1="46" y2="46" /><polyline fill="none" points="    57,48 60,46 57,44   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="12" x="14" y="30" /><rect height="3" width="19" x="23" y="31" /><rect height="10" width="14" x="38" y="26" /><rect height="7" width="9" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M52,46c0,11,17,28,7.896-38.012" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,36,2,46,52,46" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="52" x2="60" y1="46" y2="46" /><polyline fill="none" points="    57,48 60,46 57,44   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M52,46c0,11,17,28,7.896-38.012" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,36,2,46,52,46" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="52" x2="60" y1="46" y2="46" /><polyline fill="none" points="    57,48 60,46 57,44   " stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" />
+</svg>
+</span>
+</p>
+<p>Set the height of the selected objects to the height of the vertical bar in the instruction elements. Since the instruction is attached to the upper edge of the selector, the upper edge of the objects will be changed, whereas their bottom edge will not move. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="setheight">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="12" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="24" y2="24" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="12" width="4" x="14" y="25" /><rect height="12" width="10" x="23" y="22" /><rect height="12" width="6" x="38" y="24" /><rect height="12" width="1" x="49" y="32" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="12" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="24" y2="24" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="12" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="24" y2="24" />
+</svg>
+</span>
+</p>
+<p>Set the height of all elements in the selection set. An secondary selector picks the height from one of the existing rectangles. <span class="testmetainfo">[normal_execution 2]</span></p>
+<!-- NOTE: The first three items in class list define the test. Handle with care! -->
+<p class="DOMreftest normal_execution 2" id="setheight-indir">
+<span class="pre-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="12" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="24" y2="24" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="12" x2="18" y1="12" y2="30" /><polygon fill="none" points="14,30 18,30 16,34   " stroke="#E8ACAC" stroke-dasharray="0.2,0.2" stroke-miterlimit="10" />
+</svg>
+</span>
+&nbsp;==&gt;&nbsp;
+<span class="post-reference">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="7" width="10" x="23" y="27" /><rect height="7" width="6" x="38" y="29" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="12" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="24" y2="24" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="12" x2="18" y1="12" y2="30" /><polygon fill="none" points="14,30 18,30 16,34   " stroke="#E8ACAC" stroke-dasharray="0.2,0.2" stroke-miterlimit="10" />
+</svg>
+</span>
+&nbsp;:&nbsp;&nbsp;&nbsp;
+<span class="testDOM">
+<svg viewbox="0 0 64 64" width="64" height="64">
+<rect height="7" width="4" x="14" y="30" /><rect height="3" width="10" x="23" y="31" /><rect height="10" width="6" x="38" y="26" /><rect height="7" width="1" x="49" y="37" /><circle cx="59.896" cy="7.988" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="59.896" cy="7.988" fill="none" r="2.25" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><circle cx="4" cy="8" fill="#9BC9C7" r="1" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M12,24C26,24,38.898,8,59.896,7.988" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><path d="M4.103,8.013C4,13,3,31,12,24" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.5" /><g>
+			<g>
+				<polyline fill="none" points="52,25 52,24 51,24     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="47.2" x2="14.9" y1="24" y2="24" />
+				<polyline fill="none" points="13,24 12,24 12,25     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="12" x2="12" y1="28.636" y2="43.182" />
+				<polyline fill="none" points="12,45 12,46 13,46     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.9,3.8" stroke-miterlimit="10" x1="16.8" x2="49.1" y1="46" y2="46" />
+				<polyline fill="none" points="51,46 52,46 52,45     " stroke="#E8ACAC" stroke-miterlimit="10" />
+				
+					<line fill="none" stroke="#E8ACAC" stroke-dasharray="1.8182,3.6364" stroke-miterlimit="10" x1="52" x2="52" y1="41.363" y2="26.818" />
+			</g>
+		</g><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="12" x2="12" y1="24" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="12" y2="12" /><line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5" x1="10" x2="14" y1="24" y2="24" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="1,1" stroke-miterlimit="10" x1="12" x2="18" y1="12" y2="30" /><polygon fill="none" points="14,30 18,30 16,34   " stroke="#E8ACAC" stroke-dasharray="0.2,0.2" stroke-miterlimit="10" />
+</svg>
+</span>
+</p>
+
+
+<footer>
+<p><b>Version 0.0.1</b></p>
+</footer>
+
+<script src="../spec/spec_DOMrefsheet.js"></script>
+</body>
+
+</html>

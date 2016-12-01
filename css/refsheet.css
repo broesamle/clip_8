@@ -13,6 +13,11 @@ a:visited 	{ outline: none; text-decoration: none; color:#adbeab; }
 
 h1, h2, h3, p { clear: left; }
 
+footer {
+    font-size: 0.8em;
+    margin-top:3em;
+}
+
 .sectionintro p { clear: none; }
 
 .sectionintro svg {

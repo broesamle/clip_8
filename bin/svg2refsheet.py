@@ -195,8 +195,13 @@ while len(SCT.sections) > 0:
 
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
         nextlinkHTML = TEM.Linknext.substitute(href=nexthref, linktext=nextlinktitle)
+        footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
+        bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+                                        chapter=chapter, chaptercnt="Chapter "+str(chaptercnt),
+                                        TESTSECTIONS=testsectionsHTML,
+                                        link1=backlinkHTML, link2=nextlinkHTML,
+                                        FOOTER=footerHTML)
 
-        bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>', chapter=chapter, chaptercnt="Chapter "+str(chaptercnt), TESTSECTIONS=testsectionsHTML, link1=backlinkHTML, link2=nextlinkHTML)
         headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter=chapter)
         documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML, chapter=chapter)
         output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
@@ -220,7 +225,13 @@ while len(SCT.sections) > 0:
         print ("Sections.py mentions a non existing file:", infile)
 
 backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
-bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>', chapter="All tests", chaptercnt="Appendix A", TESTSECTIONS=appendixsectionsHTML, link1=backlinkHTML, link2="")
+footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+                               chapter="All tests", chaptercnt="Appendix A",
+                               TESTSECTIONS=appendixsectionsHTML,
+                               link1=backlinkHTML, link2="",
+                               FOOTER=footerHTML)
+
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix A")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 
@@ -240,7 +251,12 @@ tocsectionsHTML += TEM.TOCsection.substitute(
 
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
-bodyHTML = TEM.Body.substitute(pagetitle='clip_8', chapter="Table of Contents", chaptercnt="", TESTSECTIONS=tocsectionsHTML, link1=backlinkHTML, link2=nextlinkHTML)
+footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
+bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
+                               chapter="Table of Contents", chaptercnt="",
+                               TESTSECTIONS=tocsectionsHTML,
+                               link1=backlinkHTML, link2=nextlinkHTML,
+                               FOOTER=footerHTML)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 
@@ -278,15 +294,14 @@ The third  test checks whether test and postcondition match after execution.
 Not all browsers currently support all technological ingredients.
 See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
 </p>
-<p>
-Powered by Jasmine, SVG, Javascript, and the DOM.
-</p>
-<p>
-© 2016, Martin Brösamle.<br>
-All rights reserved.
-</p>
 """
-bodyHTML = TEM.Body.substitute(pagetitle="clip_8", chapter="Introduction", chaptercnt="", TESTSECTIONS=contentHTML, link1="", link2="")
+footerHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
+bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
+                               chapter="Introduction",
+                               chaptercnt="",
+                               TESTSECTIONS=contentHTML,
+                               link1="", link2="",
+                               FOOTER=footerHTML)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 
