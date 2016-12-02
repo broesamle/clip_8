@@ -32,7 +32,7 @@ var Clip8 = {
         var initialflow = null;
 
         for ( var i = 0; i < circles.length; i++ ) {
-            var r = Svgdom.CentreArea(circles[i], epsilon);
+            var r = Svgdom.newRectElement_fromSVGRect(Svgdom.getCentreArea(circles[i], epsilon));
             r.setAttribute("fill", "#ffff33");
             centres.appendChild(r);
         }
@@ -57,11 +57,7 @@ var Clip8 = {
     getInstrEls_asGroups: function (arearect, svgroot) {
         var debug = false;
         if (debug) console.log("[GETINSTRELS_ASGROUPS] arearect, svgroot:", arearect, svgroot);
-        arearect.setAttribute("fill", "#FFEE22");
-        svgroot.appendChild(arearect);
-        var s = Svgretrieve.selectorFromRect(arearect, svgroot);
-        svgroot.removeChild(arearect);
-        var hitlist = svgroot.getIntersectionList(s, svgroot);
+        var hitlist = svgroot.getIntersectionList(arearect, svgroot);
         if (debug)  console.log("[getInstrEls_asGroups] hitlist:", hitlist);
         if (hitlist.length == 0) throw "[clip8getInstrEls_asGroups] empty hitlist.";
         var sel = Svgdom.addGroup(svgroot);
@@ -124,7 +120,7 @@ var Clip8 = {
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
 
-        var arearect = Svgdom.EndOfPathArea(Clip8.ip, epsilon);
+        var arearect = Svgdom.getEndOfPathArea(Clip8.ip, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
         if (debug) console.log("[executeOneOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
@@ -155,7 +151,7 @@ var Clip8 = {
             var thepoly = instr1.getElementsByTagName("polyline")[0];
             var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-            var arearect = Svgdom.EndOfLineArea(theline, epsilon);
+            var arearect = Svgdom.getEndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
             if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
