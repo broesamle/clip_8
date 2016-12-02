@@ -127,7 +127,7 @@ var Clip8 = {
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
         Clip8.ip = instrNsel[2];
-        var selectedelements1 = Clip8.getSelectedElements(sel1, svgroot);
+        var selectedelements1 = Clip8.getSelectedElements(sel1.childNodes, svgroot);
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         // decode instruction
