@@ -94,9 +94,28 @@ var Clip8 = {
         return [instr, sel, nextIP];
     },
 
-    handleSelectorAt: function(arearect, svgroot) {
-        console.log("[handleSelectorAt] arearect:", arearect, svgroot);
-        return svgroot.childNodes;  // Fake return to test the test.
+    getSelectedElements: function(selectorelements, svgroot) {
+        /** Retreve the set of selected objects as defined by a given selector.
+         *  `selectorelements` is the list of SVG DOM elments being the selector
+         *  part of an instruction. These elements graphically depict the selector.
+         *  Return value is a list of SVG DOM elements that are selected by the given selector. */
+
+        var debug = false;
+        if (debug) console.log("[GETSELECTEDELEMENTS] arearect:", selectorelements, svgroot);
+
+        // List of selected Elements based on primary selector
+        var selection = [];
+        if (selectorelements.firstChild instanceof SVGRectElement) {
+            var s = Svgretrieve.selectorFromRect(selectorelements.firstChild, svgroot);
+            if (debug) console.log("[executeOneOperation] selector from rect in selectorelements:", s);
+            var hitlist = svgroot.getEnclosureList(s, svgroot);
+            for ( var i = 0; i < hitlist.length; i++ )
+                if ( hitlist[i].tagName == "rect" &&
+                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
+                     selection.push(hitlist[i]);
+        }
+        else selection = undefined;
+        return selection;
     },
 
     executeOneOperation: function(svgroot, tracesvgroot) {
@@ -104,6 +123,7 @@ var Clip8 = {
         var terminate = false;  // This is a local variable, not a global running flag.
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
+
         var arearect = Svgdom.EndOfPathArea(Clip8.ip, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
@@ -111,20 +131,7 @@ var Clip8 = {
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
         Clip8.ip = instrNsel[2];
-
-        // List of selected Elements based on primary selector
-        var selectedelements1 = [];
-        if (sel1.firstChild instanceof SVGRectElement) {
-            var s = Svgretrieve.selectorFromRect(sel1.firstChild, svgroot);
-            if (debug) console.log("[executeOneOperation] selector from rect in sel1:", s);
-            var hitlist = svgroot.getEnclosureList(s, svgroot);
-            for ( var i = 0; i < hitlist.length; i++ )
-                if ( hitlist[i].tagName == "rect" &&
-                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
-                     selectedelements1.push(hitlist[i]);
-        }
-        else selectedelements1 = undefined;
-
+        var selectedelements1 = Clip8.getSelectedElements(sel1, svgroot);
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         // decode instruction
