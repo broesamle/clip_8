@@ -13,11 +13,11 @@ var Svgdom = {
         return g;
     },
 
-    newRect: function (x,y,w,h) {
+    newRectElement: function (x,y,w,h) {
+        /** Create an SVG DOM rect element */
         var debug = false;
-        if (debug) console.log("Svgdom.newRect:",x,y,w,h);
+        if (debug) console.log("[newRectElement] x, y, w, h:", x, y, w, h);
         var r = document.createElementNS(Svgdom.SVGNS, "rect");
-        //var r = document.createElement("XXX", "rect");
         r.setAttribute("x",x);
         r.setAttribute("y",y);
         r.setAttribute("width",w);
@@ -25,27 +25,49 @@ var Svgdom = {
         return r;
     },
 
+    newRectElement_fromSVGRect (r) {
+        return Svgdom.newRectElement(r.x, r.y, r.width, r.height);
+    },
+
+    epsilonRectAt: function (x, y, epsilon, somesvgelement) {
+        var svgroot;
+        var debug = false;
+        if (debug) console.log("[epsilonRectAt] x, y, epsilon, somesvgelement:", x, y, epsilon, somesvgelement);
+        if          (somesvgelement instanceof SVGSVGElement)   svgroot = somesvgelement;
+        else if     (somesvgelement instanceof SVGElement)      svgroot = somesvgelement.ownerSVGElement;
+        else {
+            if (debug) console.log("[epsilonRectAt] invalid svg elment:", somesvgelement);
+            throw "[epsilonRectAt] Expected an instance of SVGSVGElement or SVGElement.";
+        }
+        var r = svgroot.createSVGRect();
+        r.x = x-epsilon;
+        r.y = y-epsilon
+        r.width = epsilon*2;
+        r.height = epsilon*2;
+        return r;
+    },
+
     addRect: function (parentel,x,y,w,h) {
-        var r = Svgdom.newRect(x,y,w,h);
+        var r = Svgdom.newRectElement(x,y,w,h);
         parentel.appendChild(r);
         return r;
     },
 
-    CentreArea: function (circle, epsilon) {
+    getCentreArea: function (circle, epsilon) {
         /** Returns an SVG rect `r` around the centre of circle.
         *   `width == 2*epsilon`.
         */
-        return Svgdom.newRect(circle.cx.baseVal.value-epsilon, circle.cy.baseVal.value-epsilon, epsilon*2, epsilon*2);
+        return Svgdom.epsilonRectAt(circle.cx.baseVal.value, circle.cy.baseVal.value, epsilon, circle);
     },
 
-    EndOfLineArea: function (line, epsilon) {
+    getEndOfLineArea: function (line, epsilon) {
         /** Returns an SVG rect `r` around the endpoint of `line`.
         *   `width == 2*epsilon`.
         */
-        return Svgdom.newRect(line.x2.baseVal.value-epsilon, line.y2.baseVal.value-epsilon, epsilon*2, epsilon*2);
+        return Svgdom.epsilonRectAt(line.x2.baseVal.value, line.y2.baseVal.value, epsilon, line);
     },
 
-    EndOfPathArea: function (path, epsilon) {
+    getEndOfPathArea: function (path, epsilon) {
         /** Returns an SVG rect `r` around the endpoint of a path.
         *   `width == 2*epsilon`.
         */
@@ -82,6 +104,6 @@ var Svgdom = {
             if (debug) console.log("Svgdom.EndOfPathArea B: endx, endy", endx, endy);
         }
         else throw ("Svgdom.EndOfPathArea: Need exactly one curve segment. "+pathdata);
-        return Svgdom.newRect(endx-epsilon, endy-epsilon, epsilon*2, epsilon*2);
+        return Svgdom.epsilonRectAt(endx, endy, epsilon, path);
     }
 }

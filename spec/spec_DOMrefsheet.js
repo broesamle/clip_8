@@ -2,6 +2,7 @@
 var CLIP8_RUNNINGTIME = 500
 
 var customMatchers = {
+
 toBeElement:
     function (util, customEqualityTesters) {
         return {
@@ -23,7 +24,38 @@ toMatchReference:
                 var cmpB = expected.outerHTML.replace(/\s+/gm, " ")
                 result.pass = cmpA==cmpB;
                 if (debug) console.log("tests: ", cmpA, "==", cmpB, result.pass);
-                result.message = "Expected " + actual + " to equal " + expected + ".";
+                result.message = "Expected " + cmpA + " to equal " + cmpB + ".";
+                return result;
+            }
+        };
+    },
+
+_toStringSortAttrs: function (el) {
+    var result = "";
+    for (var i = 0; i < el.childNodes.length; i++) {
+        if ((el.childNodes[i] instanceof SVGElement) || (el.childNodes[i] instanceof HTMLElement)) {
+            result += el.childNodes[i].tagName + ": ";
+            var attribsAsStrings = [];
+            for (var j = 0; j < el.childNodes[i].attributes.length ; j++)
+                attribsAsStrings.push( el.childNodes[i].attributes[j].name + "=" + el.childNodes[i].attributes[j].value );
+            attribsAsStrings.sort();
+            result += attribsAsStrings.toString() + "; ";
+        }
+    }
+    return result;
+},
+
+attributesOfChildrenToMatch:
+    function (util, customEqualityTesters) {
+        return {
+            compare: function(actual, expected) {
+                var result = {};
+                var debug = false;
+                var actualCmp = customMatchers._toStringSortAttrs(actual);
+                var expectedCmp = customMatchers._toStringSortAttrs(expected);
+                result.pass = actualCmp==expectedCmp;
+                if (debug) console.log("tests: ", actualCmp, "==", expectedCmp, result.pass);
+                result.message = "Expected " + actualCmp + " to equal " + expectedCmp + ".";
                 return result;
             }
         };
@@ -125,7 +157,13 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
 
     spec = it("["+reftestElement.id+"] PRE and TEST should be equal",
         function(done) {
-        GenericTestFns.matchPre(reftestElement);
+        var pre = getPrecondition(reftestElement);
+        var proc = getTestDOM(reftestElement);
+        expect(pre.classList).toContain("pre-reference");
+        expect(proc.classList).toContain("testDOM");
+        expect(proc.firstElementChild).toBeElement();
+        expect(pre.firstElementChild).toBeElement();
+        expect(proc.firstElementChild).attributesOfChildrenToMatch(pre.firstElementChild);
         done();
     });
     test_specids.push(spec.id);
@@ -136,8 +174,10 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
         expect(svgroot).toBeElement();
-        var arearect = Svgdom.newRect(p0x-epsilon, p0y-epsilon, epsilon*2, epsilon*2);
-        var selectionset = Clip8.handleSelectorAt(arearect, svgroot);
+        var arearect = Svgdom.epsilonRectAt(p0x, p0y, epsilon, svgroot);
+        Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
+        var sel = svgroot.getIntersectionList(arearect, svgroot);;
+        var selectionset = Clip8.getSelectedElements(sel, svgroot);
         for (var i = 0; i < selectionset.length; i++) {
             console.log("[addTest_selectionset] selectionset[i]:", selectionset[i]);
             if (selectionset[i] instanceof SVGElement)
@@ -149,7 +189,13 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
     test_domids.push(reftestElement.id);
 
     spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
-        GenericTestFns.matchPost(reftestElement);
+        var proc = getTestDOM(reftestElement);
+        var post = getPostcondition(reftestElement);
+        expect(proc.classList).toContain("testDOM");
+        expect(post.classList).toContain("post-reference");
+        expect(proc.firstElementChild).toBeElement();
+        expect(post.firstElementChild).toBeElement();
+        expect(proc.firstElementChild).attributesOfChildrenToMatch(post.firstElementChild);
         done();
     });
     test_specids.push(spec.id);
