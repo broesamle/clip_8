@@ -101,8 +101,8 @@ var Clip8 = {
 
         // List of selected Elements based on primary selector
         var selection = [];
-        if (selectorelements.firstChild instanceof SVGRectElement) {
-            var s = Svgretrieve.selectorFromRect(selectorelements.firstChild, svgroot);
+        if (selectorelements[0] instanceof SVGRectElement) {
+            var s = Svgretrieve.selectorFromRect(selectorelements[0], svgroot);
             if (debug) console.log("[executeOneOperation] selector from rect in selectorelements:", s);
             var hitlist = svgroot.getEnclosureList(s, svgroot);
             for ( var i = 0; i < hitlist.length; i++ )

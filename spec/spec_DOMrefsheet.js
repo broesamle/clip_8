@@ -136,8 +136,10 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
         expect(svgroot).toBeElement();
-        var arearect = Svgdom.newRect(p0x-epsilon, p0y-epsilon, epsilon*2, epsilon*2);
-        var selectionset = Clip8.handleSelectorAt(arearect, svgroot);
+        var arearect = Svgdom.epsilonRectAt(p0x, p0y, epsilon, svgroot);
+        Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
+        var sel = svgroot.getIntersectionList(arearect, svgroot);;
+        var selectionset = Clip8.getSelectedElements(sel, svgroot);
         for (var i = 0; i < selectionset.length; i++) {
             console.log("[addTest_selectionset] selectionset[i]:", selectionset[i]);
             if (selectionset[i] instanceof SVGElement)
