@@ -260,9 +260,22 @@ output_file.close()
 ### passing.html
 backlinkHTML = TEM.Linkback.substitute(href="appendix.html", linktext="All Tests")
 nextlinkHTML = TEM.Linknext.substitute(href="failing.html", linktext="Expected to fail")
+footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
+passingtestsExplainHTML = """
+<p>If you encounter a failing test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>. It may indicate several things:
+<br>(a) By accident, the test is not in the list of tests that are expected to fail.
+<br>(b) clip_8 has, in principle, the functionality to pass the test. However, the current implementation relies on
+some experimental features not supported by all browsers. Please refer to
+<a href="https://github.com/broesamle/clip_8/issues/9">Issue 9</a> in this respect.
+<br>(c) Functionality is actually really broken and the test fails, for instance, because of recent disruptive changes.
+</p>
+<p>
+Thank you for your contribution!
+</p>
+"""
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="Expected to pass", chaptercnt="Appendix B",
-                               TESTSECTIONS=passingtestsHTML,
+                               TESTSECTIONS=passingtestsExplainHTML+passingtestsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML)
 
@@ -277,9 +290,18 @@ output_file.close()
 ### failing.html
 backlinkHTML = TEM.Linkback.substitute(href="passing.html", linktext="Expected to pass")
 nextlinkHTML = ""
+failingtestsExplainHTML = """
+<p>
+If you encounter a passing (all three subtests are green) test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>.
+Most likely, it was forgotten to remove the test from the expected-to-fail list when a related feature was implemented.
+</p>
+<p>
+Thank you for your contribution!
+</p>
+"""
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="Expected to fail", chaptercnt="Appendix C",
-                               TESTSECTIONS=failingtestsHTML,
+                               TESTSECTIONS=failingtestsExplainHTML+failingtestsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML)
 
