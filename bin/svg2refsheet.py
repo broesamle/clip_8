@@ -139,6 +139,7 @@ class TestSection(SVGGroupCollection):
                 else:
                     print("WARNING: UDO (unknown data object ;-) in test element:", child, child.get('id',"--unknown--"), key)
             newitem['testid'] = key
+            newitem['expectedtofail'] = key in SCT.expected_to_fail
             self.addItem(key, newitem)
 
 appendixsectionsHTML = ""
@@ -178,7 +179,7 @@ while len(SCT.sections) > 0:
             printid = thetest['testid'] + " "*max(0, 25-len(thetest['testid']))
             printdescr = thetest['testdescription'][:min(len(thetest['testdescription']), 55)]
             printdescr += " "* max(0, (55-len(printdescr)))
-            print ( "  [ %10s ] %s (%s)" % (printid, printdescr, thetest['testtype']) )
+            print ( "  [ %10s ] %s (%s) (%s)" % (printid, printdescr, thetest['testtype'], {True:"fail", False:"pass"}[thetest['expectedtofail']]) )
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
