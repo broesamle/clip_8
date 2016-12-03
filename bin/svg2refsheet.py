@@ -216,6 +216,19 @@ while len(SCT.sections) > 0:
             seriesTEM=TEM.Testsection_inclHref,
             seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt}
             )
+        passingtestsHTML += alltests[infile].generateSeries(
+            itemTEM=TEM.ReftestCore,
+            seriesTEM=TEM.Testsection_inclHref,
+            seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt},
+            filterFn=lambda _test:(_test['expectedto'] == "pass")
+            )
+
+        failingtestsHTML += alltests[infile].generateSeries(
+            itemTEM=TEM.ReftestCore,
+            seriesTEM=TEM.Testsection_inclHref,
+            seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt},
+            filterFn=lambda _test:(_test['expectedto'] == "fail")
+            )
 
         tocsectionsHTML += TEM.TOCsection.substitute(
             testsectiontitle=section,
@@ -226,6 +239,7 @@ while len(SCT.sections) > 0:
     else:
         print ("Sections.py mentions a non existing file:", infile)
 
+### Appendix
 backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
 footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
@@ -238,6 +252,40 @@ headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.Depend
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "appendix.html")
+output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+output_file.write(documentHTML)
+output_file.close()
+
+### passing.html
+backlinkHTML = ""
+nextlinkHTML = ""
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+                               chapter="Expected to pass", chaptercnt="Appendix B",
+                               TESTSECTIONS=passingtestsHTML,
+                               link1=backlinkHTML, link2=nextlinkHTML,
+                               FOOTER=footerHTML)
+
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix B")
+documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+
+outFN = os.path.join(outDIRabs, "passing.html")
+output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+output_file.write(documentHTML)
+output_file.close()
+
+### failing.html
+backlinkHTML = ""
+nextlinkHTML = ""
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+                               chapter="Expected to fail", chaptercnt="Appendix C",
+                               TESTSECTIONS=failingtestsHTML,
+                               link1=backlinkHTML, link2=nextlinkHTML,
+                               FOOTER=footerHTML)
+
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix C")
+documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+
+outFN = os.path.join(outDIRabs, "failing.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
 output_file.write(documentHTML)
 output_file.close()

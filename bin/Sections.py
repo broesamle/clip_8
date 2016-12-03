@@ -15,8 +15,8 @@ sections = [
 
 expected_to_fail = [
     "alternative-join-combo", "alternative-join-combo2", "alternative-join-combo3", "alternative-join-combo4", "alternative-join-combo5",
-    "enclose2", "intersect1", "intersect2", "indirect2", "indirect2", "indirect3",
-    "move-rel-v-down", "move-rel-dl", "move-bysize-down ", "move-bysize-down2",
+    "enclose2", "intersect1", "intersect2", "indirect1", "indirect2", "indirect3",
+    "move-rel-v-down", "move-rel-dl", "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "clone1", "cut-vertical", "delete1", "delete2",
     "scale1", "shrink-upper", "grow-upper", "grow-right", "setheight", "setheight-indir"
