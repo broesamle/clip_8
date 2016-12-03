@@ -241,11 +241,12 @@ while len(SCT.sections) > 0:
 
 ### Appendix
 backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
+nextlinkHTML = TEM.Linknext.substitute(href="passing.html", linktext="Expected to pass")
 footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
-                               chapter="All tests", chaptercnt="Appendix A",
+                               chapter="All Tests", chaptercnt="Appendix A",
                                TESTSECTIONS=appendixsectionsHTML,
-                               link1=backlinkHTML, link2="",
+                               link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix A")
@@ -257,8 +258,8 @@ output_file.write(documentHTML)
 output_file.close()
 
 ### passing.html
-backlinkHTML = ""
-nextlinkHTML = ""
+backlinkHTML = TEM.Linkback.substitute(href="appendix.html", linktext="All Tests")
+nextlinkHTML = TEM.Linknext.substitute(href="failing.html", linktext="Expected to fail")
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="Expected to pass", chaptercnt="Appendix B",
                                TESTSECTIONS=passingtestsHTML,
@@ -274,7 +275,7 @@ output_file.write(documentHTML)
 output_file.close()
 
 ### failing.html
-backlinkHTML = ""
+backlinkHTML = TEM.Linkback.substitute(href="passing.html", linktext="Expected to pass")
 nextlinkHTML = ""
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="Expected to fail", chaptercnt="Appendix C",
@@ -298,7 +299,18 @@ tocsectionsHTML += TEM.TOCsection.substitute(
     chaptercnt="A",
     sectioncnt="",
     sectioninstructionicon="")
-
+tocsectionsHTML += TEM.TOCsection.substitute(
+    testsectiontitle="Appendix: Expected to pass",
+    testsectionhref="passing.html",
+    chaptercnt="B",
+    sectioncnt="",
+    sectioninstructionicon="")
+tocsectionsHTML += TEM.TOCsection.substitute(
+    testsectiontitle="Appendix: Expected to fail",
+    testsectionhref="failing.html",
+    chaptercnt="C",
+    sectioncnt="",
+    sectioninstructionicon="")
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
