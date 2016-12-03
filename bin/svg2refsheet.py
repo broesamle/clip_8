@@ -139,7 +139,6 @@ class TestSection(SVGGroupCollection):
                 else:
                     print("WARNING: UDO (unknown data object ;-) in test element:", child, child.get('id',"--unknown--"), key)
             newitem['testid'] = key
-            ## TODO: extract correct bits from SVG and define `pre`, `post` and `testDOM`.
             self.addItem(key, newitem)
 
 appendixsectionsHTML = ""
