@@ -137,7 +137,7 @@ ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'
 ReftestCore.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
 reftestcorewrapper_withIntro = """
-<p>$testdescription<span class="testmetainfo">[$THESERIES]</span></p>
+<p>$testdescription<br><span class="testmetainfo">[$THESERIES] expected to $expectedto.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
