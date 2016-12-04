@@ -99,5 +99,11 @@ var Svgretrieve = {
             Initial use case: Select elements potentially affected by a vertical cut.
         */
         throw "[enclosingFullWidthStripe] not implemented."
+    },
+    
+    getCirclesAt: function(c, r1, r2, svgcontainer) {
+        /** Return all circles roughly centred at `c` with a radius `r1 < radius < r2` (approximately).
+        */
+        throw "[getCirclesAt] not implemented.";
     }
 }

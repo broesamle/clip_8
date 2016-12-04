@@ -32,7 +32,8 @@ var Clip8 = {
         var initialflow = null;
 
         for ( var i = 0; i < circles.length; i++ ) {
-            var r = Svgdom.newRectElement_fromSVGRect(Svgdom.getCentreArea(circles[i], epsilon));
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getCentrePoint(circles[i]), epsilon, svgroot);
+            var r = Svgdom.newRectElement_fromSVGRect(arearect, svgroot);
             r.setAttribute("fill", "#ffff33");
             centres.appendChild(r);
         }
@@ -120,9 +121,10 @@ var Clip8 = {
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
 
-        var arearect = Svgdom.getEndOfPathArea(Clip8.ip, epsilon);
+        var p0 = Svgdom.getEndOfPathPoint(Clip8.ip);
+        var p0area = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
+        var instrNsel = Clip8.getInstrEls_asGroups(p0area, svgroot);
         if (debug) console.log("[executeOneOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
@@ -151,7 +153,7 @@ var Clip8 = {
             var thepoly = instr1.getElementsByTagName("polyline")[0];
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-            var arearect = Svgdom.getEndOfLineArea(theline, epsilon);
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
             if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
@@ -211,9 +213,14 @@ var Clip8 = {
                     default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
                 }
             }
-            else
-                throw "Could not decode instruction M"+instr1;
-
+            else {
+                var p2 = Svgdom.getEndOfLinePoint(theline);
+                Svgretrieve.checkForCircleAt(
+                    p2,
+                    theline.getAttribute("stroke-width"),       // use as minimum radius
+                    theline.getAttribute("stroke-width") * 4,   // use as minimum radius
+                    svgroot);
+            }
         }
         else
             throw "Could not decode instruction X"+instr1;

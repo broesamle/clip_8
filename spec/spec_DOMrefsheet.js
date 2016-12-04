@@ -174,7 +174,10 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
         expect(svgroot).toBeElement();
-        var arearect = Svgdom.epsilonRectAt(p0x, p0y, epsilon, svgroot);
+        var p0 = svgroot.createSVGPoint();
+        p0.x = p0x;
+        p0.y = p0y;
+        var arearect = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var sel = svgroot.getIntersectionList(arearect, svgroot);;
         var selectionset = Clip8.getSelectedElements(sel, svgroot);
