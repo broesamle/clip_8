@@ -131,7 +131,7 @@ var Clip8 = {
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         // decode instruction
-        var signature = clip8countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
+        var signature = Clip8decode.countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
         if (debug) console.log("[executeOneOperation] signature:", signature);
         if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
             if (debug) console.log("[executeOneOperation] two circles.");
@@ -146,17 +146,17 @@ var Clip8 = {
             // ALIGN
             if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
             var theline = instr1.getElementsByTagName("line")[0];
-            var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
+            var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] direction:", linedir);
             var thepoly = instr1.getElementsByTagName("polyline")[0];
-            var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
+            var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = Svgdom.getEndOfLineArea(theline, epsilon);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
             if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
-            var snd_signature = clip8countTags(instr2, ["rect"]);
+            var snd_signature = Clip8decode.countTags(instr2, ["rect"]);
             if (snd_signature.toString() === [1].toString() )
                 selectedelements1.push(instr2.firstChild); // Add the absolute rectangle to the selected set.
             switch (linedir) {
@@ -186,7 +186,7 @@ var Clip8 = {
             var theline = instr1.getElementsByTagName("line")[0];
             if (theline.getAttribute("stroke-dasharray")) {
                 // CUT
-                var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
+                var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
                 switch (linedir) {
                     case 'UP':
                     case 'DOWN':
