@@ -139,10 +139,12 @@ class TestSection(SVGGroupCollection):
                 else:
                     print("WARNING: UDO (unknown data object ;-) in test element:", child, child.get('id',"--unknown--"), key)
             newitem['testid'] = key
-            ## TODO: extract correct bits from SVG and define `pre`, `post` and `testDOM`.
+            newitem['expectedto'] = {True:"fail", False:"pass"}[key in SCT.expected_to_fail]
             self.addItem(key, newitem)
 
 appendixsectionsHTML = ""
+passingtestsHTML = ""
+failingtestsHTML = ""
 tocsectionsHTML = ""
 alltests = {}
 
@@ -179,7 +181,7 @@ while len(SCT.sections) > 0:
             printid = thetest['testid'] + " "*max(0, 25-len(thetest['testid']))
             printdescr = thetest['testdescription'][:min(len(thetest['testdescription']), 55)]
             printdescr += " "* max(0, (55-len(printdescr)))
-            print ( "  [ %10s ] %s (%s)" % (printid, printdescr, thetest['testtype']) )
+            print ( "  [ %10s ] %s (%s) (%s)" % (printid, printdescr, thetest['testtype'], thetest['expectedto']) )
         alltests[infile] = tests
 
         testsectionsHTML = tests.generateSeries(
@@ -214,6 +216,19 @@ while len(SCT.sections) > 0:
             seriesTEM=TEM.Testsection_inclHref,
             seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt}
             )
+        passingtestsHTML += alltests[infile].generateSeries(
+            itemTEM=TEM.ReftestCore,
+            seriesTEM=TEM.Testsection_inclHref,
+            seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt},
+            filterFn=lambda _test:(_test['expectedto'] == "pass")
+            )
+
+        failingtestsHTML += alltests[infile].generateSeries(
+            itemTEM=TEM.ReftestCore,
+            seriesTEM=TEM.Testsection_inclHref,
+            seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt},
+            filterFn=lambda _test:(_test['expectedto'] == "fail")
+            )
 
         tocsectionsHTML += TEM.TOCsection.substitute(
             testsectiontitle=section,
@@ -224,18 +239,76 @@ while len(SCT.sections) > 0:
     else:
         print ("Sections.py mentions a non existing file:", infile)
 
+### Appendix
 backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
+nextlinkHTML = TEM.Linknext.substitute(href="passing.html", linktext="Expected to pass")
 footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
-                               chapter="All tests", chaptercnt="Appendix A",
+                               chapter="All Tests", chaptercnt="Appendix A",
                                TESTSECTIONS=appendixsectionsHTML,
-                               link1=backlinkHTML, link2="",
+                               link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix A")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "appendix.html")
+output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+output_file.write(documentHTML)
+output_file.close()
+
+### passing.html
+backlinkHTML = TEM.Linkback.substitute(href="appendix.html", linktext="All Tests")
+nextlinkHTML = TEM.Linknext.substitute(href="failing.html", linktext="Expected to fail")
+footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
+passingtestsExplainHTML = """
+<p>If you encounter a failing test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>. It may indicate several things:
+<br>(a) By accident, the test is not in the list of tests that are expected to fail.
+<br>(b) clip_8 has, in principle, the functionality to pass the test. However, the current implementation relies on
+some experimental features not supported by all browsers. Please refer to
+<a href="https://github.com/broesamle/clip_8/issues/9">Issue 9</a> in this respect.
+<br>(c) Functionality is actually really broken and the test fails, for instance, because of recent disruptive changes.
+</p>
+<p>
+Thank you for your contribution!
+</p>
+"""
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+                               chapter="Expected to pass", chaptercnt="Appendix B",
+                               TESTSECTIONS=passingtestsExplainHTML+passingtestsHTML,
+                               link1=backlinkHTML, link2=nextlinkHTML,
+                               FOOTER=footerHTML)
+
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix B")
+documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+
+outFN = os.path.join(outDIRabs, "passing.html")
+output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+output_file.write(documentHTML)
+output_file.close()
+
+### failing.html
+backlinkHTML = TEM.Linkback.substitute(href="passing.html", linktext="Expected to pass")
+nextlinkHTML = ""
+failingtestsExplainHTML = """
+<p>
+If you encounter a passing (all three subtests are green) test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>.
+Most likely, it was forgotten to remove the test from the expected-to-fail list when a related feature was implemented.
+</p>
+<p>
+Thank you for your contribution!
+</p>
+"""
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+                               chapter="Expected to fail", chaptercnt="Appendix C",
+                               TESTSECTIONS=failingtestsExplainHTML+failingtestsHTML,
+                               link1=backlinkHTML, link2=nextlinkHTML,
+                               FOOTER=footerHTML)
+
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix C")
+documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+
+outFN = os.path.join(outDIRabs, "failing.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
 output_file.write(documentHTML)
 output_file.close()
@@ -248,7 +321,18 @@ tocsectionsHTML += TEM.TOCsection.substitute(
     chaptercnt="A",
     sectioncnt="",
     sectioninstructionicon="")
-
+tocsectionsHTML += TEM.TOCsection.substitute(
+    testsectiontitle="Appendix: Expected to pass",
+    testsectionhref="passing.html",
+    chaptercnt="B",
+    sectioncnt="",
+    sectioninstructionicon="")
+tocsectionsHTML += TEM.TOCsection.substitute(
+    testsectiontitle="Appendix: Expected to fail",
+    testsectionhref="failing.html",
+    chaptercnt="C",
+    sectioncnt="",
+    sectioninstructionicon="")
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
