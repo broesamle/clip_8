@@ -13,15 +13,26 @@ var Svgdom = {
         return g;
     },
 
+    newSVGRect: function (x, y, width, height, svgroot) {
+        /** Create a new SVGRect.
+        */
+        var r = svgroot.createSVGRect();
+        r.x = x;
+        r.y = y;
+        r.width = width;
+        r.height = height;
+        return r;
+    },
+
     newRectElement: function (x,y,w,h) {
         /** Create an SVG DOM rect element */
         var debug = false;
         if (debug) console.log("[newRectElement] x, y, w, h:", x, y, w, h);
         var r = document.createElementNS(Svgdom.SVGNS, "rect");
-        r.setAttribute("x",x);
-        r.setAttribute("y",y);
-        r.setAttribute("width",w);
-        r.setAttribute("height",h);
+        r.setAttribute("x", x);
+        r.setAttribute("y", y);
+        r.setAttribute("width", w);
+        r.setAttribute("height", h);
         return r;
     },
 
@@ -41,7 +52,7 @@ var Svgdom = {
         }
         var r = svgroot.createSVGRect();
         r.x = p.x-epsilon;
-        r.y = p.y-epsilon
+        r.y = p.y-epsilon;
         r.width = epsilon*2;
         r.height = epsilon*2;
         return r;
@@ -51,6 +62,10 @@ var Svgdom = {
         var r = Svgdom.newRectElement(x,y,w,h);
         parentel.appendChild(r);
         return r;
+    },
+
+    addRectElement_SVGRect (parentel, r) {
+        return Svgdom.addRect(parentel, r.x, r.y, r.width, r.height);
     },
 
     getCentrePoint: function (circle) {

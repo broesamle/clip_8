@@ -183,7 +183,7 @@ var Clip8 = {
             tracesvgroot.appendChild(sel2);
         }
         else if ( signature.toString() === [0, 0, 0, 1, 0].toString() ) {
-            // MOVE, CUT
+            // MOVE-REL, CUT
             if (debug) console.log("[executeOneOperation] 1 line.");
             var theline = instr1.getElementsByTagName("line")[0];
             if (theline.getAttribute("stroke-dasharray")) {
@@ -214,12 +214,14 @@ var Clip8 = {
                 }
             }
             else {
-                var p2 = Svgdom.getEndOfLinePoint(theline);
-                Svgretrieve.checkForCircleAt(
-                    p2,
+                // MOVE-REL
+                var p1 = Svgdom.getEndOfLinePoint(theline);
+                var circles = Svgretrieve.getCirclesAt(
+                    p1,
                     theline.getAttribute("stroke-width"),       // use as minimum radius
                     theline.getAttribute("stroke-width") * 4,   // use as minimum radius
                     svgroot);
+                console.log("[executeOneOperation/move-rel] circles:", circles);
             }
         }
         else

@@ -100,10 +100,42 @@ var Svgretrieve = {
         */
         throw "[enclosingFullWidthStripe] not implemented."
     },
-    
+
     getCirclesAt: function(c, r1, r2, svgcontainer) {
         /** Return all circles roughly centred at `c` with a radius `r1 < radius < r2` (approximately).
         */
-        throw "[getCirclesAt] not implemented.";
+        var debug = false;
+        if (debug) console.log("[GETCIRCLESAT] c, r1, r2, svgcontainer:", c, r1, r2, svgcontainer);
+        if (parseFloat(r1) >= parseFloat(r2)) throw  "[getCirclesAt] expected r1 < r2.";
+        var epsilon = r2/100;   // small width compared to the larger radius
+        var candidates;         // A list of candidate circles
+        var confirmed = [];     // confirmed circles (hit by all test areas)
+        var testareas = [
+            Svgdom.newSVGRect (c.x-epsilon, c.y-parseFloat(r2), 2*epsilon, r2-parseFloat(r1), svgcontainer),  // "north"
+            Svgdom.newSVGRect (c.x-epsilon, c.y+parseFloat(r1), 2*epsilon, r2-parseFloat(r1), svgcontainer),  // "south"
+            Svgdom.newSVGRect (c.x-parseFloat(r2), c.y-epsilon, r2-parseFloat(r1), 2*epsilon, svgcontainer),  // "west"
+            Svgdom.newSVGRect (c.x+parseFloat(r1), c.y-epsilon, r2-parseFloat(r1), 2*epsilon, svgcontainer),  // "east"
+            ];     // Areas which should all be hit, for a circle to be confirmed
+        if (debug) {
+            for (var j = 0; j < testareas.length; j++) {
+                console.log("[getCirclesAt]", testareas[j]);
+                var r = Svgdom.addRectElement_SVGRect(svgcontainer, testareas[j]);
+                r.setAttribute("fill", "#ffff22");
+            }
+        }
+        candidates = svgcontainer.getIntersectionList(testareas[0], svgcontainer);
+        for (var i = 0; i < candidates.length; i++) {
+            if (candidates[i] instanceof SVGCircleElement) {
+                var reject = false;     // reject the currently tested candidate?
+                for (var j = 1; j < testareas.length; j++) {
+                    if ( ! svgcontainer.checkIntersection(candidates[i], testareas[j]) ) {
+                        reject = true;
+                        break;
+                    }
+                }
+                if (!reject) confirmed.push(candidates[i]);
+            }
+        }
+        return confirmed;
     }
 }
