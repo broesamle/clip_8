@@ -221,7 +221,8 @@ var Clip8 = {
                     theline.getAttribute("stroke-width"),       // use as minimum radius
                     theline.getAttribute("stroke-width") * 4,   // use as minimum radius
                     svgroot);
-                console.log("[executeOneOperation/move-rel] circles:", circles);
+                if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
+                Paperclip.moveBy(selectedelements1, p1.x-p0.x, p1.y-p0.y);
             }
         }
         else

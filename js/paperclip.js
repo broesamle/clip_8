@@ -87,5 +87,14 @@ var Paperclip = {
             elems[i].setAttribute("height", elems[i].getAttribute("height") - theclone.getAttribute("height"));
             elems[i].parentElement.insertBefore(theclone, elems[i]);
         }
+    },
+
+    // Move by (relative)
+    moveBy: function (elems, deltaX, deltaY) {
+        for (var i = 0; i < elems.length; i++) {
+            if ( ! elems[i] instanceof SVGRectElement ) throw "[moveBy] not implemented for "+elems[i].constructor.name;
+            elems[i].setAttribute("x", elems[i].x.baseVal.value + deltaX);
+            elems[i].setAttribute("y", elems[i].y.baseVal.value + deltaY);
+        }
     }
 }
