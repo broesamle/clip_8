@@ -13,15 +13,26 @@ var Svgdom = {
         return g;
     },
 
+    newSVGRect: function (x, y, width, height, svgroot) {
+        /** Create a new SVGRect.
+        */
+        var r = svgroot.createSVGRect();
+        r.x = x;
+        r.y = y;
+        r.width = width;
+        r.height = height;
+        return r;
+    },
+
     newRectElement: function (x,y,w,h) {
         /** Create an SVG DOM rect element */
         var debug = false;
         if (debug) console.log("[newRectElement] x, y, w, h:", x, y, w, h);
         var r = document.createElementNS(Svgdom.SVGNS, "rect");
-        r.setAttribute("x",x);
-        r.setAttribute("y",y);
-        r.setAttribute("width",w);
-        r.setAttribute("height",h);
+        r.setAttribute("x", x);
+        r.setAttribute("y", y);
+        r.setAttribute("width", w);
+        r.setAttribute("height", h);
         return r;
     },
 
@@ -29,10 +40,10 @@ var Svgdom = {
         return Svgdom.newRectElement(r.x, r.y, r.width, r.height);
     },
 
-    epsilonRectAt: function (x, y, epsilon, somesvgelement) {
+    epsilonRectAt: function (p, epsilon, somesvgelement) {
         var svgroot;
         var debug = false;
-        if (debug) console.log("[epsilonRectAt] x, y, epsilon, somesvgelement:", x, y, epsilon, somesvgelement);
+        if (debug) console.log("[epsilonRectAt] p, epsilon, somesvgelement:", p, epsilon, somesvgelement);
         if          (somesvgelement instanceof SVGSVGElement)   svgroot = somesvgelement;
         else if     (somesvgelement instanceof SVGElement)      svgroot = somesvgelement.ownerSVGElement;
         else {
@@ -40,8 +51,8 @@ var Svgdom = {
             throw "[epsilonRectAt] Expected an instance of SVGSVGElement or SVGElement.";
         }
         var r = svgroot.createSVGRect();
-        r.x = x-epsilon;
-        r.y = y-epsilon
+        r.x = p.x-epsilon;
+        r.y = p.y-epsilon;
         r.width = epsilon*2;
         r.height = epsilon*2;
         return r;
@@ -53,26 +64,34 @@ var Svgdom = {
         return r;
     },
 
-    getCentreArea: function (circle, epsilon) {
-        /** Returns an SVG rect `r` around the centre of circle.
-        *   `width == 2*epsilon`.
-        */
-        return Svgdom.epsilonRectAt(circle.cx.baseVal.value, circle.cy.baseVal.value, epsilon, circle);
+    addRectElement_SVGRect (parentel, r) {
+        return Svgdom.addRect(parentel, r.x, r.y, r.width, r.height);
     },
 
-    getEndOfLineArea: function (line, epsilon) {
-        /** Returns an SVG rect `r` around the endpoint of `line`.
-        *   `width == 2*epsilon`.
+    getCentrePoint: function (circle) {
+        /** Returns an SVGPoint at the centre of `circle`.
         */
-        return Svgdom.epsilonRectAt(line.x2.baseVal.value, line.y2.baseVal.value, epsilon, line);
+        var centre = circle.ownerSVGElement.createSVGPoint()
+        centre.x = circle.cx.baseVal.value;
+        centre.y = circle.cy.baseVal.value;
+        return centre;
     },
 
-    getEndOfPathArea: function (path, epsilon) {
-        /** Returns an SVG rect `r` around the endpoint of a path.
-        *   `width == 2*epsilon`.
+    getEndOfLinePoint: function (line) {
+        /** Returns an SVGPoint at the endpoint of `line`.
+        */
+        var  end = line.ownerSVGElement.createSVGPoint()
+        end.x = line.x2.baseVal.value;
+        end.y = line.y2.baseVal.value;
+        return end;
+    },
+
+    getEndOfPathPoint: function (path) {
+        /** Returns an SVGPoint at the endpoint of a path.
         */
         var debug = false;
         if (path.tagName != "path") throw "Svgdom.EndOfPathArea: expected a path.";
+        var endpoint = path.ownerSVGElement.createSVGPoint();
         var pathdata = path.getAttribute("d").trim();
         if (!pathdata.startsWith("M")) throw ("Svgdom.EndOfPathArea: pathdata should start with M. "+pathdata);
         if (debug) console.log("Svgdom.EndOfPathArea: pathdata", pathdata);
@@ -87,9 +106,9 @@ var Svgdom = {
             if (debug) console.log("Svgdom.EndOfPathArea: start", startpoint);
             if (startpoint.length != 2) throw ("Svgdom.EndOfPathArea: There should be 2 coords for startpoint "+startpoint);
             if (curveto.length != 6) throw ("Svgdom.EndOfPathArea: There should be 6 coords for curveto "+curveto);
-            var endx = parseFloat(startpoint[0]) + parseFloat(curveto[4]);
-            var endy = parseFloat(startpoint[1]) + parseFloat(curveto[5]);
-            if (debug) console.log("Svgdom.EndOfPathArea A: endx, endy", endx, endy);
+            endpoint.x = parseFloat(startpoint[0]) + parseFloat(curveto[4]);
+            endpoint.y = parseFloat(startpoint[1]) + parseFloat(curveto[5]);
+            if (debug) console.log("[Svgdom.EndOfPathArea A] endpoint:", endpoint);
         }
         else if (pathdata.split("C").length==2) {
             // absolute coords
@@ -99,11 +118,11 @@ var Svgdom = {
             if (debug) console.log("Svgdom.EndOfPathArea: start", startpoint);
             if (startpoint.length != 2) throw ("Svgdom.EndOfPathArea: There should be 2 coords for startpoint "+startpoint);
             if (curveto.length != 6) throw ("Svgdom.EndOfPathArea: There should be 6 coords for curveto "+curveto);
-            var endx = parseFloat(curveto[4]);
-            var endy = parseFloat(curveto[5]);
-            if (debug) console.log("Svgdom.EndOfPathArea B: endx, endy", endx, endy);
+            endpoint.x = parseFloat(curveto[4]);
+            endpoint.y = parseFloat(curveto[5]);
+            if (debug) console.log("[Svgdom.EndOfPathArea B] endpoint", endpoint);
         }
         else throw ("Svgdom.EndOfPathArea: Need exactly one curve segment. "+pathdata);
-        return Svgdom.epsilonRectAt(endx, endy, epsilon, path);
+        return endpoint;
     }
 }

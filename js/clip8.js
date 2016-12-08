@@ -32,7 +32,8 @@ var Clip8 = {
         var initialflow = null;
 
         for ( var i = 0; i < circles.length; i++ ) {
-            var r = Svgdom.newRectElement_fromSVGRect(Svgdom.getCentreArea(circles[i], epsilon));
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getCentrePoint(circles[i]), epsilon, svgroot);
+            var r = Svgdom.newRectElement_fromSVGRect(arearect, svgroot);
             r.setAttribute("fill", "#ffff33");
             centres.appendChild(r);
         }
@@ -120,9 +121,10 @@ var Clip8 = {
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
 
-        var arearect = Svgdom.getEndOfPathArea(Clip8.ip, epsilon);
+        var p0 = Svgdom.getEndOfPathPoint(Clip8.ip);
+        var p0area = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
+        var instrNsel = Clip8.getInstrEls_asGroups(p0area, svgroot);
         if (debug) console.log("[executeOneOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
@@ -131,7 +133,7 @@ var Clip8 = {
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         // decode instruction
-        var signature = clip8countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
+        var signature = Clip8decode.countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
         if (debug) console.log("[executeOneOperation] signature:", signature);
         if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
             if (debug) console.log("[executeOneOperation] two circles.");
@@ -146,17 +148,17 @@ var Clip8 = {
             // ALIGN
             if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
             var theline = instr1.getElementsByTagName("line")[0];
-            var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
+            var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] direction:", linedir);
             var thepoly = instr1.getElementsByTagName("polyline")[0];
-            var angledir = clip8directionOfPolyAngle(thepoly, epsilon, minlen);
+            var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-            var arearect = Svgdom.getEndOfLineArea(theline, epsilon);
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
             var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
             if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
-            var snd_signature = clip8countTags(instr2, ["rect"]);
+            var snd_signature = Clip8decode.countTags(instr2, ["rect"]);
             if (snd_signature.toString() === [1].toString() )
                 selectedelements1.push(instr2.firstChild); // Add the absolute rectangle to the selected set.
             switch (linedir) {
@@ -181,12 +183,12 @@ var Clip8 = {
             tracesvgroot.appendChild(sel2);
         }
         else if ( signature.toString() === [0, 0, 0, 1, 0].toString() ) {
-            // MOVE, CUT
+            // MOVE-REL, CUT
             if (debug) console.log("[executeOneOperation] 1 line.");
             var theline = instr1.getElementsByTagName("line")[0];
             if (theline.getAttribute("stroke-dasharray")) {
                 // CUT
-                var linedir = clip8directionOfSVGLine(theline, epsilon, minlen);
+                var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
                 switch (linedir) {
                     case 'UP':
                     case 'DOWN':
@@ -211,9 +213,17 @@ var Clip8 = {
                     default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
                 }
             }
-            else
-                throw "Could not decode instruction M"+instr1;
-
+            else {
+                // MOVE-REL
+                var p1 = Svgdom.getEndOfLinePoint(theline);
+                var circles = Svgretrieve.getCirclesAt(
+                    p1,
+                    theline.getAttribute("stroke-width"),       // use as minimum radius
+                    theline.getAttribute("stroke-width") * 4,   // use as minimum radius
+                    svgroot);
+                if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
+                Paperclip.moveBy(selectedelements1, p1.x-p0.x, p1.y-p0.y);
+            }
         }
         else
             throw "Could not decode instruction X"+instr1;
