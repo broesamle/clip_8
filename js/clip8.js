@@ -55,12 +55,12 @@ var Clip8 = {
         throw "Failed to idendify point of entry."
     },
 
-    getInstrEls_asGroups: function (arearect, svgroot) {
+    retrieveISCElements: function (arearect, svgroot) {
         var debug = false;
-        if (debug) console.log("[GETINSTRELS_ASGROUPS] arearect, svgroot:", arearect, svgroot);
+        if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
         var hitlist = svgroot.getIntersectionList(arearect, svgroot);
-        if (debug)  console.log("[getInstrEls_asGroups] hitlist:", hitlist);
-        if (hitlist.length == 0) throw "[clip8getInstrEls_asGroups] empty hitlist.";
+        if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
+        if (hitlist.length == 0) throw "[retrieveISCElements] empty hitlist.";
         var sel = Svgdom.addGroup(svgroot);
         var instr = Svgdom.addGroup(svgroot);
         var nextIP = null;
@@ -86,7 +86,7 @@ var Clip8 = {
                 }
             }
             else
-                if (debug) console.log("[getInstrEls_asGroups] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
+                if (debug) console.log("[retrieveISCElements] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
         }
         return [instr, sel, nextIP];
     },
@@ -124,7 +124,7 @@ var Clip8 = {
         var p0 = Svgdom.getEndOfPathPoint(Clip8.ip);
         var p0area = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var instrNsel = Clip8.getInstrEls_asGroups(p0area, svgroot);
+        var instrNsel = Clip8.retrieveISCElements(p0area, svgroot);
         if (debug) console.log("[executeOneOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
         var instr1 = instrNsel[0];
         var sel1 = instrNsel[1];
@@ -154,7 +154,7 @@ var Clip8 = {
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
-            var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
+            var instrNsel = Clip8.retrieveISCElements(arearect, svgroot);
             if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
             var instr2 = instrNsel[0];
             var sel2 = instrNsel[1];
