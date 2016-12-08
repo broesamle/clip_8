@@ -43,24 +43,21 @@ var Clip8decode = {
         else throw "[directionOfPolyAngle] Direction not detectable as left, right, up, down.";
     },
 
-    countTags: function (parentelement, tagnames) {
-        /** How many child elements are present for a list of tagnames.
-        *   `tagnames` is a list of strings, each element representing a tagname to count.
-        *   Returns a list of integers, each element representing the count of the corresponding tagname in `tagnames`.
-        */
+    pushByTagname: function (el, tagnames, bins) {
+        /** Push `el` to bins; `tagnames`, `el.tagName` determine the push position.
+         *  `tagNames` an array of strings, each representing the tagName for one bin.
+         *  `bins` has the same number of elements as `tagNames`, each element is a bin.
+         *  No match of tagname: bins will be unchanged.
+         */
         var debug = false;
-        var result = [];
         var currenttagname, currentcount;
         for ( var j = 0; j < tagnames.length; j++ ) {
             currenttagname = tagnames[j];
-            currentcount = 0;
-            for ( var i = 0; i < parentelement.childNodes.length; i++ ) {
-                if (debug) console.log("[countTags] search for", currenttagname, "==",parentelement.childNodes[i].tagName);
-                if (parentelement.childNodes[i].tagName == currenttagname) currentcount++;
+            if (el.tagName == currenttagname) {
+                bins[j].push(el);
+                break;
             }
-            if (debug) console.log("[countTags] count", currentcount);
-            result.push(currentcount);
         }
-        return result;
-    }
+        return bins;
+    },
 }
