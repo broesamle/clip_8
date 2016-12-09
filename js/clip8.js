@@ -130,40 +130,40 @@ var Clip8 = {
         var POLYLINEidx = 1;
         var CIRCLEidx = 2;
         var RECTidx = 3;
-        var icsA = Clip8.retrieveISCElements(p0area, svgroot, TAGS, TAGS);
-        if (debug) console.log("[executeOneOperation] icsA [0, 1, 2]:", icsA[0], icsA[1], icsA[2]);
-        var I = icsA[0];
-        var S = icsA[1];
-        Clip8.ip = icsA[2];
-        if (debug) console.log("[executeOneOperation] S[RECTidx]:", S[RECTidx]);
-        var selectedelements1 = Clip8.getSelectedElements(S[RECTidx], svgroot);
+        var ICS0 = Clip8.retrieveISCElements(p0area, svgroot, TAGS, TAGS);
+        if (debug) console.log("[executeOneOperation] ICS0 [0, 1, 2]:", ICS0[0], ICS0[1], ICS0[2]);
+        var I0 = ICS0[0];
+        var S0 = ICS0[1];
+        Clip8.ip = ICS0[2];
+        if (debug) console.log("[executeOneOperation] S0[RECTidx]:", S0[RECTidx]);
+        var selectedelements1 = Clip8.getSelectedElements(S0[RECTidx], svgroot);
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        if ( I[CIRCLEidx].length == 2 ) {
+        if ( I0[CIRCLEidx].length == 2 ) {
             if (debug) console.log("[executeOneOperation] two circles.");
-            if (I[CIRCLEidx][0].tagName == "circle" &&
-                I[CIRCLEidx][1].tagName == "circle") {
+            if (I0[CIRCLEidx][0].tagName == "circle" &&
+                I0[CIRCLEidx][1].tagName == "circle") {
                 if (debug) console.log("[executeOneOperation] TERMINAL.");
                 terminate = true;
             }
             else throw "Could not decode instruction A"+instr1;
         }
-        else if ( I[LINEidx].length == 1 && I[POLYLINEidx].length == 1 ) {
+        else if ( I0[LINEidx].length == 1 && I0[POLYLINEidx].length == 1 ) {
             // ALIGN
             if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
-            var theline = I[LINEidx][0];
+            var theline = I0[LINEidx][0];
             var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] direction:", linedir);
-            var thepoly = I[POLYLINEidx][0];
+            var thepoly = I0[POLYLINEidx][0];
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
-            var icsB = Clip8.retrieveISCElements(arearect, svgroot, TAGS, TAGS);
-            if (debug) console.log("[executeOneOperation] icsB [0, 1, 2]:", icsB[0], icsB[1], icsB[2]);
-            var I2 = icsB[0];
-            var S2 = icsB[1];
-            if (I2[RECTidx].length == 1 )
-                selectedelements1.push(I2[RECTidx][0]); // Add the absolute rectangle to the selected set.
+            var ICS1 = Clip8.retrieveISCElements(arearect, svgroot, TAGS, TAGS);
+            if (debug) console.log("[executeOneOperation] ICS1 [0, 1, 2]:", ICS1[0], ICS1[1], ICS1[2]);
+            var I1 = ICS1[0];
+            var S1 = ICS1[1];
+            if (I1[RECTidx].length == 1 )
+                selectedelements1.push(I1[RECTidx][0]); // Add the absolute rectangle to the selected set.
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
@@ -180,10 +180,10 @@ var Clip8 = {
                 default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
             }
         }
-        else if ( I[LINEidx].length == 1 && I[POLYLINEidx].length == 0 ) {
+        else if ( I0[LINEidx].length == 1 && I0[POLYLINEidx].length == 0 ) {
             // MOVE-REL, CUT
             if (debug) console.log("[executeOneOperation] 1 line.");
-            var theline = I[LINEidx][0];
+            var theline = I0[LINEidx][0];
             if (theline.getAttribute("stroke-dasharray")) {
                 // CUT
                 var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
