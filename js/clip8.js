@@ -98,20 +98,21 @@ var Clip8 = {
         return [I, S, nextIP];
     },
 
-    getSelectedElements: function(selectorelements, svgroot) {
-        /** Retreve the set of selected objects as defined by a given selector.
-         *  `selectorelements` is the list of SVG DOM elments being the selector
-         *  part of an instruction. These elements graphically depict the selector.
-         *  Return value is a list of SVG DOM elements that are selected by the given selector. */
+    selectedElementSet: function (selectorcore, svgroot) {
+        /** Determine the set of selected elements based on given selector core.
+         *  `selectorcore` is the list of SVG DOM elments being the core selector
+         *  (excluding connectors). Typically these elements graphically depict an area.
+         *  Return value is a list of SVG DOM elements that are selected by the given selector. 
+         */
 
         var debug = false;
-        if (debug) console.log("[GETSELECTEDELEMENTS] arearect:", selectorelements, svgroot);
+        if (debug) console.log("[SELECTEDELEMENTSET] arearect:", selectorcore, svgroot);
 
         // List of selected Elements based on primary selector
         var selection = [];
-        if (selectorelements[0] instanceof SVGRectElement) {
-            var s = Svgretrieve.selectorFromRect(selectorelements[0], svgroot);
-            if (debug) console.log("[executeOneOperation] selector from rect in selectorelements:", s);
+        if (selectorcore[0] instanceof SVGRectElement) {
+            var s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
+            if (debug) console.log("[selectedElementSet] selector from rect in selectorcore:", s);
             var hitlist = svgroot.getEnclosureList(s, svgroot);
             for ( var i = 0; i < hitlist.length; i++ )
                 if ( hitlist[i].tagName == "rect" &&
@@ -137,7 +138,7 @@ var Clip8 = {
         var S0 = ICS0[1];
         Clip8.ip = ICS0[2];
         if (debug) console.log("[executeOneOperation] S0[Clip8.RECTTAG]:", S0[Clip8.RECTTAG]);
-        var selectedelements1 = Clip8.getSelectedElements(S0[Clip8.RECTTAG], svgroot);
+        var selectedelements1 = Clip8.selectedElementSet(S0[Clip8.RECTTAG], svgroot);
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         if ( I0[Clip8.CIRCLETAG].length == 2 ) {

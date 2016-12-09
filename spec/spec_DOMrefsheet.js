@@ -180,7 +180,7 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         var arearect = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
         var sel = svgroot.getIntersectionList(arearect, svgroot);;
-        var selectionset = Clip8.getSelectedElements(sel, svgroot);
+        var selectionset = Clip8.selectedElementSet(sel, svgroot);
         for (var i = 0; i < selectionset.length; i++) {
             console.log("[addTest_selectionset] selectionset[i]:", selectionset[i]);
             if (selectionset[i] instanceof SVGElement)
