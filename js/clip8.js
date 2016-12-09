@@ -56,7 +56,7 @@ var Clip8 = {
     },
 
     retrieveISCElements: function (arearect, svgroot, tagsI, tagsS) {
-        var debug = true;
+        var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
         var hitlist = svgroot.getIntersectionList(arearect, svgroot);
         if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
