@@ -55,27 +55,27 @@ var Clip8 = {
         throw "Failed to idendify point of entry."
     },
 
-    getInstrEls_asGroups: function (arearect, svgroot) {
+    retrieveISCElements: function (arearect, svgroot, tagsI, tagsS) {
         var debug = false;
-        if (debug) console.log("[GETINSTRELS_ASGROUPS] arearect, svgroot:", arearect, svgroot);
+        if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
         var hitlist = svgroot.getIntersectionList(arearect, svgroot);
-        if (debug)  console.log("[getInstrEls_asGroups] hitlist:", hitlist);
-        if (hitlist.length == 0) throw "[clip8getInstrEls_asGroups] empty hitlist.";
-        var sel = Svgdom.addGroup(svgroot);
-        var instr = Svgdom.addGroup(svgroot);
+        if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
+        if (hitlist.length == 0) throw "[retrieveISCElements] empty hitlist.";
+        var I = [];
+        var S = [];
+        for ( var i = 0; i < tagsI.length; i++ ) I.push([]);
+        for ( var i = 0; i < tagsS.length; i++ ) S.push([]);
         var nextIP = null;
         for ( var i = 0; i < hitlist.length; i++ ) {
             if (!Clip8._isBlocklisted(hitlist[i])) {
                 if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
                     hitlist[i].tagName == "circle") {
-                    instr.appendChild(hitlist[i].cloneNode(false));
-                    Clip8._setRetrievedAttribs(instr.lastElementChild);
+                    I = Clip8decode.pushByTagname(hitlist[i], tagsI, I);
                     Clip8.blocklist.push(hitlist[i]);
                 }
                 else if (hitlist[i].getAttribute("stroke-dasharray") &&
                     hitlist[i].tagName == "rect") {
-                    sel.appendChild(hitlist[i].cloneNode(false));
-                    Clip8._setRetrievedAttribs(sel.lastElementChild);
+                    S = Clip8decode.pushByTagname(hitlist[i], tagsS, S);
                     Clip8.blocklist.push(hitlist[i]);
                 }
                 else if (hitlist[i].getAttribute("stroke-linecap") != "round" &&
@@ -86,9 +86,9 @@ var Clip8 = {
                 }
             }
             else
-                if (debug) console.log("[getInstrEls_asGroups] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
+                if (debug) console.log("[retrieveISCElements] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
         }
-        return [instr, sel, nextIP];
+        return [I, S, nextIP];
     },
 
     getSelectedElements: function(selectorelements, svgroot) {
@@ -124,43 +124,46 @@ var Clip8 = {
         var p0 = Svgdom.getEndOfPathPoint(Clip8.ip);
         var p0area = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var instrNsel = Clip8.getInstrEls_asGroups(p0area, svgroot);
-        if (debug) console.log("[executeOneOperation] instrNsel (A) [0, 1, 2]:", instrNsel[0].childNodes, instrNsel[1].childNodes, instrNsel[2]);
-        var instr1 = instrNsel[0];
-        var sel1 = instrNsel[1];
-        Clip8.ip = instrNsel[2];
-        var selectedelements1 = Clip8.getSelectedElements(sel1.childNodes, svgroot);
+        // Some constants:
+        var TAGS = ["line", "polyline", "circle", "rect"];
+        var LINEidx = 0;
+        var POLYLINEidx = 1;
+        var CIRCLEidx = 2;
+        var RECTidx = 3;
+        var icsA = Clip8.retrieveISCElements(p0area, svgroot, TAGS, TAGS);
+        if (debug) console.log("[executeOneOperation] icsA [0, 1, 2]:", icsA[0], icsA[1], icsA[2]);
+        var I = icsA[0];
+        var S = icsA[1];
+        Clip8.ip = icsA[2];
+        if (debug) console.log("[executeOneOperation] S[RECTidx]:", S[RECTidx]);
+        var selectedelements1 = Clip8.getSelectedElements(S[RECTidx], svgroot);
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        // decode instruction
-        var signature = Clip8decode.countTags(instr1, ["circle", "path", "rect", "line", "polyline"]);
-        if (debug) console.log("[executeOneOperation] signature:", signature);
-        if ( signature.toString() === [2, 0, 0, 0, 0].toString() ) {
+        if ( I[CIRCLEidx].length == 2 ) {
             if (debug) console.log("[executeOneOperation] two circles.");
-            if (instr1.childNodes[0].tagName == "circle" &&
-                instr1.childNodes[1].tagName == "circle") {
+            if (I[CIRCLEidx][0].tagName == "circle" &&
+                I[CIRCLEidx][1].tagName == "circle") {
                 if (debug) console.log("[executeOneOperation] TERMINAL.");
                 terminate = true;
             }
             else throw "Could not decode instruction A"+instr1;
         }
-        else if ( signature.toString() === [0, 0, 0, 1, 1].toString() ) {
+        else if ( I[LINEidx].length == 1 && I[POLYLINEidx].length == 1 ) {
             // ALIGN
             if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
-            var theline = instr1.getElementsByTagName("line")[0];
+            var theline = I[LINEidx][0];
             var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] direction:", linedir);
-            var thepoly = instr1.getElementsByTagName("polyline")[0];
+            var thepoly = I[POLYLINEidx][0];
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
-            var instrNsel = Clip8.getInstrEls_asGroups(arearect, svgroot);
-            if (debug) console.log("[executeOneOperation] instrNsel(B) [0, 1]:", instrNsel[0].childNodes, instrNsel[1].childNodes);
-            var instr2 = instrNsel[0];
-            var sel2 = instrNsel[1];
-            var snd_signature = Clip8decode.countTags(instr2, ["rect"]);
-            if (snd_signature.toString() === [1].toString() )
-                selectedelements1.push(instr2.firstChild); // Add the absolute rectangle to the selected set.
+            var icsB = Clip8.retrieveISCElements(arearect, svgroot, TAGS, TAGS);
+            if (debug) console.log("[executeOneOperation] icsB [0, 1, 2]:", icsB[0], icsB[1], icsB[2]);
+            var I2 = icsB[0];
+            var S2 = icsB[1];
+            if (I2[RECTidx].length == 1 )
+                selectedelements1.push(I2[RECTidx][0]); // Add the absolute rectangle to the selected set.
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
@@ -176,16 +179,11 @@ var Clip8 = {
                     break;
                 default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
             }
-            if (debug) console.log("[executeOneOperation] remove instr2, sel2:", instr2, sel2);
-            svgroot.removeChild(instr2);
-            svgroot.removeChild(sel2);
-            tracesvgroot.appendChild(instr2);
-            tracesvgroot.appendChild(sel2);
         }
-        else if ( signature.toString() === [0, 0, 0, 1, 0].toString() ) {
+        else if ( I[LINEidx].length == 1 && I[POLYLINEidx].length == 0 ) {
             // MOVE-REL, CUT
             if (debug) console.log("[executeOneOperation] 1 line.");
-            var theline = instr1.getElementsByTagName("line")[0];
+            var theline = I[LINEidx][0];
             if (theline.getAttribute("stroke-dasharray")) {
                 // CUT
                 var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
@@ -227,11 +225,6 @@ var Clip8 = {
         }
         else
             throw "Could not decode instruction X"+instr1;
-        if (debug) console.log("[executeOneOperation] remove instr1, sel1:", instr1, sel1);
-        svgroot.removeChild(instr1);
-        svgroot.removeChild(sel1);
-        tracesvgroot.appendChild(instr1);
-        tracesvgroot.appendChild(sel1);
         if (terminate) Clip8.clearExecTimer();
     },
 
