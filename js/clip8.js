@@ -11,6 +11,8 @@ var Clip8 = {
     POLYLINETAG: 1,
     CIRCLETAG: 2,
     RECTTAG: 3,
+    UNKNOWNSELECTOR: 900,
+    RECTSELECTOR: 901,
     // Variables
     exectimer: null,
     ip: null,       // instruction pointer
@@ -98,11 +100,34 @@ var Clip8 = {
         return [I, S, nextIP];
     },
 
+    retrieveCoreSelector: function (S, svgroot) {
+        var debug = true;
+        if (debug) console.log("[RETRIEVECORESELECTOR] S, svgroot:", S, svgroot);
+        var coreS;
+        if (S[Clip8.LINETAG].length == 1) {
+            // there is a selector
+            var epsilon = 0.01;
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(S[Clip8.LINETAG][0]), epsilon, svgroot);
+            var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS);
+            if (debug) console.log("[retrieveCoreSelector] local ics [0, 1, 2]:", isc[0], isc[1], isc[2]);
+            coreS = isc[1];
+        }
+        else {
+            coreS = S;
+        }
+        if (debug) console.log("[retrieveCoreSelector] coreS:", coreS);
+        if (debug) console.log("[retrieveCoreSelector] coreS[Clip8.RECTTAG].length:", coreS[Clip8.RECTTAG].length);
+        if      (coreS[Clip8.RECTTAG].length == 1)
+            return [Clip8.RECTSELECTOR, coreS[Clip8.RECTTAG]];
+        else
+            return [Clip8.UNKNOWNSELECTOR];
+    },
+
     selectedElementSet: function (selectorcore, svgroot) {
         /** Determine the set of selected elements based on given selector core.
          *  `selectorcore` is the list of SVG DOM elments being the core selector
          *  (excluding connectors). Typically these elements graphically depict an area.
-         *  Return value is a list of SVG DOM elements that are selected by the given selector. 
+         *  Return value is a list of SVG DOM elements that are selected by the given selector.
          */
 
         var debug = false;
@@ -137,8 +162,16 @@ var Clip8 = {
         var I0 = ICS0[0];
         var S0 = ICS0[1];
         Clip8.ip = ICS0[2];
-        if (debug) console.log("[executeOneOperation] S0[Clip8.RECTTAG]:", S0[Clip8.RECTTAG]);
-        var selectedelements1 = Clip8.selectedElementSet(S0[Clip8.RECTTAG], svgroot);
+        if (debug) console.log("[executeOneOperation] S0:", S0);
+        var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
+        var selectortype = retrselector[0];
+        var coreselector = retrselector[1];
+        if      (selectortype == Clip8.RECTSELECTOR)
+            var selectedelements1 = Clip8.selectedElementSet(coreselector, svgroot);
+        else if (selectortype == Clip8.UNKNOWNSELECTOR)
+            {}
+        else
+            throw "received an invalid selectortype from retrieveCoreSelector: "+selectortype;
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         if ( I0[Clip8.CIRCLETAG].length == 2 ) {
