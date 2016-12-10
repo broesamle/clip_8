@@ -5,6 +5,15 @@ var epsilon = 0.5;  // maximal difference for two coordinates to be considered e
 var minlen = 1.5;     // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
+    // Constants
+    TAGS: ["line", "polyline", "circle", "rect"],
+    LINETAG: 0,
+    POLYLINETAG: 1,
+    CIRCLETAG: 2,
+    RECTTAG: 3,
+    UNKNOWNSELECTOR: 900,
+    RECTSELECTOR: 901,
+    // Variables
     exectimer: null,
     ip: null,       // instruction pointer
     blocklist: [],  // list of elements already retrieved during current instruction cycle.
@@ -91,20 +100,44 @@ var Clip8 = {
         return [I, S, nextIP];
     },
 
-    getSelectedElements: function(selectorelements, svgroot) {
-        /** Retreve the set of selected objects as defined by a given selector.
-         *  `selectorelements` is the list of SVG DOM elments being the selector
-         *  part of an instruction. These elements graphically depict the selector.
-         *  Return value is a list of SVG DOM elements that are selected by the given selector. */
+    retrieveCoreSelector: function (S, svgroot) {
+        var debug = true;
+        if (debug) console.log("[RETRIEVECORESELECTOR] S, svgroot:", S, svgroot);
+        var coreS;
+        if (S[Clip8.LINETAG].length == 1) {
+            // there is a selector
+            var epsilon = 0.01;
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(S[Clip8.LINETAG][0]), epsilon, svgroot);
+            var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS);
+            if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
+            coreS = isc[1];
+        }
+        else {
+            coreS = S;
+        }
+        if (debug) console.log("[retrieveCoreSelector] coreS:", coreS);
+        if (debug) console.log("[retrieveCoreSelector] coreS[Clip8.RECTTAG].length:", coreS[Clip8.RECTTAG].length);
+        if      (coreS[Clip8.RECTTAG].length == 1)
+            return [Clip8.RECTSELECTOR, coreS[Clip8.RECTTAG]];
+        else
+            return [Clip8.UNKNOWNSELECTOR];
+    },
+
+    selectedElementSet: function (selectorcore, svgroot) {
+        /** Determine the set of selected elements based on given selector core.
+         *  `selectorcore` is the list of SVG DOM elments being the core selector
+         *  (excluding connectors). Typically these elements graphically depict an area.
+         *  Return value is a list of SVG DOM elements that are selected by the given selector.
+         */
 
         var debug = false;
-        if (debug) console.log("[GETSELECTEDELEMENTS] arearect:", selectorelements, svgroot);
+        if (debug) console.log("[SELECTEDELEMENTSET] arearect:", selectorcore, svgroot);
 
         // List of selected Elements based on primary selector
         var selection = [];
-        if (selectorelements[0] instanceof SVGRectElement) {
-            var s = Svgretrieve.selectorFromRect(selectorelements[0], svgroot);
-            if (debug) console.log("[executeOneOperation] selector from rect in selectorelements:", s);
+        if (selectorcore[0] instanceof SVGRectElement) {
+            var s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
+            if (debug) console.log("[selectedElementSet] selector from rect in selectorcore:", s);
             var hitlist = svgroot.getEnclosureList(s, svgroot);
             for ( var i = 0; i < hitlist.length; i++ )
                 if ( hitlist[i].tagName == "rect" &&
@@ -124,46 +157,48 @@ var Clip8 = {
         var p0 = Svgdom.getEndOfPathPoint(Clip8.ip);
         var p0area = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        // Some constants:
-        var TAGS = ["line", "polyline", "circle", "rect"];
-        var LINEidx = 0;
-        var POLYLINEidx = 1;
-        var CIRCLEidx = 2;
-        var RECTidx = 3;
-        var icsA = Clip8.retrieveISCElements(p0area, svgroot, TAGS, TAGS);
-        if (debug) console.log("[executeOneOperation] icsA [0, 1, 2]:", icsA[0], icsA[1], icsA[2]);
-        var I = icsA[0];
-        var S = icsA[1];
-        Clip8.ip = icsA[2];
-        if (debug) console.log("[executeOneOperation] S[RECTidx]:", S[RECTidx]);
-        var selectedelements1 = Clip8.getSelectedElements(S[RECTidx], svgroot);
+        var ISC0 = Clip8.retrieveISCElements(p0area, svgroot, Clip8.TAGS, Clip8.TAGS);
+        if (debug) console.log("[executeOneOperation] ISC0 [0, 1, 2]:", ISC0[0], ISC0[1], ISC0[2]);
+        var I0 = ISC0[0];
+        var S0 = ISC0[1];
+        Clip8.ip = ISC0[2];
+        if (debug) console.log("[executeOneOperation] S0:", S0);
+        var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
+        var selectortype = retrselector[0];
+        var coreselector = retrselector[1];
+        if      (selectortype == Clip8.RECTSELECTOR)
+            var selectedelements1 = Clip8.selectedElementSet(coreselector, svgroot);
+        else if (selectortype == Clip8.UNKNOWNSELECTOR)
+            {}
+        else
+            throw "received an invalid selectortype from retrieveCoreSelector: "+selectortype;
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        if ( I[CIRCLEidx].length == 2 ) {
+        if ( I0[Clip8.CIRCLETAG].length == 2 ) {
             if (debug) console.log("[executeOneOperation] two circles.");
-            if (I[CIRCLEidx][0].tagName == "circle" &&
-                I[CIRCLEidx][1].tagName == "circle") {
+            if (I0[Clip8.CIRCLETAG][0].tagName == "circle" &&
+                I0[Clip8.CIRCLETAG][1].tagName == "circle") {
                 if (debug) console.log("[executeOneOperation] TERMINAL.");
                 terminate = true;
             }
             else throw "Could not decode instruction A"+instr1;
         }
-        else if ( I[LINEidx].length == 1 && I[POLYLINEidx].length == 1 ) {
+        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 1 ) {
             // ALIGN
             if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
-            var theline = I[LINEidx][0];
+            var theline = I0[Clip8.LINETAG][0];
             var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] direction:", linedir);
-            var thepoly = I[POLYLINEidx][0];
+            var thepoly = I0[Clip8.POLYLINETAG][0];
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
-            var icsB = Clip8.retrieveISCElements(arearect, svgroot, TAGS, TAGS);
-            if (debug) console.log("[executeOneOperation] icsB [0, 1, 2]:", icsB[0], icsB[1], icsB[2]);
-            var I2 = icsB[0];
-            var S2 = icsB[1];
-            if (I2[RECTidx].length == 1 )
-                selectedelements1.push(I2[RECTidx][0]); // Add the absolute rectangle to the selected set.
+            var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS);
+            if (debug) console.log("[executeOneOperation] ISC1 [0, 1, 2]:", ISC1[0], ISC1[1], ISC1[2]);
+            var I1 = ISC1[0];
+            var S1 = ISC1[1];
+            if (I1[Clip8.RECTTAG].length == 1 )
+                selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
             switch (linedir) {
                 case 'UP':
                 case 'DOWN':
@@ -180,10 +215,10 @@ var Clip8 = {
                 default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
             }
         }
-        else if ( I[LINEidx].length == 1 && I[POLYLINEidx].length == 0 ) {
+        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 0 ) {
             // MOVE-REL, CUT
             if (debug) console.log("[executeOneOperation] 1 line.");
-            var theline = I[LINEidx][0];
+            var theline = I0[Clip8.LINETAG][0];
             if (theline.getAttribute("stroke-dasharray")) {
                 // CUT
                 var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
