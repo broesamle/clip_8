@@ -90,39 +90,39 @@ var Svgdom = {
         /** Returns an SVGPoint at the endpoint of a path.
         */
         var debug = false;
-        if (path.tagName != "path") throw "Svgdom.EndOfPathArea: expected a path.";
+        if (path.tagName != "path") throw "[getEndOfPathPoint] expected a path.";
         var endpoint = path.ownerSVGElement.createSVGPoint();
         var pathdata = path.getAttribute("d").trim();
-        if (!pathdata.startsWith("M")) throw ("Svgdom.EndOfPathArea: pathdata should start with M. "+pathdata);
-        if (debug) console.log("Svgdom.EndOfPathArea: pathdata", pathdata);
+        if (!pathdata.startsWith("M")) throw ("[getEndOfPathPoint] pathdata should start with M. "+pathdata);
+        if (debug) console.log("[GETENDOFPATHPOINT] pathdata:", pathdata);
         // "-" seems to be an implicit separator, which we make explicit, here
         // also, we remove the "M" at the first position
         pathdata = pathdata.slice(1).replace(/\-/g, " -");
         if (pathdata.split("c").length==2) {
             // relative coords
-            var startpoint  = pathdata.split("c")[0].split(/[\s,]+/);
-            var curveto     = pathdata.split("c")[1].split(/[\s,]+/);
-            if (debug) console.log("Svgdom.EndOfPathArea: curve coords", curveto);
-            if (debug) console.log("Svgdom.EndOfPathArea: start", startpoint);
-            if (startpoint.length != 2) throw ("Svgdom.EndOfPathArea: There should be 2 coords for startpoint "+startpoint);
-            if (curveto.length != 6) throw ("Svgdom.EndOfPathArea: There should be 6 coords for curveto "+curveto);
+            var startpoint  = pathdata.split("c")[0].trim().split(/[\s,]+/);
+            var curveto     = pathdata.split("c")[1].trim().split(/[\s,]+/);
+            if (debug) console.log("[getEndOfPathPoint] curveto:", curveto);
+            if (debug) console.log("[getEndOfPathPoint] startpoint:", startpoint);
+            if (startpoint.length != 2) throw ("[getEndOfPathPoint] There should be 2 coords for startpoint: "+startpoint);
+            if (curveto.length != 6) throw ("[getEndOfPathPoint] There should be 6 coords for curveto: "+curveto+"; "+pathdata);
             endpoint.x = parseFloat(startpoint[0]) + parseFloat(curveto[4]);
             endpoint.y = parseFloat(startpoint[1]) + parseFloat(curveto[5]);
-            if (debug) console.log("[Svgdom.EndOfPathArea A] endpoint:", endpoint);
+            if (debug) console.log("[getEndOfPathPoint] endpoint (A):", endpoint);
         }
         else if (pathdata.split("C").length==2) {
             // absolute coords
-            var startpoint  = pathdata.split("C")[0].split(/[\s,]+/);
-            var curveto     = pathdata.split("C")[1].split(/[\s,]+/);
-            if (debug) console.log("Svgdom.EndOfPathArea: curve coords", curveto);
-            if (debug) console.log("Svgdom.EndOfPathArea: start", startpoint);
-            if (startpoint.length != 2) throw ("Svgdom.EndOfPathArea: There should be 2 coords for startpoint "+startpoint);
-            if (curveto.length != 6) throw ("Svgdom.EndOfPathArea: There should be 6 coords for curveto "+curveto);
+            var startpoint  = pathdata.split("C")[0].trim().split(/[\s,]+/);
+            var curveto     = pathdata.split("C")[1].trim().split(/[\s,]+/);
+            if (debug) console.log("[getEndOfPathPoint] curveto", curveto);
+            if (debug) console.log("[getEndOfPathPoint] start", startpoint);
+            if (startpoint.length != 2) throw ("[getEndOfPathPoint] There should be 2 coords for startpoint: "+startpoint);
+            if (curveto.length != 6) throw ("[getEndOfPathPoint] There should be 6 coords for curveto: "+curveto);
             endpoint.x = parseFloat(curveto[4]);
             endpoint.y = parseFloat(curveto[5]);
-            if (debug) console.log("[Svgdom.EndOfPathArea B] endpoint", endpoint);
+            if (debug) console.log("[getEndOfPathPoint] endpoint (B):", endpoint);
         }
-        else throw ("Svgdom.EndOfPathArea: Need exactly one curve segment. "+pathdata);
+        else throw ("[getEndOfPathPoint] Need exactly one curve segment: "+pathdata);
         return endpoint;
     }
 }
