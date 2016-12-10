@@ -67,6 +67,14 @@ var Svgdom = {
     addRectElement_SVGRect (parentel, r) {
         return Svgdom.addRect(parentel, r.x, r.y, r.width, r.height);
     },
+    
+    enclosesRectPoint(svgrect, svgpoint) {
+        //console.log("[enclosesRectPoint]", svgrect, svgpoint);
+        return svgrect.x <= svgpoint.x &&
+            svgrect.y <= svgpoint.y &&
+            svgrect.x+svgrect.width >= svgpoint.x &&
+            svgrect.y+svgrect.height >= svgpoint.y;
+    },
 
     getCentrePoint: function (circle) {
         /** Returns an SVGPoint at the centre of `circle`.
@@ -123,8 +131,8 @@ var Svgdom = {
             if (debug) console.log("[getBothEndsOfPath] endpoints[1] (B):", endpoints[1]);
         }
         else throw ("[getBothEndsOfPath] Need exactly one curve segment: "+pathdata);
-        endpoints[0].x = parseFloat(startpoint[4]);
-        endpoints[0].y = parseFloat(startpoint[5]);
+        endpoints[0].x = parseFloat(startpoint[0]);
+        endpoints[0].y = parseFloat(startpoint[1]);
 
         return endpoints;
     }
