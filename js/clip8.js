@@ -109,7 +109,7 @@ var Clip8 = {
             var epsilon = 0.01;
             var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(S[Clip8.LINETAG][0]), epsilon, svgroot);
             var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS);
-            if (debug) console.log("[retrieveCoreSelector] local ics [0, 1, 2]:", isc[0], isc[1], isc[2]);
+            if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
             coreS = isc[1];
         }
         else {
@@ -157,11 +157,11 @@ var Clip8 = {
         var p0 = Svgdom.getEndOfPathPoint(Clip8.ip);
         var p0area = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var ICS0 = Clip8.retrieveISCElements(p0area, svgroot, Clip8.TAGS, Clip8.TAGS);
-        if (debug) console.log("[executeOneOperation] ICS0 [0, 1, 2]:", ICS0[0], ICS0[1], ICS0[2]);
-        var I0 = ICS0[0];
-        var S0 = ICS0[1];
-        Clip8.ip = ICS0[2];
+        var ISC0 = Clip8.retrieveISCElements(p0area, svgroot, Clip8.TAGS, Clip8.TAGS);
+        if (debug) console.log("[executeOneOperation] ISC0 [0, 1, 2]:", ISC0[0], ISC0[1], ISC0[2]);
+        var I0 = ISC0[0];
+        var S0 = ISC0[1];
+        Clip8.ip = ISC0[2];
         if (debug) console.log("[executeOneOperation] S0:", S0);
         var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
         var selectortype = retrselector[0];
@@ -193,10 +193,10 @@ var Clip8 = {
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
-            var ICS1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS);
-            if (debug) console.log("[executeOneOperation] ICS1 [0, 1, 2]:", ICS1[0], ICS1[1], ICS1[2]);
-            var I1 = ICS1[0];
-            var S1 = ICS1[1];
+            var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS);
+            if (debug) console.log("[executeOneOperation] ISC1 [0, 1, 2]:", ISC1[0], ISC1[1], ISC1[2]);
+            var I1 = ISC1[0];
+            var S1 = ISC1[1];
             if (I1[Clip8.RECTTAG].length == 1 )
                 selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
             switch (linedir) {
