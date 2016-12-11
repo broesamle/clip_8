@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-refsheet_version = "0.0.4"
+refsheet_version = "0.0.5"
 refsheet_description = "encompasses a usable (incomplete) language repertoire."
 
 sections = [

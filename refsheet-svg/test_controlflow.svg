@@ -3,8 +3,8 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g id="Background" display="none">
-	<rect display="inline" fill="#606060" stroke="#9BC9C7" stroke-miterlimit="10" width="64" height="64"/>
+<g id="Background">
+	<rect fill="#606060" stroke="#9BC9C7" stroke-miterlimit="10" width="64" height="64"/>
 </g>
 <g id="TEST-intitial-and-terminal" display="none">
 	<g id="t1_x5F_intitial-and-terminal" display="inline" opacity="0.5">
@@ -71,41 +71,14 @@
 			"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="20,25 18,28 
 			20,31 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="20,18.875 20,18.375 19.5,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="17.825" y1="18.375" x2="16.15" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="15.313,18.375 14.813,18.375 14.813,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.125,2.25" x1="14.813" y1="21.125" x2="14.813" y2="23.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="14.813,24.5 14.813,25 15.313,25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="16.987" y1="25" x2="18.663" y2="25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="19.5,25 20,25 20,24.5 				"/>
-				<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.125,2.25" x1="20" y1="22.25" x2="20" y2="20"/>
-			</g>
-		</g>
+		
+			<rect x="14.813" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="6.625"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="36.417,28.25 
 			34.417,31.25 36.417,34.25 		"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="46.25,22.229 
 			48.25,25.229 46.25,28.229 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="36.417,18.875 36.417,18.375 35.917,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="34.242" y1="18.375" x2="32.567" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.729,18.375 31.229,18.375 31.229,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="31.229" y1="21.094" x2="31.229" y2="26.641"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.229,27.75 31.229,28.25 31.729,28.25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="33.404" y1="28.25" x2="35.079" y2="28.25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="35.917,28.25 36.417,28.25 36.417,27.75 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="36.417" y1="25.531" x2="36.417" y2="19.984"/>
-			</g>
-		</g>
+		
+			<rect x="31.229" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="9.875"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Flow follows the lower path and </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">ends in the lower terminal node.</tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
@@ -134,41 +107,14 @@
 			"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="20,25 18,28 
 			20,31 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="20,18.875 20,18.375 19.5,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="17.825" y1="18.375" x2="16.15" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="15.313,18.375 14.813,18.375 14.813,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.125,2.25" x1="14.813" y1="21.125" x2="14.813" y2="23.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="14.813,24.5 14.813,25 15.313,25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="16.987" y1="25" x2="18.663" y2="25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="19.5,25 20,25 20,24.5 				"/>
-				<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.125,2.25" x1="20" y1="22.25" x2="20" y2="20"/>
-			</g>
-		</g>
+		
+			<rect x="14.813" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="6.625"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="36.417,28.25 
 			34.417,31.25 36.417,34.25 		"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="46.25,22.229 
 			48.25,25.229 46.25,28.229 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="36.417,18.875 36.417,18.375 35.917,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="34.242" y1="18.375" x2="32.567" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.729,18.375 31.229,18.375 31.229,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="31.229" y1="21.094" x2="31.229" y2="26.641"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.229,27.75 31.229,28.25 31.729,28.25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="33.404" y1="28.25" x2="35.079" y2="28.25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="35.917,28.25 36.417,28.25 36.417,27.75 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="36.417" y1="25.531" x2="36.417" y2="19.984"/>
-			</g>
-		</g>
+		
+			<rect x="31.229" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="9.875"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Flow follows the upper path and </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">ends in the upper terminal node.</tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
@@ -197,41 +143,14 @@
 			"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="20,25 18,28 
 			20,31 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="20,18.875 20,18.375 19.5,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="17.825" y1="18.375" x2="16.15" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="15.313,18.375 14.813,18.375 14.813,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.125,2.25" x1="14.813" y1="21.125" x2="14.813" y2="23.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="14.813,24.5 14.813,25 15.313,25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="16.987" y1="25" x2="18.663" y2="25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="19.5,25 20,25 20,24.5 				"/>
-				<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.125,2.25" x1="20" y1="22.25" x2="20" y2="20"/>
-			</g>
-		</g>
+		
+			<rect x="14.813" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="6.625"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="36.417,28.25 
 			34.417,31.25 36.417,34.25 		"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="46.25,22.229 
 			48.25,25.229 46.25,28.229 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="36.417,18.875 36.417,18.375 35.917,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="34.242" y1="18.375" x2="32.567" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.729,18.375 31.229,18.375 31.229,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="31.229" y1="21.094" x2="31.229" y2="26.641"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.229,27.75 31.229,28.25 31.729,28.25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="33.404" y1="28.25" x2="35.079" y2="28.25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="35.917,28.25 36.417,28.25 36.417,27.75 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="36.417" y1="25.531" x2="36.417" y2="19.984"/>
-			</g>
-		</g>
+		
+			<rect x="31.229" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="9.875"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Flow follows the lower path, then </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">continues in the upper path, and </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">ends in the upper terminal.</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 4;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
@@ -260,42 +179,14 @@
 			"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="20,25 18,28 
 			20,31 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="20,31.5 20,31 19.5,31 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="17.825" y1="31" x2="16.15" y2="31"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="15.313,31 14.813,31 14.813,31.5 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1249,2.2498" x1="14.813" y1="33.75" x2="14.813" y2="36"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="14.813,37.125 14.813,37.625 15.313,37.625 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="16.987" y1="37.625" x2="18.663" y2="37.625"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="19.5,37.625 20,37.625 20,37.125 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1249,2.2498" x1="20" y1="34.875" x2="20" y2="32.625"/>
-			</g>
-		</g>
+		
+			<rect x="14.813" y="31" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="6.625"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="36.417,28.25 
 			34.417,31.25 36.417,34.25 		"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="46.25,22.229 
 			48.25,25.229 46.25,28.229 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="36.417,18.875 36.417,18.375 35.917,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="34.242" y1="18.375" x2="32.567" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.729,18.375 31.229,18.375 31.229,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="31.229" y1="21.094" x2="31.229" y2="26.641"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.229,27.75 31.229,28.25 31.729,28.25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="33.404" y1="28.25" x2="35.079" y2="28.25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="35.917,28.25 36.417,28.25 36.417,27.75 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="36.417" y1="25.531" x2="36.417" y2="19.984"/>
-			</g>
-		</g>
+		
+			<rect x="31.229" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="9.875"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Flow follows the upper path and </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">ends in the upper terminal.</tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
@@ -326,50 +217,22 @@
 			"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="20,25 18,28 
 			20,31 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="20,31.5 20,31 19.5,31 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="17.825" y1="31" x2="16.15" y2="31"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="15.313,31 14.813,31 14.813,31.5 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1249,2.2498" x1="14.813" y1="33.75" x2="14.813" y2="36"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="14.813,37.125 14.813,37.625 15.313,37.625 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="16.987" y1="37.625" x2="18.663" y2="37.625"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="19.5,37.625 20,37.625 20,37.125 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1249,2.2498" x1="20" y1="34.875" x2="20" y2="32.625"/>
-			</g>
-		</g>
+		
+			<rect x="14.813" y="31" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="6.625"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="36.417,28.25 
 			34.417,31.25 36.417,34.25 		"/>
 		<polyline fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="46.25,22.229 
 			48.25,25.229 46.25,28.229 		"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="36.417,18.875 36.417,18.375 35.917,18.375 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="34.242" y1="18.375" x2="32.567" y2="18.375"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.729,18.375 31.229,18.375 31.229,18.875 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="31.229" y1="21.094" x2="31.229" y2="26.641"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="31.229,27.75 31.229,28.25 31.729,28.25 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="0.8375,1.675" x1="33.404" y1="28.25" x2="35.079" y2="28.25"/>
-				<polyline fill="none" stroke="#9BC9C7" stroke-miterlimit="10" points="35.917,28.25 36.417,28.25 36.417,27.75 				"/>
-				
-					<line fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1.1094,2.2188" x1="36.417" y1="25.531" x2="36.417" y2="19.984"/>
-			</g>
-		</g>
+		
+			<rect x="31.229" y="18.375" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-dasharray="1,2" width="5.188" height="9.875"/>
 	</g>
 	<rect x="65" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Flow follows the lower path, </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">continues in the upper path and </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">ends in the upper terminal.</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 4;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="SECTIONINFO" display="none">
-	<rect y="-76" display="inline" fill="none" width="140" height="76"/>
-	<text transform="matrix(1 0 0 1 0 -73.5479)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Control flow (1) starts at an initial node, indicated by </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">one filled circle. (2) It follows the path originating at </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">the centre area of the initial node. (3) The endpoint of </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">the path is the primary centre `p0` of the next </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">instruction.</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">+ A filled circle surrounded by an other circle at `p0` </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">indicates a terminal node. Control flow (and program </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">execution stops).</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ All control flow elements need to have a visible </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">contour, including the filled circles.</tspan></text>
-	<g id="I" display="inline">
+<g id="SECTIONINFO">
+	<rect y="-76" fill="none" width="140" height="76"/>
+	<text transform="matrix(1 0 0 1 0 -73.5479)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Control flow (1) starts at an initial node, indicated by </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">one filled circle. (2) It follows the path originating at </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">the centre area of the initial node. (3) The endpoint of </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">the path is the primary centre `p0` of the next </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">instruction.</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">+ A filled circle surrounded by an other circle at `p0` </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">indicates a terminal node. Control flow (and program </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">execution stops).</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ All control flow elements need to have a visible </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">contour, including the filled circles.</tspan></text>
+	<g id="I">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="4.143" cy="45.032" r="2.143"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="57.179" cy="23.604" r="2.143"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-miterlimit="10" cx="57.179" cy="23.604" r="4.821"/>
