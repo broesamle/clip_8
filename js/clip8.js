@@ -107,10 +107,13 @@ var Clip8 = {
     },
 
     moveIP: function (C, svgroot) {
-        if      (C[Clip8.PATHTAG].length == 1)
+        if ( C[Clip8.CIRCLETAG].length == 2 )
+            return false;    // terminate
+        else if      (C[Clip8.PATHTAG].length == 1)
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
         else if (C[Clip8.POLYLINETAG].length == 1)
         { }
+        return true;
     },
 
     retrieveCoreSelector: function (S, svgroot) {
@@ -163,7 +166,6 @@ var Clip8 = {
 
     executeOneOperation: function(svgroot, tracesvgroot) {
         var debug = true;
-        var terminate = false;  // This is a local variable, not a global running flag.
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
 
@@ -184,7 +186,10 @@ var Clip8 = {
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
-        Clip8.moveIP(C0, svgroot);
+        if (!Clip8.moveIP(C0, svgroot)) {
+            Clip8.clearExecTimer();
+            return;
+        }
         Clip8.pminus1_area = p0area;    // indicate old instruction pointer area
         if (debug) console.log("[executeOneOperation] S0:", S0);
         var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
@@ -198,16 +203,7 @@ var Clip8 = {
             throw "received an invalid selectortype from retrieveCoreSelector: "+selectortype;
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        if ( C0[Clip8.CIRCLETAG].length == 2 ) {
-            if (debug) console.log("[executeOneOperation] two circles.");
-            if (C0[Clip8.CIRCLETAG][0].tagName == "circle" &&
-                C0[Clip8.CIRCLETAG][1].tagName == "circle") {
-                if (debug) console.log("[executeOneOperation] TERMINAL.");
-                terminate = true;
-            }
-            else throw "Could not decode instruction A"+instr1;
-        }
-        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 1 ) {
+        if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 1 ) {
             // ALIGN
             if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
             var theline = I0[Clip8.LINETAG][0];
@@ -284,7 +280,6 @@ var Clip8 = {
         }
         else
             throw "Could not decode instruction X"+instr1;
-        if (terminate) Clip8.clearExecTimer();
     },
 
     envokeOperation: function () {
