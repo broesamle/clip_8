@@ -67,7 +67,7 @@ var Svgdom = {
     addRectElement_SVGRect (parentel, r) {
         return Svgdom.addRect(parentel, r.x, r.y, r.width, r.height);
     },
-    
+
     enclosesRectPoint(svgrect, svgpoint) {
         //console.log("[enclosesRectPoint]", svgrect, svgpoint);
         return svgrect.x <= svgpoint.x &&
@@ -133,7 +133,21 @@ var Svgdom = {
         else throw ("[getBothEndsOfPath] Need exactly one curve segment: "+pathdata);
         endpoints[0].x = parseFloat(startpoint[0]);
         endpoints[0].y = parseFloat(startpoint[1]);
+        return endpoints;
+    },
 
+    getBothEndsOfPoly: function (poly) {
+        if (poly.tagName != "polyline") throw "[getBothEndsOfPoly] expected a polyline.";
+        var debug = false;
+        var endpoints = [poly.ownerSVGElement.createSVGPoint(), poly.ownerSVGElement.createSVGPoint()];
+        var pointdata = poly.getAttribute("points");
+        if (debug) console.log("[getBothEndsOfPoly] end:", coords);
+        var coords = pointdata.trim().split(/[\s,]+/);
+        if (debug) console.log("[getBothEndsOfPoly] coords:", coords);
+        endpoints[0].x = parseFloat(coords[0]);
+        endpoints[0].y = parseFloat(coords[1]);
+        endpoints[1].x = parseFloat(coords[4]);
+        endpoints[1].y = parseFloat(coords[5]);
         return endpoints;
     }
 }

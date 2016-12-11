@@ -107,12 +107,42 @@ var Clip8 = {
     },
 
     moveIP: function (C, svgroot) {
+        var debug = true;
         if ( C[Clip8.CIRCLETAG].length == 2 )
             return false;    // terminate
         else if      (C[Clip8.PATHTAG].length == 1)
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
-        else if (C[Clip8.POLYLINETAG].length == 1)
-        { }
+        else if (C[Clip8.POLYLINETAG].length == 1) {
+            if (debug) console.log("[moveIP] polyline.");
+            var endpoints = Svgdom.getBothEndsOfPoly(C[Clip8.POLYLINETAG][0]);
+            if (debug) console.log("[moveIP] endpoints:", endpoints);
+            var epsilon = 0.01;
+            var localISCa = Clip8.retrieveISCElements(
+                                Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot),
+                                svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+            var localISCb = Clip8.retrieveISCElements(
+                                Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot),
+                                svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+            if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
+                // no selector at this end
+                if (localISCb[1][Clip8.LINETAG].length == 0 && localISCb[1][Clip8.RECTTAG].length == 0)
+                    // no selector at the other end
+                    throw "[moveIP] Alternative without selector.";
+                else {
+                    endpoints = endpoints.reverse();
+                    var localISCtemp = localISCa;
+                    localISCa = localISCb;
+                    localISCb = localISCtemp;
+                }
+            }
+            if (debug) console.log("[moveIP] localISC a,b:", localISCa, localISCb);
+            if (localISCb[2][Clip8.PATHTAG].length == 1)
+                Clip8.ip = localISCb[Clip8.PATHTAG][0];   // move instruction pointer
+            else
+                throw "[moveIP] Invalid control flow at alternative.";
+        }
+        else
+            throw "[moveIP] Invalid control flow.";
         return true;
     },
 
@@ -279,7 +309,7 @@ var Clip8 = {
             }
         }
         else
-            throw "Could not decode instruction X"+instr1;
+            throw "Could not decode instruction X";
     },
 
     envokeOperation: function () {
