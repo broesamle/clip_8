@@ -60,7 +60,6 @@ var Clip8 = {
                 break;
             }
         }
-
         if (debug) console.log("[clip8initControlFlow] els at initial location:", hitlist);
         Clip8.pminus1_area = initarea;
         for ( var i = 0; i < hitlist.length; i++ )
@@ -115,7 +114,7 @@ var Clip8 = {
         var epsilon = 0.01;
         if ( C[Clip8.CIRCLETAG].length == 2 )
             return Clip8.TERMINATE;
-        else if      (C[Clip8.PATHTAG].length == 1)
+        else if (C[Clip8.PATHTAG].length == 1)
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
