@@ -68,6 +68,14 @@ var Svgdom = {
         return Svgdom.addRect(parentel, r.x, r.y, r.width, r.height);
     },
 
+    enclosesRectPoint(svgrect, svgpoint) {
+        //console.log("[enclosesRectPoint]", svgrect, svgpoint);
+        return svgrect.x <= svgpoint.x &&
+            svgrect.y <= svgpoint.y &&
+            svgrect.x+svgrect.width >= svgpoint.x &&
+            svgrect.y+svgrect.height >= svgpoint.y;
+    },
+
     getCentrePoint: function (circle) {
         /** Returns an SVGPoint at the centre of `circle`.
         */
@@ -86,43 +94,66 @@ var Svgdom = {
         return end;
     },
 
-    getEndOfPathPoint: function (path) {
-        /** Returns an SVGPoint at the endpoint of a path.
+    getBothEndsOfPath: function (path) {
+        /** Returns two `SVGPoint`s at both endpoints of a path.
         */
         var debug = false;
-        if (path.tagName != "path") throw "Svgdom.EndOfPathArea: expected a path.";
-        var endpoint = path.ownerSVGElement.createSVGPoint();
+        if (path.tagName != "path") throw "[getBothEndsOfPath] expected a path.";
+        var endpoints = [path.ownerSVGElement.createSVGPoint(), path.ownerSVGElement.createSVGPoint()];
         var pathdata = path.getAttribute("d").trim();
-        if (!pathdata.startsWith("M")) throw ("Svgdom.EndOfPathArea: pathdata should start with M. "+pathdata);
-        if (debug) console.log("Svgdom.EndOfPathArea: pathdata", pathdata);
+        if (!pathdata.startsWith("M")) throw ("[getBothEndsOfPath] pathdata should start with M. "+pathdata);
+        if (debug) console.log("[GETBOTHENDSOFPATH] pathdata:", pathdata);
         // "-" seems to be an implicit separator, which we make explicit, here
         // also, we remove the "M" at the first position
         pathdata = pathdata.slice(1).replace(/\-/g, " -");
         if (pathdata.split("c").length==2) {
             // relative coords
-            var startpoint  = pathdata.split("c")[0].split(/[\s,]+/);
-            var curveto     = pathdata.split("c")[1].split(/[\s,]+/);
-            if (debug) console.log("Svgdom.EndOfPathArea: curve coords", curveto);
-            if (debug) console.log("Svgdom.EndOfPathArea: start", startpoint);
-            if (startpoint.length != 2) throw ("Svgdom.EndOfPathArea: There should be 2 coords for startpoint "+startpoint);
-            if (curveto.length != 6) throw ("Svgdom.EndOfPathArea: There should be 6 coords for curveto "+curveto);
-            endpoint.x = parseFloat(startpoint[0]) + parseFloat(curveto[4]);
-            endpoint.y = parseFloat(startpoint[1]) + parseFloat(curveto[5]);
-            if (debug) console.log("[Svgdom.EndOfPathArea A] endpoint:", endpoint);
+            var startpoint  = pathdata.split("c")[0].trim().split(/[\s,]+/);
+            var curveto     = pathdata.split("c")[1].trim().split(/[\s,]+/);
+            if (debug) console.log("[getBothEndsOfPath] curveto:", curveto);
+            if (debug) console.log("[getBothEndsOfPath] startpoint:", startpoint);
+            if (startpoint.length != 2) throw ("[getBothEndsOfPath] There should be 2 coords for startpoint: "+startpoint);
+            if (curveto.length != 6) throw ("[getBothEndsOfPath] There should be 6 coords for curveto: "+curveto+"; "+pathdata);
+            endpoints[1].x = parseFloat(startpoint[0]) + parseFloat(curveto[4]);
+            endpoints[1].y = parseFloat(startpoint[1]) + parseFloat(curveto[5]);
+            if (debug) console.log("[getBothEndsOfPath] endpoint[1] (A):", endpoints[1]);
         }
         else if (pathdata.split("C").length==2) {
             // absolute coords
-            var startpoint  = pathdata.split("C")[0].split(/[\s,]+/);
-            var curveto     = pathdata.split("C")[1].split(/[\s,]+/);
-            if (debug) console.log("Svgdom.EndOfPathArea: curve coords", curveto);
-            if (debug) console.log("Svgdom.EndOfPathArea: start", startpoint);
-            if (startpoint.length != 2) throw ("Svgdom.EndOfPathArea: There should be 2 coords for startpoint "+startpoint);
-            if (curveto.length != 6) throw ("Svgdom.EndOfPathArea: There should be 6 coords for curveto "+curveto);
-            endpoint.x = parseFloat(curveto[4]);
-            endpoint.y = parseFloat(curveto[5]);
-            if (debug) console.log("[Svgdom.EndOfPathArea B] endpoint", endpoint);
+            var startpoint  = pathdata.split("C")[0].trim().split(/[\s,]+/);
+            var curveto     = pathdata.split("C")[1].trim().split(/[\s,]+/);
+            if (debug) console.log("[getBothEndsOfPath] curveto", curveto);
+            if (debug) console.log("[getBothEndsOfPath] start", startpoint);
+            if (startpoint.length != 2) throw ("[getBothEndsOfPath] There should be 2 coords for startpoint: "+startpoint);
+            if (curveto.length != 6) throw ("[getBothEndsOfPath] There should be 6 coords for curveto: "+curveto);
+            endpoints[1].x = parseFloat(curveto[4]);
+            endpoints[1].y = parseFloat(curveto[5]);
+            if (debug) console.log("[getBothEndsOfPath] endpoints[1] (B):", endpoints[1]);
         }
-        else throw ("Svgdom.EndOfPathArea: Need exactly one curve segment. "+pathdata);
-        return endpoint;
-    }
+        else throw ("[getBothEndsOfPath] Need exactly one curve segment: "+pathdata);
+        endpoints[0].x = parseFloat(startpoint[0]);
+        endpoints[0].y = parseFloat(startpoint[1]);
+        return endpoints;
+    },
+
+    getPointsOfPoly: function (poly, referenceArea) {
+    /** Returns the points of a polyline element as `SVGPoint`s.
+     */
+        if (poly.tagName != "polyline") throw "[getBothEndsOfPoly] expected a polyline.";
+        var debug = false;
+        var points = [poly.ownerSVGElement.createSVGPoint(),
+                      poly.ownerSVGElement.createSVGPoint(),
+                      poly.ownerSVGElement.createSVGPoint()];
+        var pointdata = poly.getAttribute("points");
+        if (debug) console.log("[getBothEndsOfPoly] end:", coords);
+        var coords = pointdata.trim().split(/[\s,]+/);
+        if (debug) console.log("[getBothEndsOfPoly] coords:", coords);
+        points[0].x = parseFloat(coords[0]);
+        points[0].y = parseFloat(coords[1]);
+        points[1].x = parseFloat(coords[2]);
+        points[1].y = parseFloat(coords[3]);
+        points[2].x = parseFloat(coords[4]);
+        points[2].y = parseFloat(coords[5]);
+        return points;
+    },
 }
