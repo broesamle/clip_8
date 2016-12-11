@@ -106,44 +106,63 @@ var Clip8 = {
         return [I, S, C];
     },
 
-    moveIP: function (C, svgroot) {
+    // Constants
+    TERMINATE: 0,
+    CONTINUE: 1,
+    EXECUTE: 2,
+    moveIP: function (C, arearect, svgroot) {
         var debug = true;
+        var epsilon = 0.01;
         if ( C[Clip8.CIRCLETAG].length == 2 )
-            return false;    // terminate
+            return Clip8.TERMINATE;
         else if      (C[Clip8.PATHTAG].length == 1)
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
-            var endpoints = Svgdom.getBothEndsOfPoly(C[Clip8.POLYLINETAG][0]);
-            if (debug) console.log("[moveIP] endpoints:", endpoints);
-            var epsilon = 0.01;
-            var localISCa = Clip8.retrieveISCElements(
-                                Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot),
-                                svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-            var localISCb = Clip8.retrieveISCElements(
-                                Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot),
-                                svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-            if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
-                // no selector at this end
-                if (localISCb[1][Clip8.LINETAG].length == 0 && localISCb[1][Clip8.RECTTAG].length == 0)
-                    // no selector at the other end
-                    throw "[moveIP] Alternative without selector.";
-                else {
-                    endpoints = endpoints.reverse();
-                    var localISCtemp = localISCa;
-                    localISCa = localISCb;
-                    localISCb = localISCtemp;
+            var points = Svgdom.getPointsOfPoly(C[Clip8.POLYLINETAG][0]);
+            if (Svgdom.enclosesRectPoint(arearect, points[1])) {
+                // Alternative
+                var endpoints = [points[0], points[2]];
+                if (debug) console.log("[moveIP] endpoints:", endpoints);
+                var localISCa = Clip8.retrieveISCElements(
+                                    Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot),
+                                    svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var localISCb = Clip8.retrieveISCElements(
+                                    Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot),
+                                    svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
+                    // no selector at this end
+                    if (localISCb[1][Clip8.LINETAG].length == 0 && localISCb[1][Clip8.RECTTAG].length == 0)
+                        // no selector at the other end
+                        throw "[moveIP] Alternative without selector.";
+                    else {
+                        endpoints = endpoints.reverse();
+                        var localISCtemp = localISCa;
+                        localISCa = localISCb;
+                        localISCb = localISCtemp;
+                    }
                 }
+                if (debug) console.log("[moveIP] localISC a,b:", localISCa, localISCb);
+                if (localISCb[2][Clip8.PATHTAG].length == 1)
+                    Clip8.ip = localISCb[2][Clip8.PATHTAG][0];   // move instruction pointer
+                else
+                    throw "[moveIP] Invalid control flow at alternative.";
             }
-            if (debug) console.log("[moveIP] localISC a,b:", localISCa, localISCb);
-            if (localISCb[2][Clip8.PATHTAG].length == 1)
-                Clip8.ip = localISCb[Clip8.PATHTAG][0];   // move instruction pointer
-            else
-                throw "[moveIP] Invalid control flow at alternative.";
+            else {
+                // Merge
+                var localISC = Clip8.retrieveISCElements(
+                                    Svgdom.epsilonRectAt(points[1], epsilon, svgroot),
+                                    svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                if (localISC[2][Clip8.PATHTAG].length == 1)
+                    Clip8.ip = localISC[Clip8.PATHTAG][0];   // move instruction pointer
+                else
+                    throw "[moveIP] Invalid control flow at merge.";
+            }
+            return Clip8.CONTINUE;
         }
         else
             throw "[moveIP] Invalid control flow.";
-        return true;
+        return Clip8.EXECUTE;
     },
 
     retrieveCoreSelector: function (S, svgroot) {
@@ -216,11 +235,17 @@ var Clip8 = {
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
-        if (!Clip8.moveIP(C0, svgroot)) {
-            Clip8.clearExecTimer();
-            return;
-        }
+        var execstatus = Clip8.moveIP(C0, p0area, svgroot);
         Clip8.pminus1_area = p0area;    // indicate old instruction pointer area
+        switch (execstatus) {
+            case Clip8.EXECUTE:
+                break;      // redundant but more readable.
+            case Clip8.CONTINUE:
+                return;     // without any instruction execution in this cycle
+            case Clip8.TERMINATE:
+                Clip8.clearExecTimer();
+                return;     // stop execution
+        }
         if (debug) console.log("[executeOneOperation] S0:", S0);
         var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
         var selectortype = retrselector[0];

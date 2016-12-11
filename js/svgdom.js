@@ -136,18 +136,24 @@ var Svgdom = {
         return endpoints;
     },
 
-    getBothEndsOfPoly: function (poly) {
+    getPointsOfPoly: function (poly, referenceArea) {
+    /** Returns the points of a polyline element as `SVGPoint`s.
+     */
         if (poly.tagName != "polyline") throw "[getBothEndsOfPoly] expected a polyline.";
         var debug = false;
-        var endpoints = [poly.ownerSVGElement.createSVGPoint(), poly.ownerSVGElement.createSVGPoint()];
+        var points = [poly.ownerSVGElement.createSVGPoint(),
+                      poly.ownerSVGElement.createSVGPoint(),
+                      poly.ownerSVGElement.createSVGPoint()];
         var pointdata = poly.getAttribute("points");
         if (debug) console.log("[getBothEndsOfPoly] end:", coords);
         var coords = pointdata.trim().split(/[\s,]+/);
         if (debug) console.log("[getBothEndsOfPoly] coords:", coords);
-        endpoints[0].x = parseFloat(coords[0]);
-        endpoints[0].y = parseFloat(coords[1]);
-        endpoints[1].x = parseFloat(coords[4]);
-        endpoints[1].y = parseFloat(coords[5]);
-        return endpoints;
-    }
+        points[0].x = parseFloat(coords[0]);
+        points[0].y = parseFloat(coords[1]);
+        points[1].x = parseFloat(coords[2]);
+        points[1].y = parseFloat(coords[3]);
+        points[2].x = parseFloat(coords[4]);
+        points[2].y = parseFloat(coords[5]);
+        return points;
+    },
 }
