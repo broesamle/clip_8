@@ -129,6 +129,10 @@ var Clip8 = {
                 var localISCb = Clip8.retrieveISCElements(
                                     Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot),
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var condISC;        // the ISC where the condition is attached
+                var oppositeISC;    // the ISC opposite to where the condition is attached
+                // Determine the side whith an attached selector.
+                // We will call this side `cond` and the other side `opposite`
                 if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
                     // no selector at this end
                     if (localISCb[1][Clip8.LINETAG].length == 0 && localISCb[1][Clip8.RECTTAG].length == 0)
@@ -137,15 +141,28 @@ var Clip8 = {
                     else {
                         endpoints = endpoints.reverse();
                         var localISCtemp = localISCa;
-                        localISCa = localISCb;
-                        localISCb = localISCtemp;
+                        condISC = localISCb;
+                        oppositeISC = localISCa;
                     }
                 }
-                if (debug) console.log("[moveIP] localISC a,b:", localISCa, localISCb);
-                if (localISCb[2][Clip8.PATHTAG].length == 1)
-                    Clip8.ip = localISCb[2][Clip8.PATHTAG][0];   // move instruction pointer
+                else {
+                    condISC = localISCa;
+                    oppositeISC = localISCb;
+                }
+                var retrselector = Clip8.retrieveCoreSelector(condISC[1], svgroot);
+                var selectortype = retrselector[0];
+                var coreselector = retrselector[1];
+                var condselected = Clip8.selectedElementSet(coreselector, svgroot);
+                if (condselected.length > 0)
+                    if (condISC[2][Clip8.PATHTAG].length == 1)
+                        Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
+                    else
+                        throw "[moveIP] Invalid control flow at alternative.";
                 else
-                    throw "[moveIP] Invalid control flow at alternative.";
+                    if (oppositeISC[2][Clip8.PATHTAG].length == 1)
+                        Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
+                    else
+                        throw "[moveIP] Invalid control flow at alternative.";
             }
             else {
                 // Merge
@@ -153,7 +170,7 @@ var Clip8 = {
                                     Svgdom.epsilonRectAt(points[1], epsilon, svgroot),
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 if (localISC[2][Clip8.PATHTAG].length == 1)
-                    Clip8.ip = localISC[Clip8.PATHTAG][0];   // move instruction pointer
+                    Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
                 else
                     throw "[moveIP] Invalid control flow at merge.";
             }
@@ -165,7 +182,7 @@ var Clip8 = {
     },
 
     retrieveCoreSelector: function (S, svgroot) {
-        var debug = true;
+        var debug = false;
         if (debug) console.log("[RETRIEVECORESELECTOR] S, svgroot:", S, svgroot);
         var coreS;
         if (S[Clip8.LINETAG].length == 1) {
