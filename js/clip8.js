@@ -82,8 +82,7 @@ var Clip8 = {
         for ( var i = 0; i < tagsC.length; i++ ) C.push([]);
         for ( var i = 0; i < hitlist.length; i++ ) {
             if (!Clip8._isBlocklisted(hitlist[i])) {
-                if (hitlist[i].getAttribute("stroke-linecap") == "round" ||
-                    hitlist[i].tagName == "circle") {
+                if (hitlist[i].getAttribute("stroke-linecap") == "round") {
                     I = Clip8decode.pushByTagname(hitlist[i], tagsI, I);
                     Clip8.blocklist.push(hitlist[i]);
                 }
@@ -93,7 +92,9 @@ var Clip8 = {
                     Clip8.blocklist.push(hitlist[i]);
                 }
                 else if ( hitlist[i].getAttribute("stroke-linecap") != "round" &&
-                    (hitlist[i].tagName == "path" || hitlist[i].tagName == "polyline") ) {
+                    (hitlist[i].tagName == "path" ||
+                     hitlist[i].tagName == "circle" ||
+                     hitlist[i].tagName == "polyline") ) {
                     C = Clip8decode.pushByTagname(hitlist[i], tagsC, C);
                     Clip8.blocklist.push(hitlist[i]);
                 }
@@ -103,6 +104,13 @@ var Clip8 = {
                 if (debug) console.log("[retrieveISCElements] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
         }
         return [I, S, C];
+    },
+
+    moveIP: function (C, svgroot) {
+        if      (C[Clip8.PATHTAG].length == 1)
+            Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
+        else if (C[Clip8.POLYLINETAG].length == 1)
+        { }
     },
 
     retrieveCoreSelector: function (S, svgroot) {
@@ -176,7 +184,7 @@ var Clip8 = {
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
-        Clip8.ip = C0[Clip8.PATHTAG][0];   // move instruction pointer
+        Clip8.moveIP(C0, svgroot);
         Clip8.pminus1_area = p0area;    // indicate old instruction pointer area
         if (debug) console.log("[executeOneOperation] S0:", S0);
         var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
@@ -190,10 +198,10 @@ var Clip8 = {
             throw "received an invalid selectortype from retrieveCoreSelector: "+selectortype;
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        if ( I0[Clip8.CIRCLETAG].length == 2 ) {
+        if ( C0[Clip8.CIRCLETAG].length == 2 ) {
             if (debug) console.log("[executeOneOperation] two circles.");
-            if (I0[Clip8.CIRCLETAG][0].tagName == "circle" &&
-                I0[Clip8.CIRCLETAG][1].tagName == "circle") {
+            if (C0[Clip8.CIRCLETAG][0].tagName == "circle" &&
+                C0[Clip8.CIRCLETAG][1].tagName == "circle") {
                 if (debug) console.log("[executeOneOperation] TERMINAL.");
                 terminate = true;
             }
