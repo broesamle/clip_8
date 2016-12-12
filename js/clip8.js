@@ -39,31 +39,38 @@ var Clip8 = {
     initControlFlow: function (svgroot, tracesvgroot) {
         var debug = false;
         var circles = svgroot.getElementsByTagName("circle");
-        var centres = Svgdom.addGroup(svgroot);
+        var centres_offilled = [];  // Centres of filled circles (candidates).
+        var centrareas = [];        // Epsilon rectangles arount each circle centre.
         var initialflow = null;
 
-        for ( var i = 0; i < circles.length; i++ ) {
-            var arearect = Svgdom.epsilonRectAt(Svgdom.getCentrePoint(circles[i]), epsilon, svgroot);
-            var r = Svgdom.newRectElement_fromSVGRect(arearect, svgroot);
-            r.setAttribute("fill", "#ffff33");
-            centres.appendChild(r);
-        }
-        for ( var i = 0; i < centres.childNodes.length; i++ ) {
-            var sel = Svgretrieve.selectorFromRect(centres.childNodes[i], svgroot);
-            var hitlist = svgroot.getIntersectionList(sel, centres);
-            if (debug)  console.log("[clip8initControlFlow] hitlist:", hitlist);
-            if (hitlist.length == 1) {
-                var initarea = Svgretrieve.selectorFromRect(hitlist[0], svgroot);
-                svgroot.removeChild(centres);
-                hitlist = svgroot.getIntersectionList(initarea, svgroot);
-                if (debug)  console.log("[clip8initControlFlow] initiallocation:", hitlist);
-                break;
+        for (var i = 0, c; i < circles.length; i++) {
+            c = Svgdom.getCentrePoint(circles[i]);
+            centrareas.push ( Svgdom.epsilonRectAt(c, epsilon, svgroot) );
+            if (circles[i].getAttribute("fill")) {
+                centres_offilled.push(c);
             }
         }
-        if (debug) console.log("[clip8initControlFlow] els at initial location:", hitlist);
-        Clip8.pminus1_area = initarea;
-        for ( var i = 0; i < hitlist.length; i++ )
-            if (hitlist[i].tagName == "path") return hitlist[i];
+        for (var i = 0; i < centres_offilled.length; i++ ) {
+            var hitcount = 0, lasthit = 0;
+            for (var j = 0; j < centrareas.length; j++ ) {
+                if (Svgdom.enclosesRectPoint(centrareas[j], centres_offilled[i])) {
+                    hitcount++;
+                    lasthit = j;
+                }
+                if (hitcount > 1) break;
+            }
+            if (hitcount == 1) {
+                // found circle not surrounded by any other (= an area being the centre of one circle).
+                var hitlist = svgroot.getIntersectionList(centrareas[lasthit], svgroot);
+                if (debug) console.log("[clip8initControlFlow] els at initial location:", hitlist);
+                for ( var k = 0; k < hitlist.length; k++ ) {
+                    if (hitlist[k].tagName == "path") {
+                        Clip8.pminus1_area = centrareas[lasthit];
+                        return hitlist[k];
+                    }
+                }
+            }
+        }
         throw "Failed to idendify point of entry."
     },
 
