@@ -15,6 +15,8 @@ var Clip8 = {
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
     // Variables
+    maxcycles: 10,
+    cyclescounter: 0,
     exectimer: null,
     ip: null,           // instruction pointer
     pminus1_area: null, // p0area of former round.
@@ -270,6 +272,11 @@ var Clip8 = {
     executeOneOperation: function(svgroot, tracesvgroot) {
         var debug = true;
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
+        Clip8.cyclescounter++;
+        if (Clip8.cyclescounter >= Clip8.maxcycles) {
+            Clip8.clearExecTimer();
+            throw "Maximal number of cycles";
+        }
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
 
         var p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
@@ -430,4 +437,10 @@ function clip8setTraceAttribs(el) {
     el.setAttribute("stroke-width", "1");
     el.setAttribute("fill", "none");
     el.setAttribute("pointer-events", "none");
+}
+
+function startAction() {
+    var svgroot = document.getElementById("clip8svgroot");
+    console.log("STARTING clip_8", svgroot);
+    Clip8.envokeOperation();
 }
