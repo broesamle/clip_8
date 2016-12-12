@@ -205,7 +205,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                FOOTER=footerHTML)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix A")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "appendix.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
@@ -235,7 +235,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                FOOTER=footerHTML)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix B")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "passing.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
@@ -261,7 +261,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                FOOTER=footerHTML)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix C")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "failing.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
@@ -297,7 +297,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
-documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "toc.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
@@ -342,7 +342,7 @@ bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                link1="", link2="",
                                FOOTER=footerHTML)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML)
+documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "index.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
