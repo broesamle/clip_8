@@ -51,7 +51,9 @@ $link1
 $link2
 </nav>
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
+Demos:
 $DEMOS
+Footer:
 $FOOTER
 </body>
 """)
@@ -60,7 +62,7 @@ Demos = Template("$THEITEMS")
 
 Demo = Template("""
 <p>
-<svg id="clip8svgroot" viewbox="$viewBox">
+<svg id="clip8svgroot" viewbox="$viewBox" width="$width" height="$height">
 $svgdata
 </svg>
 </p>

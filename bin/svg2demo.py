@@ -8,7 +8,6 @@ import CFG
 
 class DemoPage(SVGGroupCollection):
     def __init__(self, filename, *args, **kwargs):
-        #self.viewBox = viewBox
         SVGGroupCollection.__init__(
             self,
             filename,
@@ -17,6 +16,7 @@ class DemoPage(SVGGroupCollection):
             *args, **kwargs)
 
     def processElement(self, el):
+        print("processElement", el, el.tag)
         elid = el.get('id',"")
         try:
             key = self.keyFromId(elid)
@@ -25,6 +25,7 @@ class DemoPage(SVGGroupCollection):
         newitem = {}
         newitem['svgdata'] = allChildrenToSVG(el)
         self.addItem(key, newitem)
+        print("   ...ok")
 
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
 outDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
@@ -35,9 +36,10 @@ print("Processing:", inFN)
 demopage = DemoPage(inFN, strictsubstitute=True)
 
 demosHTML = demopage.generateSeries(
-    itemTEM=TEM.Demo, 
-    seriesTEM=TEM.Demos, 
-    itemData={'viewBox': "0 0 256 168"})
+    itemTEM=TEM.Demo,
+    seriesTEM=TEM.Demos,
+    itemData={'viewBox': demopage.viewBox, 'width':demopage.width, 'height':demopage.height})
+
 footerHTML = TEM.Footer
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                         chapter="Counter", chaptercnt="Demos",

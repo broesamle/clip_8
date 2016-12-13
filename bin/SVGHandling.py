@@ -8,21 +8,34 @@ def allChildrenToSVG(el):
 
 class XMLNodesCollection(ItemsCollection):
     """ Read a number of nodes from an XML file"""
-    def __init__(self, filename, elementXpath, namespaces={}, reverse=False, **kwargs):
-        ItemsCollection.__init__(self, **kwargs)
+    def __init__(self, filename, elementXpath, namespaces={}, reverse=False, *args, **kwargs):
+        ItemsCollection.__init__(self, *args, **kwargs)
         tree = ET.parse(filename)
         root = tree.getroot()
+        self.processSVGRoot(root)
         for el in root.findall(elementXpath, namespaces):
             self.processElement(el)
+
+    def processSVGRoot(self, svgroot):
+        print ("Process SVG root element:", svgroot)
+        self.viewBox = svgroot.attrib['viewBox']
+        self.width = svgroot.attrib['width']
+        self.height = svgroot.attrib['height']
+
     def processElement(self,el):
         """ PLEASE OVERLOAD! The default implementation derives the key from the node id and adds the xml in the field `XML_CONTENT`."""
         raise NotImplementedError()
+
+#FIXME: `SVGGroupCollection.generateSeries` should provide document wide fields cf. #52
+# https://github.com/broesamle/clip_8/issues/52
 
 class SVGGroupCollection(XMLNodesCollection):
     """ Collect SVG groups by prefixes in the element's id `<g id="someprefix_. . ."></g>`."""
     def __init__(self, filename, idprefixes, *args, **kwargs):
         self.prefixes = idprefixes
-        XMLNodesCollection.__init__(self, filename, elementXpath='.//svg:g[@id]', namespaces = {'svg':'http://www.w3.org/2000/svg'}, *args, **kwargs)
+        XMLNodesCollection.__init__(self,
+            filename, elementXpath='.//svg:g[@id]',
+            namespaces = {'svg':'http://www.w3.org/2000/svg'}, *args, **kwargs)
 
     def keyFromId(self,id):
         """ Check whether the id has one of the prefixes, and then generate a key for the item from it.
