@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-refsheet_version = "0.0.6"
+refsheet_version = "0.0.7"
 refsheet_description = "encompasses a usable (incomplete) language repertoire."
 
 sections = [
@@ -14,6 +14,7 @@ sections = [
     ("Changing dimensions", "Scale and resize", 'test_scale+resize.svg') ]
 
 expected_to_fail = [
+    "disturbing-selector1", "disturbing-path1",
     "intersect1", "intersect2", "indirect1", "indirect2", "indirect3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
