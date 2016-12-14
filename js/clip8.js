@@ -36,11 +36,42 @@ var Clip8 = {
         el.setAttribute("pointer-events", "none");
     },
 
+    removeFalsePositives: function (arearect, hitlist)  {
+        /** In the ISC components intersection is too weak as a criterion.
+         *  Reduce the `hitlist` so ad to keep only those objects with
+         *  one of the attachment points (end, corner, ...)
+         *  enclosed by `arearect`.
+         */
+        var points;         // points to check for the current element
+        var result = [];
+        for (var i = 0; i < hitlist.length; i++) {
+            var el = hitlist[i];
+            if (el instanceof SVGRectElement)
+                points = Svgdom.getCornersOfRectPoints(el)
+            else if (el instanceof SVGPathElement) {
+                points = Svgdom.getBothEndsOfPath(el)
+            }
+            else {
+                result.push(el);
+                continue;
+            }
+            for (var j = 0; j < points.length; j++) {
+                if (Svgdom.enclosesRectPoint(arearect, points[j])) {
+                    result.push(el);
+                    break;
+                }
+            }
+        }
+        return result;
+    },
+
     retrieveISCElements: function (arearect, svgroot, tagsI, tagsS, tagsC) {
         var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
         var hitlist = svgroot.getIntersectionList(arearect, svgroot);
         if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
+        hitlist = Clip8.removeFalsePositives(arearect, hitlist);
+        if (debug)  console.log("[retrieveISCElements] hitlist (red):", hitlist);
         if (hitlist.length == 0) throw "[retrieveISCElements] empty hitlist.";
         var I = [];
         var S = [];
