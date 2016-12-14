@@ -68,6 +68,22 @@ var Svgdom = {
         return Svgdom.addRect(parentel, r.x, r.y, r.width, r.height);
     },
 
+    getCornersOfRectPoints: function (rect) {
+        var points = [];
+        for (var i = 0; i < 4; i++)
+            points.push(rect.ownerSVGElement.createSVGPoint());
+        points[0].x = rect.x.baseVal.value;
+        points[0].y = rect.y.baseVal.value;
+        points[1].x = rect.x.baseVal.value + rect.width.baseVal.value;
+        points[1].y = rect.y.baseVal.value;
+        points[2].x = rect.x.baseVal.value + rect.width.baseVal.value;
+        points[2].y = rect.y.baseVal.value + rect.height.baseVal.value;
+        points[3].x = rect.x.baseVal.value
+        points[3].y = rect.y.baseVal.value + rect.height.baseVal.value;
+        return points;
+
+    },
+
     enclosesRectPoint(svgrect, svgpoint) {
         //console.log("[enclosesRectPoint]", svgrect, svgpoint);
         return svgrect.x <= svgpoint.x &&
