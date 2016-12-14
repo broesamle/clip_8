@@ -40,7 +40,7 @@ demosHTML = demopage.generateSeries(
     seriesTEM=TEM.Demos,
     itemData={'viewBox': demopage.viewBox, 'width':demopage.width, 'height':demopage.height})
 
-footerHTML = TEM.Footer
+footerHTML = TEM.Footer_str
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                         chapter="Counter", chaptercnt="Demos",
                                         DEMOS=demosHTML,

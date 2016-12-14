@@ -27,7 +27,7 @@ $dependencies
 </head>
 """)
 
-Footer = Template("""
+Footer_str = """
 <p>
 Not all browsers currently support all technological ingredients.
 See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
@@ -38,10 +38,10 @@ See <a href="https://github.com/broesamle/clip_8/">project documentation at gith
 All rights reserved.
 </p>
 <p>
-Powered by Jasmine, SVG, Javascript, and the DOM.
+Powered by SVG, Javascript, and the DOM.
 </p>
 </footer>
-""")
+"""
 
 Body = Template("""
 <body>
@@ -51,9 +51,7 @@ $link1
 $link2
 </nav>
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
-Demos:
 $DEMOS
-Footer:
 $FOOTER
 </body>
 """)
