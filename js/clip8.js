@@ -15,6 +15,8 @@ var Clip8 = {
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
     // Variables
+    maxcycles: 10,
+    cyclescounter: 0,
     exectimer: null,
     ip: null,           // instruction pointer
     pminus1_area: null, // p0area of former round.
@@ -267,9 +269,14 @@ var Clip8 = {
         throw "Failed to idendify point of entry."
     },
 
-    executeOneOperation: function(svgroot, tracesvgroot) {
+    executeOneOperation: function(svgroot) {
         var debug = true;
-        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
+        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot);
+        Clip8.cyclescounter++;
+        if (Clip8.cyclescounter >= Clip8.maxcycles) {
+            Clip8.clearExecTimer();
+            throw "Maximal number of cycles";
+        }
         if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
 
         var p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
@@ -396,16 +403,12 @@ var Clip8 = {
         var svgroot = document.getElementById("clip8svgroot");
         console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
-
+        // crucial init operations
         Svgdom.setSVGNS(svgroot.namespaceURI);
+        Clip8.cyclescounter = 0
 
-        var tracesvgroot = svgroot.cloneNode(false);
-        svgroot.parentNode.appendChild(tracesvgroot);
-        tracesvgroot.setAttribute("style", "margin-left:-64; background:none;");
-        Clip8.ip = Clip8.initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
-        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot, tracesvgroot) }, 50 );
-        var erasetracetimer = setInterval( function() { eraseTrace(tracesvgroot) }, 60 );
-        setTimeout ( function () { clearInterval(erasetracetimer); }, 1000 );   // stop erasor after some time
+        Clip8.ip = Clip8.initControlFlow(svgroot);     // instruction pointer: the active control flow path
+        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot) }, 50 );
     },
 
     clearExecTimer: function () {
@@ -413,7 +416,7 @@ var Clip8 = {
     }
 };
 
-function eraseTrace (svgroot) {
+function eraseTraceUNUSED (svgroot) {
     var itemopacity;
     for ( var i = 0; i < svgroot.childNodes.length; i++ ) {
         itemopacity = svgroot.childNodes[i].getAttribute("opacity");
@@ -425,9 +428,15 @@ function eraseTrace (svgroot) {
     }
 }
 
-function clip8setTraceAttribs(el) {
+function clip8setTraceAttribsUNUSED(el) {
     el.setAttribute("stroke", "#88aaff");
     el.setAttribute("stroke-width", "1");
     el.setAttribute("fill", "none");
     el.setAttribute("pointer-events", "none");
+}
+
+function startAction() {
+    var svgroot = document.getElementById("clip8svgroot");
+    console.log("STARTING clip_8", svgroot);
+    Clip8.envokeOperation();
 }
