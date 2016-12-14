@@ -403,8 +403,9 @@ var Clip8 = {
         var svgroot = document.getElementById("clip8svgroot");
         console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
-
+        // crucial init operations
         Svgdom.setSVGNS(svgroot.namespaceURI);
+        Clip8.cyclescounter = 0
 
         var tracesvgroot = svgroot.cloneNode(false);
         svgroot.parentNode.appendChild(tracesvgroot);
