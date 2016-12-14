@@ -269,9 +269,9 @@ var Clip8 = {
         throw "Failed to idendify point of entry."
     },
 
-    executeOneOperation: function(svgroot, tracesvgroot) {
+    executeOneOperation: function(svgroot) {
         var debug = true;
-        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot, tracesvgroot);
+        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot);
         Clip8.cyclescounter++;
         if (Clip8.cyclescounter >= Clip8.maxcycles) {
             Clip8.clearExecTimer();
@@ -407,13 +407,8 @@ var Clip8 = {
         Svgdom.setSVGNS(svgroot.namespaceURI);
         Clip8.cyclescounter = 0
 
-        var tracesvgroot = svgroot.cloneNode(false);
-        svgroot.parentNode.appendChild(tracesvgroot);
-        tracesvgroot.setAttribute("style", "margin-left:-64; background:none;");
-        Clip8.ip = Clip8.initControlFlow(svgroot, tracesvgroot);     // instruction pointer: the active control flow path
-        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot, tracesvgroot) }, 50 );
-        var erasetracetimer = setInterval( function() { eraseTrace(tracesvgroot) }, 60 );
-        setTimeout ( function () { clearInterval(erasetracetimer); }, 1000 );   // stop erasor after some time
+        Clip8.ip = Clip8.initControlFlow(svgroot);     // instruction pointer: the active control flow path
+        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot) }, 50 );
     },
 
     clearExecTimer: function () {
@@ -421,7 +416,7 @@ var Clip8 = {
     }
 };
 
-function eraseTrace (svgroot) {
+function eraseTraceUNUSED (svgroot) {
     var itemopacity;
     for ( var i = 0; i < svgroot.childNodes.length; i++ ) {
         itemopacity = svgroot.childNodes[i].getAttribute("opacity");
@@ -433,7 +428,7 @@ function eraseTrace (svgroot) {
     }
 }
 
-function clip8setTraceAttribs(el) {
+function clip8setTraceAttribsUNUSED(el) {
     el.setAttribute("stroke", "#88aaff");
     el.setAttribute("stroke-width", "1");
     el.setAttribute("fill", "none");
