@@ -233,15 +233,18 @@ var Clip8 = {
 
     initControlFlow: function (svgroot, tracesvgroot) {
         var debug = false;
+        var debugcolour = false;
         var circles = svgroot.getElementsByTagName("circle");
         var centres_offilled = [];  // Centres of filled circles (candidates).
         var centrareas = [];        // Epsilon rectangles arount each circle centre.
         var initialflow = null;
 
         for (var i = 0, c; i < circles.length; i++) {
+            if (debugcolour) circles[i].setAttribute("stroke", "#95C9EF");
             c = Svgdom.getCentrePoint(circles[i]);
             centrareas.push ( Svgdom.epsilonRectAt(c, epsilon, svgroot) );
-            if (circles[i].getAttribute("fill")) {
+            if (circles[i].getAttribute("fill", "none") != "none") {
+                if (debugcolour) circles[i].setAttribute("fill", "#3EA3ED");
                 centres_offilled.push(c);
             }
         }
@@ -250,17 +253,19 @@ var Clip8 = {
             for (var j = 0; j < centrareas.length; j++ ) {
                 if (Svgdom.enclosesRectPoint(centrareas[j], centres_offilled[i])) {
                     hitcount++;
-                    lasthit = j;
                 }
                 if (hitcount > 1) break;
             }
             if (hitcount == 1) {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
-                var hitlist = svgroot.getIntersectionList(centrareas[lasthit], svgroot);
-                if (debug) console.log("[clip8initControlFlow] els at initial location:", hitlist);
+                var hit = centres_offilled[i];
+                var hitarea = Svgdom.epsilonRectAt(hit, epsilon, svgroot);
+                var hitlist = svgroot.getIntersectionList(hitarea, svgroot);
+                if (debug) console.log("[initControlFlow] , hit, hitarea, hitlist:", hit, hitarea, hitlist);
                 for ( var k = 0; k < hitlist.length; k++ ) {
                     if (hitlist[k].tagName == "path") {
-                        Clip8.pminus1_area = centrareas[lasthit];
+                        if (debugcolour)hitlist[k].setAttribute("stroke", "#ED1E79");
+                        Clip8.pminus1_area = hitarea;
                         return hitlist[k];
                     }
                 }
