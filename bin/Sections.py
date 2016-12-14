@@ -14,7 +14,7 @@ sections = [
     ("Changing dimensions", "Scale and resize", 'test_scale+resize.svg') ]
 
 expected_to_fail = [
-    "disturbing-selector1", "disturbing-path1",
+    "disturbing-path2",
     "intersect1", "intersect2", "indirect1", "indirect2", "indirect3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
