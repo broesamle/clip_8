@@ -36,44 +36,6 @@ var Clip8 = {
         el.setAttribute("pointer-events", "none");
     },
 
-    initControlFlow: function (svgroot, tracesvgroot) {
-        var debug = false;
-        var circles = svgroot.getElementsByTagName("circle");
-        var centres_offilled = [];  // Centres of filled circles (candidates).
-        var centrareas = [];        // Epsilon rectangles arount each circle centre.
-        var initialflow = null;
-
-        for (var i = 0, c; i < circles.length; i++) {
-            c = Svgdom.getCentrePoint(circles[i]);
-            centrareas.push ( Svgdom.epsilonRectAt(c, epsilon, svgroot) );
-            if (circles[i].getAttribute("fill")) {
-                centres_offilled.push(c);
-            }
-        }
-        for (var i = 0; i < centres_offilled.length; i++ ) {
-            var hitcount = 0, lasthit = 0;
-            for (var j = 0; j < centrareas.length; j++ ) {
-                if (Svgdom.enclosesRectPoint(centrareas[j], centres_offilled[i])) {
-                    hitcount++;
-                    lasthit = j;
-                }
-                if (hitcount > 1) break;
-            }
-            if (hitcount == 1) {
-                // found circle not surrounded by any other (= an area being the centre of one circle).
-                var hitlist = svgroot.getIntersectionList(centrareas[lasthit], svgroot);
-                if (debug) console.log("[clip8initControlFlow] els at initial location:", hitlist);
-                for ( var k = 0; k < hitlist.length; k++ ) {
-                    if (hitlist[k].tagName == "path") {
-                        Clip8.pminus1_area = centrareas[lasthit];
-                        return hitlist[k];
-                    }
-                }
-            }
-        }
-        throw "Failed to idendify point of entry."
-    },
-
     retrieveISCElements: function (arearect, svgroot, tagsI, tagsS, tagsC) {
         var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
@@ -112,7 +74,55 @@ var Clip8 = {
         return [I, S, C];
     },
 
-    // Constants
+    retrieveCoreSelector: function (S, svgroot) {
+        var debug = false;
+        if (debug) console.log("[RETRIEVECORESELECTOR] S, svgroot:", S, svgroot);
+        var coreS;
+        if (S[Clip8.LINETAG].length == 1) {
+            // there is a selector
+            var epsilon = 0.01;
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(S[Clip8.LINETAG][0]), epsilon, svgroot);
+            var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+            if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
+            coreS = isc[1];
+        }
+        else {
+            coreS = S;
+        }
+        if (debug) console.log("[retrieveCoreSelector] coreS:", coreS);
+        if (debug) console.log("[retrieveCoreSelector] coreS[Clip8.RECTTAG].length:", coreS[Clip8.RECTTAG].length);
+        if      (coreS[Clip8.RECTTAG].length == 1)
+            return [Clip8.RECTSELECTOR, coreS[Clip8.RECTTAG]];
+        else
+            return [Clip8.UNKNOWNSELECTOR];
+    },
+
+    selectedElementSet: function (selectorcore, svgroot) {
+        /** Determine the set of selected elements based on given selector core.
+         *  `selectorcore` is the list of SVG DOM elments being the core selector
+         *  (excluding connectors). Typically these elements graphically depict an area.
+         *  Return value is a list of SVG DOM elements that are selected by the given selector.
+         */
+
+        var debug = false;
+        if (debug) console.log("[SELECTEDELEMENTSET] arearect:", selectorcore, svgroot);
+
+        // List of selected Elements based on primary selector
+        var selection = [];
+        if (selectorcore[0] instanceof SVGRectElement) {
+            var s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
+            if (debug) console.log("[selectedElementSet] selector from rect in selectorcore:", s);
+            var hitlist = svgroot.getEnclosureList(s, svgroot);
+            for ( var i = 0; i < hitlist.length; i++ )
+                if ( hitlist[i].tagName == "rect" &&
+                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
+                     selection.push(hitlist[i]);
+        }
+        else selection = undefined;
+        return selection;
+    },
+
+        // Constants
     TERMINATE: 0,
     CONTINUE: 1,
     EXECUTE: 2,
@@ -188,52 +198,42 @@ var Clip8 = {
         return Clip8.EXECUTE;
     },
 
-    retrieveCoreSelector: function (S, svgroot) {
+    initControlFlow: function (svgroot, tracesvgroot) {
         var debug = false;
-        if (debug) console.log("[RETRIEVECORESELECTOR] S, svgroot:", S, svgroot);
-        var coreS;
-        if (S[Clip8.LINETAG].length == 1) {
-            // there is a selector
-            var epsilon = 0.01;
-            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(S[Clip8.LINETAG][0]), epsilon, svgroot);
-            var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-            if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
-            coreS = isc[1];
-        }
-        else {
-            coreS = S;
-        }
-        if (debug) console.log("[retrieveCoreSelector] coreS:", coreS);
-        if (debug) console.log("[retrieveCoreSelector] coreS[Clip8.RECTTAG].length:", coreS[Clip8.RECTTAG].length);
-        if      (coreS[Clip8.RECTTAG].length == 1)
-            return [Clip8.RECTSELECTOR, coreS[Clip8.RECTTAG]];
-        else
-            return [Clip8.UNKNOWNSELECTOR];
-    },
+        var circles = svgroot.getElementsByTagName("circle");
+        var centres_offilled = [];  // Centres of filled circles (candidates).
+        var centrareas = [];        // Epsilon rectangles arount each circle centre.
+        var initialflow = null;
 
-    selectedElementSet: function (selectorcore, svgroot) {
-        /** Determine the set of selected elements based on given selector core.
-         *  `selectorcore` is the list of SVG DOM elments being the core selector
-         *  (excluding connectors). Typically these elements graphically depict an area.
-         *  Return value is a list of SVG DOM elements that are selected by the given selector.
-         */
-
-        var debug = false;
-        if (debug) console.log("[SELECTEDELEMENTSET] arearect:", selectorcore, svgroot);
-
-        // List of selected Elements based on primary selector
-        var selection = [];
-        if (selectorcore[0] instanceof SVGRectElement) {
-            var s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
-            if (debug) console.log("[selectedElementSet] selector from rect in selectorcore:", s);
-            var hitlist = svgroot.getEnclosureList(s, svgroot);
-            for ( var i = 0; i < hitlist.length; i++ )
-                if ( hitlist[i].tagName == "rect" &&
-                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
-                     selection.push(hitlist[i]);
+        for (var i = 0, c; i < circles.length; i++) {
+            c = Svgdom.getCentrePoint(circles[i]);
+            centrareas.push ( Svgdom.epsilonRectAt(c, epsilon, svgroot) );
+            if (circles[i].getAttribute("fill")) {
+                centres_offilled.push(c);
+            }
         }
-        else selection = undefined;
-        return selection;
+        for (var i = 0; i < centres_offilled.length; i++ ) {
+            var hitcount = 0, lasthit = 0;
+            for (var j = 0; j < centrareas.length; j++ ) {
+                if (Svgdom.enclosesRectPoint(centrareas[j], centres_offilled[i])) {
+                    hitcount++;
+                    lasthit = j;
+                }
+                if (hitcount > 1) break;
+            }
+            if (hitcount == 1) {
+                // found circle not surrounded by any other (= an area being the centre of one circle).
+                var hitlist = svgroot.getIntersectionList(centrareas[lasthit], svgroot);
+                if (debug) console.log("[clip8initControlFlow] els at initial location:", hitlist);
+                for ( var k = 0; k < hitlist.length; k++ ) {
+                    if (hitlist[k].tagName == "path") {
+                        Clip8.pminus1_area = centrareas[lasthit];
+                        return hitlist[k];
+                    }
+                }
+            }
+        }
+        throw "Failed to idendify point of entry."
     },
 
     executeOneOperation: function(svgroot, tracesvgroot) {
