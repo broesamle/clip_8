@@ -59,10 +59,11 @@ var Clip8 = {
         for (var i = 0; i < hitlist.length; i++) {
             var el = hitlist[i];
             if (el instanceof SVGRectElement)
-                points = Svgdom.getCornersOfRectPoints(el)
-            else if (el instanceof SVGPathElement) {
-                points = Svgdom.getBothEndsOfPath(el)
-            }
+                points = Svgdom.getCornersOfRectPoints(el);
+            else if (el instanceof SVGPathElement)
+                points = Svgdom.getBothEndsOfPath(el);
+            else if (el instanceof SVGLineElement)
+                points = Svgdom.getBothEndsOfLine(el);
             else {
                 result.push(el);
                 continue;
@@ -125,7 +126,7 @@ var Clip8 = {
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
             var epsilon = 0.01;
-            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndPointsOfLine(S[Clip8.LINETAG][0])[1], epsilon, svgroot);
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getBothEndsOfLine(S[Clip8.LINETAG][0])[1], epsilon, svgroot);
             var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
             coreS = isc[1];
@@ -321,7 +322,7 @@ var Clip8 = {
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
         else if (Clip8.ip.tagName == "line")
-            p0candidates = Svgdom.getEndPointsOfLine(Clip8.ip);
+            p0candidates = Svgdom.getBothEndsOfLine(Clip8.ip);
         else throw "[executeOneOperation] expected path or line as ip element.";
 
         var p0;
@@ -386,7 +387,7 @@ var Clip8 = {
             var thepoly = I0[Clip8.POLYLINETAG][0];
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndPointsOfLine(theline)[1], epsilon, svgroot);
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getBothEndsOfLine(theline)[1], epsilon, svgroot);
             var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[executeOneOperation] ISC1 [0, 1, 2]:", ISC1[0], ISC1[1], ISC1[2]);
             var I1 = ISC1[0];
@@ -442,7 +443,7 @@ var Clip8 = {
             }
             else {
                 // MOVE-REL
-                var movement = Svgdom.getEndPointsOfLine(theline);
+                var movement = Svgdom.getBothEndsOfLine(theline);
                 var circles = Svgretrieve.getCirclesAt(
                     movement[1],
                     theline.getAttribute("stroke-width"),       // use as minimum radius
