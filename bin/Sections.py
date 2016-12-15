@@ -22,3 +22,7 @@ expected_to_fail = [
     "clone1", "cut-vertical", "delete1", "delete2",
     "scale1", "shrink-upper", "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
+
+demos = [
+    ("Counter Example 1", "counter1.svg"),
+    ("Counter Example 2", "counter2.svg")]
