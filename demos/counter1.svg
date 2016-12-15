@@ -2,9 +2,9 @@
 <!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="256px"
-	 height="168px" viewBox="0 0 256 168" enable-background="new 0 0 256 168" xml:space="preserve">
+	 height="206px" viewBox="0 0 256 206" enable-background="new 0 0 256 206" xml:space="preserve">
 <g id="Background">
-	<rect fill="#606060" width="256" height="168"/>
+	<rect fill="#606060" width="256" height="206"/>
 </g>
 <g id="clip8">
 	<g id="D" opacity="0.5">
@@ -12,10 +12,15 @@
 		<rect x="45" y="79" width="10" height="10"/>
 		<rect x="45" y="95" width="10" height="10"/>
 		<rect x="45" y="111" width="10" height="10"/>
+		<rect x="45" y="127" width="10" height="10"/>
+		<rect x="45" y="143" width="10" height="10"/>
+		<rect x="45" y="159" width="10" height="10"/>
+		<rect x="45" y="175" width="10" height="10"/>
+		<rect x="45" y="191" width="10" height="10"/>
 	</g>
 	<g id="I">
 		<rect x="44" y="44" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="12" height="16"/>
-		<rect x="19" y="60" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="37" height="103"/>
+		<rect x="19" y="60" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="37" height="143"/>
 		<rect x="39" y="44" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="162" height="16"/>
 		<rect x="60" y="44" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="12" height="16"/>
 		
