@@ -149,7 +149,7 @@ var Clip8 = {
          *  Return value is a list of SVG DOM elements that are selected by the given selector.
          */
 
-        var debug = false;
+        var debug = true;
         if (debug) console.log("[SELECTEDELEMENTSET] arearect:", selectorcore, svgroot);
 
         // List of selected Elements based on primary selector
@@ -401,6 +401,12 @@ var Clip8 = {
                 case 'DOWN':
                     if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
                     else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
+                    else if (angledir == 'DOWN') {
+                        var movement = Svgdom.getBothEndsOfLine(theline);
+                        var deltaX, deltaY;
+                        var distanceY = Math.abs(movement[1].y-movement[0].y);
+                        Paperclip.shrinkFromTop (selectedelements1, distanceY);
+                    }
                     else throw "[executeOneOperation] Encountered invalid line arrow combination (a).";
                     break;
                 case 'LEFT':

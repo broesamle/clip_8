@@ -96,5 +96,20 @@ var Paperclip = {
             elems[i].setAttribute("x", elems[i].x.baseVal.value + deltaX);
             elems[i].setAttribute("y", elems[i].y.baseVal.value + deltaY);
         }
+    },
+
+    // Shrink
+    shrinkFromTop(elems, distanceY) {
+        for (var i = 0; i < elems.length; i++) {
+            if ( ! elems[i] instanceof SVGRectElement ) throw "[moveBy] not implemented for "+elems[i].constructor.name;
+            if (distanceY > elems[i].height.baseVal.value) {
+                elems[i].setAttribute("y", elems[i].y.baseVal.value + elems[i].height.baseVal.value);
+                elems[i].setAttribute("height",  distanceY - elems[i].height.baseVal.value);
+            }
+            else {
+                elems[i].setAttribute("y", elems[i].y.baseVal.value + distanceY);
+                elems[i].setAttribute("height", elems[i].height.baseVal.value - distanceY);
+            }
+        }
     }
 }
