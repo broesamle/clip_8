@@ -154,13 +154,20 @@ var Clip8 = {
 
         // List of selected Elements based on primary selector
         var selection = [];
+        var hitlist;
         if (selectorcore[0] instanceof SVGRectElement) {
+            var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
+            console.log("D-A-S-H-E-S", dashes);
             var s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
             if (debug) console.log("[selectedElementSet] selector from rect in selectorcore:", s);
-            var hitlist = svgroot.getEnclosureList(s, svgroot);
+            if (dashes.length == 2 && dashes[0] < dashes[1] )
+                hitlist = svgroot.getEnclosureList(s, svgroot);
+            else if (dashes.length == 2 && dashes[0] > dashes[1] )
+                hitlist = svgroot.getIntersectionList(s, svgroot);
+            else throw "[selectedElementSet] invalid dash pattern."
             for ( var i = 0; i < hitlist.length; i++ )
                 if ( hitlist[i].tagName == "rect" &&
-                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")!= "none") )
+                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")== "none") )
                      selection.push(hitlist[i]);
         }
         else selection = undefined;
