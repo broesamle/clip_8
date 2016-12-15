@@ -15,12 +15,14 @@ var Clip8 = {
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
     // Variables
-    maxcycles: 10,
+    maxcycles: 1000,
     cyclescounter: 0,
     exectimer: null,
     ip: null,           // instruction pointer
     pminus1_area: null, // p0area of former round.
-    blocklist: [],  // list of elements already retrieved during current instruction cycle.
+    blocklist: [],      // list of elements already retrieved during current instruction cycle.
+    visualise: false,   // visualise processing activity to the user
+    highlighted: [],    // list of elements highlighted for visualization
 
     _isBlocklisted: function (el) {
         var debug = false;
@@ -33,9 +35,17 @@ var Clip8 = {
         return false;
     },
 
-    _setRetrievedAttribs: function (el) {
-        el.setAttribute("stroke", "#fff");
-        el.setAttribute("pointer-events", "none");
+    _highlightElement: function(el) {
+        //console.log("VISL:", el);
+        var old = el.getAttribute("stroke");
+        el.setAttribute("stroke",  "#fff");
+        Clip8.highlighted.push({el: el, origstroke: old});
+    },
+
+    _clearHighlight: function() {
+        for (var i = 0; i < Clip8.highlighted.length; i++) {
+            Clip8.highlighted[i].el.setAttribute("stroke", Clip8.highlighted[i].origstroke);
+        }
     },
 
     removeFalsePositives: function (arearect, hitlist)  {
@@ -94,6 +104,7 @@ var Clip8 = {
                 }
                 else if ( hitlist[i].getAttribute("stroke-linecap") != "round" &&
                     (hitlist[i].tagName == "path" ||
+                     hitlist[i].tagName == "line" ||
                      hitlist[i].tagName == "circle" ||
                      hitlist[i].tagName == "polyline") ) {
                     C = Clip8decode.pushByTagname(hitlist[i], tagsC, C);
@@ -155,32 +166,39 @@ var Clip8 = {
         return selection;
     },
 
-        // Constants
+    // Constants
     TERMINATE: 0,
     CONTINUE: 1,
     EXECUTE: 2,
     moveIP: function (C, arearect, svgroot) {
-        var debug = true;
+        var debug = false;
         var epsilon = 0.01;
         if ( C[Clip8.CIRCLETAG].length == 2 )
             return Clip8.TERMINATE;
-        else if (C[Clip8.PATHTAG].length == 1)
+        else if (C[Clip8.PATHTAG].length == 1) {
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
+            Clip8.pminus1_area = arearect;         // indicate old instruction pointer area
+        }
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
             var points = Svgdom.getPointsOfPoly(C[Clip8.POLYLINETAG][0]);
             if (Svgdom.enclosesRectPoint(arearect, points[1])) {
                 // Alternative
+                console.log("ALTERNATIVE");
                 var endpoints = [points[0], points[2]];
                 if (debug) console.log("[moveIP] endpoints:", endpoints);
+                var arearectA = Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot);
                 var localISCa = Clip8.retrieveISCElements(
-                                    Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot),
+                                    arearectA,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var arearectB = Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot);
                 var localISCb = Clip8.retrieveISCElements(
-                                    Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot),
+                                    arearectB,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-                var condISC;        // the ISC where the condition is attached
-                var oppositeISC;    // the ISC opposite to where the condition is attached
+                var condISC;            // the ISC where the condition is attached
+                var oppositeISC;        // the ISC opposite to where the condition is attached
+                var condarearect;       // the arearect where the condition is attached
+                var oppositearearect;   // the arearect opposite to where the condition is attached
                 // Determine the side whith an attached selector.
                 // We will call this side `cond` and the other side `opposite`
                 if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
@@ -192,35 +210,51 @@ var Clip8 = {
                         endpoints = endpoints.reverse();
                         var localISCtemp = localISCa;
                         condISC = localISCb;
+                        condarearect = arearectB;
                         oppositeISC = localISCa;
+                        oppositearearect = arearectA;
                     }
                 }
                 else {
                     condISC = localISCa;
+                    condarearect = arearectA;
                     oppositeISC = localISCb;
+                    oppositearearect = arearectB;
                 }
                 var retrselector = Clip8.retrieveCoreSelector(condISC[1], svgroot);
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
                 var condselected = Clip8.selectedElementSet(coreselector, svgroot);
                 if (condselected.length > 0)
-                    if (condISC[2][Clip8.PATHTAG].length == 1)
+                    if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
+                        Clip8.pminus1_area = condarearect;         // indicate old instruction pointer area
+                    }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
                 else
-                    if (oppositeISC[2][Clip8.PATHTAG].length == 1)
+                    if (oppositeISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
+                        Clip8.pminus1_area = oppositearearect;         // indicate old instruction pointer area
+                    }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
             }
             else {
                 // Merge
+                console.log("MERGE");
+                var mergearea = Svgdom.epsilonRectAt(points[1], epsilon, svgroot)
                 var localISC = Clip8.retrieveISCElements(
-                                    Svgdom.epsilonRectAt(points[1], epsilon, svgroot),
+                                    mergearea,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-                if (localISC[2][Clip8.PATHTAG].length == 1)
+                if (localISC[2][Clip8.PATHTAG].length == 1) {
                     Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
+                    Clip8.pminus1_area = mergearea;    // indicate old instruction pointer area
+                }
+                else if (localISC[2][Clip8.LINETAG].length == 1) {
+                    Clip8.ip = localISC[2][Clip8.LINETAG][0];   // move instruction pointer
+                    Clip8.pminus1_area = mergearea;    // indicate old instruction pointer area
+                }
                 else
                     throw "[moveIP] Invalid control flow at merge.";
             }
@@ -231,8 +265,8 @@ var Clip8 = {
         return Clip8.EXECUTE;
     },
 
-    initControlFlow: function (svgroot, tracesvgroot) {
-        var debug = false;
+    initControlFlow: function (svgroot) {
+        var debug = true;
         var debugcolour = false;
         var circles = svgroot.getElementsByTagName("circle");
         var centres_offilled = [];  // Centres of filled circles (candidates).
@@ -266,6 +300,7 @@ var Clip8 = {
                     if (hitlist[k].tagName == "path") {
                         if (debugcolour)hitlist[k].setAttribute("stroke", "#ED1E79");
                         Clip8.pminus1_area = hitarea;
+                        if (Clip8.visualise) Clip8._highlightElement(hitlist[k]);
                         return hitlist[k];
                     }
                 }
@@ -276,15 +311,19 @@ var Clip8 = {
 
     executeOneOperation: function(svgroot) {
         var debug = true;
-        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot);
+        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip, svgroot);
         Clip8.cyclescounter++;
         if (Clip8.cyclescounter >= Clip8.maxcycles) {
             Clip8.clearExecTimer();
             throw "Maximal number of cycles";
         }
-        if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
+        var p0candidates;
+        if (Clip8.ip.tagName == "path")
+            p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
+        else if (Clip8.ip.tagName == "line")
+            p0candidates = Svgdom.getEndPointsOfLine(Clip8.ip);
+        else throw "[executeOneOperation] expected path or line as ip element.";
 
-        var p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
         var p0;
         if ( Svgdom.enclosesRectPoint(Clip8.pminus1_area, p0candidates[0]) )
             if ( Svgdom.enclosesRectPoint(Clip8.pminus1_area, p0candidates[1]) )
@@ -301,8 +340,22 @@ var Clip8 = {
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
+        if (Clip8.visualise) {
+            Clip8._clearHighlight();
+            for (var i = 0; i < I0.length; i++) {
+                for (var j = 0; j < I0[i].length; j++)
+                    Clip8._highlightElement(I0[i][j]);
+            }
+            for (var i = 0; i < S0.length; i++) {
+                for (var j = 0; j < S0[i].length; j++)
+                    Clip8._highlightElement(S0[i][j]);
+            }
+            for (var i = 0; i < C0.length; i++) {
+                for (var j = 0; j < C0[i].length; j++)
+                    Clip8._highlightElement(C0[i][j]);
+            }
+        }
         var execstatus = Clip8.moveIP(C0, p0area, svgroot);
-        Clip8.pminus1_area = p0area;    // indicate old instruction pointer area
         switch (execstatus) {
             case Clip8.EXECUTE:
                 break;      // redundant but more readable.
@@ -406,16 +459,19 @@ var Clip8 = {
             throw "Could not decode instruction X";
     },
 
-    envokeOperation: function () {
-        var debug = true;
+    init: function () {
         var svgroot = document.getElementById("clip8svgroot");
-        console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
         // crucial init operations
         Svgdom.setSVGNS(svgroot.namespaceURI);
         Clip8.cyclescounter = 0
-
         Clip8.ip = Clip8.initControlFlow(svgroot);     // instruction pointer: the active control flow path
+        return svgroot;
+    },
+
+    envokeOperation: function () {
+        console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
+        var svgroot = Clip8.init();
         Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot) }, 50 );
     },
 
@@ -424,27 +480,33 @@ var Clip8 = {
     }
 };
 
-function eraseTraceUNUSED (svgroot) {
-    var itemopacity;
-    for ( var i = 0; i < svgroot.childNodes.length; i++ ) {
-        itemopacity = svgroot.childNodes[i].getAttribute("opacity");
-        if (itemopacity == null)
-            svgroot.childNodes[i].setAttribute("opacity", "1.0");
+var Clip8controler = {
+    svgroot: null,
+    initialised: false,
+
+    playAction: function () {
+        console.log("PLAY clip_8");
+        Clip8.envokeOperation();
+        Clip8.visualise = true;
+        Clip8controler.initialised = true;
+    },
+
+    pauseAction: function () {
+        console.log("not implemented: PAUSE clip_8");
+    },
+
+    stepAction: function () {
+        console.log("STEP clip_8");
+        if (! Clip8controler.initialised) {
+            Clip8.visualise = true;
+            Clip8controler.svgroot = Clip8.init();
+            Clip8controler.initialised = true;
+        }
         else
-            if (itemopacity < 0.4) svgroot.removeChild(svgroot.childNodes[i]);
-            else svgroot.childNodes[i].setAttribute("opacity", itemopacity-0.04);
+            Clip8.executeOneOperation(Clip8controler.svgroot);
+    },
+
+    stopAction: function () {
+        console.log("not implemented: STOP clip_8");
     }
-}
-
-function clip8setTraceAttribsUNUSED(el) {
-    el.setAttribute("stroke", "#88aaff");
-    el.setAttribute("stroke-width", "1");
-    el.setAttribute("fill", "none");
-    el.setAttribute("pointer-events", "none");
-}
-
-function startAction() {
-    var svgroot = document.getElementById("clip8svgroot");
-    console.log("STARTING clip_8", svgroot);
-    Clip8.envokeOperation();
 }
