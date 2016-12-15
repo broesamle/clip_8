@@ -16,7 +16,7 @@ sections = [
 
 expected_to_fail = [
     "disturbing-path2",
-    "intersect1", "intersect2", "indirect1", "indirect2", "indirect3",
+    "indirect1", "indirect2", "indirect3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "clone1", "cut-vertical", "delete1", "delete2",
