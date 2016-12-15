@@ -42,6 +42,12 @@ var Clip8 = {
         Clip8.highlighted.push({el: el, origstroke: old});
     },
 
+    _clearHighlight: function() {
+        for (var i = 0; i < Clip8.highlighted.length; i++) {
+            Clip8.highlighted[i].el.setAttribute("stroke", Clip8.highlighted[i].origstroke);
+        }
+    },
+
     removeFalsePositives: function (arearect, hitlist)  {
         /** In the ISC components intersection is too weak as a criterion.
          *  Reduce the `hitlist` so ad to keep only those objects with
@@ -337,6 +343,7 @@ var Clip8 = {
 
         if (debug) console.log("[executeOneOperation / VISL] Clip8.visualise", Clip8.visualise);
         if (Clip8.visualise) {
+            Clip8._clearHighlight();
             for (var i = 0; i < I0.length; i++) {
                 if (debug) console.log("[executeOneOperation / VISL] I0[", i, "], lenght", I0[i], I0[i].length);
                 for (var j = 0; j < I0[i].length; j++)
