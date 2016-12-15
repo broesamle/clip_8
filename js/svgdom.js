@@ -101,7 +101,7 @@ var Svgdom = {
         return centre;
     },
 
-    getEndPointsOfLine: function (line) {
+    getBothEndsOfLine: function (line) {
         /** Returns an SVGPoint at the endpoint of `line`.
         */
         var  start = line.ownerSVGElement.createSVGPoint()

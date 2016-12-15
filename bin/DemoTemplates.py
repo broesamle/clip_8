@@ -43,6 +43,19 @@ Powered by SVG, Javascript, and the DOM.
 </footer>
 """
 
+FooterIndexpage_str = """
+<footer>
+<p>
+© 2016, Martin Brösamle.<br>
+All rights reserved.
+</p>
+<p>
+Powered by SVG, Javascript, and the DOM.
+</p>
+</footer>
+"""
+
+
 Body = Template("""
 <body>
 <nav>
@@ -70,4 +83,10 @@ $svgdata
 <button onclick="Clip8controler.stepAction()">. step</button>
 <button onclick="Clip8controler.stopAction()">stop .</button>
 </p>
+""")
+
+TOCsection = Template("""
+<h3>
+$sectioncnt&nbsp;&nbsp;<a href="$demohref">$demotitle</a>
+</h3>
 """)
