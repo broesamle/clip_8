@@ -1,8 +1,8 @@
 "use strict";
 
 // drawing precision tolerances
-var epsilon = 0.5;  // maximal difference for two coordinates to be considered equal
-var minlen = 1.5;     // minimal size of a graphics element to be "meaningful"
+var epsilon = 0.5;      // maximal difference for two coordinates to be considered equal
+var minlen = 1.5;       // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
     // Constants
@@ -114,7 +114,7 @@ var Clip8 = {
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
             var epsilon = 0.01;
-            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(S[Clip8.LINETAG][0]), epsilon, svgroot);
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndPointsOfLine(S[Clip8.LINETAG][0])[1], epsilon, svgroot);
             var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
             coreS = isc[1];
@@ -333,7 +333,7 @@ var Clip8 = {
             var thepoly = I0[Clip8.POLYLINETAG][0];
             var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndOfLinePoint(theline), epsilon, svgroot);
+            var arearect = Svgdom.epsilonRectAt(Svgdom.getEndPointsOfLine(theline)[1], epsilon, svgroot);
             var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[executeOneOperation] ISC1 [0, 1, 2]:", ISC1[0], ISC1[1], ISC1[2]);
             var I1 = ISC1[0];
@@ -389,14 +389,17 @@ var Clip8 = {
             }
             else {
                 // MOVE-REL
-                var p1 = Svgdom.getEndOfLinePoint(theline);
+                var movement = Svgdom.getEndPointsOfLine(theline);
                 var circles = Svgretrieve.getCirclesAt(
-                    p1,
+                    movement[1],
                     theline.getAttribute("stroke-width"),       // use as minimum radius
                     theline.getAttribute("stroke-width") * 4,   // use as minimum radius
                     svgroot);
                 if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
-                Paperclip.moveBy(selectedelements1, p1.x-p0.x, p1.y-p0.y);
+                var deltaX, deltaY;
+                deltaX = movement[1].x-movement[0].x;
+                deltaY = movement[1].y-movement[0].y;
+                Paperclip.moveBy(selectedelements1, deltaX, deltaY);
             }
         }
         else

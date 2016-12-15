@@ -101,13 +101,16 @@ var Svgdom = {
         return centre;
     },
 
-    getEndOfLinePoint: function (line) {
+    getEndPointsOfLine: function (line) {
         /** Returns an SVGPoint at the endpoint of `line`.
         */
+        var  start = line.ownerSVGElement.createSVGPoint()
         var  end = line.ownerSVGElement.createSVGPoint()
+        start.x = line.x1.baseVal.value;
+        start.y = line.y1.baseVal.value;
         end.x = line.x2.baseVal.value;
         end.y = line.y2.baseVal.value;
-        return end;
+        return [start, end];
     },
 
     getBothEndsOfPath: function (path) {
