@@ -15,7 +15,7 @@ var Clip8 = {
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
     // Variables
-    maxcycles: 100,
+    maxcycles: 1000,
     cyclescounter: 0,
     exectimer: null,
     ip: null,           // instruction pointer
@@ -98,6 +98,7 @@ var Clip8 = {
                 }
                 else if ( hitlist[i].getAttribute("stroke-linecap") != "round" &&
                     (hitlist[i].tagName == "path" ||
+                     hitlist[i].tagName == "line" ||
                      hitlist[i].tagName == "circle" ||
                      hitlist[i].tagName == "polyline") ) {
                     C = Clip8decode.pushByTagname(hitlist[i], tagsC, C);
@@ -244,6 +245,10 @@ var Clip8 = {
                     Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
                     Clip8.pminus1_area = mergearea;    // indicate old instruction pointer area
                 }
+                else if (localISC[2][Clip8.LINETAG].length == 1) {
+                    Clip8.ip = localISC[2][Clip8.LINETAG][0];   // move instruction pointer
+                    Clip8.pminus1_area = mergearea;    // indicate old instruction pointer area
+                }
                 else
                     throw "[moveIP] Invalid control flow at merge.";
             }
@@ -306,9 +311,13 @@ var Clip8 = {
             Clip8.clearExecTimer();
             throw "Maximal number of cycles";
         }
-        if (Clip8.ip.tagName != "path") throw "[executeOneOperation] ip element is not a path.";
+        var p0candidates;
+        if (Clip8.ip.tagName == "path")
+            p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
+        else if (Clip8.ip.tagName == "line")
+            p0candidates = Svgdom.getEndPointsOfLine(Clip8.ip);
+        else throw "[executeOneOperation] expected path or line as ip element.";
 
-        var p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
         var p0;
         if ( Svgdom.enclosesRectPoint(Clip8.pminus1_area, p0candidates[0]) )
             if ( Svgdom.enclosesRectPoint(Clip8.pminus1_area, p0candidates[1]) )
