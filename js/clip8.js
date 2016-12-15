@@ -265,7 +265,7 @@ var Clip8 = {
         return Clip8.EXECUTE;
     },
 
-    initControlFlow: function (svgroot, tracesvgroot) {
+    initControlFlow: function (svgroot) {
         var debug = true;
         var debugcolour = false;
         var circles = svgroot.getElementsByTagName("circle");
@@ -311,7 +311,7 @@ var Clip8 = {
 
     executeOneOperation: function(svgroot) {
         var debug = true;
-        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot, tracesvgroot:", Clip8.ip, svgroot);
+        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip, svgroot);
         Clip8.cyclescounter++;
         if (Clip8.cyclescounter >= Clip8.maxcycles) {
             Clip8.clearExecTimer();
@@ -340,22 +340,17 @@ var Clip8 = {
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
-
-        if (debug) console.log("[executeOneOperation / VISL] Clip8.visualise", Clip8.visualise);
         if (Clip8.visualise) {
             Clip8._clearHighlight();
             for (var i = 0; i < I0.length; i++) {
-                if (debug) console.log("[executeOneOperation / VISL] I0[", i, "], lenght", I0[i], I0[i].length);
                 for (var j = 0; j < I0[i].length; j++)
                     Clip8._highlightElement(I0[i][j]);
             }
             for (var i = 0; i < S0.length; i++) {
-                if (debug) console.log("[executeOneOperation / VISL] S0[", i, "], lenght", S0[i], S0[i].length);
                 for (var j = 0; j < S0[i].length; j++)
                     Clip8._highlightElement(S0[i][j]);
             }
             for (var i = 0; i < C0.length; i++) {
-                if (debug) console.log("[executeOneOperation / VISL] C0[", i, "], lenght", C0[i], C0[i].length);
                 for (var j = 0; j < C0[i].length; j++)
                     Clip8._highlightElement(C0[i][j]);
             }
@@ -490,7 +485,7 @@ var Clip8controler = {
     initialised: false,
 
     playAction: function () {
-        console.log("PLAY clip_8", svgroot);
+        console.log("PLAY clip_8");
         Clip8.envokeOperation();
         Clip8.visualise = true;
         Clip8controler.initialised = true;
@@ -514,24 +509,4 @@ var Clip8controler = {
     stopAction: function () {
         console.log("not implemented: STOP clip_8");
     }
-}
-
-// Currently unused
-function eraseTraceUNUSED (svgroot) {
-    var itemopacity;
-    for ( var i = 0; i < svgroot.childNodes.length; i++ ) {
-        itemopacity = svgroot.childNodes[i].getAttribute("opacity");
-        if (itemopacity == null)
-            svgroot.childNodes[i].setAttribute("opacity", "1.0");
-        else
-            if (itemopacity < 0.4) svgroot.removeChild(svgroot.childNodes[i]);
-            else svgroot.childNodes[i].setAttribute("opacity", itemopacity-0.04);
-    }
-}
-
-function clip8setTraceAttribsUNUSED(el) {
-    el.setAttribute("stroke", "#88aaff");
-    el.setAttribute("stroke-width", "1");
-    el.setAttribute("fill", "none");
-    el.setAttribute("pointer-events", "none");
 }
