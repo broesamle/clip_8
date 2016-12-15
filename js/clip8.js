@@ -15,7 +15,7 @@ var Clip8 = {
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
     // Variables
-    maxcycles: 10,
+    maxcycles: 100,
     cyclescounter: 0,
     exectimer: null,
     ip: null,           // instruction pointer
@@ -164,27 +164,34 @@ var Clip8 = {
     CONTINUE: 1,
     EXECUTE: 2,
     moveIP: function (C, arearect, svgroot) {
-        var debug = true;
+        var debug = false;
         var epsilon = 0.01;
         if ( C[Clip8.CIRCLETAG].length == 2 )
             return Clip8.TERMINATE;
-        else if (C[Clip8.PATHTAG].length == 1)
+        else if (C[Clip8.PATHTAG].length == 1) {
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
+            Clip8.pminus1_area = arearect;         // indicate old instruction pointer area
+        }
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
             var points = Svgdom.getPointsOfPoly(C[Clip8.POLYLINETAG][0]);
             if (Svgdom.enclosesRectPoint(arearect, points[1])) {
                 // Alternative
+                console.log("ALTERNATIVE");
                 var endpoints = [points[0], points[2]];
                 if (debug) console.log("[moveIP] endpoints:", endpoints);
+                var arearectA = Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot);
                 var localISCa = Clip8.retrieveISCElements(
-                                    Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot),
+                                    arearectA,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var arearectB = Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot);
                 var localISCb = Clip8.retrieveISCElements(
-                                    Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot),
+                                    arearectB,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-                var condISC;        // the ISC where the condition is attached
-                var oppositeISC;    // the ISC opposite to where the condition is attached
+                var condISC;            // the ISC where the condition is attached
+                var oppositeISC;        // the ISC opposite to where the condition is attached
+                var condarearect;       // the arearect where the condition is attached
+                var oppositearearect;   // the arearect opposite to where the condition is attached
                 // Determine the side whith an attached selector.
                 // We will call this side `cond` and the other side `opposite`
                 if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
@@ -196,35 +203,47 @@ var Clip8 = {
                         endpoints = endpoints.reverse();
                         var localISCtemp = localISCa;
                         condISC = localISCb;
+                        condarearect = arearectB;
                         oppositeISC = localISCa;
+                        oppositearearect = arearectA;
                     }
                 }
                 else {
                     condISC = localISCa;
+                    condarearect = arearectA;
                     oppositeISC = localISCb;
+                    oppositearearect = arearectB;
                 }
                 var retrselector = Clip8.retrieveCoreSelector(condISC[1], svgroot);
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
                 var condselected = Clip8.selectedElementSet(coreselector, svgroot);
                 if (condselected.length > 0)
-                    if (condISC[2][Clip8.PATHTAG].length == 1)
+                    if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
+                        Clip8.pminus1_area = condarearect;         // indicate old instruction pointer area
+                    }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
                 else
-                    if (oppositeISC[2][Clip8.PATHTAG].length == 1)
+                    if (oppositeISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
+                        Clip8.pminus1_area = oppositearearect;         // indicate old instruction pointer area
+                    }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
             }
             else {
                 // Merge
+                console.log("MERGE");
+                var mergearea = Svgdom.epsilonRectAt(points[1], epsilon, svgroot)
                 var localISC = Clip8.retrieveISCElements(
-                                    Svgdom.epsilonRectAt(points[1], epsilon, svgroot),
+                                    mergearea,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-                if (localISC[2][Clip8.PATHTAG].length == 1)
+                if (localISC[2][Clip8.PATHTAG].length == 1) {
                     Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
+                    Clip8.pminus1_area = mergearea;    // indicate old instruction pointer area
+                }
                 else
                     throw "[moveIP] Invalid control flow at merge.";
             }
@@ -326,7 +345,6 @@ var Clip8 = {
             }
         }
         var execstatus = Clip8.moveIP(C0, p0area, svgroot);
-        Clip8.pminus1_area = p0area;    // indicate old instruction pointer area
         switch (execstatus) {
             case Clip8.EXECUTE:
                 break;      // redundant but more readable.
