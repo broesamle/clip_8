@@ -1,7 +1,7 @@
 "use strict";
 
 // drawing precision tolerances
-var epsilon = 0.5;      // maximal difference for two coordinates to be considered equal
+var epsilon = 0.25;      // maximal difference for two coordinates to be considered equal
 var minlen = 1.5;       // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
@@ -111,7 +111,10 @@ var Clip8 = {
                     C = Clip8decode.pushByTagname(hitlist[i], tagsC, C);
                     Clip8.blocklist.push(hitlist[i]);
                 }
-                else throw "[retrieveISCElements] UGO, unknownd graphics object: "+hitlist[i];
+                else {
+                    hitlist[i].setAttribute("stroke", "#ED1E79");
+                    throw "[retrieveISCElements] UGO, unknownd graphics object: "+hitlist[i];
+                }
             }
             else
                 if (debug) console.log("[retrieveISCElements] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
