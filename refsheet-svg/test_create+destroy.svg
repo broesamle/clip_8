@@ -15,7 +15,7 @@
 		<rect x="21" y="19" stroke="#FFFFFF" stroke-miterlimit="10" width="22" height="32"/>
 	</g>
 	<g id="I_x5F_clone1" display="inline">
-		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M36,8c1-5,14-4,24-4"/>
@@ -96,12 +96,6 @@
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M27,8c0-4,25-4,33-4"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c11,0,23,0,23,4"/>
 		
-			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
-			M27,8"/>
-		
-			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
-			M55,52"/>
-		
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="55" y1="52" x2="27" y2="8"/>
 		
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="27" y1="52" x2="55" y2="8"/>
@@ -124,12 +118,6 @@
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M27,8c0-4,25-4,33-4"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c11,0,23,0,23,4"/>
-		
-			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
-			M27,8"/>
-		
-			<path fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" d="
-			M55,52"/>
 		
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="55" y1="52" x2="27" y2="8"/>
 		
