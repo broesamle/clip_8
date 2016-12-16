@@ -25,4 +25,5 @@ expected_to_fail = [
 
 demos = [
     ("Counter Example 1", "counter1.svg"),
-    ("Counter Example 2", "counter2.svg")]
+    ("Counter Example 2", "counter2.svg"),
+    ("Christmas", "christmas1.svg")]
