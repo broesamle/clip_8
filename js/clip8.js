@@ -58,6 +58,8 @@ var Clip8 = {
         var result = [];
         for (var i = 0; i < hitlist.length; i++) {
             var el = hitlist[i];
+            if (!el.getAttribute("stroke", "none") || el.getAttribute("stroke", "none") == "none")
+                continue;   // ignore data elements with no stroke.
             if (el instanceof SVGRectElement)
                 points = Svgdom.getCornersOfRectPoints(el);
             else if (el instanceof SVGPathElement)
