@@ -435,6 +435,7 @@ var Clip8 = {
             if (debug) console.log("[executeOneOperation] 1 line.");
             var theline = I0[Clip8.LINETAG][0];
             if (theline.getAttribute("stroke-dasharray")) {
+                if (debug) console.log("one dashed line.");
                 // CUT
                 var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
                 switch (linedir) {
@@ -491,8 +492,8 @@ var Clip8 = {
     },
 
     envokeOperation: function () {
-        console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
         var svgroot = Clip8.init();
+        console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
         Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot) }, 50 );
     },
 
