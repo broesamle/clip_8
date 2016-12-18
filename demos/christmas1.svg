@@ -24,12 +24,12 @@
 			<line fill="none" stroke="#572509" stroke-width="0.3557" stroke-miterlimit="10" stroke-dasharray="2.1342,0.7114" x1="154.055" y1="103.891" x2="157.073" y2="109.927"/>
 		
 			<line fill="none" stroke="#572509" stroke-width="0.3557" stroke-miterlimit="10" stroke-dasharray="2.1342,0.7114" x1="157.073" y1="103.891" x2="154.055" y2="109.927"/>
-		<rect x="203.121" y="90.559" fill="#FBB03B" width="3.018" height="51.31"/>
-		<rect x="198.594" y="98.104" fill="#990000" width="12.073" height="43.764"/>
+		<rect x="203.121" y="121.559" fill="#FBB03B" width="3.018" height="20.31"/>
+		<rect x="198.594" y="129.104" fill="#990000" width="12.073" height="12.764"/>
 		
-			<line fill="none" stroke="#572509" stroke-width="0.3557" stroke-miterlimit="10" stroke-dasharray="2.1342,0.7114" x1="203.121" y1="135.832" x2="206.139" y2="141.868"/>
+			<line fill="none" stroke="#572509" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1.5,1" x1="203.121" y1="135.832" x2="206.139" y2="141.868"/>
 		
-			<line fill="none" stroke="#572509" stroke-width="0.3557" stroke-miterlimit="10" stroke-dasharray="2.1342,0.7114" x1="206.139" y1="135.832" x2="203.121" y2="141.868"/>
+			<line fill="none" stroke="#572509" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1.5,1" x1="206.139" y1="135.832" x2="203.121" y2="141.868"/>
 		<rect x="108" y="94.25" fill="#FBB03B" width="1" height="17"/>
 		<rect x="106.5" y="96.75" fill="#990000" width="4" height="14.5"/>
 		
@@ -108,7 +108,7 @@
 		
 			<rect x="145" y="102.382" fill="none" stroke="#572509" stroke-width="0.7546" stroke-miterlimit="10" stroke-dasharray="4.5273,1.5091" width="21.128" height="4.527"/>
 		
-			<rect x="207.648" y="135.832" fill="none" stroke="#572509" stroke-width="0.7546" stroke-miterlimit="10" stroke-dasharray="4.5273,1.5091" width="7.546" height="1.509"/>
+			<rect x="207.648" y="135.832" fill="none" stroke="#572509" stroke-width="0.5" stroke-miterlimit="10" stroke-dasharray="4.5273,1.5091" width="7.546" height="1.509"/>
 		<path fill="none" stroke="#E3C291" stroke-width="0.7546" stroke-linecap="square" stroke-miterlimit="10" d="M215.194,137.341
 			c4.527,0,4.527-3.018,0-3.018"/>
 		<path fill="none" stroke="#E3C291" stroke-width="0.7546" stroke-linecap="square" stroke-miterlimit="10" d="M215.194,134.323
@@ -118,7 +118,7 @@
 		<path fill="none" stroke="#E3C291" stroke-width="0.7546" stroke-linecap="square" stroke-miterlimit="10" d="M155.896,156.018
 			c8.432,0,4.438,3.875,9.961,4.261"/>
 		
-			<line fill="none" stroke="#572509" stroke-width="0.7546" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="215.194" y1="131.305" x2="215.194" y2="134.323"/>
+			<line fill="none" stroke="#572509" stroke-width="0.6641" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="215.194" y1="131.985" x2="215.194" y2="134.323"/>
 		
 			<polyline fill="none" stroke="#572509" stroke-width="0.7546" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			213.685,132.813 215.194,134.323 216.703,132.813 		"/>
@@ -127,7 +127,7 @@
 		<polyline fill="none" stroke="#572509" stroke-width="2.2637" stroke-miterlimit="10" points="165.857,145.641 170.584,152.959 
 			165.857,160.278 		"/>
 		
-			<rect x="194.066" y="134.323" fill="none" stroke="#572509" stroke-width="0.7546" stroke-miterlimit="10" stroke-dasharray="4.5273,1.5091" width="21.128" height="4.527"/>
+			<rect x="194.066" y="134.323" fill="none" stroke="#572509" stroke-width="0.5" stroke-miterlimit="10" stroke-dasharray="4.5273,1.5091" width="21.128" height="4.527"/>
 		
 			<rect x="109.5" y="109.25" fill="none" stroke="#572509" stroke-width="0.25" stroke-miterlimit="10" stroke-dasharray="1.5,0.5" width="2.5" height="0.5"/>
 		<path fill="none" stroke="#E3C291" stroke-width="0.25" stroke-linecap="square" stroke-miterlimit="10" d="M112,109.75
@@ -265,8 +265,8 @@
 			<rect x="61.359" y="29" fill="none" stroke="#572509" stroke-width="0.25" stroke-miterlimit="10" stroke-dasharray="1.5,0.5" width="7" height="1.5"/>
 		
 			<line fill="none" stroke="#E3C291" stroke-width="0.7546" stroke-linecap="square" stroke-miterlimit="10" x1="170.584" y1="152.959" x2="204.631" y2="146.396"/>
-		
-			<line fill="none" stroke="#E3C291" stroke-width="0.7546" stroke-linecap="square" stroke-miterlimit="10" x1="203.121" y1="172" x2="203.121" y2="141.868"/>
+		<path fill="none" stroke="#E3C291" stroke-width="0.7546" stroke-linecap="square" stroke-miterlimit="10" d="M203.121,172
+			c-0.071-0.259-6.996,2,0-30.132"/>
 	</g>
 </g>
 </svg>
