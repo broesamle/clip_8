@@ -82,7 +82,6 @@
 <g id="TEST-delete1" display="none">
 	<g id="t1_x5F_delete1_1_" display="inline" opacity="0.5">
 		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
-		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
 	</g>
 	<g id="t0_x5F_delete1" display="inline" opacity="0.5">
 		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
@@ -106,6 +105,7 @@
 <g id="TEST-delete2" display="none">
 	<g id="t1_x5F_delete2" display="inline" opacity="0.5">
 		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
 	</g>
 	<g id="t0_x5F_delete2" display="inline" opacity="0.5">
 		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
@@ -126,10 +126,10 @@
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects, that intersect with </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the rectangular area described by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="SECTIONINFO" display="none">
-	<rect y="-82" display="inline" fill="none" width="119" height="73"/>
-	<text transform="matrix(1 0 0 1 0 -79.547852)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Cut objects into two parts along a line. Attach </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">a dashed cutter line at `p0`, indicating </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">direction and the set of affected objects. Only </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">objects that are fully traversed by the cutter </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">are affected.</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">+ Clone objecs. Attach at `p0` a straight line </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">(1) and a rectangle (2). Clone the box at the </tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">other end of the line (3). The line 1 indicates </tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">the offset applied to the cloned objects.</tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">+ Delete objects. Attach a cross or X of dashed, </tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">round-edged lines (1) to `p0`. Besides indicating </tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">the instruction itself, the cross (1) defines a </tspan><tspan x="0" y="67.200195" font-family="'CourierNewPSMT'" font-size="4">rectangular selection area of affected objects.</tspan></text>
-	<g id="I" display="inline">
+<g id="SECTIONINFO">
+	<rect y="-82" fill="none" width="119" height="73"/>
+	<text transform="matrix(1 0 0 1 0 -79.547852)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Cut objects into two parts along a line. Attach </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">a dashed cutter line at `p0`, indicating </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">direction and the set of affected objects. Only </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">objects that are fully traversed by the cutter </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">are affected.</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">+ Clone objecs. Attach at `p0` a straight line </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">(1) and a rectangle (2). Clone the box at the </tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">other end of the line (3). The line 1 indicates </tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">the offset applied to the cloned objects.</tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">+ Delete objects. Attach a cross or X of dashed, </tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">round-edged lines (1) to `p0`. Besides indicating </tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">the instruction itself, the cross (1) defines a </tspan><tspan x="0" y="67.200195" font-family="'CourierNewPSMT'" font-size="4">rectangular selection area of affected objects.</tspan></text>
+	<g id="I">
 		
 			<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,4" x1="56" y1="8" x2="8.000488" y2="8"/>
 		<g>
