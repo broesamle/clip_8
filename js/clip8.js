@@ -431,12 +431,12 @@ var Clip8 = {
             }
         }
         else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 0 ) {
-            // MOVE-REL, CUT
+            // MOVE-REL, CUT, DEL
             if (debug) console.log("[executeOneOperation] 1 line.");
             var theline = I0[Clip8.LINETAG][0];
             if (theline.getAttribute("stroke-dasharray")) {
                 if (debug) console.log("one dashed line.");
-                // CUT
+                // CUT, DEL
                 var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
                 switch (linedir) {
                     case 'UP':
@@ -445,6 +445,7 @@ var Clip8 = {
                         break;
                     case 'LEFT':
                     case 'RIGHT':
+                        // CUT
                         var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline, svgroot);
                         var stripe = stripeNaboveNbelow[0];
                         var above = stripeNaboveNbelow[1];
@@ -458,6 +459,23 @@ var Clip8 = {
                                 selectedelements1.push(hitlist[i]);
                         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                         Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                        break;
+                    case 'UP-RE':
+                    case 'UP-LE':
+                    case 'DO-RE':
+                    case 'DO-LE':
+                        // DEL
+                        var p3 = svgroot.createSVGPoint();
+                        var p4 = svgroot.createSVGPoint();
+                        p3.x = theline.getAttribute("x1");
+                        p3.y = theline.getAttribute("y2");
+                        p4.x = theline.getAttribute("x2");
+                        p4.y = theline.getAttribute("y1");
+                        var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon, svgroot);
+                        if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
+                        opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon, svgroot), opposite_diagonals);
+                        if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
+                        if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
                         break;
                     default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
                 }

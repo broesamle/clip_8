@@ -16,7 +16,17 @@ var Clip8decode = {
             // horizontal
             if (deltax > 0)     return 'RIGHT';
             else                return 'LEFT';
-        else throw "[clip8] Direction of non-vertical or non-horizontal lines not implemented.";
+        else if (deltay < -minlen)
+            // UP
+            if      (deltax > minlen) return 'UP-RE';
+            else if (deltax < -minlen) return 'UP-LE';
+            else throw "Unklar, me and logic :-)";
+        else if (deltay > minlen)
+            // DOWN
+            if      (deltax > minlen) return 'DO-RE';
+            else if (deltax < -minlen) return 'DO-LE';
+            else throw "Unklar, me and logic :-)";
+        else throw "This shoudl never happen, or, me and logic :-)";
     },
 
     directionOfPolyAngle: function (polyline, epsilon, minlen) {
