@@ -2,7 +2,7 @@
 
 // drawing precision tolerances
 var epsilon = 0.25;      // maximal difference for two coordinates to be considered equal
-var minlen = 1.5;       // minimal size of a graphics element to be "meaningful"
+var minlen = 0.5;       // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
     // Constants
