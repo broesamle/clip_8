@@ -155,27 +155,47 @@ var Clip8 = {
          */
 
         var debug = true;
-        if (debug) console.log("[SELECTEDELEMENTSET] arearect:", selectorcore, svgroot);
-
+        if (debug) console.log("[SELECTEDELEMENTSET] selectorcore, svgroot:", selectorcore, svgroot);
         // List of selected Elements based on primary selector
         var selection = [];
         var hitlist;
+        var s; // The rectangle to be used as area of selection
         if (selectorcore[0] instanceof SVGRectElement) {
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            console.log("D-A-S-H-E-S", dashes);
-            var s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
-            if (debug) console.log("[selectedElementSet] selector from rect in selectorcore:", s);
-            if (dashes.length == 2 && dashes[0] < dashes[1] )
-                hitlist = svgroot.getEnclosureList(s, svgroot);
-            else if (dashes.length == 2 && dashes[0] > dashes[1] )
-                hitlist = svgroot.getIntersectionList(s, svgroot);
-            else throw "[selectedElementSet] invalid dash pattern."
-            for ( var i = 0; i < hitlist.length; i++ )
-                if ( hitlist[i].tagName == "rect" &&
-                     (!hitlist[i].getAttribute("stroke") || hitlist[i].getAttribute("stroke")== "none") )
-                     selection.push(hitlist[i]);
+            s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
         }
-        else selection = undefined;
+        else if (selectorcore[0] instanceof SVGLineElement && selectorcore[1] instanceof SVGLineElement) {
+            var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
+            s = svgroot.createSVGRect();
+            var x1, y1, x2, y2;
+            x1 = parseFloat(selectorcore[0].getAttribute("x1"));
+            y1 = parseFloat(selectorcore[0].getAttribute("y1"));
+            x2 = parseFloat(selectorcore[0].getAttribute("x2"));
+            y2 = parseFloat(selectorcore[0].getAttribute("y2"));
+            s.x = Math.min(x1, x2);
+            s.y = Math.min(y1, y2);
+            s.width = Math.max(x1, x2) - s.x;
+            s.height = Math.max(y1, y2) - s.y;
+        }
+        else
+        {
+            if (debug) console.log("[selectedElementSet] UNKNOWN SELECTOR, returning undefined.");
+            return undefined;
+        }
+        if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
+        if (dashes.length == 2 && dashes[0] < dashes[1] )
+            hitlist = svgroot.getEnclosureList(s, svgroot);
+        else if (dashes.length == 2 && dashes[0] > dashes[1] )
+            hitlist = svgroot.getIntersectionList(s, svgroot);
+        else throw "[selectedElementSet] invalid dash pattern."
+        for ( var i = 0; i < hitlist.length; i++ )
+            if ( hitlist[i].tagName == "rect" &&
+                 (!hitlist[i].getAttribute("stroke") ||
+                  hitlist[i].getAttribute("stroke") == "none" ||
+                  hitlist[i].getAttribute("fill") != "none"
+                 ) )
+                 selection.push(hitlist[i]);
+        if (debug) console.log("[selectedElementSet] hitlist, selection:", hitlist, selection);
         return selection;
     },
 
@@ -476,6 +496,9 @@ var Clip8 = {
                         opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon, svgroot), opposite_diagonals);
                         if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
                         if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
+                        var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]], svgroot);
+                        for (var i = 0; i < selectedelements1.length; i++)
+                            selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                         break;
                     default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
                 }
