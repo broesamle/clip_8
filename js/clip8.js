@@ -124,7 +124,7 @@ var Clip8 = {
         return [I, S, C];
     },
 
-    retrieveCoreSelector: function (S, svgroot) {
+    retrieveCoreSelector: function (S, originarea, svgroot) {
         var debug = false;
         if (debug) console.log("[RETRIEVECORESELECTOR] S, svgroot:", S, svgroot);
         var coreS;
@@ -254,7 +254,7 @@ var Clip8 = {
                     oppositeISC = localISCb;
                     oppositearearect = arearectB;
                 }
-                var retrselector = Clip8.retrieveCoreSelector(condISC[1], svgroot);
+                var retrselector = Clip8.retrieveCoreSelector(condISC[1], condarearect, svgroot);
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
                 var condselected = Clip8.selectedElementSet(coreselector, svgroot);
@@ -400,7 +400,7 @@ var Clip8 = {
                 Clip8.clearExecTimer();
                 return;     // stop execution
         }
-        var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
+        var retrselector = Clip8.retrieveCoreSelector(S0, p0area, svgroot)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         if      (selectortype == Clip8.RECTSELECTOR)

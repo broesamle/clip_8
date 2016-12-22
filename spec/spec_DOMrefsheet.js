@@ -184,7 +184,7 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         for ( var i = 0; i < Clip8.TAGS.length; i++ ) S.push([]);
         for ( var i = 0; i < sel.length; i++ )
             S = Clip8decode.pushByTagname(sel[i], Clip8.TAGS, S);
-        var retrselector = Clip8.retrieveCoreSelector(S, svgroot)
+        var retrselector = Clip8.retrieveCoreSelector(S, arearect, svgroot)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         var selectionset = Clip8.selectedElementSet(coreselector, svgroot);
