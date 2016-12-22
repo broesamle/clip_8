@@ -20,11 +20,11 @@
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			79.697,44.333 77.697,47.333 79.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M79.697,50.333
-			c8-4.875-4.125,34,2,22"/>
+			c8-4.875-4.125,25,2,13"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			95.697,44.333 93.697,47.333 95.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M93.697,47.333
-			c-9.807,0,4.278,25-12,25"/>
+			c-9.807,0,4.278,16-12,16"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			99.697,23.333 97.697,20.333 99.697,17.333 		"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
@@ -36,15 +36,15 @@
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			47.697,44.333 45.697,47.333 47.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M47.697,50.333
-			c6.917-5.375-4.125,34,2,22"/>
+			c6.917-5.375-4.125,25,2,13"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			63.697,44.333 61.697,47.333 63.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M63.697,50.333
-			c6.592-1.018-6,19.325-2,15"/>
+			c6.592-1.018-6,10.325-2,6"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M61.697,47.333
-			c-9.807,0,4.278,25-12,25"/>
+			c-9.807,0,4.278,16-12,16"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M77.697,47.333
-			c-14.828-0.208,0,21.542-16,18"/>
+			c-14.828-0.208,0,12.542-16,9"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			67.697,23.333 65.697,20.333 67.697,17.333 		"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
@@ -76,35 +76,35 @@
 		
 			<rect x="79.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="81.697" y1="72.334" x2="97.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="81.697" y1="63.334" x2="97.697" y2="63.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="97.697" cy="72.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="97.697" cy="63.334" r="2"/>
 		
 			<rect x="47.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
 		
 			<rect x="31.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="49.697" y1="72.334" x2="65.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="49.697" y1="63.334" x2="65.697" y2="63.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="65.697" cy="72.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="65.697" cy="63.334" r="2"/>
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31" y1="60" x2="31" y2="28"/>
 		
 			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="31" cy="28" r="2"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="61.697" y1="65.334" x2="77.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="61.697" y1="56.334" x2="77.697" y2="56.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="77.697" cy="65.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="77.697" cy="56.334" r="2"/>
 		
 			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="22.75" y1="47.333" x2="45.697" y2="47.333"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M95.697,50.333
-			c6.592-1.018-6,19.325-2,15"/>
+			c6.592-1.018-6,10.325-2,6"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M109.697,47.333
-			c-14.829-0.208,0,21.542-16,18"/>
+			c-14.829-0.208,0,12.542-16,9"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="93.697" y1="65.334" x2="109.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="93.697" y1="56.334" x2="109.697" y2="56.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="109.697" cy="65.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="109.697" cy="56.334" r="2"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="-91.689,-12 
 			-93.689,-9 -91.689,-6 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M-91.689-6
@@ -143,81 +143,9 @@
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="-91.689" y1="-35" x2="-79.689" y2="-25"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			207.525,44.333 205.525,47.333 207.525,50.333 		"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M207.525,50.333
-			c8-4.875-4.125,34,2,22"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			223.525,44.333 221.525,47.333 223.525,50.333 		"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M221.525,47.333
-			c-9.807,0,4.277,25-12,25"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			227.525,23.333 225.525,20.333 227.525,17.333 		"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			211.525,17.333 209.525,20.333 211.525,23.333 		"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M211.525,23.333
-			c6.58,0,0.606,21-4,21"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M227.525,23.333
-			c5.377,0-0.594,21-4,21"/>
-		
-			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="225.525" y1="20.333" x2="211.525" y2="17.333"/>
-		
-			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="209.525" y1="20.333" x2="195.525" y2="17.333"/>
-		
-			<rect x="223.525" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
-		
-			<rect x="207.525" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="209.525" y1="72.334" x2="225.525" y2="72.334"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="225.525" cy="72.334" r="2"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M223.525,50.333
-			c6.592-1.018-6,19.325-2,15"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M237.525,47.333
-			c-14.828-0.208,0,21.542-16,18"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="221.525" y1="65.334" x2="237.525" y2="65.334"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="237.525" cy="65.334" r="2"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			239.525,44.333 237.525,47.333 239.525,50.333 		"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M239.525,50.333
-			c8-4.875-4.125,34,2,22"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			255.525,44.333 253.525,47.333 255.525,50.333 		"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M253.525,47.333
-			c-9.807,0,4.277,25-12,25"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			259.525,23.333 257.525,20.333 259.525,17.333 		"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
-			243.525,17.333 241.525,20.333 243.525,23.333 		"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M243.525,23.333
-			c6.58,0,0.606,21-4,21"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M259.525,23.333
-			c5.377,0-0.594,21-4,21"/>
-		
-			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="257.525" y1="20.333" x2="243.525" y2="17.333"/>
-		
-			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="241.525" y1="20.333" x2="227.525" y2="17.333"/>
-		
-			<rect x="255.525" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
-		
-			<rect x="239.525" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="241.525" y1="72.334" x2="257.525" y2="72.334"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="257.525" cy="72.334" r="2"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M255.525,50.333
-			c6.592-1.018-6,19.325-2,15"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M269.525,47.333
-			c-14.828-0.208,0,21.542-16,18"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="253.525" y1="65.334" x2="269.525" y2="65.334"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="269.525" cy="65.334" r="2"/>
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			175.697,44.333 173.697,47.333 175.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M175.697,50.333
-			c8-4.875-4.125,34,2,22"/>
+			c8-4.875-4.125,25,2,13"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			191.697,44.333 189.697,47.333 191.697,50.333 		"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
@@ -237,27 +165,21 @@
 		
 			<rect x="175.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="177.697" y1="72.334" x2="193.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="177.697" y1="63.334" x2="193.697" y2="63.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="193.697" cy="72.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="193.697" cy="63.334" r="2"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M191.697,50.333
-			c6.592-1.018-6,19.325-2,15"/>
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M205.697,47.333
-			c-14.828-0.208,0,21.542-16,18"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="189.697" y1="65.334" x2="205.697" y2="65.334"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="205.697" cy="65.334" r="2"/>
+			c6.592-1.018-6,10.325-2,6"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			143.697,44.333 141.697,47.333 143.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M143.697,50.333
-			c8-4.875-4.125,34,2,22"/>
+			c8-4.875-4.125,25,2,13"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			159.697,44.333 157.697,47.333 159.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M157.697,47.333
-			c-9.809,0,4.277,25-12,25"/>
+			c-9.809,0,4.277,16-12,16"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M189.697,47.333
-			c-9.809,0,4.277,25-12,25"/>
+			c-9.809,0,4.277,16-12,16"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			163.697,23.333 161.697,20.333 163.697,17.333 		"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
@@ -275,25 +197,25 @@
 		
 			<rect x="143.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="145.697" y1="72.334" x2="161.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="145.697" y1="63.334" x2="161.697" y2="63.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="161.697" cy="72.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="161.697" cy="63.334" r="2"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M159.697,50.333
-			c6.592-1.018-6,19.325-2,15"/>
+			c6.592-1.018-6,10.325-2,6"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M173.697,47.333
-			c-14.828-0.208,0,21.542-16,18"/>
+			c-14.828-0.208,0,12.542-16,9"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="157.697" y1="65.334" x2="173.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="157.697" y1="56.334" x2="173.697" y2="56.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="173.697" cy="65.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="173.697" cy="56.334" r="2"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			111.697,44.333 109.697,47.333 111.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M111.697,50.333
-			c8-4.875-4.125,34,2,22"/>
+			c8-4.875-4.125,25,2,13"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			127.697,44.333 125.697,47.333 127.697,50.333 		"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M125.697,47.333
-			c-9.807,0,4.278,25-12,25"/>
+			c-9.807,0,4.278,16-12,16"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
 			131.697,23.333 129.697,20.333 131.697,17.333 		"/>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
@@ -311,45 +233,117 @@
 		
 			<rect x="111.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="113.697" y1="72.334" x2="129.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="113.697" y1="63.334" x2="129.697" y2="63.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="129.697" cy="72.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="129.697" cy="63.334" r="2"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M127.697,50.333
-			c6.592-1.018-6,19.325-2,15"/>
+			c6.592-1.018-6,10.325-2,6"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M141.697,47.333
-			c-14.829-0.208,0,21.542-16,18"/>
+			c-14.829-0.208,0,12.542-16,9"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="125.697" y1="65.334" x2="141.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="125.697" y1="56.334" x2="141.697" y2="56.334"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="141.697" cy="65.334" r="2"/>
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="141.697" cy="56.334" r="2"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="43.697" y1="44.333" x2="49.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="43.697" y1="44.333" x2="49.697" y2="63.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="59.697" y1="44.333" x2="61.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="59.697" y1="44.333" x2="61.697" y2="56.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="75.697" y1="44.333" x2="81.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="75.697" y1="44.333" x2="81.697" y2="63.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="91.697" y1="44.333" x2="93.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="91.697" y1="44.333" x2="93.697" y2="56.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="107.697" y1="44.333" x2="113.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="107.697" y1="44.333" x2="113.697" y2="63.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="123.697" y1="44.333" x2="125.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="123.697" y1="44.333" x2="125.697" y2="56.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="139.697" y1="44.333" x2="145.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="139.697" y1="44.333" x2="145.697" y2="63.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="155.697" y1="44.333" x2="157.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="155.697" y1="44.333" x2="157.697" y2="56.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="171.697" y1="44.333" x2="177.697" y2="72.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="171.697" y1="44.333" x2="177.697" y2="63.334"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="187.697" y1="44.333" x2="189.697" y2="65.334"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="187.697" y1="44.333" x2="189.697" y2="56.334"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			207.697,44.333 205.697,47.333 207.697,50.333 		"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M207.697,50.333
+			c8-4.875-4.125,25,2,13"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			223.697,44.333 221.697,47.333 223.697,50.333 		"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			227.697,23.333 225.697,20.333 227.697,17.333 		"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			211.697,17.333 209.697,20.333 211.697,23.333 		"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M211.697,23.333
+			c6.58,0,0.605,21-4,21"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M227.697,23.333
+			c5.377,0-0.595,21-4,21"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="203.697" y1="44.333" x2="209.697" y2="72.334"/>
+			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="225.697" y1="20.333" x2="211.697" y2="17.333"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="219.697" y1="44.333" x2="221.697" y2="65.334"/>
+			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="209.697" y1="20.333" x2="195.697" y2="17.333"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="235.697" y1="44.333" x2="241.697" y2="72.334"/>
+			<rect x="223.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
 		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="251.697" y1="44.333" x2="253.697" y2="65.334"/>
+			<rect x="207.697" y="31.333" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="209.697" y1="63.334" x2="225.697" y2="63.334"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="225.697" cy="63.334" r="2"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M223.697,50.333
+			c6.592-1.018-6,10.325-2,6"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M221.697,47.333
+			c-9.809,0,4.277,16-12,16"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M205.697,47.333
+			c-14.828-0.208,0,12.542-16,9"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="189.697" y1="56.334" x2="205.697" y2="56.334"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="205.697" cy="56.334" r="2"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="203.697" y1="44.333" x2="209.697" y2="63.334"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="219.697" y1="44.333" x2="221.697" y2="56.334"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			255.5,-33.136 253.5,-30.136 255.5,-27.136 		"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M255.5-27.136
+			c8-4.875-4.125,25,2,13"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			271.5,-33.136 269.5,-30.136 271.5,-27.136 		"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			275.5,-54.136 273.5,-57.136 275.5,-60.136 		"/>
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="
+			259.5,-60.136 257.5,-57.136 259.5,-54.136 		"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M259.5-54.136
+			c6.58,0,0.605,21-4,21"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M275.5-54.136
+			c5.377,0-0.595,21-4,21"/>
+		
+			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="273.5" y1="-57.136" x2="259.5" y2="-60.136"/>
+		
+			<line fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" x1="257.5" y1="-57.136" x2="243.5" y2="-60.136"/>
+		
+			<rect x="271.5" y="-46.136" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
+		
+			<rect x="255.5" y="-46.136" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="257.5" y1="-14.136" x2="273.5" y2="-14.136"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="273.5" cy="-14.136" r="2"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M271.5-27.136
+			c6.592-1.018-6,10.325-2,6"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M269.5-30.136
+			c-9.809,0,4.277,16-12,16"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M253.5-30.136
+			c-14.828-0.208,0,12.542-16,9"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="237.5" y1="-21.136" x2="253.5" y2="-21.136"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="253.5" cy="-21.136" r="2"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="251.5" y1="-33.136" x2="257.5" y2="-14.136"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="267.5" y1="-33.136" x2="269.5" y2="-21.136"/>
 	</g>
 </g>
 </svg>
