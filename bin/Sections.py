@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-refsheet_version = "0.0.9"
+refsheet_version = "0.0.12"
 refsheet_description = "encompasses a usable (incomplete) language repertoire."
 
 sections = [
@@ -19,10 +19,10 @@ expected_to_fail = [
     "indirect1", "indirect2", "indirect3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
-    "clone1", "cut-vertical", "delete1", "delete2",
+    "clone1", "cut-vertical",
     "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
 
 demos = [
-    ("Counter Example 1", "counter1.svg"),
-    ("Counter Example 2", "counter2.svg")]
+    ("Counter Example 3", "counter3.svg"),
+    ("Seasons Greetings", "christmas1.svg")]

@@ -137,5 +137,42 @@ var Svgretrieve = {
             }
         }
         return confirmed;
-    }
+    },
+
+    getLinesFromTo: function(p1, p2, epsilon, svgcontainer) {
+        /** Return all lines roughly connecting points `p1`, `p2`.
+        */
+        var debug = false;
+        if (debug) console.log("[GETLINESFROMTO] p1, p2, svgcontainer:", p1, p2, svgcontainer);
+
+        var candidates;         // A list of candidate lines starting at `p1`
+        var confirmed = [];     // confirmed lines (other endpoint at `p2`)
+        var testareas = [
+            Svgdom.epsilonRectAt(p1, epsilon, svgcontainer),
+            Svgdom.epsilonRectAt(p2, epsilon, svgcontainer),
+            ];     // Areas which should all be hit
+        if (debug) {
+            for (var j = 0; j < testareas.length; j++) {
+                console.log("[getLinesFromTo]", testareas[j]);
+                var r = Svgdom.addRectElement_SVGRect(svgcontainer, testareas[j]);
+                r.setAttribute("fill", "#ffff22");
+            }
+        }
+        candidates = svgcontainer.getIntersectionList(testareas[0], svgcontainer);
+        if (debug) console.log("[getLinesFromTo] candidates", candidates);
+        for (var i = 0; i < candidates.length; i++) {
+            if (candidates[i] instanceof SVGLineElement) {
+                var reject = false;     // reject the currently tested candidate?
+                for (var j = 1; j < testareas.length; j++) {
+                    if ( ! svgcontainer.checkIntersection(candidates[i], testareas[j]) ) {
+                        reject = true;
+                        break;
+                    }
+                }
+                if (!reject) confirmed.push(candidates[i]);
+            }
+        }
+        return confirmed;
+    },
+
 }

@@ -79,7 +79,7 @@ $svgdata
 </p>
 <p>
 <button onclick="Clip8controler.playAction()">play...</button>
-<button onclick="Clip8controler.pauseAction()">. pause .</button>
+<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
 <button onclick="Clip8controler.stepAction()">. step</button>
 <button onclick="Clip8controler.stopAction()">stop .</button>
 </p>
