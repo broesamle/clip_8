@@ -60,6 +60,7 @@ var Clip8 = {
             var el = hitlist[i];
             if (!el.getAttribute("stroke", "none") || el.getAttribute("stroke", "none") == "none")
                 continue;   // ignore data elements with no stroke.
+                // FIXME: Consistent data object detection across the whole code.
             if (el instanceof SVGRectElement)
                 points = Svgdom.getCornersOfRectPoints(el);
             else if (el instanceof SVGPathElement)
@@ -115,7 +116,7 @@ var Clip8 = {
                 }
                 else {
                     hitlist[i].setAttribute("stroke", "#ED1E79");
-                    throw "[retrieveISCElements] UGO, unknownd graphics object: "+hitlist[i];
+                    throw "[retrieveISCElements] UGO, unknown graphics object: "+hitlist[i];
                 }
             }
             else
@@ -167,10 +168,12 @@ var Clip8 = {
         var hitlist;
         var s; // The rectangle to be used as area of selection
         if (selectorcore[0] instanceof SVGRectElement) {
+            // rectangle
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
             s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
         }
         else if (selectorcore[0] instanceof SVGLineElement && selectorcore[1] instanceof SVGLineElement) {
+            // DELETE: X icon defines the selection area
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
             s = svgroot.createSVGRect();
             var x1, y1, x2, y2;
@@ -216,7 +219,7 @@ var Clip8 = {
             return Clip8.TERMINATE;
         else if (C[Clip8.PATHTAG].length == 1) {
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
-            Clip8.pminus1_area = arearect;         // indicate old instruction pointer area
+            Clip8.pminus1_area = arearect;    // indicate old instruction pointer area
         }
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
@@ -288,11 +291,11 @@ var Clip8 = {
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 if (localISC[2][Clip8.PATHTAG].length == 1) {
                     Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
-                    Clip8.pminus1_area = mergearea;    // indicate old instruction pointer area
+                    Clip8.pminus1_area = mergearea;             // indicate old instruction pointer area
                 }
                 else if (localISC[2][Clip8.LINETAG].length == 1) {
                     Clip8.ip = localISC[2][Clip8.LINETAG][0];   // move instruction pointer
-                    Clip8.pminus1_area = mergearea;    // indicate old instruction pointer area
+                    Clip8.pminus1_area = mergearea;             // indicate old instruction pointer area
                 }
                 else
                     throw "[moveIP] Invalid control flow at merge.";
