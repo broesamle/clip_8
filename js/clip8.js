@@ -558,10 +558,10 @@ var Clip8controler = {
 
     playAction: function () {
         console.log("PLAY clip_8");
+        Clip8.maxcycles = 0;
         Clip8.envokeOperation();
         Clip8.visualise = true;
         Clip8controler.initialised = true;
-
     },
 
     pauseAction: function () {
