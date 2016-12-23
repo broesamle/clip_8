@@ -3,40 +3,26 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g id="Background">
-	<rect fill="#606060" stroke="#9BC9C7" stroke-miterlimit="10" width="64" height="64"/>
+<g id="Background" display="none">
+	<rect display="inline" fill="#606060" stroke="#9BC9C7" stroke-miterlimit="10" width="64" height="64"/>
 </g>
-<g id="TEST-scale1" display="none">
-	<g id="t1_x5F_scale1" display="inline" opacity="0.5">
+<g id="TEST-scale1">
+	<g id="t1_x5F_scale1" opacity="0.5">
 		<rect x="41" y="37.167" fill="#990000" width="8" height="8"/>
 		<rect x="18" y="33.6" fill="#00998A" width="7" height="26.399"/>
 	</g>
-	<g id="t0_x5F_scale1" display="inline" opacity="0.5">
+	<g id="t0_x5F_scale1" opacity="0.5">
 		<rect x="41" y="37.167" fill="#990000" width="8" height="8"/>
 		<rect x="28" y="24" fill="#00998A" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_scale1" display="inline">
+	<g id="I_x5F_scale1">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M12,20c0-9.988,26.898-12,47.896-12.012"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C12,8,12,13,12,20.001"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="43.918,22.666 43.918,21.666 42.918,21.666 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2.3231,4.6461" x1="38.271" y1="21.666" x2="26.657" y2="21.666"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="24.333,21.666 23.333,21.666 23.333,22.666 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9064,3.8127" x1="23.333" y1="26.479" x2="23.333" y2="36.011"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="23.333,37.917 23.333,38.917 24.333,38.917 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2.3231,4.6461" x1="28.979" y1="38.917" x2="40.595" y2="38.917"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="42.918,38.917 43.918,38.917 43.918,37.917 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9064,3.8127" x1="43.918" y1="34.104" x2="43.918" y2="24.572"/>
-			</g>
-		</g>
+		
+			<rect x="23.333" y="21.666" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2,4" width="20.584" height="17.251"/>
 		<polyline fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="12,28 
 			12,20 20,20 		"/>
 		<polyline fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
@@ -52,227 +38,100 @@
 			</g>
 		</g>
 	</g>
-	<rect x="65" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Scale the selected rectangle </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">(blue). Operation transforms </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">objects so as to transform the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">rectangular icon at `p0` into the </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">the sibling (attached via straignt </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">line).</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">testtype: exec_approx-dim;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">idcolors: #00998A, #990000;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Scale the selected rectangle </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">(blue). Operation transforms </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">objects so as to transform the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">rectangular icon at `p0` into the </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">the sibling (attached via straignt </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">line).</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">testtype: exec_approx-dim;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">idcolors: #00998A, #990000;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-shrink-upper" display="none">
-	<g id="t1_x5F_shrink-upper" display="inline" opacity="0.5">
+<g id="TEST-shrink-upper">
+	<g id="t1_x5F_shrink-upper" opacity="0.5">
 		<rect x="14" y="35" width="4" height="2"/>
 		<rect x="23" y="34" width="10" height="2"/>
 		<rect x="38" y="31" width="6" height="5"/>
 		<rect x="49" y="42" width="1" height="2"/>
 	</g>
-	<g id="t0_x5F_shrink-upper" display="inline" opacity="0.5">
+	<g id="t0_x5F_shrink-upper" opacity="0.5">
 		<rect x="14" y="30" width="4" height="7"/>
 		<rect x="23" y="31" width="10" height="3"/>
 		<rect x="38" y="26" width="6" height="10"/>
 		<rect x="49" y="37" width="1" height="7"/>
 	</g>
-	<g id="I_x5F_shrink-upper" display="inline">
+	<g id="I_x5F_shrink-upper">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M12,24C26,24,38.898,8,59.896,7.988"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C4,13,3,31,12,24"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="52,25 52,24 51,24 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="47.2" y1="24" x2="14.9" y2="24"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="13,24 12,24 12,25 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="12" y1="28.636" x2="12" y2="43.182"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="12,45 12,46 13,46 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="16.8" y1="46" x2="49.1" y2="46"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="51,46 52,46 52,45 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="52" y1="41.363" x2="52" y2="26.818"/>
-			</g>
-		</g>
+		<rect x="12" y="24" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2,4" width="40" height="22"/>
 		
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="12" y1="19" x2="12" y2="24"/>
 		
 			<polyline fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			10,21 12,24 14,21 		"/>
 	</g>
-	<rect x="65" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Shrink selected objects by the </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">length of the arrow. Downward arrow </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">at the upper edge of the selecor </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">indicates to shrink the objects at </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">their respective upper edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Shrink selected objects by the </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">length of the arrow. Downward arrow </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">at the upper edge of the selecor </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">indicates to shrink the objects at </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">their respective upper edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-grow-upper" display="none">
-	<g id="t1_x5F_grow-upper" display="inline" opacity="0.5">
+<g id="TEST-grow-upper">
+	<g id="t1_x5F_grow-upper" opacity="0.5">
 		<rect x="14" y="18" width="4" height="19"/>
 		<rect x="23" y="19" width="10" height="15"/>
 		<rect x="38" y="14" width="6" height="22"/>
 		<rect x="49" y="25" width="1" height="19"/>
 	</g>
-	<g id="t0_x5F_grow-upper" display="inline" opacity="0.5">
+	<g id="t0_x5F_grow-upper" opacity="0.5">
 		<rect x="14" y="30" width="4" height="7"/>
 		<rect x="23" y="31" width="10" height="3"/>
 		<rect x="38" y="26" width="6" height="10"/>
 		<rect x="49" y="37" width="1" height="7"/>
 	</g>
-	<g id="I_x5F_grow-upper" display="inline">
+	<g id="I_x5F_grow-upper">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M12,24C26,24,38.898,8,59.896,7.988"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C4,13,3,31,12,24"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="52,25 52,24 51,24 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="47.2" y1="24" x2="14.9" y2="24"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="13,24 12,24 12,25 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="12" y1="28.636" x2="12" y2="43.182"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="12,45 12,46 13,46 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="16.8" y1="46" x2="49.1" y2="46"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="51,46 52,46 52,45 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="52" y1="41.363" x2="52" y2="26.818"/>
-			</g>
-		</g>
+		<rect x="12" y="24" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2,4" width="40" height="22"/>
 		
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="12" y1="24" x2="12" y2="12"/>
 		
 			<polyline fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			14,15 12,12 10,15 		"/>
 	</g>
-	<rect x="65" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Upward arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">upper edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective upper edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Upward arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">upper edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective upper edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-grow-right" display="none">
-	<g id="t1_x5F_grow-right" display="inline" opacity="0.5">
+<g id="TEST-grow-right">
+	<g id="t1_x5F_grow-right" opacity="0.5">
 		<rect x="14" y="30" width="12" height="7"/>
 		<rect x="23" y="31" width="19" height="3"/>
 		<rect x="38" y="26" width="14" height="10"/>
 		<rect x="49" y="37" width="9" height="7"/>
 	</g>
-	<g id="t0_x5F_grow-right" display="inline" opacity="0.5">
+	<g id="t0_x5F_grow-right" opacity="0.5">
 		<rect x="14" y="30" width="4" height="7"/>
 		<rect x="23" y="31" width="10" height="3"/>
 		<rect x="38" y="26" width="6" height="10"/>
 		<rect x="49" y="37" width="1" height="7"/>
 	</g>
-	<g id="I_x5F_grow-right" display="inline">
+	<g id="I_x5F_grow-right">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M52,46c0,11,17,28,7.896-38.012"/>
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C4,36,2,46,52,46"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="52,25 52,24 51,24 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="47.2" y1="24" x2="14.9" y2="24"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="13,24 12,24 12,25 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="12" y1="28.636" x2="12" y2="43.182"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="12,45 12,46 13,46 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="16.8" y1="46" x2="49.1" y2="46"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="51,46 52,46 52,45 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="52" y1="41.363" x2="52" y2="26.818"/>
-			</g>
-		</g>
+		<rect x="12" y="24" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2,4" width="40" height="22"/>
 		
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="52" y1="46" x2="60" y2="46"/>
 		
 			<polyline fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			57,48 60,46 57,44 		"/>
 	</g>
-	<rect x="65" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Right arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">right edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective right edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Right arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">right edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective right edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-setheight" display="none">
-	<g id="t1_x5F_setheight" display="inline" opacity="0.5">
-		<rect x="14" y="25" width="4" height="12"/>
-		<rect x="23" y="22" width="10" height="12"/>
-		<rect x="38" y="24" width="6" height="12"/>
-		<rect x="49" y="32" width="1" height="12"/>
-	</g>
-	<g id="t0_x5F_setheight" display="inline" opacity="0.5">
-		<rect x="14" y="30" width="4" height="7"/>
-		<rect x="23" y="31" width="10" height="3"/>
-		<rect x="38" y="26" width="6" height="10"/>
-		<rect x="49" y="37" width="1" height="7"/>
-	</g>
-	<g id="I_x5F_setheight" display="inline">
-		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
-		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
-		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
-		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M12,24C26,24,38.898,8,59.896,7.988"/>
-		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C4,13,3,31,12,24"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="52,25 52,24 51,24 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="47.2" y1="24" x2="14.9" y2="24"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="13,24 12,24 12,25 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="12" y1="28.636" x2="12" y2="43.182"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="12,45 12,46 13,46 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="16.8" y1="46" x2="49.1" y2="46"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="51,46 52,46 52,45 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="52" y1="41.363" x2="52" y2="26.818"/>
-			</g>
-		</g>
-		
-			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="12" y1="24" x2="12" y2="12"/>
-		
-			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="12" x2="14" y2="12"/>
-		
-			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="24" x2="14" y2="24"/>
-	</g>
-	<rect x="65" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Set the height of the selected </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">objects to the height of the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">vertical bar in the instruction </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">elements. Since the instruction is </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">attached to the upper edge of the </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">selector, the upper edge of the </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">objects will be changed, whereas </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">their bottom edge will not move.</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
-</g>
-<g id="TEST-setheight-indir" display="none">
-	<g id="t1_x5F_setheight-indir" display="inline" opacity="0.5">
-		<rect x="14" y="30" width="4" height="7"/>
-		<rect x="23" y="27" width="10" height="7"/>
-		<rect x="38" y="29" width="6" height="7"/>
-		<rect x="49" y="37" width="1" height="7"/>
-	</g>
-	<g id="t0_x5F_setheight-indir" display="inline" opacity="0.5">
-		<rect x="14" y="30" width="4" height="7"/>
-		<rect x="23" y="31" width="10" height="3"/>
-		<rect x="38" y="26" width="6" height="10"/>
-		<rect x="49" y="37" width="1" height="7"/>
-	</g>
-	<g id="I_x5F_setheight-indir" display="inline">
-		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
-		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
-		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
-		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M12,24C26,24,38.898,8,59.896,7.988"/>
-		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C4,13,3,31,12,24"/>
-		<g>
-			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="52,25 52,24 51,24 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="47.2" y1="24" x2="14.9" y2="24"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="13,24 12,24 12,25 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="12" y1="28.636" x2="12" y2="43.182"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="12,45 12,46 13,46 				"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.9,3.8" x1="16.8" y1="46" x2="49.1" y2="46"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-miterlimit="10" points="51,46 52,46 52,45 				"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1.8182,3.6364" x1="52" y1="41.363" x2="52" y2="26.818"/>
-			</g>
-		</g>
-		
-			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="12" y1="24" x2="12" y2="12"/>
-		
-			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="12" x2="14" y2="12"/>
-		
-			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="10" y1="24" x2="14" y2="24"/>
-		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1,1" x1="12" y1="12" x2="18" y2="30"/>
-		<polygon fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="0.2,0.2" points="14,30 18,30 16,34 		"/>
-	</g>
-	<rect x="65" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Set the height of all elements in </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">the selection set. An secondary </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">selector picks the height from one </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">of the existing rectangles.</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
-</g>
-<g id="SECTIONINFO">
-	<rect y="-76" fill="none" width="99.875" height="72"/>
-	<text transform="matrix(1 0 0 1 0 -73.5479)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Scale objects by a certain </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">transformation, typically defined by the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">arrangement of the instruction elements.</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">+ Grow or shrink objects by a certain </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">amount. Compared to scaling, all objects </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">will change their dimensions by the same </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">amount, independent of their location or </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">size.</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ Set the width or height to a certain </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">size. Compared to grow/shrink, all objecs </tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">will have the same width/height, </tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">independent of their initial dimensions.</tspan></text>
-	<g id="I">
+<g id="SECTIONINFO" display="none">
+	<rect y="-76" display="inline" fill="none" width="99.875" height="72"/>
+	<text transform="matrix(1 0 0 1 0 -73.5479)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Scale objects by a certain </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">transformation, typically defined by the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">arrangement of the instruction elements.</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">+ Grow or shrink objects by a certain </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">amount. Compared to scaling, all objects </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">will change their dimensions by the same </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">amount, independent of their location or </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">size.</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ Set the width or height to a certain </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">size. Compared to grow/shrink, all objecs </tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">will have the same width/height, </tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">independent of their initial dimensions.</tspan></text>
+	<g id="I" display="inline">
 		<g>
 			<g>
 				<polyline fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" points="56,31 56,28 53,28 				"/>
