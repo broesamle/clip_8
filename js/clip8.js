@@ -149,7 +149,7 @@ var Clip8 = {
          *  Return value is a list of SVG DOM elements that are selected by the given selector.
          */
 
-        var debug = false;
+        var debug = true;
         if (debug) console.log("[SELECTEDELEMENTSET] arearect:", selectorcore, svgroot);
 
         // List of selected Elements based on primary selector
@@ -337,10 +337,12 @@ var Clip8 = {
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
         var ISC0 = Clip8.retrieveISCElements(p0area, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-        if (debug) console.log("[executeOneOperation] ISC0 [0, 1, 2]:", ISC0[0], ISC0[1], ISC0[2]);
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
+        if (debug) console.log("[executeOneOperation] I0:", I0.reduce(function(a,b) {return a.concat(b)}));
+        if (debug) console.log("[executeOneOperation] S0:", S0.reduce(function(a,b) {return a.concat(b)}));
+        if (debug) console.log("[executeOneOperation] C0:", C0.reduce(function(a,b) {return a.concat(b)}));
         if (Clip8.visualise) {
             Clip8._clearHighlight();
             for (var i = 0; i < I0.length; i++) {
@@ -366,7 +368,6 @@ var Clip8 = {
                 Clip8.clearExecTimer();
                 return;     // stop execution
         }
-        if (debug) console.log("[executeOneOperation] S0:", S0);
         var retrselector = Clip8.retrieveCoreSelector(S0, svgroot)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
@@ -389,9 +390,10 @@ var Clip8 = {
             if (debug) console.log("[executeOneOperation] angle direction:", angledir);
             var arearect = Svgdom.epsilonRectAt(Svgdom.getBothEndsOfLine(theline)[1], epsilon, svgroot);
             var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-            if (debug) console.log("[executeOneOperation] ISC1 [0, 1, 2]:", ISC1[0], ISC1[1], ISC1[2]);
             var I1 = ISC1[0];
             var S1 = ISC1[1];
+            if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
+            if (debug) console.log("[executeOneOperation] S1:", S1.reduce(function(a,b) {return a.concat(b)}));
             if (I1[Clip8.RECTTAG].length == 1 )
                 selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
             switch (linedir) {
@@ -399,6 +401,12 @@ var Clip8 = {
                 case 'DOWN':
                     if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
                     else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
+                    else if (angledir == 'DOWN') {
+                        var movement = Svgdom.getBothEndsOfLine(theline);
+                        var deltaX, deltaY;
+                        var distanceY = Math.abs(movement[1].y-movement[0].y);
+                        Paperclip.shrinkFromTop (selectedelements1, distanceY);
+                    }
                     else throw "[executeOneOperation] Encountered invalid line arrow combination (a).";
                     break;
                 case 'LEFT':
