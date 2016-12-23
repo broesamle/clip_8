@@ -352,7 +352,7 @@ var Clip8 = {
         var debug = true;
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip, svgroot);
         Clip8.cyclescounter++;
-        if (Clip8.cyclescounter >= Clip8.maxcycles) {
+        if (Clip8.maxcycles > 0 && Clip8.cyclescounter >= Clip8.maxcycles) {
             Clip8.clearExecTimer();
             throw "Maximal number of cycles";
         }
@@ -558,6 +558,7 @@ var Clip8controler = {
         Clip8.envokeOperation();
         Clip8.visualise = true;
         Clip8controler.initialised = true;
+
     },
 
     pauseAction: function () {
@@ -576,6 +577,7 @@ var Clip8controler = {
     },
 
     stopAction: function () {
-        console.log("not implemented: STOP clip_8");
+        console.log("STOP clip_8");
+        location.reload();
     }
 }
