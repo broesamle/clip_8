@@ -459,7 +459,7 @@ var Clip8 = {
                 default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
             }
         }
-        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 0 ) {
+        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 0  && I0[Clip8.RECTTAG].length == 0 ) {
             // MOVE-REL, CUT, DEL
             if (debug) console.log("[executeOneOperation] 1 line.");
             var theline = I0[Clip8.LINETAG][0];
@@ -526,6 +526,9 @@ var Clip8 = {
                 deltaY = movement[1].y-movement[0].y;
                 Paperclip.moveBy(selectedelements1, deltaX, deltaY);
             }
+        }
+        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.RECTTAG].length == 1 ) {
+            if (debug) console.log("[executeOneOperation/clone]");
         }
         else
             throw "Could not decode instruction X";
