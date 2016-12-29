@@ -113,6 +113,14 @@ var Svgdom = {
         return [start, end];
     },
 
+    getOppositeEndOfLine: function(arearect, line) {
+        var bothends = Svgdom.getBothEndsOfLine(line);
+        if ( Svgdom.enclosesRectPoint(arearect, bothends[1]) )
+            return bothends[0];
+        else
+            return bothends[1];
+    },
+
     getBothEndsOfPath: function (path) {
         /** Returns two `SVGPoint`s at both endpoints of a path.
         */

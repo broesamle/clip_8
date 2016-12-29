@@ -132,12 +132,7 @@ var Clip8 = {
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
             var epsilon = 0.01;
-            var lineend;
-            // Check for technical svg line direction
-            if ( Svgdom.enclosesRectPoint(originarea, Svgdom.getBothEndsOfLine(S[Clip8.LINETAG][0])[1]) )
-                lineend = Svgdom.getBothEndsOfLine(S[Clip8.LINETAG][0])[0];
-            else
-                lineend = Svgdom.getBothEndsOfLine(S[Clip8.LINETAG][0])[1];
+            var lineend = Svgdom.getOppositeEndOfLine(originarea, S[Clip8.LINETAG][0]);
             var arearect = Svgdom.epsilonRectAt(lineend, epsilon, svgroot);
             var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
