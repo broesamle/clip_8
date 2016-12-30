@@ -415,115 +415,119 @@ var Clip8 = {
             throw "received an invalid selectortype from retrieveCoreSelector: "+selectortype;
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 1 ) {
-            // ALIGN
-            if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
+
+        if (I0[Clip8.LINETAG].length == 1) {
+            // ALIGN, CUT, MOVE-REL, CLONE, DEL
             var theline = I0[Clip8.LINETAG][0];
-            var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
-            if (debug) console.log("[executeOneOperation] direction:", linedir);
-            var thepoly = I0[Clip8.POLYLINETAG][0];
-            var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
-            if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-            var arearect = Svgdom.epsilonRectAt(Svgdom.getBothEndsOfLine(theline)[1], epsilon, svgroot);
-            var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-            var I1 = ISC1[0];
-            var S1 = ISC1[1];
-            if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
-            if (debug) console.log("[executeOneOperation] S1:", S1.reduce(function(a,b) {return a.concat(b)}));
-            if (I1[Clip8.RECTTAG].length == 1 )
-                selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
-            switch (linedir) {
-                case 'UP':
-                case 'DOWN':
-                    if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
-                    else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
-                    else if (angledir == 'DOWN') {
-                        var movement = Svgdom.getBothEndsOfLine(theline);
-                        var deltaX, deltaY;
-                        var distanceY = Math.abs(movement[1].y-movement[0].y);
-                        Paperclip.shrinkFromTop (selectedelements1, distanceY);
-                    }
-                    else throw "[executeOneOperation] Encountered invalid line arrow combination (a).";
-                    break;
-                case 'LEFT':
-                case 'RIGHT':
-                    if (angledir == 'UP')           Paperclip.alignrelTop (selectedelements1);
-                    else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
-                    else throw "[executeOneOperation] Encountered invalid line arrow combination (b).";
-                    break;
-                default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
-            }
-        }
-        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.POLYLINETAG].length == 0  && I0[Clip8.RECTTAG].length == 0 ) {
-            // MOVE-REL, CUT, DEL
-            if (debug) console.log("[executeOneOperation] 1 line.");
-            var theline = I0[Clip8.LINETAG][0];
-            if (theline.getAttribute("stroke-dasharray")) {
-                if (debug) console.log("one dashed line.");
-                // CUT, DEL
+            if (debug) console.log("[executeOneOperation] theline:", theline);
+            if (I0[Clip8.POLYLINETAG].length == 1) {
+                // ALIGN
+                if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
                 var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
+                if (debug) console.log("[executeOneOperation] direction:", linedir);
+                var thepoly = I0[Clip8.POLYLINETAG][0];
+                var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
+                if (debug) console.log("[executeOneOperation] angle direction:", angledir);
+                var arearect = Svgdom.epsilonRectAt(Svgdom.getBothEndsOfLine(theline)[1], epsilon, svgroot);
+                var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var I1 = ISC1[0];
+                var S1 = ISC1[1];
+                if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
+                if (debug) console.log("[executeOneOperation] S1:", S1.reduce(function(a,b) {return a.concat(b)}));
+                if (I1[Clip8.RECTTAG].length == 1 )
+                    selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
                 switch (linedir) {
                     case 'UP':
                     case 'DOWN':
-
+                        if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
+                        else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
+                        else if (angledir == 'DOWN') {
+                            var movement = Svgdom.getBothEndsOfLine(theline);
+                            var deltaX, deltaY;
+                            var distanceY = Math.abs(movement[1].y-movement[0].y);
+                            Paperclip.shrinkFromTop (selectedelements1, distanceY);
+                        }
+                        else throw "[executeOneOperation] Encountered invalid line arrow combination (a).";
                         break;
                     case 'LEFT':
                     case 'RIGHT':
-                        // CUT
-                        var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline, svgroot);
-                        var stripe = stripeNaboveNbelow[0];
-                        var above = stripeNaboveNbelow[1];
-                        var below = stripeNaboveNbelow[2];
-                        if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
-                        var hitlist = svgroot.getEnclosureList(stripe, svgroot);
-                        if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
-                        var selectedelements1 = []
-                        for (var i = 0; i < hitlist.length; i++)
-                            if ( svgroot.checkIntersection(hitlist[i], above) && svgroot.checkIntersection(hitlist[i], below) )
-                                selectedelements1.push(hitlist[i]);
-                        if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
-                        Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                        if (angledir == 'UP')           Paperclip.alignrelTop (selectedelements1);
+                        else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
+                        else throw "[executeOneOperation] Encountered invalid line arrow combination (b).";
                         break;
-                    case 'UP-RE':
-                    case 'UP-LE':
-                    case 'DO-RE':
-                    case 'DO-LE':
-                        // DEL
-                        var p3 = svgroot.createSVGPoint();
-                        var p4 = svgroot.createSVGPoint();
-                        p3.x = theline.getAttribute("x1");
-                        p3.y = theline.getAttribute("y2");
-                        p4.x = theline.getAttribute("x2");
-                        p4.y = theline.getAttribute("y1");
-                        var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon, svgroot);
-                        if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
-                        opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon, svgroot), opposite_diagonals);
-                        if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
-                        if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
-                        var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]], svgroot);
-                        for (var i = 0; i < selectedelements1.length; i++)
-                            selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
-                        break;
-                    default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
+                    default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
                 }
             }
-            else {
-                // MOVE-REL
-                var movement = Svgdom.getBothEndsOfLine(theline);
-                var circles = Svgretrieve.getCirclesAt(
-                    movement[1],
-                    theline.getAttribute("stroke-width"),       // use as minimum radius
-                    theline.getAttribute("stroke-width") * 4,   // use as minimum radius
-                    svgroot);
-                if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
-                var deltaX, deltaY;
-                deltaX = movement[1].x-movement[0].x;
-                deltaY = movement[1].y-movement[0].y;
-                Paperclip.moveBy(selectedelements1, deltaX, deltaY);
+            else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
+                // MOVE-REL, CUT, DEL
+                if (theline.getAttribute("stroke-dasharray")) {
+                    if (debug) console.log("one dashed line.");
+                    // CUT, DEL
+                    var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
+                    switch (linedir) {
+                        case 'UP':
+                        case 'DOWN':
+
+                            break;
+                        case 'LEFT':
+                        case 'RIGHT':
+                            // CUT
+                            var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline, svgroot);
+                            var stripe = stripeNaboveNbelow[0];
+                            var above = stripeNaboveNbelow[1];
+                            var below = stripeNaboveNbelow[2];
+                            if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
+                            var hitlist = svgroot.getEnclosureList(stripe, svgroot);
+                            if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
+                            var selectedelements1 = []
+                            for (var i = 0; i < hitlist.length; i++)
+                                if ( svgroot.checkIntersection(hitlist[i], above) && svgroot.checkIntersection(hitlist[i], below) )
+                                    selectedelements1.push(hitlist[i]);
+                            if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
+                            Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                            break;
+                        case 'UP-RE':
+                        case 'UP-LE':
+                        case 'DO-RE':
+                        case 'DO-LE':
+                            // DEL
+                            var p3 = svgroot.createSVGPoint();
+                            var p4 = svgroot.createSVGPoint();
+                            p3.x = theline.getAttribute("x1");
+                            p3.y = theline.getAttribute("y2");
+                            p4.x = theline.getAttribute("x2");
+                            p4.y = theline.getAttribute("y1");
+                            var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon, svgroot);
+                            if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
+                            opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon, svgroot), opposite_diagonals);
+                            if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
+                            if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
+                            var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]], svgroot);
+                            for (var i = 0; i < selectedelements1.length; i++)
+                                selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
+                            break;
+                        default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
+                    }
+                }
+                else {
+                    // MOVE-REL
+                    var movement = Svgdom.getBothEndsOfLine(theline);
+                    var circles = Svgretrieve.getCirclesAt(
+                        movement[1],
+                        theline.getAttribute("stroke-width"),       // use as minimum radius
+                        theline.getAttribute("stroke-width") * 4,   // use as minimum radius
+                        svgroot);
+                    if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
+                    var deltaX, deltaY;
+                    deltaX = movement[1].x-movement[0].x;
+                    deltaY = movement[1].y-movement[0].y;
+                    Paperclip.moveBy(selectedelements1, deltaX, deltaY);
+                }
             }
-        }
-        else if ( I0[Clip8.LINETAG].length == 1 && I0[Clip8.RECTTAG].length == 1 ) {
-            if (debug) console.log("[executeOneOperation/clone]");
+            else if (I0[Clip8.RECTTAG].length == 1) {
+                // CLONE
+                if (debug) console.log("[executeOneOperation/clone]");
+            }
         }
         else
             throw "Could not decode instruction X";
