@@ -132,7 +132,7 @@ var Clip8 = {
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
             var epsilon = 0.01;
-            var lineend = Svgdom.getOppositeEndOfLine(originarea, S[Clip8.LINETAG][0]);
+            var lineend = Svgdom.getBothEndsOfLine_arranged(originarea, S[Clip8.LINETAG][0])[1];
             var arearect = Svgdom.epsilonRectAt(lineend, epsilon, svgroot);
             var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
@@ -419,6 +419,7 @@ var Clip8 = {
         if (I0[Clip8.LINETAG].length == 1) {
             // ALIGN, CUT, MOVE-REL, CLONE, DEL
             var theline = I0[Clip8.LINETAG][0];
+            var bothends = Svgdom.getBothEndsOfLine_arranged(p0area, theline);
             if (debug) console.log("[executeOneOperation] theline:", theline);
             if (I0[Clip8.POLYLINETAG].length == 1) {
                 // ALIGN
@@ -428,7 +429,7 @@ var Clip8 = {
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-                var arearect = Svgdom.epsilonRectAt(Svgdom.getBothEndsOfLine(theline)[1], epsilon, svgroot);
+                var arearect = Svgdom.epsilonRectAt(bothends[1], epsilon, svgroot);
                 var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
@@ -442,9 +443,8 @@ var Clip8 = {
                         if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
                         else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
                         else if (angledir == 'DOWN') {
-                            var movement = Svgdom.getBothEndsOfLine(theline);
                             var deltaX, deltaY;
-                            var distanceY = Math.abs(movement[1].y-movement[0].y);
+                            var distanceY = Math.abs(bothends[1].y-bothends[0].y);
                             Paperclip.shrinkFromTop (selectedelements1, distanceY);
                         }
                         else throw "[executeOneOperation] Encountered invalid line arrow combination (a).";
@@ -511,22 +511,25 @@ var Clip8 = {
                 }
                 else {
                     // MOVE-REL
-                    var movement = Svgdom.getBothEndsOfLine(theline);
                     var circles = Svgretrieve.getCirclesAt(
-                        movement[1],
+                        bothends[1],
                         theline.getAttribute("stroke-width"),       // use as minimum radius
                         theline.getAttribute("stroke-width") * 4,   // use as minimum radius
                         svgroot);
                     if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
                     var deltaX, deltaY;
-                    deltaX = movement[1].x-movement[0].x;
-                    deltaY = movement[1].y-movement[0].y;
+                    deltaX = bothends[1].x-bothends[0].x;
+                    deltaY = bothends[1].y-bothends[0].y;
                     Paperclip.moveBy(selectedelements1, deltaX, deltaY);
                 }
             }
             else if (I0[Clip8.RECTTAG].length == 1) {
                 // CLONE
                 if (debug) console.log("[executeOneOperation/clone]");
+                var deltaX, deltaY;
+                deltaX = bothends[1].x-bothends[0].x;
+                deltaY = bothends[1].y-bothends[0].y;
+                Paperclip.clone_moveBy(selectedelements1, deltaX, deltaY);
             }
         }
         else

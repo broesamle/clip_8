@@ -98,6 +98,21 @@ var Paperclip = {
         }
     },
 
+    clone_moveBy: function (elems, deltaX, deltaY) {
+        var debug = false;
+        if (debug) console.log("[clone_moveBy] elems, deltaX, deltaY:", elems, deltaX, deltaY);
+        var theclone;
+        for (var i = 0; i < elems.length; i++) {
+            if ( ! elems[i] instanceof SVGRectElement ) throw "[clone_moveBy] not implemented for "+elems[i].constructor.name;
+            theclone = elems[i].cloneNode();
+            theclone.setAttribute("x", theclone.x.baseVal.value + deltaX);
+            theclone.setAttribute("y", theclone.y.baseVal.value + deltaY);
+            elems[i].parentElement.insertBefore(theclone, elems[i]);
+            elems[i].parentElement.removeChild(elems[i]);
+            theclone.parentElement.insertBefore(elems[i], theclone);
+        }
+    },
+
     // Shrink
     shrinkFromTop(elems, distanceY) {
         for (var i = 0; i < elems.length; i++) {

@@ -113,12 +113,13 @@ var Svgdom = {
         return [start, end];
     },
 
-    getOppositeEndOfLine: function(arearect, line) {
+    getBothEndsOfLine_arranged: function(arearect, line) {
         var bothends = Svgdom.getBothEndsOfLine(line);
-        if ( Svgdom.enclosesRectPoint(arearect, bothends[1]) )
-            return bothends[0];
+        if ( Svgdom.enclosesRectPoint(arearect, bothends[0]) )
+            return bothends;
         else
-            return bothends[1];
+            bothends.reverse()
+            return bothends;
     },
 
     getBothEndsOfPath: function (path) {
