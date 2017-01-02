@@ -27,4 +27,5 @@ demos = [
     ("Counter Example 3", "counter3.svg"),
     ("Seasons Greetings", "christmas1.svg"),
     ("Loom 1", "loom1.svg"),
-    ("Loom 2", "loom2.svg")]
+    ("Loom 2", "loom2.svg"),
+    ("Loom 3", "loom3.svg")]
