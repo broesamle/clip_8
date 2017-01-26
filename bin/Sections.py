@@ -19,7 +19,7 @@ expected_to_fail = [
     "indirect1", "indirect2", "indirect3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
-    "clone1", "cut-vertical",
+    "cut-vertical",
     "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
 
