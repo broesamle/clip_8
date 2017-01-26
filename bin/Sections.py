@@ -19,10 +19,14 @@ expected_to_fail = [
     "indirect1", "indirect2", "indirect3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
-    "clone1", "cut-vertical",
+    "cut-vertical",
     "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
 
 demos = [
     ("Counter Example 3", "counter3.svg"),
-    ("Seasons Greetings", "christmas1.svg")]
+    ("Seasons Greetings", "christmas1.svg"),
+    ("Loom 1", "loom1.svg"),
+    ("Loom 2", "loom2.svg"),
+    ("Loom 3", "loom3.svg"),
+    ("Loom 4", "loom4.svg")]
