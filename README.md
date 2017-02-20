@@ -20,13 +20,14 @@ Compatibility / Browser support
 Clip_8 makes extensive use of _inline SVG_, _JS_, and the _DOM_. Not all browsers implement all required parts of the
 [SVG DOM Interface](https://www.w3.org/TR/SVG11/struct.html#DOMInterfaces]), i.e. `SVGElement.getIntersectionList` provides crucial functionality (successfully tested only in Chrome, at the time of writing).
 
-Please check [Issue 9]https://github.com/broesamle/clip_8/issues/9 and related issues for more information on browser support.
+Please check [Issue 9](https://github.com/broesamle/clip_8/issues/9) and related issues for more information on browser support.
 
 
 Demos
 -----
 
-[Loom Demo](https://broesamle.github.io/clip_8/demos/loom3.html)
+[Demos Page](https://broesamle.github.io/clip_8/demos/) including the
+[Loom Demo](https://broesamle.github.io/clip_8/demos/loom3.html) in the picture.
 
 ![Loom Demo](VISUAL-ABSTRACT.jpg)
 
@@ -42,7 +43,7 @@ License
 
 + The source code of the `Clip_8` interpreter (especially `*.js` files), the related page generators (especially `*.py`), and other portions of the distribution not explicitly licensed otherwise, are licensed under the GNU GENERAL PUBLIC LICENSE -- see the `LICENSE-GPL` file in this directory for details.
 
-+ Demos and graphics (especially `*.svg`, `*.pdf`, `*.jpg`, `*.png` files) are licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) -- see `LICENSE-CC-BY-NC-SA` file in this directory for details.
++ Except for the graphical language reference, demos and graphics (especially `*.svg`, `*.pdf`, `*.jpg`, `*.png` files) not explicitly licensed otherwise are licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) -- see `LICENSE-CC-BY-NC-SA` file in this directory for details.
 
 + The graphical language reference in the `refsheet-svg` and `tests` directories is explicitly excluded from the above creative commons license statement. You may use them as they are published by the author for
-reference and testing purposes. Please contact the author before redistribution and/or modification.
+reference and testing purposes. Please contact the author if you wish to make changes or redistribute any of these files.
