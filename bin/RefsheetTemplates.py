@@ -89,7 +89,7 @@ All rights reserved.<br>
 The graphical language reference is explicitly excluded from the creative commons license statement. Please see COPYRIGHT and README for details.
 </p>
 <p>
-Powered by Jasmine, SVG, Javascript, and the DOM.
+Powered by Jasmine, SVG, JS, and the DOM.
 </p>
 </footer>
 """)

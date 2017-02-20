@@ -5,7 +5,7 @@
 
 While each operation applies to graphical content, the instructions, in turn, are themselves given in a graphical form.
 
-The current Javascript implementation of the _interpreter_ operates on _inline SVG_ elements in the Document Object Model (DOM) in a browser, entirely on the client side.
+The present project implements an interpreter as a client-side web application. It operates on _inline SVG_ elements in the Document Object Model (DOM) of the web browser.
 
 
 Language documentation / Engine tests
@@ -17,7 +17,7 @@ The integration tests are arranged in [Reference Test Sheets](https://broesamle.
 Compatibility / Browser support
 -------------------------------
 
-Clip_8 makes extensive use of _inline SVG_, _Javascript_, and the _DOM_. Not all browsers implement all required parts of the
+Clip_8 makes extensive use of _inline SVG_, _JS_, and the _DOM_. Not all browsers implement all required parts of the
 [SVG DOM Interface](https://www.w3.org/TR/SVG11/struct.html#DOMInterfaces]), i.e. `SVGElement.getIntersectionList` provides crucial functionality (successfully tested only in Chrome, at the time of writing).
 
 Please check [Issue 9]https://github.com/broesamle/clip_8/issues/9 and related issues for more information on browser support.
