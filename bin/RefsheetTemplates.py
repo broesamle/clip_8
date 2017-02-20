@@ -72,6 +72,10 @@ Linknext = Template("""
 FooterRefsheet = Template("""
 <footer>
 <p><b>Version $refsheet_version</b></p>
+<p>
+Copyright 2017 Martin Brösamle.<br>
+All rights reserved.<br>
+</p>
 </footer>
 """)
 
@@ -80,8 +84,9 @@ FooterIntro = Template("""
 <p>
 <b>Version $refsheet_version</b> $refsheet_description<br>
 <p>
-© 2016, Martin Brösamle.<br>
-All rights reserved.
+Copyright 2016, 2017 Martin Brösamle.<br>
+All rights reserved.<br>
+The graphical language reference is explicitly excluded from the creative commons license statement. Please see COPYRIGHT and README for details.
 </p>
 <p>
 Powered by Jasmine, SVG, Javascript, and the DOM.
