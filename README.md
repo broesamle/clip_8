@@ -33,5 +33,12 @@ Clip_8 makes extensive use of _SVG_, _Javascript_, and the _DOM_. Not all browse
 Copyright
 ---------
 
-© 2016, Martin Brösamle.
-All rights reserved.
+Copyright 2016, 2017 Martin Brösamle.
+
+
+License
+-------
+
++ The source code of the `Clip_8` interpreter (especially `*.js` files), the related page generators (especially `*.py`), and other portions of the distribution not explicitly licensed otherwise, are licensed under the GNU GENERAL PUBLIC LICENSE -- see the `LICENSE-GPL` file in this directory for details.
+
++ Demos and graphics (especially `*.svg`, `*.pdf`, `*.jpg`, `*.png` files) are licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode) -- see `LICENSE-CC-BY-NC-SA` file in this directory for details.
