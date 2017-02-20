@@ -10,11 +10,11 @@ $BODY
 """)
 
 DependJasmine_str = """
-<link rel="shortcut icon" type="image/png" href="../js/jasmine/jasmine_favicon.png">
-<link rel="stylesheet" href="../css/jasmine.css">
-<script src="../js/jasmine/jasmine.js"></script>
-<script src="../js/jasmine/jasmine-html.js"></script>
-<script src="../js/jasmine/boot.js"></script>
+<link rel="shortcut icon" type="image/png" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine_favicon.png">
+<link rel="stylesheet" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine.css">
+<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine.js"></script>
+<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine-html.js"></script>
+<script src="../lib/jasmine/lib/jasmine-2.5.2/boot.js"></script>
 """
 
 DependClip8_str = """
