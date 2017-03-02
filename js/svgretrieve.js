@@ -119,7 +119,7 @@ var Svgretrieve = {
         throw "[enclosingFullWidthStripe] not implemented."
     },
 
-    getEnclosedElements: function(arearect, svgroot) {
+    getIntersectedElements: function(arearect, svgroot) {
         //console.log("[getEnclosedElements]", arearect, svgroot);
         var trafo = svgroot.getCTM();
 

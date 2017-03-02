@@ -1,4 +1,4 @@
-describe("getEnclosedElements", function() {
+describe("getIntersectedElements", function() {
     var svgroot;
 
     var putandretrieve_circles = function () {
@@ -20,7 +20,7 @@ describe("getEnclosedElements", function() {
             arearect.y = cy-1.0;
             arearect.width = 2.0;
             arearect.height = 2.0;
-            hitlist = Svgretrieve.getEnclosedElements(arearect, svgroot);
+            hitlist = Svgretrieve.getIntersectedElements(arearect, svgroot);
             expect(hitlist.length).toBe(1, "to find exactly one circle in the hitlist");
             expect(hitlist[0] instanceof SVGCircleElement).toBe(true, "retrieved element to be instance of SVGCircleElement");
             svgroot.removeChild(svgroot.firstChild);
