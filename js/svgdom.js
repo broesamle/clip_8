@@ -66,7 +66,7 @@ var Svgdom = {
         return r;
     },
 
-    newRectElement_fromSVGRect (r) {
+    newRectElement_fromSVGRect: function (r) {
         return Svgdom.newRectElement(r.x, r.y, r.width, r.height);
     },
 

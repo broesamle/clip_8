@@ -499,12 +499,13 @@ var Clip8 = {
                             var stripe = stripeNaboveNbelow[0];
                             var above = stripeNaboveNbelow[1];
                             var below = stripeNaboveNbelow[2];
+
                             if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
-                            var hitlist = svgroot.getEnclosureList(stripe, svgroot);
+                            var hitlist = Svgretrieve.getEnclosedElements(stripe, svgroot);
                             if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
                             var selectedelements1 = []
                             for (var i = 0; i < hitlist.length; i++)
-                                if ( svgroot.checkIntersection(hitlist[i], above) && svgroot.checkIntersection(hitlist[i], below) )
+                                if ( Svgretrieve.checkIntersected(hitlist[i], above, svgroot) && Svgretrieve.checkIntersected(hitlist[i], below, svgroot) )
                                     selectedelements1.push(hitlist[i]);
                             if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                             Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));

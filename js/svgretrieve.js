@@ -23,69 +23,41 @@
 "use strict";
 
 var Svgretrieve = {
-    _collectTrafos: function (el, svgcontainer) {
-        /// collecting all trafos reversely (child to parent)
-        var debug = false;
-        var trafos = [];
-        var tra;
-        while (el != svgcontainer) {
-            if (el && el.transform.baseVal.numberOfItems > 0) {
-                for ( var i = el.transform.baseVal.numberOfItems-1; i >= 0; i-- ) {
-                    tra = el.transform.baseVal.getItem(i).matrix;
-                    trafos.push(tra);
-                }
-            }
-            el = el.parentElement;
-            if      (!el)   console.log("!! NO ELEMENT!", el);
-            else if (debug) console.log("newParent:", el);
-        }
-        return trafos;
-    },
-    _applyTrafos: function (points, trafos) {
-        /// Destructively transform all points in the array
-        for (var i = 0; i < trafos.length; i++)
-            points.map ( function (p) { return p.matrixTransform(trafos[i]); } );
-        return points;
-    },
 
     enclosingFullHeightStripe: function(line, svgcontainer) {
         /*  Determine the horizontal boundaries enclosing `line`.
             Return a full-height vertical stripe/rectangle (from top to bottom of `svgcontainer`) with corresponding horizontal boundaries.
             Initial use case: Select elements potentially affected by a horizontal cut.
         */
-        var trafos = Svgretrieve._collectTrafos(line, svgcontainer)
-        var points = [svgcontainer.createSVGPoint(), svgcontainer.createSVGPoint()];
-        points[0].x = line.x1.baseVal.value;
-        points[0].y = line.y1.baseVal.value;
-        points[1].x = line.x2.baseVal.value;
-        points[1].y = line.y2.baseVal.value;
-        Svgretrieve._applyTrafos(points, trafos);
-        var stripe = svgcontainer.createSVGRect();
-        if (points[0].x < points[1].x)  { stripe.x = points[0].x; stripe.width  = points[1].x - points[0].x; }
-        else                            { stripe.x = points[1].x; stripe.width  = points[0].x - points[1].x; }
-        stripe.y = svgcontainer.getAttribute("viewBox").split(" ")[1];
-        stripe.height = svgcontainer.getAttribute("viewBox").split(" ")[3];
-        // above and below the line
-        var above = svgcontainer.createSVGRect();
-        var below = svgcontainer.createSVGRect();
-        // horizontal direction
-        above.x = stripe.x;
-        above.width = stripe.width;
-        below.x = stripe.x;
-        below.width = stripe.width;
-        // vertical direction
-        if (points[0].y < points[1].y) {
-            above.y = points[1].y;
-            above.height  = stripe.height - points[1].y;
-            below.y = stripe.y;
-            below.height  = stripe.height - points[0].y;
-        }
-        else {
-            above.y = points[0].y;
-            above.height  = stripe.height - points[0].y;
-            below.y = stripe.y;
-            below.height  = stripe.height - points[1].y;
-        }
+        var p1, p2, above, below, stripe, x1, y1, x2, y2, vBy, vBh;
+        x1 = line.x1.baseVal.value;
+        y1 = line.y1.baseVal.value;
+        x2 = line.x2.baseVal.value;
+        y2 = line.y2.baseVal.value;
+        vBy = svgcontainer.getAttribute("viewBox").split(" ")[1];
+        vBh = svgcontainer.getAttribute("viewBox").split(" ")[3];
+        
+        p1 = svgcontainer.createSVGPoint();
+        p2 = svgcontainer.createSVGPoint();
+        p1.x = x1;
+        p1.y = vBy;
+        p2.x = x2;
+        p2.y = vBy+vBh;
+        stripe = Svgdom.newSVGRect_fromPoints(p1, p2, svgcontainer);
+        p1 = svgcontainer.createSVGPoint();
+        p2 = svgcontainer.createSVGPoint();
+        p1.x = x1;
+        p1.y = y1;
+        p2.x = x2;
+        p2.y = vBy+vBh;
+        above = Svgdom.newSVGRect_fromPoints(p1, p2, svgcontainer);
+        p1 = svgcontainer.createSVGPoint();
+        p2 = svgcontainer.createSVGPoint();
+        p1.x = x1;
+        p1.y = y1;
+        p2.x = x2;
+        p2.y = vBy;
+        below = Svgdom.newSVGRect_fromPoints(p1, p2, svgcontainer);
         return [stripe, above, below];
     },
 
@@ -125,6 +97,36 @@ var Svgretrieve = {
         p2 = p2.matrixTransform(trafo);
         var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
         return svgroot.getEnclosureList(transformedrect, svgroot);
+    },
+
+    checkIntersected: function(el, arearect, svgroot) {
+        var trafo = svgroot.getCTM();
+
+        var p1 = svgroot.createSVGPoint();
+        var p2 = svgroot.createSVGPoint();
+        p1.x = arearect.x;
+        p1.y = arearect.y;
+        p2.x = arearect.x + arearect.width;
+        p2.y = arearect.y + arearect.height;
+        p1 = p1.matrixTransform(trafo);
+        p2 = p2.matrixTransform(trafo);
+        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
+        return svgroot.checkIntersection(el, transformedrect);
+    },
+
+    checkEnclosed: function(el, arearect, svgroot) {
+        var trafo = svgroot.getCTM();
+
+        var p1 = svgroot.createSVGPoint();
+        var p2 = svgroot.createSVGPoint();
+        p1.x = arearect.x;
+        p1.y = arearect.y;
+        p2.x = arearect.x + arearect.width;
+        p2.y = arearect.y + arearect.height;
+        p1 = p1.matrixTransform(trafo);
+        p2 = p2.matrixTransform(trafo);
+        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
+        return svgroot.checkEnclosure(el, transformedrect);
     },
 
     getCirclesAt: function(c, r1, r2, svgcontainer) {
