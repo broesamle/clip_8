@@ -6,6 +6,9 @@ describe("getEnclosedElements", function() {
         while (svgroot.firstChild) {
             svgroot.removeChild(svgroot.firstChild);
         }
+        svgroot.setAttribute("width", 100);
+        svgroot.setAttribute("height", 100);
+        svgroot.setAttribute("viewBox", "0 0 100 100");
     });
 
     it("retreives elements from a SVG container", function() {
