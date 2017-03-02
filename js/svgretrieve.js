@@ -151,12 +151,12 @@ var Svgretrieve = {
                 r.setAttribute("fill", "#ffff22");
             }
         }
-        candidates = svgcontainer.getIntersectionList(testareas[0], svgcontainer);
+        candidates = Svgretrieve.getIntersectedElements(testareas[0], svgcontainer);
         for (var i = 0; i < candidates.length; i++) {
             if (candidates[i] instanceof SVGCircleElement) {
                 var reject = false;     // reject the currently tested candidate?
                 for (var j = 1; j < testareas.length; j++) {
-                    if ( ! svgcontainer.checkIntersection(candidates[i], testareas[j]) ) {
+                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j], svgcontainer) ) {
                         reject = true;
                         break;
                     }
@@ -186,13 +186,13 @@ var Svgretrieve = {
                 r.setAttribute("fill", "#ffff22");
             }
         }
-        candidates = svgcontainer.getIntersectionList(testareas[0], svgcontainer);
+        candidates = Svgretrieve.getIntersectedElements(testareas[0], svgcontainer);
         if (debug) console.log("[getLinesFromTo] candidates", candidates);
         for (var i = 0; i < candidates.length; i++) {
             if (candidates[i] instanceof SVGLineElement) {
                 var reject = false;     // reject the currently tested candidate?
                 for (var j = 1; j < testareas.length; j++) {
-                    if ( ! svgcontainer.checkIntersection(candidates[i], testareas[j]) ) {
+                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j], svgcontainer) ) {
                         reject = true;
                         break;
                     }
