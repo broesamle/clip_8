@@ -103,7 +103,7 @@ var Clip8 = {
     retrieveISCElements: function (arearect, svgroot, tagsI, tagsS, tagsC) {
         var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
-        var hitlist = svgroot.getIntersectionList(arearect, svgroot);
+        var hitlist = Svgretrieve.getIntersectedElements(arearect, svgroot);
         if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
         hitlist = Clip8.removeFalsePositives(arearect, hitlist);
         if (debug)  console.log("[retrieveISCElements] hitlist (red):", hitlist);
@@ -350,7 +350,7 @@ var Clip8 = {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
                 var hit = centres_offilled[i];
                 var hitarea = Svgdom.epsilonRectAt(hit, epsilon, svgroot);
-                var hitlist = svgroot.getIntersectionList(hitarea, svgroot);
+                var hitlist = Svgretrieve.getIntersectedElements(hitarea, svgroot);
                 if (debug) console.log("[initControlFlow] , hit, hitarea, hitlist:", hit, hitarea, hitlist);
                 for ( var k = 0; k < hitlist.length; k++ ) {
                     if (hitlist[k].tagName == "path") {
