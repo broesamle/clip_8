@@ -47,7 +47,6 @@ var Svgretrieve = {
             points.map ( function (p) { return p.matrixTransform(trafos[i]); } );
         return points;
     },
-
     selectorFromRect: function (rect, svgcontainer) {
         /** Derive a enclosure/intersection rectangle from a DOM rect element.
         *   FIXME: Handle svg viewBox attributes with x, y != 0
@@ -121,7 +120,19 @@ var Svgretrieve = {
     },
 
     getEnclosedElements: function(arearect, svgroot) {
-        return svgroot.getIntersectionList(arearect, svgroot);
+        //console.log("[getEnclosedElements]", arearect, svgroot);
+        var trafo = svgroot.getCTM();
+
+        var p1 = svgroot.createSVGPoint();
+        var p2 = svgroot.createSVGPoint();
+        p1.x = arearect.x;
+        p1.y = arearect.y;
+        p2.x = arearect.x + arearect.width;
+        p2.y = arearect.y + arearect.height;
+        p1 = p1.matrixTransform(trafo);
+        p2 = p2.matrixTransform(trafo);
+        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
+        return svgroot.getIntersectionList(transformedrect, svgroot);
     },
 
     getCirclesAt: function(c, r1, r2, svgcontainer) {
