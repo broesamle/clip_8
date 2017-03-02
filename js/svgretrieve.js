@@ -120,6 +120,10 @@ var Svgretrieve = {
         throw "[enclosingFullWidthStripe] not implemented."
     },
 
+    getEnclosedElements: function(arearect, svgroot) {
+        return svgroot.getIntersectionList(arearect, svgroot);
+    },
+
     getCirclesAt: function(c, r1, r2, svgcontainer) {
         /** Return all circles roughly centred at `c` with a radius `r1 < radius < r2` (approximately).
         */
