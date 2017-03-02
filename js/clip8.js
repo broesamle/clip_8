@@ -184,7 +184,11 @@ var Clip8 = {
         if (selectorcore[0] instanceof SVGRectElement) {
             // rectangle
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
+            s = svgroot.createSVGRect();
+            s.x = selectorcore[0].x.baseVal.value;
+            s.y = selectorcore[0].y.baseVal.value;
+            s.width = selectorcore[0].width.baseVal.value;
+            s.height = selectorcore[0].height.baseVal.value;
         }
         else if (selectorcore[0] instanceof SVGLineElement && selectorcore[1] instanceof SVGLineElement) {
             // DELETE: X icon defines the selection area
@@ -207,9 +211,9 @@ var Clip8 = {
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
-            hitlist = svgroot.getEnclosureList(s, svgroot);
+            hitlist = Svgretrieve.getEnclosedElements(s, svgroot);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
-            hitlist = svgroot.getIntersectionList(s, svgroot);
+            hitlist = Svgretrieve.getIntersectedElements(s, svgroot);
         else throw "[selectedElementSet] invalid dash pattern."
         for ( var i = 0; i < hitlist.length; i++ )
             if ( hitlist[i].tagName == "rect" &&

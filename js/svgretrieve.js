@@ -47,28 +47,6 @@ var Svgretrieve = {
             points.map ( function (p) { return p.matrixTransform(trafos[i]); } );
         return points;
     },
-    selectorFromRect: function (rect, svgcontainer) {
-        /** Derive a enclosure/intersection rectangle from a DOM rect element.
-        *   FIXME: Handle svg viewBox attributes with x, y != 0
-        */
-        var debug = false;
-        var trafos = Svgretrieve._collectTrafos(rect, svgcontainer)
-        // make p1 and p2 the edges of rect
-        var points = [svgcontainer.createSVGPoint(), svgcontainer.createSVGPoint()];
-        points[0].x = rect.x.baseVal.value;
-        points[0].y = rect.y.baseVal.value;
-        points[1].x = points[0].x + rect.width.baseVal.value;
-        points[1].y = points[0].y + rect.height.baseVal.value;
-        Svgretrieve._applyTrafos(points, trafos);
-        // turn the points back into a rectangle (depending on the arrangement of `p1, p2`)
-        var r = svgcontainer.createSVGRect();
-        if (points[0].x < points[1].x)  { r.x = points[0].x; r.width  = points[1].x - points[0].x; }
-        else                            { r.x = points[1].x; r.width  = points[0].x - points[1].x; }
-        if (points[0].y < points[1].y)  { r.y = points[0].y; r.height = points[1].y - points[0].y; }
-        else                            { r.y = points[1].y; r.height = points[0].y - points[1].y; }
-        if (debug) console.log("selector", r);
-        return r;
-    },
 
     enclosingFullHeightStripe: function(line, svgcontainer) {
         /*  Determine the horizontal boundaries enclosing `line`.
@@ -120,7 +98,6 @@ var Svgretrieve = {
     },
 
     getIntersectedElements: function(arearect, svgroot) {
-        //console.log("[getEnclosedElements]", arearect, svgroot);
         var trafo = svgroot.getCTM();
 
         var p1 = svgroot.createSVGPoint();
@@ -133,6 +110,21 @@ var Svgretrieve = {
         p2 = p2.matrixTransform(trafo);
         var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
         return svgroot.getIntersectionList(transformedrect, svgroot);
+    },
+
+    getEnclosedElements: function(arearect, svgroot) {
+        var trafo = svgroot.getCTM();
+
+        var p1 = svgroot.createSVGPoint();
+        var p2 = svgroot.createSVGPoint();
+        p1.x = arearect.x;
+        p1.y = arearect.y;
+        p2.x = arearect.x + arearect.width;
+        p2.y = arearect.y + arearect.height;
+        p1 = p1.matrixTransform(trafo);
+        p2 = p2.matrixTransform(trafo);
+        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
+        return svgroot.getEnclosureList(transformedrect, svgroot);
     },
 
     getCirclesAt: function(c, r1, r2, svgcontainer) {
