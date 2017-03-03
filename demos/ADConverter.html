@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>clip8 | Analog Digital Converter</title>
+
+<link rel="stylesheet" href="../css/refsheet.css">
+<link rel="stylesheet" href="../css/clip8.css">
+<script src="../js/svgdom.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
+<script src="../js/clip8decode.js"></script>
+<script src="../js/clip8.js"></script>
+
+</head>
+
+
+<body>
+<nav>
+
+<div class="leftlink">
+<a href="loom4.html">Loom 4<br>
+&lt;&lt;&lt;&lt;
+</a>
+</div>
+
+<div class="chapternavtitle">Demos</div>
+
+</nav>
+<h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Analog Digital Converter</h1>
+
+<p>
+<button onclick="Clip8controler.playAction()">play...</button>
+<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
+<button onclick="Clip8controler.stepAction()">. step</button>
+<button onclick="Clip8controler.stopAction()">stop .</button>
+</p>
+<p>
+<svg id="clip8svgroot" viewbox="0 0 86.167 91" width="100%" height="auto">
+<g id="D">
+		<rect height="64" width="4" x="3" y="20.5" />
+		<rect height="44" width="4" x="12" y="40.5" />
+	</g><g id="I">
+		<g id="aligner">
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="38.188" x2="38.188" y1="68" y2="84" />
+			
+				<circle cx="38.188" cy="83.999" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="40.188" x2="40.188" y1="76" y2="84" />
+			
+				<circle cx="40.188" cy="83.999" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="34.188" x2="34.188" y1="52" y2="84.001" />
+			
+				<circle cx="34.188" cy="84" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="41.188" x2="41.188" y1="80" y2="84" />
+			
+				<circle cx="41.188" cy="83.999" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="10.957" x="34.188" y="51.5" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="6.957" x="38.188" y="67.5" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="4.957" x="40.188" y="75.5" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="3.957" x="41.188" y="79.5" />
+		</g>
+		<g id="post-mover">
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="71.667" x2="75.7" y1="53.5" y2="53.5" />
+			
+				<circle cx="75.699" cy="53.5" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="71.667" x2="75.7" y1="69.5" y2="69.5" />
+			
+				<circle cx="75.699" cy="69.5" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="71.667" x2="75.7" y1="77.5" y2="77.5" />
+			
+				<circle cx="75.699" cy="77.5" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="71.667" x2="75.7" y1="81.5" y2="81.5" />
+			
+				<circle cx="75.699" cy="81.5" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="25.479" x="46.188" y="53" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="25.479" x="46.188" y="69" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="25.479" x="46.188" y="77" />
+			
+				<rect fill="none" height="0.5" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="25.479" x="46.188" y="81" />
+		</g>
+		<path d="M71.667,53.5    c-7.833,2.416-43.667,3.25-44.584-1" fill="none" stroke="#9ACDCD" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.3" />
+		<path d="M71.667,53.5    c-4.625-6.625-33.375-8.25-37.479-1.5" fill="none" stroke="#9ACDCD" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.3" />
+		<path d="M34.188,52    c-3.689,9.195-4.127,22.834-7.106,16.5" fill="none" stroke="#9ACDCD" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.3" />
+		<g id="cutter">
+			
+				<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="27.082" x2="49.916" y1="52.5" y2="52.5" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="27.082" x2="49.916" y1="68.5" y2="68.5" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="27.082" x2="49.916" y1="76.5" y2="76.5" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" x1="27.082" x2="49.916" y1="80.5" y2="80.5" />
+		</g>
+		<path d="M13.667,16.833    C23.792,21.583,16.999,52.5,27.082,52.5" fill="none" stroke="#9ACDCD" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.3" />
+		<g id="pre-mover">
+			
+				<circle cx="46.083" cy="16.833" fill="none" r="0.667" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.4" />
+			
+				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="0.5" x1="13.667" x2="46.083" y1="16.833" y2="16.833" />
+			
+				<rect fill="none" height="71.042" stroke="#E5B7B7" stroke-dasharray="1,0.5" stroke-miterlimit="10" stroke-width="0.3" width="67" x="13.667" y="16.833" />
+		</g>
+		<path d="M13.667,16.833    c-5.875-0.313-6.563,0.25-6.563-6.75" fill="none" stroke="#9ACDCD" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.2" />
+		
+			<circle cx="7.104" cy="10.083" fill="#9ACDCD" r="1" stroke="#9ACDCD" stroke-linecap="square" stroke-miterlimit="10" stroke-width="0.2" />
+	</g>
+</svg>
+</p>
+
+
+<p>
+Not all browsers currently support all technological ingredients.
+See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
+</p>
+<footer>
+<p>
+© 2016, 2017 Martin Brösamle.<br>
+Demos and Graphics are licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"> creative commons (BY-NC-SA)</a> license.
+</p>
+<p>
+Powered by SVG, JS, and the DOM.
+</p>
+</footer>
+
+</body>
+
+</html>
