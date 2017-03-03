@@ -85,8 +85,8 @@ while len(SCT.demos) > 0:
         demopageHTML = demopage.generateSeries(itemTEM=TEM.Demo,
                                                 seriesTEM=TEM.Demos,
                                                 itemData={'viewBox': demopage.viewBox,
-                                                'width':demopage.width,
-                                                'height':demopage.height})
+                                                'width':"100%",
+                                                'height':"auto"})
         footerHTML = TEM.Footer_str
         bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                         chapter=chapter, chaptercnt="Demos",
