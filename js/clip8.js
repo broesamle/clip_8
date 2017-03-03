@@ -513,11 +513,7 @@ var Clip8 = {
                                 if ( Svgretrieve.checkIntersected(hitlist[i], above, svgroot) && Svgretrieve.checkIntersected(hitlist[i], below, svgroot) )
                                     selectedelements1.push(hitlist[i]);
 
-
-
-
-
-
+                            selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
                             if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                             Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
                             break;
