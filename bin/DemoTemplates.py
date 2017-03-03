@@ -65,6 +65,11 @@ Powered by SVG, JS, and the DOM.
 FooterIndexpage_str = """
 <footer>
 <p>
+<b>Browser support:</b><br>
+Not all browsers currently support all technological ingredients.
+See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
+</p>
+<p>
 © 2016, Martin Brösamle.<br>
 All rights reserved.
 </p>
