@@ -43,6 +43,17 @@ var Svgdom = {
         return r;
     },
 
+    newSVGRect_fromPoints: function (p1, p2, svgroot) {
+        /** Create a new SVGRect.
+        */
+        var r = svgroot.createSVGRect();
+        r.x = Math.min(p1.x, p2.x);
+        r.y = Math.min(p1.y, p2.y);
+        r.width = Math.abs(p2.x-p1.x);
+        r.height = Math.abs(p2.y-p1.y);
+        return r;
+    },
+
     newRectElement: function (x,y,w,h) {
         /** Create an SVG DOM rect element */
         var debug = false;
@@ -55,7 +66,7 @@ var Svgdom = {
         return r;
     },
 
-    newRectElement_fromSVGRect (r) {
+    newRectElement_fromSVGRect: function (r) {
         return Svgdom.newRectElement(r.x, r.y, r.width, r.height);
     },
 

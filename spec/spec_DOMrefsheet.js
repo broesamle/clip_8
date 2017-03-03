@@ -179,7 +179,7 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         p0.y = p0y;
         var arearect = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var sel = svgroot.getIntersectionList(arearect, svgroot);
+        var sel = Svgretrieve.getIntersectedElements(arearect, svgroot);
         var S = []
         for ( var i = 0; i < Clip8.TAGS.length; i++ ) S.push([]);
         for ( var i = 0; i < sel.length; i++ )
