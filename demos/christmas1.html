@@ -37,7 +37,13 @@
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Seasons Greetings</h1>
 
 <p>
-<svg id="clip8svgroot" viewbox="0 0 167.667 206" width="167.667px" height="206px">
+<button onclick="Clip8controler.playAction()">play...</button>
+<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
+<button onclick="Clip8controler.stepAction()">. step</button>
+<button onclick="Clip8controler.stopAction()">stop .</button>
+</p>
+<p>
+<svg id="clip8svgroot" viewbox="0 0 167.667 206" width="100%" height="auto">
 <g id="D">
 		<rect fill="#FBB03B" height="18.358" width="1.836" x="136.243" y="145.088" />
 		<rect fill="#990000" height="13.767" width="7.347" x="133.488" y="149.68" />
@@ -218,12 +224,6 @@
 	</g>
 </svg>
 </p>
-<p>
-<button onclick="Clip8controler.playAction()">play...</button>
-<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
-<button onclick="Clip8controler.stepAction()">. step</button>
-<button onclick="Clip8controler.stopAction()">stop .</button>
-</p>
 
 
 <p>
@@ -232,11 +232,11 @@ See <a href="https://github.com/broesamle/clip_8/">project documentation at gith
 </p>
 <footer>
 <p>
-© 2016, Martin Brösamle.<br>
-All rights reserved.
+© 2016, 2017 Martin Brösamle.<br>
+Demos and Graphics are licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"> creative commons (BY-NC-SA)</a> license.
 </p>
 <p>
-Powered by SVG, Javascript, and the DOM.
+Powered by SVG, JS, and the DOM.
 </p>
 </footer>
 

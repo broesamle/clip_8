@@ -1,3 +1,22 @@
+#
+#   clip_8 interpreter; iconic language for paper-inspired operations.
+#   Copyright (C) 2016, 2017  Martin Brösamle
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+
 import PyBroeModules.MultiTemplateA as MT
 from string import Template
 
@@ -10,11 +29,11 @@ $BODY
 """)
 
 DependJasmine_str = """
-<link rel="shortcut icon" type="image/png" href="../js/jasmine/jasmine_favicon.png">
-<link rel="stylesheet" href="../css/jasmine.css">
-<script src="../js/jasmine/jasmine.js"></script>
-<script src="../js/jasmine/jasmine-html.js"></script>
-<script src="../js/jasmine/boot.js"></script>
+<link rel="shortcut icon" type="image/png" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine_favicon.png">
+<link rel="stylesheet" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine.css">
+<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine.js"></script>
+<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine-html.js"></script>
+<script src="../lib/jasmine/lib/jasmine-2.5.2/boot.js"></script>
 """
 
 DependClip8_str = """
@@ -53,6 +72,10 @@ Linknext = Template("""
 FooterRefsheet = Template("""
 <footer>
 <p><b>Version $refsheet_version</b></p>
+<p>
+Copyright 2017 Martin Brösamle.<br>
+All rights reserved.<br>
+</p>
 </footer>
 """)
 
@@ -61,11 +84,12 @@ FooterIntro = Template("""
 <p>
 <b>Version $refsheet_version</b> $refsheet_description<br>
 <p>
-© 2016, Martin Brösamle.<br>
-All rights reserved.
+Copyright 2016, 2017 Martin Brösamle.<br>
+All rights reserved.<br>
+The graphical language reference is explicitly excluded from the creative commons license statement. Please see COPYRIGHT and README for details.
 </p>
 <p>
-Powered by Jasmine, SVG, Javascript, and the DOM.
+Powered by Jasmine, SVG, JS, and the DOM.
 </p>
 </footer>
 """)
@@ -109,55 +133,56 @@ $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle<
 </h3>
 """)
 
-reftestcorewrapper = """
+
+reftestcorewrapper = Template("""
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $testDOM
 </svg>
 </span>
-</p>"""
+</p>""").safe_substitute(dimensionssettings='viewbox="0 0 64 64" width="64" height="64"')
 
 ReftestCore = MT.TemplateChoice(wrapper=reftestcorewrapper)
 ReftestCore.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
 ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestCore.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
-reftestcorewrapper_withIntro = """
+reftestcorewrapper_withIntro = Template("""
 <p>$testdescription<br><span class="testmetainfo">[$THESERIES] expected to $expectedto.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $testDOM
 </svg>
 </span>
-</p>"""
+</p>""").safe_substitute(dimensionssettings='viewbox="0 0 64 64" width="20%" height="auto"')
 
 ReftestWithIntro = MT.TemplateChoice(wrapper=reftestcorewrapper_withIntro)
 ReftestWithIntro.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")

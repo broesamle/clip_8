@@ -8,8 +8,7 @@ html,body {
 }
 
 a:link		{ outline: none; text-decoration: none; color:#97b595; }
-a:visited 	{ outline: none; text-decoration: none; color:#adbeab; }
-
+a:visited		{ outline: none; text-decoration: none; color:#97b595; }
 
 h1, h2, h3, p { clear: left; }
 

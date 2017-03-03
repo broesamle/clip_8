@@ -1,3 +1,22 @@
+/*
+    clip_8 interpreter; iconic language for paper-inspired operations.
+    Copyright (C) 2016, 2017  Martin Brösamle
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
 "use strict";
 
 // drawing precision tolerances
@@ -84,7 +103,7 @@ var Clip8 = {
     retrieveISCElements: function (arearect, svgroot, tagsI, tagsS, tagsC) {
         var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
-        var hitlist = svgroot.getIntersectionList(arearect, svgroot);
+        var hitlist = Svgretrieve.getIntersectedElements(arearect, svgroot);
         if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
         hitlist = Clip8.removeFalsePositives(arearect, hitlist);
         if (debug)  console.log("[retrieveISCElements] hitlist (red):", hitlist);
@@ -165,7 +184,11 @@ var Clip8 = {
         if (selectorcore[0] instanceof SVGRectElement) {
             // rectangle
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            s = Svgretrieve.selectorFromRect(selectorcore[0], svgroot);
+            s = svgroot.createSVGRect();
+            s.x = selectorcore[0].x.baseVal.value;
+            s.y = selectorcore[0].y.baseVal.value;
+            s.width = selectorcore[0].width.baseVal.value;
+            s.height = selectorcore[0].height.baseVal.value;
         }
         else if (selectorcore[0] instanceof SVGLineElement && selectorcore[1] instanceof SVGLineElement) {
             // DELETE: X icon defines the selection area
@@ -188,9 +211,9 @@ var Clip8 = {
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
-            hitlist = svgroot.getEnclosureList(s, svgroot);
+            hitlist = Svgretrieve.getEnclosedElements(s, svgroot);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
-            hitlist = svgroot.getIntersectionList(s, svgroot);
+            hitlist = Svgretrieve.getIntersectedElements(s, svgroot);
         else throw "[selectedElementSet] invalid dash pattern."
         for ( var i = 0; i < hitlist.length; i++ )
             if ( hitlist[i].tagName == "rect" &&
@@ -331,7 +354,7 @@ var Clip8 = {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
                 var hit = centres_offilled[i];
                 var hitarea = Svgdom.epsilonRectAt(hit, epsilon, svgroot);
-                var hitlist = svgroot.getIntersectionList(hitarea, svgroot);
+                var hitlist = Svgretrieve.getIntersectedElements(hitarea, svgroot);
                 if (debug) console.log("[initControlFlow] , hit, hitarea, hitlist:", hit, hitarea, hitlist);
                 for ( var k = 0; k < hitlist.length; k++ ) {
                     if (hitlist[k].tagName == "path") {
@@ -476,12 +499,13 @@ var Clip8 = {
                             var stripe = stripeNaboveNbelow[0];
                             var above = stripeNaboveNbelow[1];
                             var below = stripeNaboveNbelow[2];
+
                             if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
-                            var hitlist = svgroot.getEnclosureList(stripe, svgroot);
+                            var hitlist = Svgretrieve.getEnclosedElements(stripe, svgroot);
                             if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
                             var selectedelements1 = []
                             for (var i = 0; i < hitlist.length; i++)
-                                if ( svgroot.checkIntersection(hitlist[i], above) && svgroot.checkIntersection(hitlist[i], below) )
+                                if ( Svgretrieve.checkIntersected(hitlist[i], above, svgroot) && Svgretrieve.checkIntersected(hitlist[i], below, svgroot) )
                                     selectedelements1.push(hitlist[i]);
                             if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                             Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));

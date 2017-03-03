@@ -1,3 +1,22 @@
+#
+#   clip_8 interpreter; iconic language for paper-inspired operations.
+#   Copyright (C) 2016, 2017  Martin Brösamle
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+
 import os, io, codecs, fnmatch
 from tinycss.css21 import CSS21Parser
 
@@ -308,38 +327,47 @@ output_file.close()
 # FIXME: Make a proper template rather than re-using the test section template.
 contentHTML = """
 <p>
-<a href="toc.html"><b>Table of Contents&nbsp;&gt;&gt;&gt;&gt;&gt;</b></a>
+Clip_8 is an iconic programming language inspired by paper manipulation operations. While each operation applies to graphical content, the instructions, in turn, are themselves given in a graphical form.
 </p>
 <p>
-<b>
-Did you ever execute a drawing?</b><br>
-The following pages serve as visual reference documents and as integration tests, simultaneously.
+The following reference test sheets serve as language introduction and language reference.
+At the same time they are integration tests for the clip_8 interpreter.
 </p>
-<p>
-<b>How to read a reference sheet:</b>
 <img src="example1.png">
-</p>
+<h3>How to read a reference sheet</h3>
 <p>
-The first box shows the precondition.<br>
+The first box shows the precondition, before the instruction.<br>
 The second box the desired result or postcondition.<br>
-The third box after the colon is the test itself. Clip_8 engine will execute here.
+The third box after the colon is the test itself.
 </p>
 <p>
-The first test is a selftest: it checks whether precondition and test match before the execution.<br>
-The second test fails on runtime errors or infinite execution.<br>
+The interpreter will try to execute the contained program in the third box.
+What you will see is the actual result after the (successful?) execution.
+If you have slow hardware you might see the execution process: Some rectangle might be jumping or changing size, when reloading the test sheet.
+</p>
+<h3>How to read the test results</h3>
+<p>
+For each reference test there are three checks to be done. Each result is indicated by a green dot or a red cross, after the graphical reference test areas.<br>
+</p>
+<p>
+The first test is a selftest: it checks whether precondition and test area match before the execution.<br>
+The second test checks success of execution: It will fail on runtime errors or infinite execution.<br>
 The third  test checks whether test and postcondition match after execution.
 </p>
+<h3>Browser support</h3>
 <p>
 Not all browsers currently support all technological ingredients.
 See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
 </p>
 """
+backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
+nextlinkHTML = TEM.Linknext.substitute(href="toc.html", linktext="Table of Contents")
 footerHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
 bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
-                               chapter="Introduction",
+                               chapter="Language Reference / Test Sheets",
                                chaptercnt="",
                                TESTSECTIONS=contentHTML,
-                               link1="", link2="",
+                               link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)

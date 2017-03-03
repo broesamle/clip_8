@@ -37,7 +37,13 @@
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Loom 1</h1>
 
 <p>
-<svg id="clip8svgroot" viewbox="0 0 94 243.5" width="94px" height="243.5px">
+<button onclick="Clip8controler.playAction()">play...</button>
+<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
+<button onclick="Clip8controler.stepAction()">. step</button>
+<button onclick="Clip8controler.stopAction()">stop .</button>
+</p>
+<p>
+<svg id="clip8svgroot" viewbox="0 0 94 243.5" width="100%" height="auto">
 <g id="D">
 		<rect height="7.75" width="7.75" x="40.458" y="21.292" />
 	</g><g id="I">
@@ -149,12 +155,6 @@
 	</g>
 </svg>
 </p>
-<p>
-<button onclick="Clip8controler.playAction()">play...</button>
-<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
-<button onclick="Clip8controler.stepAction()">. step</button>
-<button onclick="Clip8controler.stopAction()">stop .</button>
-</p>
 
 
 <p>
@@ -163,11 +163,11 @@ See <a href="https://github.com/broesamle/clip_8/">project documentation at gith
 </p>
 <footer>
 <p>
-© 2016, Martin Brösamle.<br>
-All rights reserved.
+© 2016, 2017 Martin Brösamle.<br>
+Demos and Graphics are licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"> creative commons (BY-NC-SA)</a> license.
 </p>
 <p>
-Powered by SVG, Javascript, and the DOM.
+Powered by SVG, JS, and the DOM.
 </p>
 </footer>
 
