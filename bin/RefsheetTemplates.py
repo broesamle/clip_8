@@ -133,55 +133,56 @@ $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle<
 </h3>
 """)
 
-reftestcorewrapper = """
+
+reftestcorewrapper = Template("""
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $testDOM
 </svg>
 </span>
-</p>"""
+</p>""").safe_substitute(dimensionssettings='viewbox="0 0 64 64" width="64" height="64"')
 
 ReftestCore = MT.TemplateChoice(wrapper=reftestcorewrapper)
 ReftestCore.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
 ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestCore.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
-reftestcorewrapper_withIntro = """
+reftestcorewrapper_withIntro = Template("""
 <p>$testdescription<br><span class="testmetainfo">[$THESERIES] expected to $expectedto.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="0 0 64 64" width="64" height="64">
+<svg $dimensionssettings>
 $testDOM
 </svg>
 </span>
-</p>"""
+</p>""").safe_substitute(dimensionssettings='viewbox="0 0 64 64" width="20%" height="auto"')
 
 ReftestWithIntro = MT.TemplateChoice(wrapper=reftestcorewrapper_withIntro)
 ReftestWithIntro.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")

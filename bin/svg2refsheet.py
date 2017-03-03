@@ -335,7 +335,7 @@ Did you ever execute a drawing?</b><br>
 The following pages serve as visual reference documents and as integration tests, simultaneously.
 </p>
 <p>
-<b>How to read a reference sheet:</b>
+<b>How to read a reference sheet:</b><br>
 <img src="example1.png">
 </p>
 <p>
@@ -353,12 +353,13 @@ Not all browsers currently support all technological ingredients.
 See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
 </p>
 """
+backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
 footerHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
 bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                chapter="Introduction",
                                chaptercnt="",
                                TESTSECTIONS=contentHTML,
-                               link1="", link2="",
+                               link1=backlinkHTML, link2="",
                                FOOTER=footerHTML)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
