@@ -36,7 +36,7 @@ var Svgretrieve = {
         y2 = line.y2.baseVal.value;
         vBy = svgcontainer.getAttribute("viewBox").split(" ")[1];
         vBh = svgcontainer.getAttribute("viewBox").split(" ")[3];
-        
+
         p1 = svgcontainer.createSVGPoint();
         p2 = svgcontainer.createSVGPoint();
         p1.x = x1;
@@ -69,64 +69,30 @@ var Svgretrieve = {
         throw "[enclosingFullWidthStripe] not implemented."
     },
 
+    _transformRect_svg2view: function (svgrect, svgroot) {
+        var trafo = svgroot.getCTM();
+        var p1 = svgroot.createSVGPoint();
+        var p2 = svgroot.createSVGPoint();
+        p1.x = svgrect.x;
+        p1.y = svgrect.y;
+        p2.x = svgrect.x + svgrect.width;
+        p2.y = svgrect.y + svgrect.height;
+        p1 = p1.matrixTransform(trafo);
+        p2 = p2.matrixTransform(trafo);
+        return Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
+    },
+
     getIntersectedElements: function(arearect, svgroot) {
-        var trafo = svgroot.getCTM();
-
-        var p1 = svgroot.createSVGPoint();
-        var p2 = svgroot.createSVGPoint();
-        p1.x = arearect.x;
-        p1.y = arearect.y;
-        p2.x = arearect.x + arearect.width;
-        p2.y = arearect.y + arearect.height;
-        p1 = p1.matrixTransform(trafo);
-        p2 = p2.matrixTransform(trafo);
-        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
-        return svgroot.getIntersectionList(transformedrect, svgroot);
+        return svgroot.getIntersectionList(Svgretrieve._transformRect_svg2view(arearect, svgroot), svgroot);
     },
-
     getEnclosedElements: function(arearect, svgroot) {
-        var trafo = svgroot.getCTM();
-
-        var p1 = svgroot.createSVGPoint();
-        var p2 = svgroot.createSVGPoint();
-        p1.x = arearect.x;
-        p1.y = arearect.y;
-        p2.x = arearect.x + arearect.width;
-        p2.y = arearect.y + arearect.height;
-        p1 = p1.matrixTransform(trafo);
-        p2 = p2.matrixTransform(trafo);
-        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
-        return svgroot.getEnclosureList(transformedrect, svgroot);
+        return svgroot.getEnclosureList(Svgretrieve._transformRect_svg2view(arearect, svgroot), svgroot);
     },
-
     checkIntersected: function(el, arearect, svgroot) {
-        var trafo = svgroot.getCTM();
-
-        var p1 = svgroot.createSVGPoint();
-        var p2 = svgroot.createSVGPoint();
-        p1.x = arearect.x;
-        p1.y = arearect.y;
-        p2.x = arearect.x + arearect.width;
-        p2.y = arearect.y + arearect.height;
-        p1 = p1.matrixTransform(trafo);
-        p2 = p2.matrixTransform(trafo);
-        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
-        return svgroot.checkIntersection(el, transformedrect);
+        return svgroot.checkIntersection(el, Svgretrieve._transformRect_svg2view(arearect, svgroot));
     },
-
     checkEnclosed: function(el, arearect, svgroot) {
-        var trafo = svgroot.getCTM();
-
-        var p1 = svgroot.createSVGPoint();
-        var p2 = svgroot.createSVGPoint();
-        p1.x = arearect.x;
-        p1.y = arearect.y;
-        p2.x = arearect.x + arearect.width;
-        p2.y = arearect.y + arearect.height;
-        p1 = p1.matrixTransform(trafo);
-        p2 = p2.matrixTransform(trafo);
-        var transformedrect = Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
-        return svgroot.checkEnclosure(el, transformedrect);
+        return svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect, svgroot));
     },
 
     getCirclesAt: function(c, r1, r2, svgcontainer) {
