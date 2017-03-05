@@ -168,6 +168,19 @@ var Clip8 = {
             return [Clip8.UNKNOWNSELECTOR];
     },
 
+    reduceSelectionHitlist: function (hitlist) {
+        var selection = [];
+                for ( var i = 0; i < hitlist.length; i++ )
+            if ( hitlist[i].tagName == "rect" &&
+                 (!hitlist[i].getAttribute("stroke") ||
+                  hitlist[i].getAttribute("stroke") == "none" ||
+                  hitlist[i].getAttribute("fill") != "none"
+                 ) )
+                 selection.push(hitlist[i]);
+        // console.log("[selectedElementSet] hitlist, selection:", hitlist, selection);
+        return selection;
+    },
+
     selectedElementSet: function (selectorcore, svgroot) {
         /** Determine the set of selected elements based on given selector core.
          *  `selectorcore` is the list of SVG DOM elments being the core selector
@@ -178,7 +191,6 @@ var Clip8 = {
         var debug = true;
         if (debug) console.log("[SELECTEDELEMENTSET] selectorcore, svgroot:", selectorcore, svgroot);
         // List of selected Elements based on primary selector
-        var selection = [];
         var hitlist;
         var s; // The rectangle to be used as area of selection
         if (selectorcore[0] instanceof SVGRectElement) {
@@ -215,15 +227,8 @@ var Clip8 = {
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
             hitlist = Svgretrieve.getIntersectedElements(s, svgroot);
         else throw "[selectedElementSet] invalid dash pattern."
-        for ( var i = 0; i < hitlist.length; i++ )
-            if ( hitlist[i].tagName == "rect" &&
-                 (!hitlist[i].getAttribute("stroke") ||
-                  hitlist[i].getAttribute("stroke") == "none" ||
-                  hitlist[i].getAttribute("fill") != "none"
-                 ) )
-                 selection.push(hitlist[i]);
-        if (debug) console.log("[selectedElementSet] hitlist, selection:", hitlist, selection);
-        return selection;
+
+        return Clip8.reduceSelectionHitlist(hitlist);
     },
 
     // Constants
@@ -507,6 +512,8 @@ var Clip8 = {
                             for (var i = 0; i < hitlist.length; i++)
                                 if ( Svgretrieve.checkIntersected(hitlist[i], above, svgroot) && Svgretrieve.checkIntersected(hitlist[i], below, svgroot) )
                                     selectedelements1.push(hitlist[i]);
+
+                            selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
                             if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                             Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
                             break;
