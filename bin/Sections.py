@@ -48,4 +48,5 @@ demos = [
     ("Loom 1", "loom1.svg"),
     ("Loom 2", "loom2.svg"),
     ("Loom 3", "loom3.svg"),
-    ("Loom 4", "loom4.svg")]
+    ("Loom 4", "loom4.svg"),
+    ("Analog Digital Converter", "ADConverter.svg")]
