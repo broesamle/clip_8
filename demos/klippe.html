@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>clip8 | Klippe</title>
+
+<link rel="stylesheet" href="../css/refsheet.css">
+<link rel="stylesheet" href="../css/clip8.css">
+<script src="../js/svgdom.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
+<script src="../js/clip8decode.js"></script>
+<script src="../js/clip8.js"></script>
+
+</head>
+
+<body>
+<h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Klippe</h1>
+<p>
+<div id="dropZone" style="width: 100px; height: 100px; background-color: red"></div>
+</p>
+<p>
+<button onclick="Clip8controler.playAction()">play...</button>
+<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
+<button onclick="Clip8controler.stepAction()">. step</button>
+<button onclick="Clip8controler.stopAction()">stop .</button>
+</p>
+<p>
+<svg id="clip8svgroot"></svg>
+</p>
+
+<p>
+Not all browsers currently support all technological ingredients.
+See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
+</p>
+<footer>
+<p>
+© 2016, 2017 Martin Brösamle.<br>
+Demos and Graphics are licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"> creative commons (BY-NC-SA)</a> license.
+</p>
+<p>
+Powered by SVG, JS, and the DOM.
+</p>
+</footer>
+
+<script src="../js/svgloader.js"></script>
+
+</body>
+
+</html>
