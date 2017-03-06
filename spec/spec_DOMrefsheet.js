@@ -1,6 +1,10 @@
 
 var CLIP8_RUNNINGTIME = 500
 
+// For normal test runs, the test sheet specifies an expected number of `cycles`
+// The test allows the clip8 interpreter to run for `cycles + EXCESS_CYCLES`.
+var EXCESS_CYCLES = 100         
+
 var customMatchers = {
 
 toBeElement:
@@ -132,7 +136,11 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(svgroot.id).toBe("");
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
-        expect(Clip8.envokeOperation).not.toThrow();
+        expect(
+            function () {
+                Clip8controler.init(svgroot, visualise=false);
+                Clip8controler.testRun(cycles+EXCESS_CYCLES);
+            }).not.toThrow();
         jasmine.clock().tick(CLIP8_RUNNINGTIME);
         expect(Clip8.executeOneOperation).toHaveBeenCalled();
         expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles, "(instruction of cycles)");

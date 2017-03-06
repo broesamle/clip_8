@@ -592,11 +592,18 @@ var Clip8 = {
 var Clip8controler = {
     svgroot: null,
 
-    init: function (svgroot) {
+    init: function (svgroot, visualise) {
         console.log("INIT", svgroot);
-        Clip8.visualise = true;
+        Clip8.visualise = visualise;
         Clip8controler.svgroot;
         Clip8.init(svgroot);
+    },
+
+    testRun: function (maxcycles) {
+        console.log("TEST-RUN: maxcycles:", maxcycles);
+        Clip8.visualise = false;
+        Clip8.maxcycles = maxcycles;
+        Clip8.envokeOperation();
     },
 
     playAction: function () {
