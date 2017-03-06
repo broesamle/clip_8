@@ -79,6 +79,14 @@ Powered by SVG, JS, and the DOM.
 </footer>
 """
 
+Demo_ScriptInBody_str = """
+<script>
+window.onload = function () {
+    Clip8controler.init(document.getElementById("clip8svgroot"));
+}
+</script>"""
+
+
 
 Body = Template("""
 <body>
@@ -90,6 +98,7 @@ $link2
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
 $DEMOS
 $FOOTER
+$SCRIPT
 </body>
 """)
 
