@@ -374,9 +374,9 @@ var Clip8 = {
         throw "Failed to idendify point of entry."
     },
 
-    executeOneOperation: function(svgroot) {
+    executeOneOperation: function() {
         var debug = true;
-        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip, svgroot);
+        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip, Clip8.svgroot);
         Clip8.cyclescounter++;
         if (Clip8.maxcycles > 0 && Clip8.cyclescounter >= Clip8.maxcycles) {
             Clip8.clearExecTimer();
@@ -397,10 +397,10 @@ var Clip8 = {
                 p0 = p0candidates[1];
         else
             p0 = p0candidates[0];
-        var p0area = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
+        var p0area = Svgdom.epsilonRectAt(p0, epsilon, Clip8.svgroot);
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
-        var ISC0 = Clip8.retrieveISCElements(p0area, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+        var ISC0 = Clip8.retrieveISCElements(p0area, Clip8.svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
@@ -422,7 +422,7 @@ var Clip8 = {
                     Clip8._highlightElement(C0[i][j]);
             }
         }
-        var execstatus = Clip8.moveIP(C0, p0area, svgroot);
+        var execstatus = Clip8.moveIP(C0, p0area, Clip8.svgroot);
         switch (execstatus) {
             case Clip8.EXECUTE:
                 break;      // redundant but more readable.
@@ -432,11 +432,11 @@ var Clip8 = {
                 Clip8.clearExecTimer();
                 return;     // stop execution
         }
-        var retrselector = Clip8.retrieveCoreSelector(S0, p0area, svgroot)
+        var retrselector = Clip8.retrieveCoreSelector(S0, p0area, Clip8.svgroot)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         if      (selectortype == Clip8.RECTSELECTOR)
-            var selectedelements1 = Clip8.selectedElementSet(coreselector, svgroot);
+            var selectedelements1 = Clip8.selectedElementSet(coreselector, Clip8.svgroot);
         else if (selectortype == Clip8.UNKNOWNSELECTOR)
             {}
         else
@@ -457,8 +457,8 @@ var Clip8 = {
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-                var arearect = Svgdom.epsilonRectAt(bothends[1], epsilon, svgroot);
-                var ISC1 = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var arearect = Svgdom.epsilonRectAt(bothends[1], epsilon, Clip8.svgroot);
+                var ISC1 = Clip8.retrieveISCElements(arearect, Clip8.svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
                 if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
@@ -500,17 +500,18 @@ var Clip8 = {
                         case 'LEFT':
                         case 'RIGHT':
                             // CUT
-                            var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline, svgroot);
+                            var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline, Clip8.svgroot);
                             var stripe = stripeNaboveNbelow[0];
                             var above = stripeNaboveNbelow[1];
                             var below = stripeNaboveNbelow[2];
 
                             if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
-                            var hitlist = Svgretrieve.getEnclosedElements(stripe, svgroot);
+                            var hitlist = Svgretrieve.getEnclosedElements(stripe, Clip8.svgroot);
                             if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
                             var selectedelements1 = []
                             for (var i = 0; i < hitlist.length; i++)
-                                if ( Svgretrieve.checkIntersected(hitlist[i], above, svgroot) && Svgretrieve.checkIntersected(hitlist[i], below, svgroot) )
+                                if ( Svgretrieve.checkIntersected(hitlist[i], above, Clip8.svgroot) &&
+                                     Svgretrieve.checkIntersected(hitlist[i], below, Clip8.svgroot) )
                                     selectedelements1.push(hitlist[i]);
 
                             selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
@@ -522,18 +523,18 @@ var Clip8 = {
                         case 'DO-RE':
                         case 'DO-LE':
                             // DEL
-                            var p3 = svgroot.createSVGPoint();
-                            var p4 = svgroot.createSVGPoint();
+                            var p3 = Clip8.svgroot.createSVGPoint();
+                            var p4 = Clip8.svgroot.createSVGPoint();
                             p3.x = theline.getAttribute("x1");
                             p3.y = theline.getAttribute("y2");
                             p4.x = theline.getAttribute("x2");
                             p4.y = theline.getAttribute("y1");
-                            var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon, svgroot);
+                            var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon, Clip8.svgroot);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
-                            opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon, svgroot), opposite_diagonals);
+                            opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon, Clip8.svgroot), opposite_diagonals);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
                             if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
-                            var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]], svgroot);
+                            var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]], Clip8.svgroot);
                             for (var i = 0; i < selectedelements1.length; i++)
                                 selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                             break;
@@ -546,7 +547,7 @@ var Clip8 = {
                         bothends[1],
                         theline.getAttribute("stroke-width"),       // use as minimum radius
                         theline.getAttribute("stroke-width") * 4,   // use as minimum radius
-                        svgroot);
+                        Clip8.svgroot);
                     if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
                     var deltaX, deltaY;
                     deltaX = bothends[1].x-bothends[0].x;
@@ -567,20 +568,20 @@ var Clip8 = {
             throw "Could not decode instruction X";
     },
 
-    init: function () {
-        var svgroot = document.getElementById("clip8svgroot");
+    init: function (svgroot) {
+        console.log("[clip8.init]", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
         // crucial init operations
         Svgdom.setSVGNS(svgroot.namespaceURI);
         Clip8.cyclescounter = 0
+        Clip8.svgroot = svgroot;
         Clip8.ip = Clip8.initControlFlow(svgroot);     // instruction pointer: the active control flow path
         return svgroot;
     },
 
     envokeOperation: function () {
-        var svgroot = Clip8.init();
-        console.log("[CLIP8ENVOKEOPERATION] svgroot:", svgroot);
-        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation(svgroot) }, 50 );
+        console.log("[CLIP8ENVOKEOPERATION] svgroot:", Clip8.svgroot);
+        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation() }, 50 );
     },
 
     clearExecTimer: function () {
@@ -590,7 +591,13 @@ var Clip8 = {
 
 var Clip8controler = {
     svgroot: null,
-    initialised: false,
+
+    init: function (svgroot) {
+        console.log("INIT", svgroot);
+        Clip8.visualise = true;
+        Clip8controler.svgroot;
+        Clip8.init(svgroot);
+    },
 
     playAction: function () {
         console.log("PLAY clip_8");
@@ -606,13 +613,7 @@ var Clip8controler = {
 
     stepAction: function () {
         console.log("STEP clip_8");
-        if (! Clip8controler.initialised) {
-            Clip8.visualise = true;
-            Clip8controler.svgroot = Clip8.init();
-            Clip8controler.initialised = true;
-        }
-        else
-            Clip8.executeOneOperation(Clip8controler.svgroot);
+        Clip8.executeOneOperation(Clip8controler.svgroot);
     },
 
     stopAction: function () {
