@@ -152,7 +152,7 @@ var Clip8 = {
             // there is a selector
             var epsilon = 0.01;
             var lineend = Svgdom.getBothEndsOfLine_arranged(originarea, S[Clip8.LINETAG][0])[1];
-            var arearect = Svgdom.epsilonRectAt(lineend, epsilon, svgroot);
+            var arearect = Svgdom.epsilonRectAt(lineend, epsilon);
             var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
             coreS = isc[1];
@@ -252,11 +252,11 @@ var Clip8 = {
                 console.log("ALTERNATIVE");
                 var endpoints = [points[0], points[2]];
                 if (debug) console.log("[moveIP] endpoints:", endpoints);
-                var arearectA = Svgdom.epsilonRectAt(endpoints[0], epsilon, svgroot);
+                var arearectA = Svgdom.epsilonRectAt(endpoints[0], epsilon);
                 var localISCa = Clip8.retrieveISCElements(
                                     arearectA,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-                var arearectB = Svgdom.epsilonRectAt(endpoints[1], epsilon, svgroot);
+                var arearectB = Svgdom.epsilonRectAt(endpoints[1], epsilon);
                 var localISCb = Clip8.retrieveISCElements(
                                     arearectB,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
@@ -308,7 +308,7 @@ var Clip8 = {
             else {
                 // Merge
                 console.log("MERGE");
-                var mergearea = Svgdom.epsilonRectAt(points[1], epsilon, svgroot)
+                var mergearea = Svgdom.epsilonRectAt(points[1], epsilon)
                 var localISC = Clip8.retrieveISCElements(
                                     mergearea,
                                     svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
@@ -341,7 +341,7 @@ var Clip8 = {
         for (var i = 0, c; i < circles.length; i++) {
             if (debugcolour) circles[i].setAttribute("stroke", "#95C9EF");
             c = Svgdom.getCentrePoint(circles[i]);
-            centrareas.push ( Svgdom.epsilonRectAt(c, epsilon, svgroot) );
+            centrareas.push ( Svgdom.epsilonRectAt(c, epsilon) );
             if (circles[i].getAttribute("fill", "none") != "none") {
                 if (debugcolour) circles[i].setAttribute("fill", "#3EA3ED");
                 centres_offilled.push(c);
@@ -358,7 +358,7 @@ var Clip8 = {
             if (hitcount == 1) {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
                 var hit = centres_offilled[i];
-                var hitarea = Svgdom.epsilonRectAt(hit, epsilon, svgroot);
+                var hitarea = Svgdom.epsilonRectAt(hit, epsilon);
                 var hitlist = Svgretrieve.getIntersectedElements(hitarea, svgroot);
                 if (debug) console.log("[initControlFlow] , hit, hitarea, hitlist:", hit, hitarea, hitlist);
                 for ( var k = 0; k < hitlist.length; k++ ) {
@@ -397,7 +397,7 @@ var Clip8 = {
                 p0 = p0candidates[1];
         else
             p0 = p0candidates[0];
-        var p0area = Svgdom.epsilonRectAt(p0, epsilon, Clip8.svgroot);
+        var p0area = Svgdom.epsilonRectAt(p0, epsilon);
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
         var ISC0 = Clip8.retrieveISCElements(p0area, Clip8.svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
@@ -457,7 +457,7 @@ var Clip8 = {
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-                var arearect = Svgdom.epsilonRectAt(bothends[1], epsilon, Clip8.svgroot);
+                var arearect = Svgdom.epsilonRectAt(bothends[1], epsilon);
                 var ISC1 = Clip8.retrieveISCElements(arearect, Clip8.svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
@@ -531,7 +531,7 @@ var Clip8 = {
                             p4.y = theline.getAttribute("y1");
                             var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon, Clip8.svgroot);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
-                            opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon, Clip8.svgroot), opposite_diagonals);
+                            opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon), opposite_diagonals);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
                             if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
                             var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]], Clip8.svgroot);
@@ -572,7 +572,7 @@ var Clip8 = {
         console.log("[clip8.init]", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
         // crucial init operations
-        Svgdom.setSVGNS(svgroot.namespaceURI);
+        Svgdom.init(svgroot);
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
         Clip8.ip = Clip8.initControlFlow(svgroot);     // instruction pointer: the active control flow path
