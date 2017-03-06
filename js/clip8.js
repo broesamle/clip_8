@@ -331,10 +331,10 @@ var Clip8 = {
         return Clip8.EXECUTE;
     },
 
-    initControlFlow: function (svgroot) {
+    initControlFlow: function () {
         var debug = true;
         var debugcolour = false;
-        var circles = svgroot.getElementsByTagName("circle");
+        var circles = Clip8.svgroot.getElementsByTagName("circle");
         var centres_offilled = [];  // Centres of filled circles (candidates).
         var centrareas = [];        // Epsilon rectangles arount each circle centre.
         var initialflow = null;
@@ -377,7 +377,7 @@ var Clip8 = {
 
     executeOneOperation: function() {
         var debug = true;
-        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip, Clip8.svgroot);
+        if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip);
         Clip8.cyclescounter++;
         if (Clip8.maxcycles > 0 && Clip8.cyclescounter >= Clip8.maxcycles) {
             Clip8.clearExecTimer();
@@ -423,7 +423,7 @@ var Clip8 = {
                     Clip8._highlightElement(C0[i][j]);
             }
         }
-        var execstatus = Clip8.moveIP(C0, p0area, Clip8.svgroot);
+        var execstatus = Clip8.moveIP(C0, p0area);
         switch (execstatus) {
             case Clip8.EXECUTE:
                 break;      // redundant but more readable.
@@ -433,11 +433,11 @@ var Clip8 = {
                 Clip8.clearExecTimer();
                 return;     // stop execution
         }
-        var retrselector = Clip8.retrieveCoreSelector(S0, p0area, Clip8.svgroot)
+        var retrselector = Clip8.retrieveCoreSelector(S0, p0area)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         if      (selectortype == Clip8.RECTSELECTOR)
-            var selectedelements1 = Clip8.selectedElementSet(coreselector, Clip8.svgroot);
+            var selectedelements1 = Clip8.selectedElementSet(coreselector);
         else if (selectortype == Clip8.UNKNOWNSELECTOR)
             {}
         else
@@ -535,7 +535,7 @@ var Clip8 = {
                             opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon), opposite_diagonals);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
                             if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
-                            var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]], Clip8.svgroot);
+                            var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]]);
                             for (var i = 0; i < selectedelements1.length; i++)
                                 selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                             break;
@@ -576,7 +576,7 @@ var Clip8 = {
         Svgretrieve.init(svgroot);
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
-        Clip8.ip = Clip8.initControlFlow(svgroot);     // instruction pointer: the active control flow path
+        Clip8.ip = Clip8.initControlFlow();     // instruction pointer: the active control flow path
         return svgroot;
     },
 
