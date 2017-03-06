@@ -101,9 +101,9 @@ var Clip8 = {
         return result;
     },
 
-    retrieveISCElements: function (arearect, svgroot, tagsI, tagsS, tagsC) {
+    retrieveISCElements: function (arearect, tagsI, tagsS, tagsC) {
         var debug = false;
-        if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
+        if (debug) console.log("[RETRIEVEISCELEMENTS] arearect:", arearect);
         var hitlist = Svgretrieve.getIntersectedElements(arearect);
         if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
         hitlist = Clip8.removeFalsePositives(arearect, hitlist);
@@ -145,16 +145,16 @@ var Clip8 = {
         return [I, S, C];
     },
 
-    retrieveCoreSelector: function (S, originarea, svgroot) {
+    retrieveCoreSelector: function (S, originarea) {
         var debug = false;
-        if (debug) console.log("[RETRIEVECORESELECTOR] S, svgroot:", S, svgroot);
+        if (debug) console.log("[RETRIEVECORESELECTOR] S:", S);
         var coreS;
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
             var epsilon = 0.01;
             var lineend = Svgdom.getBothEndsOfLine_arranged(originarea, S[Clip8.LINETAG][0])[1];
             var arearect = Svgdom.epsilonRectAt(lineend, epsilon);
-            var isc = Clip8.retrieveISCElements(arearect, svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+            var isc = Clip8.retrieveISCElements(arearect, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
             coreS = isc[1];
         }
@@ -182,7 +182,7 @@ var Clip8 = {
         return selection;
     },
 
-    selectedElementSet: function (selectorcore, svgroot) {
+    selectedElementSet: function (selectorcore) {
         /** Determine the set of selected elements based on given selector core.
          *  `selectorcore` is the list of SVG DOM elments being the core selector
          *  (excluding connectors). Typically these elements graphically depict an area.
@@ -190,14 +190,14 @@ var Clip8 = {
          */
 
         var debug = true;
-        if (debug) console.log("[SELECTEDELEMENTSET] selectorcore, svgroot:", selectorcore, svgroot);
+        if (debug) console.log("[SELECTEDELEMENTSET] selectorcore:", selectorcore);
         // List of selected Elements based on primary selector
         var hitlist;
         var s; // The rectangle to be used as area of selection
         if (selectorcore[0] instanceof SVGRectElement) {
             // rectangle
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            s = svgroot.createSVGRect();
+            s = Clip8.svgroot.createSVGRect();
             s.x = selectorcore[0].x.baseVal.value;
             s.y = selectorcore[0].y.baseVal.value;
             s.width = selectorcore[0].width.baseVal.value;
@@ -206,7 +206,7 @@ var Clip8 = {
         else if (selectorcore[0] instanceof SVGLineElement && selectorcore[1] instanceof SVGLineElement) {
             // DELETE: X icon defines the selection area
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            s = svgroot.createSVGRect();
+            s = Clip8.svgroot.createSVGRect();
             var x1, y1, x2, y2;
             x1 = parseFloat(selectorcore[0].getAttribute("x1"));
             y1 = parseFloat(selectorcore[0].getAttribute("y1"));
@@ -236,7 +236,7 @@ var Clip8 = {
     TERMINATE: 0,
     CONTINUE: 1,
     EXECUTE: 2,
-    moveIP: function (C, arearect, svgroot) {
+    moveIP: function (C, arearect) {
         var debug = false;
         var epsilon = 0.01;
         if ( C[Clip8.CIRCLETAG].length == 2 )
@@ -256,11 +256,11 @@ var Clip8 = {
                 var arearectA = Svgdom.epsilonRectAt(endpoints[0], epsilon);
                 var localISCa = Clip8.retrieveISCElements(
                                     arearectA,
-                                    svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                                    Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var arearectB = Svgdom.epsilonRectAt(endpoints[1], epsilon);
                 var localISCb = Clip8.retrieveISCElements(
                                     arearectB,
-                                    svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                                    Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var condISC;            // the ISC where the condition is attached
                 var oppositeISC;        // the ISC opposite to where the condition is attached
                 var condarearect;       // the arearect where the condition is attached
@@ -287,10 +287,10 @@ var Clip8 = {
                     oppositeISC = localISCb;
                     oppositearearect = arearectB;
                 }
-                var retrselector = Clip8.retrieveCoreSelector(condISC[1], condarearect, svgroot);
+                var retrselector = Clip8.retrieveCoreSelector(condISC[1], condarearect);
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
-                var condselected = Clip8.selectedElementSet(coreselector, svgroot);
+                var condselected = Clip8.selectedElementSet(coreselector);
                 if (condselected.length > 0)
                     if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
@@ -312,7 +312,7 @@ var Clip8 = {
                 var mergearea = Svgdom.epsilonRectAt(points[1], epsilon)
                 var localISC = Clip8.retrieveISCElements(
                                     mergearea,
-                                    svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                                    Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 if (localISC[2][Clip8.PATHTAG].length == 1) {
                     Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
                     Clip8.pminus1_area = mergearea;             // indicate old instruction pointer area
@@ -401,7 +401,7 @@ var Clip8 = {
         var p0area = Svgdom.epsilonRectAt(p0, epsilon);
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
-        var ISC0 = Clip8.retrieveISCElements(p0area, Clip8.svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+        var ISC0 = Clip8.retrieveISCElements(p0area, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
@@ -459,7 +459,7 @@ var Clip8 = {
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
                 var arearect = Svgdom.epsilonRectAt(bothends[1], epsilon);
-                var ISC1 = Clip8.retrieveISCElements(arearect, Clip8.svgroot, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var ISC1 = Clip8.retrieveISCElements(arearect, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
                 if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
