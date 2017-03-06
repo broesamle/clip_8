@@ -20,7 +20,10 @@
 
 "use strict";
 
-var dropZone = document.getElementById('dropZone');
+var CLIP8_SVG_ROOT_ID = "clip8svgroot";
+var CLIP8_EXECROOT_ID = "clip8"
+
+var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
 
 dropZone.addEventListener('dragover', function(e) {
     e.stopPropagation();
@@ -35,9 +38,8 @@ dropZone.addEventListener('drop', function(e) {
     for (var i=0, file; file=files[i]; i++) {
         var reader = new FileReader();
         reader.onload = function(e2) {
-            var svgroot = document.getElementById("clip8svgroot");
+            var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
             var svgraw = e2.target.result;
-            console.log("loaded file content:", svgraw);
             var parseXml;
             if (typeof window.DOMParser != "undefined") {
                 parseXml = function(xmlStr) {
@@ -55,15 +57,14 @@ dropZone.addEventListener('drop', function(e) {
             if (newsvgroot instanceof SVGSVGElement) {
                 svgroot.setAttribute('viewBox', svgdocument.rootElement.getAttribute('viewBox'));
                 var movingchild;
-                while (newsvgroot.lastChild) {
-                    movingchild = newsvgroot.lastChild;
+                while (newsvgroot.firstChild) {
+                    movingchild = newsvgroot.firstChild;
                     console.info("Moving child: ", movingchild)
                     newsvgroot.removeChild(movingchild);
                     svgroot.appendChild(movingchild);
                 }
             } else {
-                console.error("Could not load file content as SVG.");
-                console.groupCollapsed();
+                console.groupCollapsed("Could not load file content as SVG.");
                 console.info("Content: ", svgraw);
                 console.info("Document: ", svgdocument);
                 console.groupEnd();
