@@ -36,9 +36,10 @@ var Clip8 = {
     // Variables
     maxcycles: 1000,
     cyclescounter: 0,
-    exectimer: null,
-    ip: null,           // instruction pointer
-    pminus1_area: null, // p0area of former round.
+    exectimer: undefined,
+    svgroot: undefined,
+    ip: undefined,           // instruction pointer
+    pminus1_area: undefined, // p0area of former round.
     blocklist: [],      // list of elements already retrieved during current instruction cycle.
     visualise: false,   // visualise processing activity to the user
     highlighted: [],    // list of elements highlighted for visualization
@@ -103,7 +104,7 @@ var Clip8 = {
     retrieveISCElements: function (arearect, svgroot, tagsI, tagsS, tagsC) {
         var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] arearect, svgroot:", arearect, svgroot);
-        var hitlist = Svgretrieve.getIntersectedElements(arearect, svgroot);
+        var hitlist = Svgretrieve.getIntersectedElements(arearect);
         if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
         hitlist = Clip8.removeFalsePositives(arearect, hitlist);
         if (debug)  console.log("[retrieveISCElements] hitlist (red):", hitlist);
@@ -223,9 +224,9 @@ var Clip8 = {
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
-            hitlist = Svgretrieve.getEnclosedElements(s, svgroot);
+            hitlist = Svgretrieve.getEnclosedElements(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
-            hitlist = Svgretrieve.getIntersectedElements(s, svgroot);
+            hitlist = Svgretrieve.getIntersectedElements(s);
         else throw "[selectedElementSet] invalid dash pattern."
 
         return Clip8.reduceSelectionHitlist(hitlist);
@@ -359,7 +360,7 @@ var Clip8 = {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
                 var hit = centres_offilled[i];
                 var hitarea = Svgdom.epsilonRectAt(hit, epsilon);
-                var hitlist = Svgretrieve.getIntersectedElements(hitarea, svgroot);
+                var hitlist = Svgretrieve.getIntersectedElements(hitarea);
                 if (debug) console.log("[initControlFlow] , hit, hitarea, hitlist:", hit, hitarea, hitlist);
                 for ( var k = 0; k < hitlist.length; k++ ) {
                     if (hitlist[k].tagName == "path") {
@@ -500,18 +501,18 @@ var Clip8 = {
                         case 'LEFT':
                         case 'RIGHT':
                             // CUT
-                            var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline, Clip8.svgroot);
+                            var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline);
                             var stripe = stripeNaboveNbelow[0];
                             var above = stripeNaboveNbelow[1];
                             var below = stripeNaboveNbelow[2];
 
                             if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
-                            var hitlist = Svgretrieve.getEnclosedElements(stripe, Clip8.svgroot);
+                            var hitlist = Svgretrieve.getEnclosedElements(stripe);
                             if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
                             var selectedelements1 = []
                             for (var i = 0; i < hitlist.length; i++)
-                                if ( Svgretrieve.checkIntersected(hitlist[i], above, Clip8.svgroot) &&
-                                     Svgretrieve.checkIntersected(hitlist[i], below, Clip8.svgroot) )
+                                if ( Svgretrieve.checkIntersected(hitlist[i], above) &&
+                                     Svgretrieve.checkIntersected(hitlist[i], below) )
                                     selectedelements1.push(hitlist[i]);
 
                             selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
@@ -529,7 +530,7 @@ var Clip8 = {
                             p3.y = theline.getAttribute("y2");
                             p4.x = theline.getAttribute("x2");
                             p4.y = theline.getAttribute("y1");
-                            var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon, Clip8.svgroot);
+                            var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
                             opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon), opposite_diagonals);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
@@ -545,9 +546,8 @@ var Clip8 = {
                     // MOVE-REL
                     var circles = Svgretrieve.getCirclesAt(
                         bothends[1],
-                        theline.getAttribute("stroke-width"),       // use as minimum radius
-                        theline.getAttribute("stroke-width") * 4,   // use as minimum radius
-                        Clip8.svgroot);
+                        theline.getAttribute("stroke-width"),         // use as minimum radius
+                        theline.getAttribute("stroke-width") * 4 );   // use as minimum radius
                     if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
                     var deltaX, deltaY;
                     deltaX = bothends[1].x-bothends[0].x;
@@ -573,6 +573,7 @@ var Clip8 = {
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
         // crucial init operations
         Svgdom.init(svgroot);
+        Svgretrieve.init(svgroot);
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
         Clip8.ip = Clip8.initControlFlow(svgroot);     // instruction pointer: the active control flow path

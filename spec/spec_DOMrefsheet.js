@@ -182,12 +182,14 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
         expect(svgroot).toBeElement();
+        Svgdom.init(svgroot);
+        Svgretrieve.init(svgroot);
         var p0 = svgroot.createSVGPoint();
         p0.x = p0x;
         p0.y = p0y;
-        var arearect = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
+        var arearect = Svgdom.epsilonRectAt(p0, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var sel = Svgretrieve.getIntersectedElements(arearect, svgroot);
+        var sel = Svgretrieve.getIntersectedElements(arearect);
         var S = []
         for ( var i = 0; i < Clip8.TAGS.length; i++ ) S.push([]);
         for ( var i = 0; i < sel.length; i++ )
