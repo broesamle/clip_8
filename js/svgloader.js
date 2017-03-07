@@ -30,6 +30,7 @@ var lastloadedSVG = undefined;
 function insertSVG(newsvgroot) {
     var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
     // clear the existing svg root
+    Clip8controler.pauseAction(); // we do not wand a clip_8 engine to operate on a DOM we are just changing.
     while (svgroot.firstChild) {
         svgroot.removeChild(svgroot.firstChild);
     }
