@@ -7,6 +7,11 @@ While each operation applies to graphical content, the instructions, in turn, ar
 
 The present project implements an interpreter as a client-side web application. It operates on _inline SVG_ elements in the Document Object Model (DOM) of the web browser.
 
+`Klippen`
+---------
+
+[Drop and execute your drawing](https://broesamle.github.io/clip_8/demos/klippen.html) in an interactive test environment.
+
 
 Language documentation / Integration tests
 ------------------------------------------
