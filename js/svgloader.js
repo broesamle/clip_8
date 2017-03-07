@@ -25,52 +25,56 @@ var CLIP8_EXECROOT_ID = "clip8"
 
 var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
 
+function loadSVG(e2) {
+    var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
+    var svgraw = e2.target.result;
+    var parseXml;
+    if (typeof window.DOMParser != "undefined") {
+        parseXml = function(xmlStr) {
+            return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");
+        };
+    } else {
+        throw new Error("No XML parser found");
+    }
+    // clear the existing svg root
+    while (svgroot.firstChild) {
+        svgroot.removeChild(svgroot.firstChild);
+    }
+    var svgdocument = parseXml(svgraw);
+    var newsvgroot = svgdocument.rootElement;
+    if (newsvgroot instanceof SVGSVGElement) {
+        svgroot.setAttribute('viewBox', svgdocument.rootElement.getAttribute('viewBox'));
+        var movingchild;
+        while (newsvgroot.firstChild) {
+            movingchild = newsvgroot.firstChild;
+            console.info("Moving child: ", movingchild)
+            newsvgroot.removeChild(movingchild);
+            svgroot.appendChild(movingchild);
+        }
+        Clip8controler.init(document.getElementById("clip8svgroot"));
+    } else {
+        console.groupCollapsed("Could not load file content as SVG.");
+        console.info("Content: ", svgraw);
+        console.info("Document: ", svgdocument);
+        console.groupEnd();
+    }
+}
+
+function handleFileDrop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var files = e.dataTransfer.files; // Array of all files
+    for (var i=0, file; file=files[i]; i++) {
+        var reader = new FileReader();
+        reader.onload = loadSVG;
+        reader.readAsText(file); // start reading the file data.
+    }
+}
+
 dropZone.addEventListener('dragover', function(e) {
     e.stopPropagation();
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';
 });
 
-dropZone.addEventListener('drop', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    var files = e.dataTransfer.files; // Array of all files
-    for (var i=0, file; file=files[i]; i++) {
-        var reader = new FileReader();
-        reader.onload = function(e2) {
-            var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
-            var svgraw = e2.target.result;
-            var parseXml;
-            if (typeof window.DOMParser != "undefined") {
-                parseXml = function(xmlStr) {
-                    return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");
-                };
-            } else {
-                throw new Error("No XML parser found");
-            }
-            // clear the existing svg root
-            while (svgroot.firstChild) {
-                svgroot.removeChild(svgroot.firstChild);
-            }
-            var svgdocument = parseXml(svgraw);
-            var newsvgroot = svgdocument.rootElement;
-            if (newsvgroot instanceof SVGSVGElement) {
-                svgroot.setAttribute('viewBox', svgdocument.rootElement.getAttribute('viewBox'));
-                var movingchild;
-                while (newsvgroot.firstChild) {
-                    movingchild = newsvgroot.firstChild;
-                    console.info("Moving child: ", movingchild)
-                    newsvgroot.removeChild(movingchild);
-                    svgroot.appendChild(movingchild);
-                }
-                Clip8controler.init(document.getElementById("clip8svgroot"));
-            } else {
-                console.groupCollapsed("Could not load file content as SVG.");
-                console.info("Content: ", svgraw);
-                console.info("Document: ", svgdocument);
-                console.groupEnd();
-            }
-        }
-        reader.readAsText(file); // start reading the file data.
-    }
-});
+dropZone.addEventListener('drop', handleFileDrop);
