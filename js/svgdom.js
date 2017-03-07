@@ -20,10 +20,12 @@
 "use strict";
 
 var Svgdom = {
+    svgroot: undefined,
     SVGNS: undefined,
 
-    setSVGNS: function (namespace) {
-        Svgdom.SVGNS = namespace;
+    init: function (svgroot) {
+        Svgdom.svgroot = svgroot;
+        Svgdom.SVGNS = svgroot.namespaceURI;
     },
 
     addGroup: function (parentel) {
@@ -32,10 +34,10 @@ var Svgdom = {
         return g;
     },
 
-    newSVGRect: function (x, y, width, height, svgroot) {
+    newSVGRect: function (x, y, width, height) {
         /** Create a new SVGRect.
         */
-        var r = svgroot.createSVGRect();
+        var r = Svgdom.svgroot.createSVGRect();
         r.x = x;
         r.y = y;
         r.width = width;
@@ -43,10 +45,10 @@ var Svgdom = {
         return r;
     },
 
-    newSVGRect_fromPoints: function (p1, p2, svgroot) {
+    newSVGRect_fromPoints: function (p1, p2) {
         /** Create a new SVGRect.
         */
-        var r = svgroot.createSVGRect();
+        var r = Svgdom.svgroot.createSVGRect();
         r.x = Math.min(p1.x, p2.x);
         r.y = Math.min(p1.y, p2.y);
         r.width = Math.abs(p2.x-p1.x);
@@ -70,17 +72,10 @@ var Svgdom = {
         return Svgdom.newRectElement(r.x, r.y, r.width, r.height);
     },
 
-    epsilonRectAt: function (p, epsilon, somesvgelement) {
-        var svgroot;
+    epsilonRectAt: function (p, epsilon) {
         var debug = false;
-        if (debug) console.log("[epsilonRectAt] p, epsilon, somesvgelement:", p, epsilon, somesvgelement);
-        if          (somesvgelement instanceof SVGSVGElement)   svgroot = somesvgelement;
-        else if     (somesvgelement instanceof SVGElement)      svgroot = somesvgelement.ownerSVGElement;
-        else {
-            if (debug) console.log("[epsilonRectAt] invalid svg elment:", somesvgelement);
-            throw "[epsilonRectAt] Expected an instance of SVGSVGElement or SVGElement.";
-        }
-        var r = svgroot.createSVGRect();
+        if (debug) console.log("[epsilonRectAt] p, epsilon:", p, epsilon);
+        var r = Svgdom.svgroot.createSVGRect();
         r.x = p.x-epsilon;
         r.y = p.y-epsilon;
         r.width = epsilon*2;
@@ -125,7 +120,7 @@ var Svgdom = {
     getCentrePoint: function (circle) {
         /** Returns an SVGPoint at the centre of `circle`.
         */
-        var centre = circle.ownerSVGElement.createSVGPoint()
+        var centre = Svgdom.svgroot.createSVGPoint();
         centre.x = circle.cx.baseVal.value;
         centre.y = circle.cy.baseVal.value;
         return centre;
@@ -134,8 +129,8 @@ var Svgdom = {
     getBothEndsOfLine: function (line) {
         /** Returns an SVGPoint at the endpoint of `line`.
         */
-        var  start = line.ownerSVGElement.createSVGPoint()
-        var  end = line.ownerSVGElement.createSVGPoint()
+        var  start = Svgdom.svgroot.createSVGPoint()
+        var  end = Svgdom.svgroot.createSVGPoint()
         start.x = line.x1.baseVal.value;
         start.y = line.y1.baseVal.value;
         end.x = line.x2.baseVal.value;
@@ -157,7 +152,7 @@ var Svgdom = {
         */
         var debug = false;
         if (path.tagName != "path") throw "[getBothEndsOfPath] expected a path.";
-        var endpoints = [path.ownerSVGElement.createSVGPoint(), path.ownerSVGElement.createSVGPoint()];
+        var endpoints = [Svgdom.svgroot.createSVGPoint(), Svgdom.svgroot.createSVGPoint()];
         var pathdata = path.getAttribute("d").trim();
         if (!pathdata.startsWith("M")) throw ("[getBothEndsOfPath] pathdata should start with M. "+pathdata);
         if (debug) console.log("[GETBOTHENDSOFPATH] pathdata:", pathdata);
@@ -199,9 +194,9 @@ var Svgdom = {
      */
         if (poly.tagName != "polyline") throw "[getBothEndsOfPoly] expected a polyline.";
         var debug = false;
-        var points = [poly.ownerSVGElement.createSVGPoint(),
-                      poly.ownerSVGElement.createSVGPoint(),
-                      poly.ownerSVGElement.createSVGPoint()];
+        var points = [Svgdom.svgroot.createSVGPoint(),
+                      Svgdom.svgroot.createSVGPoint(),
+                      Svgdom.svgroot.createSVGPoint()];
         var pointdata = poly.getAttribute("points");
         if (debug) console.log("[getBothEndsOfPoly] end:", coords);
         var coords = pointdata.trim().split(/[\s,]+/);

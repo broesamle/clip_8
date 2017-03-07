@@ -92,7 +92,8 @@ while len(SCT.demos) > 0:
                                         chapter=chapter, chaptercnt="Demos",
                                         DEMOS=demopageHTML,
                                         link1=backlinkHTML, link2=nextlinkHTML,
-                                        FOOTER=footerHTML)
+                                        FOOTER=footerHTML,
+                                        SCRIPT=TEM.Demo_ScriptInBody_str)
         headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
         documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
         output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
@@ -133,7 +134,8 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Demos", chaptercnt="Demos",
                                DEMOS=tocsectionsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML)
+                               FOOTER=footerHTML,
+                               SCRIPT="")
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Demos")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
