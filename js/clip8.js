@@ -380,7 +380,7 @@ var Clip8 = {
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip);
         Clip8.cyclescounter++;
         if (Clip8.maxcycles > 0 && Clip8.cyclescounter >= Clip8.maxcycles) {
-            Clip8.clearExecTimer();
+            Clip8.stopTimer();
             throw "Maximal number of cycles";
         }
         var p0candidates;
@@ -430,7 +430,7 @@ var Clip8 = {
             case Clip8.CONTINUE:
                 return;     // without any instruction execution in this cycle
             case Clip8.TERMINATE:
-                Clip8.clearExecTimer();
+                Clip8.stopTimer();
                 return;     // stop execution
         }
         var retrselector = Clip8.retrieveCoreSelector(S0, p0area)
@@ -571,22 +571,23 @@ var Clip8 = {
     init: function (svgroot) {
         console.log("[clip8.init]", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
-        // crucial init operations
+
         Svgdom.init(svgroot);
         Svgretrieve.init(svgroot);
+        Clip8.stopTimer();
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
         Clip8.ip = Clip8.initControlFlow();     // instruction pointer: the active control flow path
         return svgroot;
     },
 
-    envokeOperation: function () {
-        console.log("[CLIP8ENVOKEOPERATION] svgroot:", Clip8.svgroot);
+    startTimer: function () {
         Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation() }, 50 );
     },
 
-    clearExecTimer: function () {
-        clearInterval(Clip8.exectimer);
+    stopTimer: function () {
+        if (Clip8.exectimer)
+            clearInterval(Clip8.exectimer);
     }
 };
 
@@ -604,28 +605,25 @@ var Clip8controler = {
         console.log("TEST-RUN: maxcycles:", maxcycles);
         Clip8.visualise = false;
         Clip8.maxcycles = maxcycles;
-        Clip8.envokeOperation();
+        Clip8.startTimer();
     },
 
     playAction: function () {
         console.log("PLAY clip_8");
         Clip8.maxcycles = 0;
-        Clip8.envokeOperation();
+        Clip8.startTimer();
         Clip8.visualise = true;
         Clip8controler.initialised = true;
     },
 
     pauseAction: function () {
         console.log("not implemented: PAUSE clip_8");
+        Clip8.stopTimer();
     },
 
     stepAction: function () {
         console.log("STEP clip_8");
+        Clip8.visualise = true;
         Clip8.executeOneOperation(Clip8controler.svgroot);
-    },
-
-    stopAction: function () {
-        console.log("STOP clip_8");
-        location.reload();
     }
 }
