@@ -24,9 +24,12 @@
 
 var Svgretrieve = {
     svgroot: undefined,
+    clip8root: undefined,
 
     init: function (svgroot) {
         Svgretrieve.svgroot = svgroot;
+        Svgretrieve.clip8root = svgroot.getElementById("clip8");
+        if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
     },
 
     enclosingFullHeightStripe: function(line) {
@@ -75,7 +78,7 @@ var Svgretrieve = {
     },
 
     _transformRect_svg2view: function (svgrect) {
-        var trafo = Svgretrieve.svgroot.getCTM();
+        var trafo = Svgretrieve.clip8root.getCTM();
         var p1 = Svgretrieve.svgroot.createSVGPoint();
         var p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = svgrect.x;
@@ -88,10 +91,10 @@ var Svgretrieve = {
     },
 
     getIntersectedElements: function(arearect) {
-        return Svgretrieve.svgroot.getIntersectionList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.svgroot);
+        return Svgretrieve.svgroot.getIntersectionList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
     },
     getEnclosedElements: function(arearect) {
-        return Svgretrieve.svgroot.getEnclosureList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.svgroot);
+        return Svgretrieve.svgroot.getEnclosureList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
     },
     checkIntersected: function(el, arearect) {
         return Svgretrieve.svgroot.checkIntersection(el, Svgretrieve._transformRect_svg2view(arearect));
