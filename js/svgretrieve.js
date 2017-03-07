@@ -23,10 +23,18 @@
 "use strict";
 
 var Svgretrieve = {
+    svgroot: undefined,
+    clip8root: undefined,
 
-    enclosingFullHeightStripe: function(line, svgcontainer) {
+    init: function (svgroot) {
+        Svgretrieve.svgroot = svgroot;
+        Svgretrieve.clip8root = svgroot.getElementById("clip8");
+        if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
+    },
+
+    enclosingFullHeightStripe: function(line) {
         /*  Determine the horizontal boundaries enclosing `line`.
-            Return a full-height vertical stripe/rectangle (from top to bottom of `svgcontainer`) with corresponding horizontal boundaries.
+            Return a full-height vertical stripe/rectangle (from top to bottom of `Svgretrieve.svgroot`) with corresponding horizontal boundaries.
             Initial use case: Select elements potentially affected by a horizontal cut.
         */
         var p1, p2, above, below, stripe, x1, y1, x2, y2, vBy, vBh;
@@ -34,95 +42,95 @@ var Svgretrieve = {
         y1 = line.y1.baseVal.value;
         x2 = line.x2.baseVal.value;
         y2 = line.y2.baseVal.value;
-        vBy = svgcontainer.getAttribute("viewBox").split(" ")[1];
-        vBh = svgcontainer.getAttribute("viewBox").split(" ")[3];
+        vBy = Svgretrieve.svgroot.getAttribute("viewBox").split(" ")[1];
+        vBh = Svgretrieve.svgroot.getAttribute("viewBox").split(" ")[3];
 
-        p1 = svgcontainer.createSVGPoint();
-        p2 = svgcontainer.createSVGPoint();
+        p1 = Svgretrieve.svgroot.createSVGPoint();
+        p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = x1;
         p1.y = vBy;
         p2.x = x2;
         p2.y = vBy+vBh;
-        stripe = Svgdom.newSVGRect_fromPoints(p1, p2, svgcontainer);
-        p1 = svgcontainer.createSVGPoint();
-        p2 = svgcontainer.createSVGPoint();
+        stripe = Svgdom.newSVGRect_fromPoints(p1, p2);
+        p1 = Svgretrieve.svgroot.createSVGPoint();
+        p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = x1;
         p1.y = y1;
         p2.x = x2;
         p2.y = vBy+vBh;
-        above = Svgdom.newSVGRect_fromPoints(p1, p2, svgcontainer);
-        p1 = svgcontainer.createSVGPoint();
-        p2 = svgcontainer.createSVGPoint();
+        above = Svgdom.newSVGRect_fromPoints(p1, p2);
+        p1 = Svgretrieve.svgroot.createSVGPoint();
+        p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = x1;
         p1.y = y1;
         p2.x = x2;
         p2.y = vBy;
-        below = Svgdom.newSVGRect_fromPoints(p1, p2, svgcontainer);
+        below = Svgdom.newSVGRect_fromPoints(p1, p2);
         return [stripe, above, below];
     },
 
-    enclosingFullWidthStripe: function(line, svgcontainer) {
+    enclosingFullWidthStripe: function(line) {
         /*  Determine the vertical boundaries enclosing `line`.
-            Return a full-width horizontal stripe/rectangle (from left to right of `svgcontainer`) with corresponding vertical boundaries.
+            Return a full-width horizontal stripe/rectangle (from left to right of `Svgretrieve.svgroot`) with corresponding vertical boundaries.
             Initial use case: Select elements potentially affected by a vertical cut.
         */
         throw "[enclosingFullWidthStripe] not implemented."
     },
 
-    _transformRect_svg2view: function (svgrect, svgroot) {
-        var trafo = svgroot.getCTM();
-        var p1 = svgroot.createSVGPoint();
-        var p2 = svgroot.createSVGPoint();
+    _transformRect_svg2view: function (svgrect) {
+        var trafo = Svgretrieve.clip8root.getCTM();
+        var p1 = Svgretrieve.svgroot.createSVGPoint();
+        var p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = svgrect.x;
         p1.y = svgrect.y;
         p2.x = svgrect.x + svgrect.width;
         p2.y = svgrect.y + svgrect.height;
         p1 = p1.matrixTransform(trafo);
         p2 = p2.matrixTransform(trafo);
-        return Svgdom.newSVGRect_fromPoints(p1, p2, svgroot);
+        return Svgdom.newSVGRect_fromPoints(p1, p2);
     },
 
-    getIntersectedElements: function(arearect, svgroot) {
-        return svgroot.getIntersectionList(Svgretrieve._transformRect_svg2view(arearect, svgroot), svgroot);
+    getIntersectedElements: function(arearect) {
+        return Svgretrieve.svgroot.getIntersectionList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
     },
-    getEnclosedElements: function(arearect, svgroot) {
-        return svgroot.getEnclosureList(Svgretrieve._transformRect_svg2view(arearect, svgroot), svgroot);
+    getEnclosedElements: function(arearect) {
+        return Svgretrieve.svgroot.getEnclosureList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
     },
-    checkIntersected: function(el, arearect, svgroot) {
-        return svgroot.checkIntersection(el, Svgretrieve._transformRect_svg2view(arearect, svgroot));
+    checkIntersected: function(el, arearect) {
+        return Svgretrieve.svgroot.checkIntersection(el, Svgretrieve._transformRect_svg2view(arearect));
     },
-    checkEnclosed: function(el, arearect, svgroot) {
-        return svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect, svgroot));
+    checkEnclosed: function(el, arearect) {
+        return Svgretrieve.svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect));
     },
 
-    getCirclesAt: function(c, r1, r2, svgcontainer) {
+    getCirclesAt: function(c, r1, r2) {
         /** Return all circles roughly centred at `c` with a radius `r1 < radius < r2` (approximately).
         */
         var debug = false;
-        if (debug) console.log("[GETCIRCLESAT] c, r1, r2, svgcontainer:", c, r1, r2, svgcontainer);
+        if (debug) console.log("[GETCIRCLESAT] c, r1, r2:", c, r1, r2);
         if (parseFloat(r1) >= parseFloat(r2)) throw  "[getCirclesAt] expected r1 < r2.";
         var epsilon = r2/100;   // small width compared to the larger radius
         var candidates;         // A list of candidate circles
         var confirmed = [];     // confirmed circles (hit by all test areas)
         var testareas = [
-            Svgdom.newSVGRect (c.x-epsilon, c.y-parseFloat(r2), 2*epsilon, r2-parseFloat(r1), svgcontainer),  // "north"
-            Svgdom.newSVGRect (c.x-epsilon, c.y+parseFloat(r1), 2*epsilon, r2-parseFloat(r1), svgcontainer),  // "south"
-            Svgdom.newSVGRect (c.x-parseFloat(r2), c.y-epsilon, r2-parseFloat(r1), 2*epsilon, svgcontainer),  // "west"
-            Svgdom.newSVGRect (c.x+parseFloat(r1), c.y-epsilon, r2-parseFloat(r1), 2*epsilon, svgcontainer),  // "east"
+            Svgdom.newSVGRect (c.x-epsilon, c.y-parseFloat(r2), 2*epsilon, r2-parseFloat(r1)),  // "north"
+            Svgdom.newSVGRect (c.x-epsilon, c.y+parseFloat(r1), 2*epsilon, r2-parseFloat(r1)),  // "south"
+            Svgdom.newSVGRect (c.x-parseFloat(r2), c.y-epsilon, r2-parseFloat(r1), 2*epsilon),  // "west"
+            Svgdom.newSVGRect (c.x+parseFloat(r1), c.y-epsilon, r2-parseFloat(r1), 2*epsilon),  // "east"
             ];     // Areas which should all be hit, for a circle to be confirmed
         if (debug) {
             for (var j = 0; j < testareas.length; j++) {
                 console.log("[getCirclesAt]", testareas[j]);
-                var r = Svgdom.addRectElement_SVGRect(svgcontainer, testareas[j]);
+                var r = Svgdom.addRectElement_SVGRect(Svgretrieve.svgroot, testareas[j]);
                 r.setAttribute("fill", "#ffff22");
             }
         }
-        candidates = Svgretrieve.getIntersectedElements(testareas[0], svgcontainer);
+        candidates = Svgretrieve.getIntersectedElements(testareas[0]);
         for (var i = 0; i < candidates.length; i++) {
             if (candidates[i] instanceof SVGCircleElement) {
                 var reject = false;     // reject the currently tested candidate?
                 for (var j = 1; j < testareas.length; j++) {
-                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j], svgcontainer) ) {
+                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j]) ) {
                         reject = true;
                         break;
                     }
@@ -133,32 +141,32 @@ var Svgretrieve = {
         return confirmed;
     },
 
-    getLinesFromTo: function(p1, p2, epsilon, svgcontainer) {
+    getLinesFromTo: function(p1, p2, epsilon) {
         /** Return all lines roughly connecting points `p1`, `p2`.
         */
         var debug = false;
-        if (debug) console.log("[GETLINESFROMTO] p1, p2, svgcontainer:", p1, p2, svgcontainer);
+        if (debug) console.log("[GETLINESFROMTO] p1, p2:", p1, p2);
 
         var candidates;         // A list of candidate lines starting at `p1`
         var confirmed = [];     // confirmed lines (other endpoint at `p2`)
         var testareas = [
-            Svgdom.epsilonRectAt(p1, epsilon, svgcontainer),
-            Svgdom.epsilonRectAt(p2, epsilon, svgcontainer),
+            Svgdom.epsilonRectAt(p1, epsilon),
+            Svgdom.epsilonRectAt(p2, epsilon),
             ];     // Areas which should all be hit
         if (debug) {
             for (var j = 0; j < testareas.length; j++) {
                 console.log("[getLinesFromTo]", testareas[j]);
-                var r = Svgdom.addRectElement_SVGRect(svgcontainer, testareas[j]);
+                var r = Svgdom.addRectElement_SVGRect(Svgretrieve.svgroot, testareas[j]);
                 r.setAttribute("fill", "#ffff22");
             }
         }
-        candidates = Svgretrieve.getIntersectedElements(testareas[0], svgcontainer);
+        candidates = Svgretrieve.getIntersectedElements(testareas[0]);
         if (debug) console.log("[getLinesFromTo] candidates", candidates);
         for (var i = 0; i < candidates.length; i++) {
             if (candidates[i] instanceof SVGLineElement) {
                 var reject = false;     // reject the currently tested candidate?
                 for (var j = 1; j < testareas.length; j++) {
-                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j], svgcontainer) ) {
+                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j]) ) {
                         reject = true;
                         break;
                     }
@@ -168,5 +176,4 @@ var Svgretrieve = {
         }
         return confirmed;
     },
-
 }

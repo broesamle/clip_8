@@ -1,6 +1,10 @@
 
 var CLIP8_RUNNINGTIME = 500
 
+// For normal test runs, the test sheet specifies an expected number of `cycles`
+// The test allows the clip8 interpreter to run for `cycles + EXCESS_CYCLES`.
+var EXCESS_CYCLES = 100         
+
 var customMatchers = {
 
 toBeElement:
@@ -132,11 +136,15 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(svgroot.id).toBe("");
         svgroot.setAttributeNS(null,"id", "clip8svgroot");
         expect(svgroot.id).toBe("clip8svgroot");
-        expect(Clip8.envokeOperation).not.toThrow();
+        expect(
+            function () {
+                Clip8controler.init(svgroot, visualise=false);
+                Clip8controler.testRun(cycles+EXCESS_CYCLES);
+            }).not.toThrow();
         jasmine.clock().tick(CLIP8_RUNNINGTIME);
         expect(Clip8.executeOneOperation).toHaveBeenCalled();
         expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles, "(instruction of cycles)");
-        expect(Clip8.clearExecTimer).toHaveBeenCalled();
+        expect(Clip8.stopTimer).toHaveBeenCalled();
         svgroot.removeAttribute("id", reftestElement.id);
         done();
     });
@@ -174,12 +182,14 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         expect(proc.classList).toContain("testDOM");
         var svgroot = proc.firstElementChild;
         expect(svgroot).toBeElement();
+        Svgdom.init(svgroot);
+        Svgretrieve.init(svgroot);
         var p0 = svgroot.createSVGPoint();
         p0.x = p0x;
         p0.y = p0y;
-        var arearect = Svgdom.epsilonRectAt(p0, epsilon, svgroot);
+        var arearect = Svgdom.epsilonRectAt(p0, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var sel = Svgretrieve.getIntersectedElements(arearect, svgroot);
+        var sel = Svgretrieve.getIntersectedElements(arearect);
         var S = []
         for ( var i = 0; i < Clip8.TAGS.length; i++ ) S.push([]);
         for ( var i = 0; i < sel.length; i++ )
@@ -219,7 +229,7 @@ describe("Reference Sheet Tester", function(){
         var oldroot = document.getElementById("clip8svgroot");
         if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
         spyOn(Clip8,"executeOneOperation").and.callThrough();
-        spyOn(Clip8,"clearExecTimer").and.callThrough();
+        spyOn(Clip8,"stopTimer").and.callThrough();
     });
     afterEach(function() {
         jasmine.clock().uninstall();

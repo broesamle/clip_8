@@ -79,6 +79,14 @@ Powered by SVG, JS, and the DOM.
 </footer>
 """
 
+Demo_ScriptInBody_str = """
+<script>
+window.onload = function () {
+    Clip8controler.init(document.getElementById("clip8svgroot"));
+}
+</script>"""
+
+
 
 Body = Template("""
 <body>
@@ -90,6 +98,7 @@ $link2
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
 $DEMOS
 $FOOTER
+$SCRIPT
 </body>
 """)
 
@@ -97,10 +106,10 @@ Demos = Template("$THEITEMS")
 
 Demo = Template("""
 <p>
-<button onclick="Clip8controler.playAction()">play...</button>
-<button onclick="Clip8controler.pauseAction()" disabled>. pause .</button>
-<button onclick="Clip8controler.stepAction()">. step</button>
-<button onclick="Clip8controler.stopAction()">stop .</button>
+<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
+<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
+<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
+<button onclick="location.reload();"           >&#x25FC;           </button>
 </p>
 <p>
 <svg id="clip8svgroot" viewbox="$viewBox" width="$width" height="$height">
