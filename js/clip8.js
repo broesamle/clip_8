@@ -571,9 +571,10 @@ var Clip8 = {
     init: function (svgroot) {
         console.log("[clip8.init]", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
-        // crucial init operations
+
         Svgdom.init(svgroot);
         Svgretrieve.init(svgroot);
+        Clip8.clearExecTimer();
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
         Clip8.ip = Clip8.initControlFlow();     // instruction pointer: the active control flow path
@@ -586,7 +587,8 @@ var Clip8 = {
     },
 
     clearExecTimer: function () {
-        clearInterval(Clip8.exectimer);
+        if (Clip8.exectimer)
+            clearInterval(Clip8.exectimer);
     }
 };
 
@@ -621,11 +623,7 @@ var Clip8controler = {
 
     stepAction: function () {
         console.log("STEP clip_8");
+        Clip8.visualise = true;
         Clip8.executeOneOperation(Clip8controler.svgroot);
-    },
-
-    stopAction: function () {
-        console.log("STOP clip_8");
-        location.reload();
     }
 }
