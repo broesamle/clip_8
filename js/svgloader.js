@@ -63,6 +63,7 @@ dropZone.addEventListener('drop', function(e) {
                     newsvgroot.removeChild(movingchild);
                     svgroot.appendChild(movingchild);
                 }
+                Clip8controler.init(document.getElementById("clip8svgroot"));
             } else {
                 console.groupCollapsed("Could not load file content as SVG.");
                 console.info("Content: ", svgraw);
