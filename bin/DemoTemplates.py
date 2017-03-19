@@ -29,6 +29,8 @@ $BODY
 """)
 
 DependClip8_str = """
+<script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
+
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
 <script src="../js/svgdom.js"></script>

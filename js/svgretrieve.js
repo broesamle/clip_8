@@ -25,11 +25,16 @@
 var Svgretrieve = {
     svgroot: undefined,
     clip8root: undefined,
-
+    kdtree: undefined,
     init: function (svgroot) {
         Svgretrieve.svgroot = svgroot;
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
+        Svgretrieve.kdtree = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
+    },
+
+    _distanceCPoints: function (cp1, cp2) {
+        return Math.sqrt ( Math.pow(cp1.x - cp2.x, 2) +  Math.pow(cp1.y - cp2.y, 2) );
     },
 
     enclosingFullHeightStripe: function(line) {
