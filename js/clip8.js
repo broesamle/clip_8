@@ -336,27 +336,22 @@ var Clip8 = {
         var debugcolour = false;
         var circles = Clip8.svgroot.getElementsByTagName("circle");
         var centres_offilled = [];  // Centres of filled circles (candidates).
+        var radii_offilled = [];    // and their respective radius
         var centrareas = [];        // Epsilon rectangles arount each circle centre.
         var initialflow = null;
 
         for (var i = 0, c; i < circles.length; i++) {
             if (debugcolour) circles[i].setAttribute("stroke", "#95C9EF");
-            c = Svgdom.getCentrePoint(circles[i]);
-            centrareas.push ( Svgdom.epsilonRectAt(c, epsilon) );
             if (circles[i].getAttribute("fill", "none") != "none") {
                 if (debugcolour) circles[i].setAttribute("fill", "#3EA3ED");
-                centres_offilled.push(c);
+                centres_offilled.push(Svgdom.getCentrePoint(circles[i]));
+                radii_offilled.push(Svgdom.getRadius(circles[i]));
             }
         }
         for (var i = 0; i < centres_offilled.length; i++ ) {
-            var hitcount = 0, lasthit = 0;
-            for (var j = 0; j < centrareas.length; j++ ) {
-                if (Svgdom.enclosesRectPoint(centrareas[j], centres_offilled[i])) {
-                    hitcount++;
-                }
-                if (hitcount > 1) break;
-            }
-            if (hitcount == 1) {
+            var concentrics = Svgretrieve.getElementsByControlpointLocation(centres_offilled[i], radii_offilled[i]/100.0, 2);
+
+            if (concentrics.length == 1) {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
                 var hit = centres_offilled[i];
                 var hitarea = Svgdom.epsilonRectAt(hit, epsilon);

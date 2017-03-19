@@ -31,10 +31,23 @@ var Svgretrieve = {
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
         Svgretrieve.kdtree = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
+        var circles = Svgretrieve.clip8root.getElementsByTagName("circle");
+        for (var i=0; i < circles.length; i++) {
+            Svgretrieve.registerSVGCircleElement(circles[i]);
+        }
     },
 
     _distanceCPoints: function (cp1, cp2) {
         return Math.sqrt ( Math.pow(cp1.x - cp2.x, 2) +  Math.pow(cp1.y - cp2.y, 2) );
+    },
+
+    registerSVGCircleElement: function (el) {
+        console.info("[registerSVGCircleElement]", el);
+        var cpts = [];
+        var c = Svgdom.getCentrePoint(el)
+        c.ownerelement = el;
+        Svgretrieve.kdtree.insert(c);
+        cpts.push(c);
     },
 
     enclosingFullHeightStripe: function(line) {
@@ -106,6 +119,13 @@ var Svgretrieve = {
     },
     checkEnclosed: function(el, arearect) {
         return Svgretrieve.svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect));
+    },
+
+    getCirclesByCentre: function (c, epsilon) {
+    },
+
+    getElementsByControlpointLocation: function (point, radius, maxcount) {
+        return Svgretrieve.kdtree.nearest(point, maxcount, radius);
     },
 
     getCirclesAt: function(c, r1, r2) {

@@ -126,6 +126,10 @@ var Svgdom = {
         return centre;
     },
 
+    getRadius: function (circle) {
+        return circle.r.baseVal.value;
+    },
+
     getBothEndsOfLine: function (line) {
         /** Returns an SVGPoint at the endpoint of `line`.
         */
