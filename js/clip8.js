@@ -33,6 +33,7 @@ var Clip8 = {
     PATHTAG: 4,
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
+    CIRCLE_CENTRE_TOLERANCE_RATIO: 1/5.0,
     // Variables
     maxcycles: 1000,
     cyclescounter: 0,
@@ -349,25 +350,23 @@ var Clip8 = {
             }
         }
         for (var i = 0; i < centres_offilled.length; i++ ) {
-            var concentrics = Svgretrieve.getElementsByControlpointLocation(centres_offilled[i], radii_offilled[i]/100.0, 2);
+            var concentrics = Svgretrieve.getElementsByControlpointLocation(centres_offilled[i], radii_offilled[i]*Clip8.CIRCLE_CENTRE_TOLERANCE_RATIO, 3, ['circle']);
 
             if (concentrics.length == 1) {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
-                var hit = centres_offilled[i];
-                var hitarea = Svgdom.epsilonRectAt(hit, epsilon);
-                var hitlist = Svgretrieve.getIntersectedElements(hitarea);
-                if (debug) console.log("[initControlFlow] , hit, hitarea, hitlist:", hit, hitarea, hitlist);
-                for ( var k = 0; k < hitlist.length; k++ ) {
-                    if (hitlist[k].tagName == "path") {
-                        if (debugcolour)hitlist[k].setAttribute("stroke", "#ED1E79");
-                        Clip8.pminus1_area = hitarea;
-                        if (Clip8.visualise) Clip8._highlightElement(hitlist[k]);
-                        return hitlist[k];
-                    }
+                var hitlist = Svgretrieve.getElementsByControlpointLocation(centres_offilled[i], radii_offilled[i]*Clip8.CIRCLE_CENTRE_TOLERANCE_RATIO, 3, ['path']);
+                if (debug) console.log("[initControlFlow] centres_offilled[i], hitlist:", centres_offilled[i], hitlist);
+                if (!hitlist[0]) {
+                    console.err("[initControlFlow] failed to identify intial path segment at", centres_offilled[i])
+                    throw "[initControlFlow] failed to identify intial path segment";
                 }
+                if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
+                Clip8.pminus1_area = Svgdom.epsilonRectAt(centres_offilled[i], epsilon);
+                if (Clip8.visualise) Clip8._highlightElement(hitlist[0]);
+                return hitlist[0];
             }
         }
-        throw "Failed to idendify point of entry."
+        throw "Failed to idendify point of entry.";
     },
 
     executeOneOperation: function() {

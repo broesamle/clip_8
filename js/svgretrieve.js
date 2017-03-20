@@ -31,9 +31,18 @@ var Svgretrieve = {
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
         Svgretrieve.kdtree = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
-        var circles = Svgretrieve.clip8root.getElementsByTagName("circle");
-        for (var i=0; i < circles.length; i++) {
-            Svgretrieve.registerSVGCircleElement(circles[i]);
+        var els = Svgretrieve.clip8root.getElementsByTagName("circle");
+        for (var i=0; i < els.length; i++) {
+            Svgretrieve.registerSVGCircleElement(els[i]);
+        }
+        els = Svgretrieve.clip8root.getElementsByTagName("path");
+        for (var i=0; i < els.length; i++) {
+            try {
+                Svgretrieve.registerSVGPathElement(els[i]);
+            }
+            catch(err) {
+                console.warn ("[init] failed to register path element:", els[i], err);
+            }
         }
     },
 
@@ -42,12 +51,17 @@ var Svgretrieve = {
     },
 
     registerSVGCircleElement: function (el) {
-        console.info("[registerSVGCircleElement]", el);
-        var cpts = [];
         var c = Svgdom.getCentrePoint(el)
         c.ownerelement = el;
         Svgretrieve.kdtree.insert(c);
-        cpts.push(c);
+    },
+
+    registerSVGPathElement: function (el) {
+        var cpts = Svgdom.getBothEndsOfPath(el);
+        cpts[0].ownerelement = el;
+        cpts[1].ownerelement = el;
+        Svgretrieve.kdtree.insert(cpts[0]);
+        Svgretrieve.kdtree.insert(cpts[1]);
     },
 
     enclosingFullHeightStripe: function(line) {
@@ -124,8 +138,17 @@ var Svgretrieve = {
     getCirclesByCentre: function (c, epsilon) {
     },
 
-    getElementsByControlpointLocation: function (point, radius, maxcount) {
-        return Svgretrieve.kdtree.nearest(point, maxcount, radius);
+    getElementsByControlpointLocation: function (point, radius, maxcount, tagnames) {
+        var candidates = Svgretrieve.kdtree.nearest(point, maxcount, radius);
+        //console.debug("[getElementsByControlpointLocation] point, radius, maxcount, tagnames, candidates",
+        //                point, radius, maxcount, tagnames, candidates);
+        var result = [];
+        for (var i=0; i < candidates.length; i++) {
+            console.info("[getElementsByControlpointLocation]", candidates[i][0].ownerelement.tagName)
+            if (!tagnames || tagnames.indexOf(candidates[i][0].ownerelement.tagName) != -1)
+                result.push(candidates[i][0].ownerelement);
+        }
+        return result
     },
 
     getCirclesAt: function(c, r1, r2) {
