@@ -69,7 +69,11 @@ var Svgretrieve = {
     },
 
     getIntersectingRectangles: function (queryrect) {
-        return [];
+        var result = []
+        var nl = Svgretrieve.clip8root.getElementsByTagName("rect");
+        for (var i=0; i<nl.length; i++)
+            if (i%2) result.push(nl[i]);
+        return result;
     },
 
     enclosingFullHeightStripe: function(line) {

@@ -111,16 +111,11 @@ describe("retrieveEnclosedRectangles", function() {
             qrects[j] = rndSVGRect();
             expectation[j] = [];
             newrectelement = Svgdom.newRectElement_fromSVGRect(qrects[j]);
-            newrectelement.setAttribute("fill", "none");
-            newrectelement.setAttribute("stroke", "#f00");
-            svgroot.appendChild(newrectelement);
         }
         for (var i=0; i<RECT_NUM; i++) {
             newrect = rndSVGRect();
             newrectelement = Svgdom.newRectElement_fromSVGRect(newrect);
             newrectelement.setAttribute("id", String(i));
-            newrectelement.setAttribute("fill", "none");
-            newrectelement.setAttribute("stroke", "#000");
             svgroot.appendChild(newrectelement);
         }
         for (var j=0; j<QRECT_NUM; j++) {
@@ -137,9 +132,22 @@ describe("retrieveEnclosedRectangles", function() {
                     rectundertest.height.baseVal.value);
                 console.debug("qrects, j, rect, i, newexpectation",
                     qrects[j], j, rectundertest, i, newexpectation);
-                if (newexpectation)
-                    rectundertest.setAttribute("stroke", "#00F");
                 expectation[j][i] = newexpectation;
+            }
+        }
+        var retrievedlist, retrievedids;
+        for (var j=0; j<QRECT_NUM; j++) {
+            retrievedlist = Svgretrieve.getIntersectingRectangles(qrects[j]);
+            retrievedids = {};
+            // make a dict with all retrieved ids
+            for (var k=0; k<retrievedlist.length; k++)
+                retrievedids[retrievedlist[k].getAttribute("id")] = true;
+            // for every id, check the expectation according to presence/absence
+            for (var i=0; i<RECT_NUM; i++) {
+                if (retrievedids[String(i)])
+                    expect(expectation[j][i]).toBe(true);
+                else
+                    expect(expectation[j][i]).toBe(false);
             }
         }
     });
