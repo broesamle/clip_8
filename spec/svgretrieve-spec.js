@@ -139,7 +139,7 @@ describe("retrieveEnclosedRectangles", function() {
                     qrects[j], j, rectundertest, i, newexpectation);
                 if (newexpectation)
                     rectundertest.setAttribute("stroke", "#00F");
-                expectation[j][i] = newexpectation
+                expectation[j][i] = newexpectation;
             }
         }
     });
