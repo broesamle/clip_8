@@ -64,3 +64,83 @@ describe("getIntersectedElements", function() {
         putandretrieve_circles();
     });
 });
+describe("retrieveEnclosedRectangles", function() {
+    var svgroot;
+    beforeEach(function() {
+        svgroot = document.getElementById("svgroot1");
+        while (svgroot.firstChild) {
+            svgroot.removeChild(svgroot.firstChild);
+        }
+        svgroot.setAttribute("width", 300);
+        svgroot.setAttribute("height", 300);
+        svgroot.setAttribute("viewBox", "-150 -150 300 300");
+        Svgdom.init(svgroot);
+        Svgretrieve.init(svgroot);
+    });
+
+    var rndSVGRect = function () {
+        var x1, y1, x2, y2;
+        var rndrange = function (min, max) {
+            return Math.random()*Math.abs(max-min) + min;
+        }
+        x1 = rndrange(-100,+100);
+        y1 = rndrange(-100,+100);
+        x2 = rndrange(-100,+100);
+        y2 = rndrange(-100,+100);
+        return Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2});
+    };
+
+    var checkIntersection = function (x1, y1, w1, h1, x2, y2, w2, h2) {
+        if (x2 < x1 + w1 && x1 < x2 + w2 && y2 < y1 + h1)
+            return y1 < y2 + h2;
+        else return false;
+    };
+
+    it("should return zero elements when no rectangle is present", function () {
+        var result = Svgretrieve.getIntersectingRectangles (rndSVGRect());
+        expect(result.length).toBe(0);
+    });
+
+    it("queries should meet the expectation for random rect elements", function() {
+        var QRECT_NUM = 1;
+        var RECT_NUM = 30;
+        var qrects = [];
+        var expectation = [];
+        var newrect, newrectelement, newexpectation, rectundertest;
+        for (var j=0; j<QRECT_NUM; j++) {
+            qrects[j] = rndSVGRect();
+            expectation[j] = [];
+            newrectelement = Svgdom.newRectElement_fromSVGRect(qrects[j]);
+            newrectelement.setAttribute("fill", "none");
+            newrectelement.setAttribute("stroke", "#f00");
+            svgroot.appendChild(newrectelement);
+        }
+        for (var i=0; i<RECT_NUM; i++) {
+            newrect = rndSVGRect();
+            newrectelement = Svgdom.newRectElement_fromSVGRect(newrect);
+            newrectelement.setAttribute("id", String(i));
+            newrectelement.setAttribute("fill", "none");
+            newrectelement.setAttribute("stroke", "#000");
+            svgroot.appendChild(newrectelement);
+        }
+        for (var j=0; j<QRECT_NUM; j++) {
+            for (var i=0; i<RECT_NUM; i++) {
+                rectundertest = svgroot.getElementById(String(i));
+                newexpectation = checkIntersection(
+                    qrects[j].x,
+                    qrects[j].y,
+                    qrects[j].width,
+                    qrects[j].height,
+                    rectundertest.x.baseVal.value,
+                    rectundertest.y.baseVal.value,
+                    rectundertest.width.baseVal.value,
+                    rectundertest.height.baseVal.value);
+                console.debug("qrects, j, rect, i, newexpectation",
+                    qrects[j], j, rectundertest, i, newexpectation);
+                if (newexpectation)
+                    rectundertest.setAttribute("stroke", "#00F");
+                expectation[j][i] = newexpectation
+            }
+        }
+    });
+});

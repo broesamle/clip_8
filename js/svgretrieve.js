@@ -64,6 +64,14 @@ var Svgretrieve = {
         Svgretrieve.kdtree.insert(cpts[1]);
     },
 
+    getEnclosedRectangles: function (queryrect) {
+        return [];
+    },
+
+    getIntersectingRectangles: function (queryrect) {
+        return [];
+    },
+
     enclosingFullHeightStripe: function(line) {
         /*  Determine the horizontal boundaries enclosing `line`.
             Return a full-height vertical stripe/rectangle (from top to bottom of `Svgretrieve.svgroot`) with corresponding horizontal boundaries.
