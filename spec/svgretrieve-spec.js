@@ -35,6 +35,7 @@ describe("getIntersectedElements", function() {
         svgroot.setAttribute("width", 100);
         svgroot.setAttribute("height", 100);
         svgroot.setAttribute("viewBox", "0 0 100 100");
+        Svgretrieve.init(svgroot);
     });
 
     it("retreives elements from an SVG container", function() {

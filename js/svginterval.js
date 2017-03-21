@@ -24,6 +24,11 @@ var Svginterval = {
                Math.min(b[0], b[1]) <= Math.max(a[0], a[1]);
     },
 
+    checkIntervalEnclosure(a, b) {
+        return Math.min(a[0], a[1]) <= Math.min(b[0], b[1])&&
+               Math.max(a[0], a[1]) >= Math.max(b[0], b[1]);
+    },
+
     getXIntervalRectElement: function (r) {
         return [r.x.baseVal.value, r.x.baseVal.value+r.width.baseVal.value];
     },
