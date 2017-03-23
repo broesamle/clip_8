@@ -95,6 +95,18 @@ var newRectEl_fromPoints = function (x1, y1, x2, y2) {
     return Svgdom.newRectElement_fromSVGRect ( Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2}) );
 }
 
+var rndSVGRect = function () {
+    var x1, y1, x2, y2;
+    var rndrange = function (min, max) {
+        return Math.random()*Math.abs(max-min) + min;
+    }
+    x1 = rndrange(-100,+100);
+    y1 = rndrange(-100,+100);
+    x2 = rndrange(-100,+100);
+    y2 = rndrange(-100,+100);
+    return Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2});
+};
+
 describe("retrieveIntersectingRectangles: test query rects q against one fixed test rect element t; vertical main direction.", function() {
     var svgroot;
     var q = undefined;
@@ -458,19 +470,6 @@ describe("retrieveIntersectingRectangles", function() {
         Svgdom.init(svgroot);
         Svgretrieve.init(svgroot);
     });
-
-    var rndSVGRect = function () {
-        var x1, y1, x2, y2;
-        var rndrange = function (min, max) {
-            return Math.random()*Math.abs(max-min) + min;
-        }
-        x1 = rndrange(-100,+100);
-        y1 = rndrange(-100,+100);
-        x2 = rndrange(-100,+100);
-        y2 = rndrange(-100,+100);
-        return Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2});
-    };
-
     it("should return zero elements when no rectangle is present", function () {
         var result = Svgretrieve.getIntersectingRectangles ( Svgdom.newRectElement_fromSVGRect(rndSVGRect()) );
         expect(result.length).toBe(0);
