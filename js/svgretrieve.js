@@ -95,7 +95,14 @@ var Svgretrieve = {
     },
 
     getEnclosedRectangles: function (queryrect) {
-        return [];
+        var qi = Svgretrieve._getMainInterval(queryrect);
+        var oiv = Svgretrieve._getOrthoInterval(queryrect);
+        var candidates = Svgretrieve.getIntersectingRectangles(queryrect);
+        return candidates.filter(
+            function (can) {
+                return Svginterval.checkIntervalEnclosure(oiv, Svgretrieve._getOrthoInterval(can)) &&
+                       Svginterval.checkIntervalEnclosure(qi, Svgretrieve._getMainInterval(can));
+            } );
     },
 
     getIntersectingRectangles: function (queryrect) {
