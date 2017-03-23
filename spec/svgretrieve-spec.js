@@ -95,7 +95,7 @@ var newRectEl_fromPoints = function (x1, y1, x2, y2) {
     return Svgdom.newRectElement_fromSVGRect ( Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2}) );
 }
 
-describe("retrieveEnclosedRectangles: test query rects q against one fixed test rect element t; vertical main direction.", function() {
+describe("retrieveIntersectingRectangles: test query rects q against one fixed test rect element t; vertical main direction.", function() {
     var svgroot;
     var q = undefined;
     var t = undefined;
@@ -291,7 +291,7 @@ describe("retrieveEnclosedRectangles: test query rects q against one fixed test 
 
 });
 
-describe("retrieveEnclosedRectangles", function() {
+describe("retrieveIntersectingRectangles", function() {
     var svgroot;
     beforeEach(function() {
         svgroot = document.getElementById("svgroot1");
