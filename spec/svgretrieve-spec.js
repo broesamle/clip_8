@@ -99,7 +99,6 @@ describe("retrieveEnclosedRectangles: test query rects q against one fixed test 
         }
         svgroot.setAttribute("width", 300);
         svgroot.setAttribute("height", 300);
-        svgroot.setAttribute("viewBox", "-150 -150 300 310");
         Svgdom.init(svgroot);
         // create a test rect
         t = newRectEl_fromPoints(50, 50, 150, 250);
@@ -107,6 +106,7 @@ describe("retrieveEnclosedRectangles: test query rects q against one fixed test 
         Svgretrieve.init(svgroot);
     });
 
+    var testOverlapConditions = function () {
     // test different horizontal conditions
     it("t should not be retrieved when q is above", function () {
         // q horiz. encloses t
@@ -267,6 +267,19 @@ describe("retrieveEnclosedRectangles: test query rects q against one fixed test 
         q = newRectEl_fromPoints(70, 280, 80, 300);
         expect(checkIntersectionRectEls(q,t)).toBe(false);
         //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+    });
+    };
+    describe("for a more horizontal viewBox", function() {
+        beforeEach(function () {
+            svgroot.setAttribute("viewBox", "-150 -150 310 290")
+        });
+        testOverlapConditions();
+    });
+    describe("for a more vertical viewBox", function() {
+        beforeEach(function () {
+            svgroot.setAttribute("viewBox", "-150 -150 290 310")
+        });
+        testOverlapConditions();
     });
 
 });
