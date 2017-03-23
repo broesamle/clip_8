@@ -300,53 +300,53 @@ describe("retrieveIntersectingRectangles: test query rects q against one fixed t
             // q horiz. encloses t
             q = newRectEl_fromPoints(0, 25, 350, 65);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q to the left
             q = newRectEl_fromPoints(0, 25, 10, 65);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q horiz. overlaps from the left
             q = newRectEl_fromPoints(0, 25, 80, 65);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q horiz. contained in t
             q = newRectEl_fromPoints(60, 25, 80, 65);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q horiz. overlaps t from the right
             q = newRectEl_fromPoints(100, 25, 300, 65);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q to the right of t
             q = newRectEl_fromPoints(200, 25, 300, 65);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
         });
         it("t should not be retrieved when one edge of q is below and the other is not above t", function () {
             // q horiz. encloses t
             q = newRectEl_fromPoints(0, 125, 350, 435);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q to the left
             q = newRectEl_fromPoints(0, 125, 10, 435);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q horiz. overlaps from the left
             q = newRectEl_fromPoints(0, 125, 80, 435);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q horiz. contained in t
             q = newRectEl_fromPoints(60, 125, 80, 435);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q horiz. overlaps t from the right
             q = newRectEl_fromPoints(100, 125, 300, 435);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q to the right of t
             q = newRectEl_fromPoints(200, 125, 300, 435);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
         });
 
         // test different vertical conditions
@@ -354,81 +354,81 @@ describe("retrieveIntersectingRectangles: test query rects q against one fixed t
             // q vertically encloses t
             q = newRectEl_fromPoints(0, 20, 110, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q above t
             q = newRectEl_fromPoints(0, 20, 110, 30);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically overlaps from top
             q = newRectEl_fromPoints(0, 20, 110, 70);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically contained in t
             q = newRectEl_fromPoints(0, 70, 110, 90);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically overlaps t from below
             q = newRectEl_fromPoints(0, 100, 110, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q to the right of t
             q = newRectEl_fromPoints(0, 280, 110, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
         });
 
         it("t should not be retrieved when one edge of q is to the right and the other is not to the left of t", function () {
             // q vertically encloses t
             q = newRectEl_fromPoints(100, 20, 410, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q above t
             q = newRectEl_fromPoints(100, 20, 410, 30);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically overlaps from top
             q = newRectEl_fromPoints(100, 20, 410, 70);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically contained in t
             q = newRectEl_fromPoints(100, 70, 410, 90);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically overlaps t from below
             q = newRectEl_fromPoints(100, 100, 410, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q to the right of t
             q = newRectEl_fromPoints(100, 280, 410, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
         });
 
         it("t should be retrieved iff q encloses t horizontally and vertically", function () {
             // q vertically encloses t
             q = newRectEl_fromPoints(10, 20, 400, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(true);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(1);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(1);
             // q above t
             q = newRectEl_fromPoints(10, 20, 400, 30);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically overlaps from top
             q = newRectEl_fromPoints(10, 20, 400, 70);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically contained in t
             q = newRectEl_fromPoints(10, 70, 400, 90);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q vertically overlaps t from below
             q = newRectEl_fromPoints(10, 100, 400, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
             // q to the right of t
             q = newRectEl_fromPoints(10, 280, 400, 300);
             expect(checkOverlapRectEls(q,t, checkEnclosure)).toBe(false);
-            //expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
+            expect(Svgretrieve.getEnclosedRectangles(q).length).toBe(0);
         });
     }
     describe("for a more horizontal viewBox", function() {
