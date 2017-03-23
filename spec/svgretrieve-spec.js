@@ -118,6 +118,7 @@ describe("retrieveEnclosedRectangles", function() {
             newrectelement.setAttribute("id", String(i));
             svgroot.appendChild(newrectelement);
         }
+        Svgretrieve.registerRectElements_fromDOM();
         for (var j=0; j<QRECT_NUM; j++) {
             for (var i=0; i<RECT_NUM; i++) {
                 rectundertest = svgroot.getElementById(String(i));
