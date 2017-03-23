@@ -21,7 +21,6 @@ import os, io, codecs, fnmatch
 from tinycss.css21 import CSS21Parser
 
 import DemoTemplates as TEM
-import RefsheetTemplates as REFTEM
 from SVGHandling import *
 import Sections as SCT
 import CFG
@@ -64,10 +63,10 @@ while len(SCT.demos) > 0:
     if len(SCT.demos) > 0:
         _nextlinktitle, _nexthref = SCT.demos[-1]
         _nexthref = os.path.splitext(_nexthref)[0]+'.'+outext
-        nextlinkHTML = REFTEM.Linknext.substitute(href=_nexthref, linktext=_nextlinktitle)
+        nextlinkHTML = TEM.Linknext.substitute(href=_nexthref, linktext=_nextlinktitle)
     else:
         nextlinkHTML = ""
-    backlinkHTML = REFTEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
+    backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
 
     if not firstoutfile:
         # running in first round, only
@@ -127,8 +126,8 @@ The interpreter will read the graphics as instructions.
 </p>
 """ + tocsectionsHTML
 
-backlinkHTML = REFTEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
-nextlinkHTML = REFTEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
+backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
+nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 footerHTML = TEM.FooterIndexpage_str
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Demos", chaptercnt="Demos",

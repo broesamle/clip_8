@@ -16,9 +16,10 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-
 import PyBroeModules.MultiTemplateA as MT
 from string import Template
+
+from CommonTemplates import *
 
 Document = Template("""
 <!DOCTYPE html>
@@ -36,39 +37,12 @@ DependJasmine_str = """
 <script src="../lib/jasmine/lib/jasmine-2.5.2/boot.js"></script>
 """
 
-DependClip8_str = """
-<script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
-
-<link rel="stylesheet" href="../css/refsheet.css">
-<link rel="stylesheet" href="../css/clip8.css">
-<script src="../js/svgdom.js"></script>
-<script src="../js/svgretrieve.js"></script>
-<script src="../js/paperclip.js"></script>
-<script src="../js/clip8decode.js"></script>
-<script src="../js/clip8.js"></script>
-"""
-
 Header = Template("""
 <head>
 <meta charset="utf-8">
 <title>clip8 | $chapter</title>
 $dependencies
 </head>
-""")
-
-Linkback = Template("""
-<div class="leftlink">
-<a href="$href">$linktext<br>
-&lt;&lt;&lt;&lt;
-</a>
-</div>
-""")
-
-Linknext = Template("""
-<div class="rightlink">
-<a href="$href">$linktext<br>
-&gt;&gt;&gt;&gt;</a>
-</div>
 """)
 
 FooterRefsheet = Template("""
