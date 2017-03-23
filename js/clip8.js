@@ -198,25 +198,18 @@ var Clip8 = {
         if (selectorcore[0] instanceof SVGRectElement) {
             // rectangle
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            s = Clip8.svgroot.createSVGRect();
-            s.x = selectorcore[0].x.baseVal.value;
-            s.y = selectorcore[0].y.baseVal.value;
-            s.width = selectorcore[0].width.baseVal.value;
-            s.height = selectorcore[0].height.baseVal.value;
+            s = selectorcore[0]
         }
         else if (selectorcore[0] instanceof SVGLineElement && selectorcore[1] instanceof SVGLineElement) {
             // DELETE: X icon defines the selection area
             var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            s = Clip8.svgroot.createSVGRect();
-            var x1, y1, x2, y2;
-            x1 = parseFloat(selectorcore[0].getAttribute("x1"));
-            y1 = parseFloat(selectorcore[0].getAttribute("y1"));
-            x2 = parseFloat(selectorcore[0].getAttribute("x2"));
-            y2 = parseFloat(selectorcore[0].getAttribute("y2"));
-            s.x = Math.min(x1, x2);
-            s.y = Math.min(y1, y2);
-            s.width = Math.max(x1, x2) - s.x;
-            s.height = Math.max(y1, y2) - s.y;
+            var x1 = parseFloat(selectorcore[0].getAttribute("x1"));
+            var y1 = parseFloat(selectorcore[0].getAttribute("y1"));
+            var x2 = parseFloat(selectorcore[0].getAttribute("x2"));
+            var y2 = parseFloat(selectorcore[0].getAttribute("y2"));
+            s = Svgdom.newRectElement_fromSVGRect(Svgdom.newSVGRect_fromPoints(
+                {x: x1, y: y1},
+                {x: x2, y: y2} ) );
         }
         else
         {
@@ -225,9 +218,9 @@ var Clip8 = {
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
-            hitlist = Svgretrieve.getEnclosedElements(s);
+            hitlist = Svgretrieve.getEnclosedRectangles(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
-            hitlist = Svgretrieve.getIntersectedElements(s);
+            hitlist = Svgretrieve.getIntersectingRectangles(s);
         else throw "[selectedElementSet] invalid dash pattern."
 
         return Clip8.reduceSelectionHitlist(hitlist);
