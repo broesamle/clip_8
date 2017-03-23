@@ -490,9 +490,11 @@ describe("retrieve randomised rect elements", function() {
         Svgdom.init(svgroot);
         Svgretrieve.init(svgroot);
     });
-    it("queries should meet the expectation for random rect elements", function() {
-        var QRECT_NUM = 1;
-        var RECT_NUM = 30;
+
+    var testRandomisedRects = function (rect_num, query_num, intersect_or_enclose) {
+    it(intersect_or_enclose+": "+query_num+" queries should meet the expectation for "+rect_num+" random rect elements.", function() {
+        var RECT_NUM = rect_num;
+        var QRECT_NUM = query_num;
         var qrects = [];
         var expectation = [];
         var newrect, newrectelement, newexpectation, rectundertest;
@@ -507,26 +509,28 @@ describe("retrieve randomised rect elements", function() {
             svgroot.appendChild(newrectelement);
         }
         Svgretrieve.registerRectElements_fromDOM();
+        var check_operation, retrieve_operation;
+        if (intersect_or_enclose === "intersect") {
+            check_operation = checkIntersection;
+            retrieve_operation = Svgretrieve.getIntersectingRectangles;
+        }
+        else if (intersect_or_enclose === "enclose") {
+            check_operation = checkEnclosure;
+            retrieve_operation = Svgretrieve.getEnclosedRectangles;
+        }
+        else
+            done.fail("invalid setting for intersect_or_enclose.");
+
         for (var j=0; j<QRECT_NUM; j++) {
             for (var i=0; i<RECT_NUM; i++) {
                 rectundertest = svgroot.getElementById(String(i));
-                newexpectation = checkIntersection(
-                    qrects[j].x.baseVal.value,
-                    qrects[j].y.baseVal.value,
-                    qrects[j].width.baseVal.value,
-                    qrects[j].height.baseVal.value,
-                    rectundertest.x.baseVal.value,
-                    rectundertest.y.baseVal.value,
-                    rectundertest.width.baseVal.value,
-                    rectundertest.height.baseVal.value);
-                console.debug("qrects, j, rect, i, newexpectation",
-                    qrects[j], j, rectundertest, i, newexpectation);
+                    newexpectation = checkOverlapRectEls(qrects[j], rectundertest, check_operation);
                 expectation[j][i] = newexpectation;
             }
         }
         var retrievedlist, retrievedids;
         for (var j=0; j<QRECT_NUM; j++) {
-            retrievedlist = Svgretrieve.getIntersectingRectangles(qrects[j]);
+            retrievedlist = retrieve_operation(qrects[j]);
             retrievedids = {};
             // make a dict with all retrieved ids
             for (var k=0; k<retrievedlist.length; k++)
@@ -539,5 +543,22 @@ describe("retrieve randomised rect elements", function() {
                     expect(expectation[j][i]).toBe(false);
             }
         }
+    });
+    }
+
+    describe("intersect", function () {
+        testRandomisedRects (     1, 1000, 'intersect');
+        testRandomisedRects (    10, 1000, 'intersect');
+        testRandomisedRects (   100, 1000, 'intersect');
+        testRandomisedRects (  1000, 100, 'intersect');
+        testRandomisedRects ( 10000,  10, 'intersect');
+    });
+
+    describe("enclose", function () {
+        testRandomisedRects (     1, 1000, 'enclose');
+        testRandomisedRects (    10, 1000, 'enclose');
+        testRandomisedRects (   100, 1000, 'enclose');
+        testRandomisedRects (  1000, 100, 'enclose');
+        testRandomisedRects ( 10000,  10, 'enclose');
     });
 });
