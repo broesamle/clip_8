@@ -97,7 +97,7 @@ describe("retrieveEnclosedRectangles", function() {
     };
 
     it("should return zero elements when no rectangle is present", function () {
-        var result = Svgretrieve.getIntersectingRectangles (rndSVGRect());
+        var result = Svgretrieve.getIntersectingRectangles ( Svgdom.newRectElement_fromSVGRect(rndSVGRect()) );
         expect(result.length).toBe(0);
     });
 
@@ -108,9 +108,8 @@ describe("retrieveEnclosedRectangles", function() {
         var expectation = [];
         var newrect, newrectelement, newexpectation, rectundertest;
         for (var j=0; j<QRECT_NUM; j++) {
-            qrects[j] = rndSVGRect();
+            qrects[j] = Svgdom.newRectElement_fromSVGRect(rndSVGRect());
             expectation[j] = [];
-            newrectelement = Svgdom.newRectElement_fromSVGRect(qrects[j]);
         }
         for (var i=0; i<RECT_NUM; i++) {
             newrect = rndSVGRect();
@@ -123,10 +122,10 @@ describe("retrieveEnclosedRectangles", function() {
             for (var i=0; i<RECT_NUM; i++) {
                 rectundertest = svgroot.getElementById(String(i));
                 newexpectation = checkIntersection(
-                    qrects[j].x,
-                    qrects[j].y,
-                    qrects[j].width,
-                    qrects[j].height,
+                    qrects[j].x.baseVal.value,
+                    qrects[j].y.baseVal.value,
+                    qrects[j].width.baseVal.value,
+                    qrects[j].height.baseVal.value,
                     rectundertest.x.baseVal.value,
                     rectundertest.y.baseVal.value,
                     rectundertest.width.baseVal.value,
