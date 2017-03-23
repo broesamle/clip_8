@@ -26,6 +26,7 @@ var Svgretrieve = {
     svgroot: undefined,
     clip8root: undefined,
     kdtree: undefined,
+    rect_intervals: undefined,
     init: function (svgroot) {
         Svgretrieve.svgroot = svgroot;
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
@@ -44,10 +45,39 @@ var Svgretrieve = {
                 console.warn ("[init] failed to register path element:", els[i], err);
             }
         }
+        Svgretrieve.registerRectElements_fromDOM();
     },
 
     _distanceCPoints: function (cp1, cp2) {
         return Math.sqrt ( Math.pow(cp1.x - cp2.x, 2) +  Math.pow(cp1.y - cp2.y, 2) );
+    },
+
+    registerRectElements_fromDOM () {
+        var viewboxparams = Svgretrieve.svgroot.getAttribute("viewBox").split(" ");
+        var vBx = viewboxparams[0];
+        var vBy = viewboxparams[1];
+        var vBw = viewboxparams[2];
+        var vBh = viewboxparams[3];
+        if (vBw > vBh) {
+            // main direction horizontal -- x -- width
+            Svgretrieve._getMainInterval = Svginterval.getXIntervalRectElement;
+            Svgretrieve._getOrthoInterval = Svginterval.getYIntervalRectElement;
+        } else {
+            // main direction horizontal -- y -- height
+            Svgretrieve._getMainInterval = Svginterval.getYIntervalRectElement;
+            Svgretrieve._getOrthoInterval = Svginterval.getXIntervalRectElement;
+        }
+        var rects = Svgretrieve.clip8root.getElementsByTagName("rect");
+        var intervals = [];
+        var itv;
+        for (var i=0; i<rects.length; i++) {
+            // get interval, append pointer to corresp. rect element
+            itv = Svgretrieve._getMainInterval(rects[i])
+            itv.push(rects[i]);
+            intervals.push(itv);
+        }
+        Svgretrieve.rect_intervals = new IntervalTree1D(intervals);
+        //console.debug("[registerRectElements_fromDOM ] tree, intervals, rects:", Svgretrieve.rect_intervals, intervals, rects);
     },
 
     registerSVGCircleElement: function (el) {
@@ -69,10 +99,15 @@ var Svgretrieve = {
     },
 
     getIntersectingRectangles: function (queryrect) {
-        var result = []
-        var nl = Svgretrieve.clip8root.getElementsByTagName("rect");
-        for (var i=0; i<nl.length; i++)
-            if (i%2) result.push(nl[i]);
+        var qi = Svgretrieve._getMainInterval(queryrect);
+        var oiv = Svgretrieve._getOrthoInterval(queryrect);
+        var candidates = [];
+        var result = [];
+        Svgretrieve.rect_intervals.queryInterval(qi[0], qi[1],
+            function(itv) { candidates.push(itv[2]) } );
+        result = candidates.filter (
+            function (can) { return Svginterval.checkIntervalIntersection(oiv, Svgretrieve._getOrthoInterval(can)) } );
+        //console.debug("[getIntersectedRectangles] candidates", candidates, result);
         return result;
     },
 
