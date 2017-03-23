@@ -64,6 +64,213 @@ describe("getIntersectedElements", function() {
         putandretrieve_circles();
     });
 });
+
+var checkIntersection = function (x1, y1, w1, h1, x2, y2, w2, h2) {
+    if (x2 < x1 + w1 && x1 < x2 + w2 && y2 < y1 + h1)
+        return y1 < y2 + h2;
+    else return false;
+}
+
+var checkIntersectionRectEls = function (r1, r2) {
+    return checkIntersection(
+        r1.x.baseVal.value,
+        r1.y.baseVal.value,
+        r1.width.baseVal.value,
+        r1.height.baseVal.value,
+        r2.x.baseVal.value,
+        r2.y.baseVal.value,
+        r2.width.baseVal.value,
+        r2.height.baseVal.value
+    );
+}
+
+var newRectEl_fromPoints = function (x1, y1, x2, y2) {
+    return Svgdom.newRectElement_fromSVGRect ( Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2}) );
+}
+
+describe("retrieveEnclosedRectangles: test query rects q against one fixed test rect element t; vertical main direction.", function() {
+    var svgroot;
+    var q = undefined;
+    var t = undefined;
+    beforeEach(function() {
+        svgroot = document.getElementById("svgroot1");
+        while (svgroot.firstChild) {
+            svgroot.removeChild(svgroot.firstChild);
+        }
+        svgroot.setAttribute("width", 300);
+        svgroot.setAttribute("height", 300);
+        svgroot.setAttribute("viewBox", "-150 -150 300 310");
+        Svgdom.init(svgroot);
+        // create a test rect
+        t = newRectEl_fromPoints(50, 50, 150, 250);
+        svgroot.appendChild(t);
+        Svgretrieve.init(svgroot);
+    });
+
+    // test different horizontal conditions
+    it("t should not be retrieved when q is above", function () {
+        // q horiz. encloses t
+        q = newRectEl_fromPoints(0, 25, 350, 35);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the left
+        q = newRectEl_fromPoints(0, 25, 10, 35);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. overlaps from the left
+        q = newRectEl_fromPoints(0, 25, 80, 35);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. contained in t
+        q = newRectEl_fromPoints(60, 25, 80, 35);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. overlaps t from the right
+        q = newRectEl_fromPoints(100, 25, 300, 35);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the right of t
+        q = newRectEl_fromPoints(200, 25, 300, 35);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+    });
+    it("t should not be retrieved when q is below", function () {
+        // q horiz. encloses t
+        q = newRectEl_fromPoints(0, 325, 350, 435);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the left
+        q = newRectEl_fromPoints(0, 325, 10, 435);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. overlaps from the left
+        q = newRectEl_fromPoints(0, 325, 80, 435);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. contained in t
+        q = newRectEl_fromPoints(60, 325, 80, 435);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. overlaps t from the right
+        q = newRectEl_fromPoints(100, 325, 300, 435);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the right of t
+        q = newRectEl_fromPoints(200, 325, 300, 435);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+    });
+    it("t should be retrieved iff q is on same height and q and t intersect horizontally", function () {
+        // q horiz. encloses t
+        q = newRectEl_fromPoints(0, 225, 350, 235);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the left
+        q = newRectEl_fromPoints(0, 225, 10, 235);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. overlaps from the left
+        q = newRectEl_fromPoints(0, 225, 80, 235);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. contained in t
+        q = newRectEl_fromPoints(60, 225, 80, 235);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q horiz. overlaps t from the right
+        q = newRectEl_fromPoints(100, 225, 300, 235);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the right of t
+        q = newRectEl_fromPoints(200, 225, 300, 235);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+    });
+
+    // test different vertical conditions
+    it("t should not be retrieved when q is to the left", function () {
+        // q vertically encloses t
+        q = newRectEl_fromPoints(0, 20, 10, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q above t
+        q = newRectEl_fromPoints(0, 20, 10, 30);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically overlaps from top
+        q = newRectEl_fromPoints(0, 20, 10, 70);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically contained in t
+        q = newRectEl_fromPoints(0, 70, 10, 90);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically overlaps t from below
+        q = newRectEl_fromPoints(0, 100, 10, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the right of t
+        q = newRectEl_fromPoints(0, 280, 10, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+    });
+
+    it("t should not be retrieved when q is to the right", function () {
+        // q vertically encloses t
+        q = newRectEl_fromPoints(400, 20, 410, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q above t
+        q = newRectEl_fromPoints(400, 20, 410, 30);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically overlaps from top
+        q = newRectEl_fromPoints(400, 20, 410, 70);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically contained in t
+        q = newRectEl_fromPoints(400, 70, 410, 90);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically overlaps t from below
+        q = newRectEl_fromPoints(400, 100, 410, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the right of t
+        q = newRectEl_fromPoints(400, 280, 410, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+    });
+
+    it("t should be retrieved iff q is at same horiz. position and q and t intersect vertically", function () {
+        // q vertically encloses t
+        q = newRectEl_fromPoints(70, 20, 80, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q above t
+        q = newRectEl_fromPoints(70, 20, 80, 30);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically overlaps from top
+        q = newRectEl_fromPoints(70, 20, 80, 70);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically contained in t
+        q = newRectEl_fromPoints(70, 70, 80, 90);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q vertically overlaps t from below
+        q = newRectEl_fromPoints(70, 100, 80, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(true);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+        // q to the right of t
+        q = newRectEl_fromPoints(70, 280, 80, 300);
+        expect(checkIntersectionRectEls(q,t)).toBe(false);
+        //expect(Svgretrieve.getIntersectingRectangles(q).length).toBe(0);
+    });
+
+});
+
 describe("retrieveEnclosedRectangles", function() {
     var svgroot;
     beforeEach(function() {
@@ -88,12 +295,6 @@ describe("retrieveEnclosedRectangles", function() {
         x2 = rndrange(-100,+100);
         y2 = rndrange(-100,+100);
         return Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2});
-    };
-
-    var checkIntersection = function (x1, y1, w1, h1, x2, y2, w2, h2) {
-        if (x2 < x1 + w1 && x1 < x2 + w2 && y2 < y1 + h1)
-            return y1 < y2 + h2;
-        else return false;
     };
 
     it("should return zero elements when no rectangle is present", function () {
