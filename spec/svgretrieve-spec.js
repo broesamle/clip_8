@@ -457,8 +457,7 @@ describe("retrieveIntersectingRectangles: test query rects q against one fixed t
     });
 });
 
-describe("retrieveIntersectingRectangles", function() {
-    var svgroot;
+describe("retrieval by enclosure and by intersection", function() {
     beforeEach(function() {
         svgroot = document.getElementById("svgroot1");
         while (svgroot.firstChild) {
@@ -473,8 +472,24 @@ describe("retrieveIntersectingRectangles", function() {
     it("should return zero elements when no rectangle is present", function () {
         var result = Svgretrieve.getIntersectingRectangles ( Svgdom.newRectElement_fromSVGRect(rndSVGRect()) );
         expect(result.length).toBe(0);
+        var result = Svgretrieve.getEnclosedRectangles ( Svgdom.newRectElement_fromSVGRect(rndSVGRect()) );
+        expect(result.length).toBe(0);
     });
+});
 
+describe("retrieve randomised rect elements", function() {
+    var svgroot;
+    beforeEach(function() {
+        svgroot = document.getElementById("svgroot1");
+        while (svgroot.firstChild) {
+            svgroot.removeChild(svgroot.firstChild);
+        }
+        svgroot.setAttribute("width", 300);
+        svgroot.setAttribute("height", 300);
+        svgroot.setAttribute("viewBox", "-150 -150 300 300");
+        Svgdom.init(svgroot);
+        Svgretrieve.init(svgroot);
+    });
     it("queries should meet the expectation for random rect elements", function() {
         var QRECT_NUM = 1;
         var RECT_NUM = 30;
