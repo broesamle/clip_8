@@ -540,10 +540,17 @@ var Clip8 = {
                 }
                 else {
                     // MOVE-REL
-                    var circles = Svgretrieve.getCirclesAt(
-                        bothends[1],
-                        theline.getAttribute("stroke-width"),         // use as minimum radius
-                        theline.getAttribute("stroke-width") * 4 );   // use as minimum radius
+                    var tolerance = theline.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
+                    if (! tolerance) {
+                        console.warn("Could not derive tolerance from stroke width.", theline);
+                        tolerance = 1.0 * Clip8.STROKE_TOLERANCE_RATIO;
+                    }
+                    var circles = Svgretrieve.getISCbyLocation(
+                                      bothends[1],
+                                      tolerance,
+                                      Clip8.RETRIEVE_CPOINT_MAXNUM,
+                                      ["circle"],
+                                      Svgretrieve.I_collection);
                     if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
                     var deltaX, deltaY;
                     deltaX = bothends[1].x-bothends[0].x;
