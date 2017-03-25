@@ -276,18 +276,14 @@ var Svgretrieve = {
         return Svgretrieve.svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect));
     },
 
-    getCirclesByCentre: function (c, epsilon) {
-    },
-
-    getElementsByControlpointLocation: function (point, radius, maxcount, tagnames) {
-        var candidates = Svgretrieve.kdtree.nearest(point, maxcount, radius);
-        //console.debug("[getElementsByControlpointLocation] point, radius, maxcount, tagnames, candidates",
-        //                point, radius, maxcount, tagnames, candidates);
+    getISCbyLocation: function (point, radius, maxcount, tagnames, ISC_collection) {
         var result = [];
-        for (var i=0; i < candidates.length; i++) {
-            console.info("[getElementsByControlpointLocation]", candidates[i][0].ownerelement.tagName)
-            if (!tagnames || tagnames.indexOf(candidates[i][0].ownerelement.tagName) != -1)
-                result.push(candidates[i][0].ownerelement);
+        if (ISC_collection.root != null) {   // check for empty collection
+            var candidates = ISC_collection.nearest(point, maxcount, radius);
+            for (var i=0; i < candidates.length; i++) {
+                if (!tagnames || tagnames.indexOf(candidates[i][0].ownerelement.tagName) != -1)
+                    result.push(candidates[i][0].ownerelement);
+            }
         }
         return result
     },

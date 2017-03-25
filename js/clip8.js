@@ -34,13 +34,15 @@ var Clip8 = {
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
     CIRCLE_CENTRE_TOLERANCE_RATIO: 1/5.0,
+    STROKE_TOLERANCE_RATIO: 1/2.0,
+    RETRIEVE_CPOINT_MAXNUM: 10,   // how many initial candidates are retrieved during retrieve by control point
     // Variables
     maxcycles: 1000,
     cyclescounter: 0,
     exectimer: undefined,
     svgroot: undefined,
     ip: undefined,           // instruction pointer
-    pminus1_area: undefined, // p0area of former round.
+    pminus1_point: undefined, // p0area of former round.
     blocklist: [],      // list of elements already retrieved during current instruction cycle.
     visualise: false,   // visualise processing activity to the user
     highlighted: [],    // list of elements highlighted for visualization
@@ -102,60 +104,53 @@ var Clip8 = {
         return result;
     },
 
-    retrieveISCElements: function (arearect, tagsI, tagsS, tagsC) {
+    retrieveISCElements: function (p, tagsI, tagsS, tagsC) {
         var debug = false;
-        if (debug) console.log("[RETRIEVEISCELEMENTS] arearect:", arearect);
-        var hitlist = Svgretrieve.getIntersectedElements(arearect);
-        if (debug)  console.log("[retrieveISCElements] hitlist:", hitlist);
-        hitlist = Clip8.removeFalsePositives(arearect, hitlist);
-        if (debug)  console.log("[retrieveISCElements] hitlist (red):", hitlist);
-        if (hitlist.length == 0) throw "[retrieveISCElements] empty hitlist.";
+        if (debug) console.log("[RETRIEVEISCELEMENTS] location p:", p);
         var I = [];
         var S = [];
         var C = [];
-        for ( var i = 0; i < tagsI.length; i++ ) I.push([]);
-        for ( var i = 0; i < tagsS.length; i++ ) S.push([]);
-        for ( var i = 0; i < tagsC.length; i++ ) C.push([]);
-        for ( var i = 0; i < hitlist.length; i++ ) {
-            if (!Clip8._isBlocklisted(hitlist[i])) {
-                if (hitlist[i].getAttribute("stroke-linecap") == "round") {
-                    I = Clip8decode.pushByTagname(hitlist[i], tagsI, I);
-                    Clip8.blocklist.push(hitlist[i]);
-                }
-                else if (hitlist[i].getAttribute("stroke-dasharray") &&
-                    (hitlist[i].tagName == "rect" || hitlist[i].tagName == "line") ) {
-                    S = Clip8decode.pushByTagname(hitlist[i], tagsS, S);
-                    Clip8.blocklist.push(hitlist[i]);
-                }
-                else if ( hitlist[i].getAttribute("stroke-linecap") != "round" &&
-                    (hitlist[i].tagName == "path" ||
-                     hitlist[i].tagName == "line" ||
-                     hitlist[i].tagName == "circle" ||
-                     hitlist[i].tagName == "polyline") ) {
-                    C = Clip8decode.pushByTagname(hitlist[i], tagsC, C);
-                    Clip8.blocklist.push(hitlist[i]);
-                }
-                else {
-                    hitlist[i].setAttribute("stroke", "#ED1E79");
-                    throw "[retrieveISCElements] UGO, unknown graphics object: "+hitlist[i];
-                }
-            }
-            else
-                if (debug) console.log("[retrieveISCElements] ignore blocklisted element:", Clip8._isBlocklisted(hitlist[i]) );
+        for ( var i = 0; i < tagsI.length; i++ ) {
+            I.push(Svgretrieve.getISCbyLocation(
+                       p,
+                       Clip8.STROKE_TOLERANCE_RATIO,
+                       Clip8.RETRIEVE_CPOINT_MAXNUM,
+                       [tagsI[i]],
+                       Svgretrieve.I_collection));
+            I[i] = I[i].filter( function(el) { return !Clip8._isBlocklisted(el) } );
+            I[i].forEach( function (el) { Clip8.blocklist.push(el) } );
+        }
+        for ( var i = 0; i < tagsS.length; i++ ) {
+            S.push(Svgretrieve.getISCbyLocation(
+                       p,
+                       Clip8.STROKE_TOLERANCE_RATIO,
+                       Clip8.RETRIEVE_CPOINT_MAXNUM,
+                       [tagsS[i]],
+                       Svgretrieve.S_collection));
+            S[i] = S[i].filter( function(el) { return !Clip8._isBlocklisted(el) } );
+            S[i].forEach( function (el) { Clip8.blocklist.push(el) } );
+        }
+        for ( var i = 0; i < tagsC.length; i++ ) {
+            C.push(Svgretrieve.getISCbyLocation(
+                       p,
+                       Clip8.STROKE_TOLERANCE_RATIO,
+                       Clip8.RETRIEVE_CPOINT_MAXNUM,
+                       [tagsC[i]],
+                       Svgretrieve.C_collection));
+            C[i] = C[i].filter( function(el) { return !Clip8._isBlocklisted(el) } );
+            C[i].forEach( function (el) { Clip8.blocklist.push(el) } );
         }
         return [I, S, C];
     },
 
-    retrieveCoreSelector: function (S, originarea) {
+    retrieveCoreSelector: function (S, point) {
         var debug = false;
         if (debug) console.log("[RETRIEVECORESELECTOR] S:", S);
         var coreS;
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
-            var epsilon = 0.01;
-            var lineend = Svgdom.getBothEndsOfLine_arranged(originarea, S[Clip8.LINETAG][0])[1];
-            var arearect = Svgdom.epsilonRectAt(lineend, epsilon);
-            var isc = Clip8.retrieveISCElements(arearect, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+            var lineend = Svgdom.getBothEndsOfLine_arranged(point, S[Clip8.LINETAG][0])[1];
+            var isc = Clip8.retrieveISCElements(lineend, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
             coreS = isc[1];
         }
@@ -230,35 +225,36 @@ var Clip8 = {
     TERMINATE: 0,
     CONTINUE: 1,
     EXECUTE: 2,
-    moveIP: function (C, arearect) {
+    moveIP: function (C, p0) {
         var debug = false;
         var epsilon = 0.01;
         if ( C[Clip8.CIRCLETAG].length == 2 )
             return Clip8.TERMINATE;
         else if (C[Clip8.PATHTAG].length == 1) {
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
-            Clip8.pminus1_area = arearect;    // indicate old instruction pointer area
+            Clip8.pminus1_point = p0;    // indicate old instruction pointer area
         }
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
             var points = Svgdom.getPointsOfPoly(C[Clip8.POLYLINETAG][0]);
+            var arearect = Svgdom.epsilonRectAt(p0, 0.01);
             if (Svgdom.enclosesRectPoint(arearect, points[1])) {
                 // Alternative
                 console.log("ALTERNATIVE");
                 var endpoints = [points[0], points[2]];
                 if (debug) console.log("[moveIP] endpoints:", endpoints);
-                var arearectA = Svgdom.epsilonRectAt(endpoints[0], epsilon);
+                var pointA = Svgdom.epsilonRectAt(endpoints[0], epsilon);
                 var localISCa = Clip8.retrieveISCElements(
-                                    arearectA,
+                                    endpoints[0],
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
-                var arearectB = Svgdom.epsilonRectAt(endpoints[1], epsilon);
+                var pointB = Svgdom.epsilonRectAt(endpoints[1], epsilon);
                 var localISCb = Clip8.retrieveISCElements(
-                                    arearectB,
+                                    endpoints[1],
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var condISC;            // the ISC where the condition is attached
                 var oppositeISC;        // the ISC opposite to where the condition is attached
-                var condarearect;       // the arearect where the condition is attached
-                var oppositearearect;   // the arearect opposite to where the condition is attached
+                var condpoint;       // the arearect where the condition is attached
+                var oppositepoint;   // the arearect opposite to where the condition is attached
                 // Determine the side whith an attached selector.
                 // We will call this side `cond` and the other side `opposite`
                 if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
@@ -270,32 +266,32 @@ var Clip8 = {
                         endpoints = endpoints.reverse();
                         var localISCtemp = localISCa;
                         condISC = localISCb;
-                        condarearect = arearectB;
+                        condpoint = pointB;
                         oppositeISC = localISCa;
-                        oppositearearect = arearectA;
+                        oppositepoint = pointA;
                     }
                 }
                 else {
                     condISC = localISCa;
-                    condarearect = arearectA;
+                    condpoint = pointA;
                     oppositeISC = localISCb;
-                    oppositearearect = arearectB;
+                    oppositepoint = pointB;
                 }
-                var retrselector = Clip8.retrieveCoreSelector(condISC[1], condarearect);
+                var retrselector = Clip8.retrieveCoreSelector(condISC[1], condpoint);
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
                 var condselected = Clip8.selectedElementSet(coreselector);
                 if (condselected.length > 0)
                     if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
-                        Clip8.pminus1_area = condarearect;         // indicate old instruction pointer area
+                        Clip8.pminus1_point = condpoint;         // indicate old instruction pointer area
                     }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
                 else
                     if (oppositeISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
-                        Clip8.pminus1_area = oppositearearect;         // indicate old instruction pointer area
+                        Clip8.pminus1_point = oppositepoint;         // indicate old instruction pointer area
                     }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
@@ -303,17 +299,16 @@ var Clip8 = {
             else {
                 // Merge
                 console.log("MERGE");
-                var mergearea = Svgdom.epsilonRectAt(points[1], epsilon)
                 var localISC = Clip8.retrieveISCElements(
-                                    mergearea,
+                                    points[1],
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 if (localISC[2][Clip8.PATHTAG].length == 1) {
                     Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
-                    Clip8.pminus1_area = mergearea;             // indicate old instruction pointer area
+                    Clip8.pminus1_point = points[1];             // indicate old instruction pointer area
                 }
                 else if (localISC[2][Clip8.LINETAG].length == 1) {
                     Clip8.ip = localISC[2][Clip8.LINETAG][0];   // move instruction pointer
-                    Clip8.pminus1_area = mergearea;             // indicate old instruction pointer area
+                    Clip8.pminus1_point = points[1];             // indicate old instruction pointer area
                 }
                 else
                     throw "[moveIP] Invalid control flow at merge.";
@@ -343,18 +338,28 @@ var Clip8 = {
             }
         }
         for (var i = 0; i < centres_offilled.length; i++ ) {
-            var concentrics = Svgretrieve.getElementsByControlpointLocation(centres_offilled[i], radii_offilled[i]*Clip8.CIRCLE_CENTRE_TOLERANCE_RATIO, 3, ['circle']);
+            var concentrics = Svgretrieve.getISCbyLocation(
+                                  centres_offilled[i],
+                                  radii_offilled[i]*Clip8.CIRCLE_CENTRE_TOLERANCE_RATIO,
+                                  3,
+                                  ['circle'],
+                                  Svgretrieve.C_collection);
 
             if (concentrics.length == 1) {
                 // found circle not surrounded by any other (= an area being the centre of one circle).
-                var hitlist = Svgretrieve.getElementsByControlpointLocation(centres_offilled[i], radii_offilled[i]*Clip8.CIRCLE_CENTRE_TOLERANCE_RATIO, 3, ['path']);
-                if (debug) console.log("[initControlFlow] centres_offilled[i], hitlist:", centres_offilled[i], hitlist);
+                var hitlist = Svgretrieve.getISCbyLocation(
+                                  centres_offilled[i],
+                                  radii_offilled[i]*Clip8.CIRCLE_CENTRE_TOLERANCE_RATIO,
+                                  3,
+                                  ['path'],
+                                  Svgretrieve.C_collection);
+                if (debug) console.debug("[initControlFlow] hitlist", hitlist);
                 if (!hitlist[0]) {
-                    console.err("[initControlFlow] failed to identify intial path segment at", centres_offilled[i])
+                    console.error("[initControlFlow] failed to identify intial path segment at", centres_offilled[i])
                     throw "[initControlFlow] failed to identify intial path segment";
                 }
                 if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
-                Clip8.pminus1_area = Svgdom.epsilonRectAt(centres_offilled[i], epsilon);
+                Clip8.pminus1_point = centres_offilled[i];
                 if (Clip8.visualise) Clip8._highlightElement(hitlist[0]);
                 return hitlist[0];
             }
@@ -378,17 +383,18 @@ var Clip8 = {
         else throw "[executeOneOperation] expected path or line as ip element.";
 
         var p0;
-        if ( Svgdom.enclosesRectPoint(Clip8.pminus1_area, p0candidates[0]) )
-            if ( Svgdom.enclosesRectPoint(Clip8.pminus1_area, p0candidates[1]) )
+
+        var pminus1_area = Svgdom.epsilonRectAt(Clip8.pminus1_point, 0.1);
+        if ( Svgdom.enclosesRectPoint(pminus1_area, p0candidates[0]) )
+            if ( Svgdom.enclosesRectPoint(pminus1_area, p0candidates[1]) )
                 throw "Control flow ambiguous/both path ends close to former p0."
             else
                 p0 = p0candidates[1];
         else
             p0 = p0candidates[0];
-        var p0area = Svgdom.epsilonRectAt(p0, epsilon);
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
-        var ISC0 = Clip8.retrieveISCElements(p0area, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+        var ISC0 = Clip8.retrieveISCElements(p0, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
         var I0 = ISC0[0];
         var S0 = ISC0[1];
         var C0 = ISC0[2];
@@ -410,7 +416,7 @@ var Clip8 = {
                     Clip8._highlightElement(C0[i][j]);
             }
         }
-        var execstatus = Clip8.moveIP(C0, p0area);
+        var execstatus = Clip8.moveIP(C0, p0);
         switch (execstatus) {
             case Clip8.EXECUTE:
                 break;      // redundant but more readable.
@@ -420,7 +426,7 @@ var Clip8 = {
                 Clip8.stopTimer();
                 return;     // stop execution
         }
-        var retrselector = Clip8.retrieveCoreSelector(S0, p0area)
+        var retrselector = Clip8.retrieveCoreSelector(S0, p0)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         if      (selectortype == Clip8.RECTSELECTOR)
@@ -445,8 +451,7 @@ var Clip8 = {
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
-                var arearect = Svgdom.epsilonRectAt(bothends[1], epsilon);
-                var ISC1 = Clip8.retrieveISCElements(arearect, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var ISC1 = Clip8.retrieveISCElements(bothends[1], Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
                 if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
