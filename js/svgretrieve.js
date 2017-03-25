@@ -62,24 +62,25 @@ var Svgretrieve = {
         var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
         var unreg = [];
         for (var i=0; i<elems.length; i++) {
+            console.debug("register rect element:", elems[i]);
             if ( !elems[i].getAttribute("stroke") ||
                   elems[i].getAttribute("stroke") == "none" ||
                   elems[i].getAttribute("fill") != "none" ) {
                 // FIXME proper condition for a data element; cf. issue #77
                 // data element
-                console.debug("DATA", elems[i]);
+                console.debug("    DATA");
                 itv = Svgretrieve._getMainInterval(elems[i]) // get interval
                 itv.push(elems[i]); // append pointer to rect element
                 intervals.push(itv);
             } else if  ( elems[i].getAttribute("stroke-linecap") == "round" ) {
-                console.debug("INSTRUCTION", elems[i]);
+                console.debug("    INSTRUCTION");
                 cpts = Svgdom.getCornersOfRectPoints(elems[i]);
                 cpts.forEach( function (cpt) {
                     cpt.ownerelement = elems[i];
                     Svgretrieve.I_collection.insert(cpt) });
             } else if ( elems[i].getAttribute("stroke-dasharray") ) {
                 // selector element
-                console.debug("SELECTOR", elems[i]);
+                console.debug("    SELECTOR");
                 cpts = Svgdom.getCornersOfRectPoints(elems[i]);
                 cpts.forEach( function (cpt) {
                     cpt.ownerelement = elems[i];
@@ -93,9 +94,10 @@ var Svgretrieve = {
         // CIRCLE
         elems = Svgretrieve.clip8root.getElementsByTagName("circle");
         for (var i=0; i<elems.length; i++) {
+            console.debug("register circle element:", elems[i]);
             if (elems[i].getAttribute("stroke", "none") &&
                 elems[i].getAttribute("stroke", "none") != "none") {
-                console.debug("CONTROL FLOW", elems[i]);
+                console.debug("    CONTROL FLOW");
                 cpt = Svgdom.getCentrePoint(elems[i]);
                 cpt.ownerelement = elems[i];
                 Svgretrieve.C_collection.insert(cpt);
@@ -106,11 +108,17 @@ var Svgretrieve = {
         elems = Svgretrieve.clip8root.getElementsByTagName("path");
         for (var i=0; i<elems.length; i++) {
             console.debug("register path element:", elems[i]);
+            try {
+                cpts = Svgdom.getBothEndsOfPath(elems[i]);
+            }
+            catch (err) {
+                console.warn("could not register", elems[i]);
+                continue
+            }
             if (elems[i].getAttribute("stroke", "none") &&
                 elems[i].getAttribute("stroke", "none") != "none" &&
                 elems[i].getAttribute("stroke-linecap") == "round") {
                 console.debug("   INSTRUCTION");
-                cpts = Svgdom.getBothEndsOfPath(elems[i]);
                 cpts.forEach( function (cpt) {
                     cpt.ownerelement = elems[i];
                     Svgretrieve.I_collection.insert(cpt) });
@@ -118,7 +126,6 @@ var Svgretrieve = {
                        elems[i].getAttribute("stroke", "none") != "none" &&
                        elems[i].getAttribute("stroke-linecap") != "round") {
                 console.debug("   CONTROL FLOW");
-                cpts = Svgdom.getBothEndsOfPath(elems[i]);
                 cpts.forEach( function (cpt) {
                     cpt.ownerelement = elems[i];
                     Svgretrieve.C_collection.insert(cpt) });
@@ -132,20 +139,20 @@ var Svgretrieve = {
             if (elems[i].getAttribute("stroke", "none") &&
                 elems[i].getAttribute("stroke", "none") != "none") {
                 if (elems[i].getAttribute("stroke-linecap") == "round") {
-                    console.debug("INSTRUCTION", elems[i]);
+                    console.debug("    INSTRUCTION");
                     cpts = Svgdom.getBothEndsOfLine(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
                 } else {
                     if ( elems[i].getAttribute("stroke-dasharray") ) {
-                        console.debug("SELECTOR", elems[i]);
+                        console.debug("    SELECTOR");
                         cpts = Svgdom.getBothEndsOfLine(elems[i]);
                         cpts.forEach( function (cpt) {
                             cpt.ownerelement = elems[i];
                             Svgretrieve.S_collection.insert(cpt) });
                     } else {
-                        console.debug("CONTROL FLOW", elems[i]);
+                        console.debug("    CONTROL FLOW");
                         cpts = Svgdom.getBothEndsOfLine(elems[i]);
                         cpts.forEach( function (cpt) {
                             cpt.ownerelement = elems[i];
@@ -162,13 +169,13 @@ var Svgretrieve = {
             if (elems[i].getAttribute("stroke", "none") &&
                 elems[i].getAttribute("stroke", "none") != "none") {
                 if (elems[i].getAttribute("stroke-linecap") == "round") {
-                    console.debug("INSTRUCTION", elems[i]);
+                    console.debug("    INSTRUCTION");
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
                 } else {
-                    console.debug("CONTROL FLOW", elems[i]);
+                    console.debug("    CONTROL FLOW");
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
