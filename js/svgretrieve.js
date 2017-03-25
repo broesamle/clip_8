@@ -25,34 +25,25 @@
 var Svgretrieve = {
     svgroot: undefined,
     clip8root: undefined,
-    kdtree: undefined,
+    I_collection: undefined,
+    S_collection: undefined,
+    C_collection: undefined,
     rect_intervals: undefined,
     init: function (svgroot) {
         Svgretrieve.svgroot = svgroot;
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
-        Svgretrieve.kdtree = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
-        var els = Svgretrieve.clip8root.getElementsByTagName("circle");
-        for (var i=0; i < els.length; i++) {
-            Svgretrieve.registerSVGCircleElement(els[i]);
-        }
-        els = Svgretrieve.clip8root.getElementsByTagName("path");
-        for (var i=0; i < els.length; i++) {
-            try {
-                Svgretrieve.registerSVGPathElement(els[i]);
-            }
-            catch(err) {
-                console.warn ("[init] failed to register path element:", els[i], err);
-            }
-        }
-        Svgretrieve.registerRectElements_fromDOM();
+        Svgretrieve.registerElements_fromDOM();
     },
 
     _distanceCPoints: function (cp1, cp2) {
         return Math.sqrt ( Math.pow(cp1.x - cp2.x, 2) +  Math.pow(cp1.y - cp2.y, 2) );
     },
 
-    registerRectElements_fromDOM () {
+    registerElements_fromDOM () {
+        Svgretrieve.I_collection = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
+        Svgretrieve.S_collection = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
+        Svgretrieve.C_collection = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
         var viewboxparams = Svgretrieve.svgroot.getAttribute("viewBox").split(" ");
         var vBx = viewboxparams[0];
         var vBy = viewboxparams[1];
@@ -67,31 +58,131 @@ var Svgretrieve = {
             Svgretrieve._getMainInterval = Svginterval.getYIntervalRectElement;
             Svgretrieve._getOrthoInterval = Svginterval.getXIntervalRectElement;
         }
-        var rects = Svgretrieve.clip8root.getElementsByTagName("rect");
         var intervals = [];
-        var itv;
-        for (var i=0; i<rects.length; i++) {
-            // get interval, append pointer to corresp. rect element
-            itv = Svgretrieve._getMainInterval(rects[i])
-            itv.push(rects[i]);
-            intervals.push(itv);
+        var elems, cpts, cpt, itv;
+
+        console.groupCollapsed("Register SVG graphics elements.");
+        // RECT
+        var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
+        var unreg = [];
+        for (var i=0; i<elems.length; i++) {
+            if ( !elems[i].getAttribute("stroke") ||
+                  elems[i].getAttribute("stroke") == "none" ||
+                  elems[i].getAttribute("fill") != "none" ) {
+                // FIXME proper condition for a data element; cf. issue #77
+                // data element
+                console.debug("DATA", elems[i]);
+                itv = Svgretrieve._getMainInterval(elems[i]) // get interval
+                itv.push(elems[i]); // append pointer to rect element
+                intervals.push(itv);
+            } else if  ( elems[i].getAttribute("stroke-linecap") == "round" ) {
+                console.debug("INSTRUCTION", elems[i]);
+                cpts = Svgdom.getCornersOfRectPoints(elems[i]);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.I_collection.insert(cpt) });
+            } else if ( elems[i].getAttribute("stroke-dasharray") ) {
+                // selector element
+                console.debug("SELECTOR", elems[i]);
+                cpts = Svgdom.getCornersOfRectPoints(elems[i]);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.S_collection.insert(cpt) });
+            } else
+                unreg.push(elems[i]);
         }
         Svgretrieve.rect_intervals = new IntervalTree1D(intervals);
-        //console.debug("[registerRectElements_fromDOM ] tree, intervals, rects:", Svgretrieve.rect_intervals, intervals, rects);
-    },
-
-    registerSVGCircleElement: function (el) {
-        var c = Svgdom.getCentrePoint(el)
-        c.ownerelement = el;
-        Svgretrieve.kdtree.insert(c);
-    },
-
-    registerSVGPathElement: function (el) {
-        var cpts = Svgdom.getBothEndsOfPath(el);
-        cpts[0].ownerelement = el;
-        cpts[1].ownerelement = el;
-        Svgretrieve.kdtree.insert(cpts[0]);
-        Svgretrieve.kdtree.insert(cpts[1]);
+        console.debug("[registerRectElements_fromDOM ] tree, intervals, elems:",
+                                 Svgretrieve.rect_intervals, intervals, elems);
+        // CIRCLE
+        elems = Svgretrieve.clip8root.getElementsByTagName("circle");
+        for (var i=0; i<elems.length; i++) {
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none") {
+                console.debug("CONTROL FLOW", elems[i]);
+                cpt = Svgdom.getCentrePoint(elems[i]);
+                cpt.ownerelement = elems[i];
+                Svgretrieve.C_collection.insert(cpt);
+            } else
+                unreg.push(elems[i]);
+        }
+        // PATH
+        elems = Svgretrieve.clip8root.getElementsByTagName("path");
+        for (var i=0; i<elems.length; i++) {
+            console.debug("register path element:", elems[i]);
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none" &&
+                elems[i].getAttribute("stroke-linecap") == "round") {
+                console.debug("   INSTRUCTION");
+                cpts = Svgdom.getBothEndsOfPath(elems[i]);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.I_collection.insert(cpt) });
+            } else if (elems[i].getAttribute("stroke", "none") &&
+                       elems[i].getAttribute("stroke", "none") != "none" &&
+                       elems[i].getAttribute("stroke-linecap") != "round") {
+                console.debug("   CONTROL FLOW");
+                cpts = Svgdom.getBothEndsOfPath(elems[i]);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.C_collection.insert(cpt) });
+            } else
+                unreg.push(elems[i]);
+        }
+        // LINE
+        elems = Svgretrieve.clip8root.getElementsByTagName("line");
+        for (var i=0; i<elems.length; i++) {
+            console.debug("register line element:", elems[i]);
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none") {
+                if (elems[i].getAttribute("stroke-linecap") == "round") {
+                    console.debug("INSTRUCTION", elems[i]);
+                    cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.I_collection.insert(cpt) });
+                } else {
+                    if ( elems[i].getAttribute("stroke-dasharray") ) {
+                        console.debug("SELECTOR", elems[i]);
+                        cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                        cpts.forEach( function (cpt) {
+                            cpt.ownerelement = elems[i];
+                            Svgretrieve.S_collection.insert(cpt) });
+                    } else {
+                        console.debug("CONTROL FLOW", elems[i]);
+                        cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                        cpts.forEach( function (cpt) {
+                            cpt.ownerelement = elems[i];
+                            Svgretrieve.C_collection.insert(cpt) });
+                    }
+                }
+            } else
+                unreg.push(elems[i]);
+        }
+        // POLYLINE
+        elems = Svgretrieve.clip8root.getElementsByTagName("polyline");
+        for (var i=0; i<elems.length; i++) {
+            console.debug("register polyline element:", elems[i]);
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none") {
+                if (elems[i].getAttribute("stroke-linecap") == "round") {
+                    console.debug("INSTRUCTION", elems[i]);
+                    cpts = Svgdom.getPointsOfPoly(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.I_collection.insert(cpt) });
+                } else {
+                    console.debug("CONTROL FLOW", elems[i]);
+                    cpts = Svgdom.getPointsOfPoly(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.C_collection.insert(cpt) });
+                }
+            } else
+                unreg.push(elems[i]);
+        }
+        console.groupEnd();
+        if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
     },
 
     getEnclosedRectangles: function (queryrect) {
