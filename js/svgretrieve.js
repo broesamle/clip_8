@@ -36,14 +36,10 @@ var Svgretrieve = {
         Svgretrieve.registerElements_fromDOM();
     },
 
-    _distanceCPoints: function (cp1, cp2) {
-        return Math.sqrt ( Math.pow(cp1.x - cp2.x, 2) +  Math.pow(cp1.y - cp2.y, 2) );
-    },
-
     registerElements_fromDOM () {
-        Svgretrieve.I_collection = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
-        Svgretrieve.S_collection = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
-        Svgretrieve.C_collection = new kdTree([], Svgretrieve._distanceCPoints, ["x", "y"]);
+        Svgretrieve.I_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
+        Svgretrieve.S_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
+        Svgretrieve.C_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
         var viewboxparams = Svgretrieve.svgroot.getAttribute("viewBox").split(" ");
         var vBx = viewboxparams[0];
         var vBy = viewboxparams[1];

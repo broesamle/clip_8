@@ -28,6 +28,10 @@ var Svgdom = {
         Svgdom.SVGNS = svgroot.namespaceURI;
     },
 
+    euclidDistance: function (p1, p2) {
+        return Math.sqrt ( Math.pow(p1.x - p2.x, 2) +  Math.pow(p1.y - p2.y, 2) );
+    },
+
     addGroup: function (parentel) {
         var g = document.createElementNS(Svgdom.SVGNS, "g");
         parentel.appendChild(g);
@@ -142,13 +146,13 @@ var Svgdom = {
         return [start, end];
     },
 
-    getBothEndsOfLine_arranged: function(arearect, line) {
+    getBothEndsOfLine_arranged: function(refpoint, line) {
         var bothends = Svgdom.getBothEndsOfLine(line);
-        if ( Svgdom.enclosesRectPoint(arearect, bothends[0]) )
-            return bothends;
-        else
-            bothends.reverse()
-            return bothends;
+        if ( Svgdom.euclidDistance(refpoint, bothends[0]) >
+             Svgdom.euclidDistance(refpoint, bothends[1]) )
+            bothends.reverse();
+
+        return bothends;
     },
 
     getBothEndsOfPath: function (path) {
