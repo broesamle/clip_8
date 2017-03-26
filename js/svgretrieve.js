@@ -63,21 +63,19 @@ var Svgretrieve = {
         var unreg = [];
         for (var i=0; i<elems.length; i++) {
             console.debug("register rect element:", elems[i]);
-            if ( !elems[i].getAttribute("stroke") ||
-                  elems[i].getAttribute("stroke") == "none" ||
-                  elems[i].getAttribute("fill") != "none" ) {
+            if  ( elems[i].getAttribute("stroke-linecap") == "round" ) {
+                console.debug("    INSTRUCTION");
+                cpts = Svgdom.getCornersOfRectPoints(elems[i]);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.I_collection.insert(cpt) });
+            } else if (elems[i].getAttribute("fill") != "none") {
                 // FIXME proper condition for a data element; cf. issue #77
                 // data element
                 console.debug("    DATA");
                 itv = Svgretrieve._getMainInterval(elems[i]) // get interval
                 itv.push(elems[i]); // append pointer to rect element
                 intervals.push(itv);
-            } else if  ( elems[i].getAttribute("stroke-linecap") == "round" ) {
-                console.debug("    INSTRUCTION");
-                cpts = Svgdom.getCornersOfRectPoints(elems[i]);
-                cpts.forEach( function (cpt) {
-                    cpt.ownerelement = elems[i];
-                    Svgretrieve.I_collection.insert(cpt) });
             } else if ( elems[i].getAttribute("stroke-dasharray") ) {
                 // selector element
                 console.debug("    SELECTOR");
