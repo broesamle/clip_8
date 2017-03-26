@@ -283,10 +283,10 @@ var Svgretrieve = {
         return Svgretrieve.svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect));
     },
 
-    getISCbyLocation: function (point, radius, maxcount, tagnames, ISC_collection) {
+    getISCbyLocation: function (point, radius, pointcandidates_count, tagnames, ISC_collection) {
         var result = [];
         if (ISC_collection.root != null) {   // check for empty collection
-            var candidates = ISC_collection.nearest(point, maxcount, radius);
+            var candidates = ISC_collection.nearest(point, pointcandidates_count, radius);
             for (var i=0; i < candidates.length; i++) {
                 if (!tagnames || tagnames.indexOf(candidates[i][0].ownerelement.tagName) != -1)
                     result.push(candidates[i][0].ownerelement);
@@ -295,39 +295,25 @@ var Svgretrieve = {
         return result
     },
 
-    getLinesFromTo: function(p1, p2, epsilon) {
+    getLinesFromTo: function(p1, p2, tolerance, pointcandidates_count, ISC_collection) {
         /** Return all lines roughly connecting points `p1`, `p2`.
         */
         var debug = false;
         if (debug) console.log("[GETLINESFROMTO] p1, p2:", p1, p2);
-
-        var candidates;         // A list of candidate lines starting at `p1`
-        var confirmed = [];     // confirmed lines (other endpoint at `p2`)
-        var testareas = [
-            Svgdom.epsilonRectAt(p1, epsilon),
-            Svgdom.epsilonRectAt(p2, epsilon),
-            ];     // Areas which should all be hit
-        if (debug) {
-            for (var j = 0; j < testareas.length; j++) {
-                console.log("[getLinesFromTo]", testareas[j]);
-                var r = Svgdom.addRectElement_SVGRect(Svgretrieve.svgroot, testareas[j]);
-                r.setAttribute("fill", "#ffff22");
-            }
-        }
-        candidates = Svgretrieve.getIntersectedElements(testareas[0]);
+        var candidates = Svgretrieve.getISCbyLocation(
+                         p1,
+                         tolerance,
+                         pointcandidates_count,
+                         ["line"],
+                         ISC_collection);
         if (debug) console.log("[getLinesFromTo] candidates", candidates);
-        for (var i = 0; i < candidates.length; i++) {
-            if (candidates[i] instanceof SVGLineElement) {
-                var reject = false;     // reject the currently tested candidate?
-                for (var j = 1; j < testareas.length; j++) {
-                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j]) ) {
-                        reject = true;
-                        break;
-                    }
-                }
-                if (!reject) confirmed.push(candidates[i]);
-            }
-        }
-        return confirmed;
+        return candidates.filter(
+            function (can) {
+                var endpoints = Svgdom.getBothEndsOfLine(can);
+                return (Svgdom.euclidDistance(endpoints[0], p1) <= tolerance &&
+                        Svgdom.euclidDistance(endpoints[1], p2) <= tolerance) ||
+                        (Svgdom.euclidDistance(endpoints[1], p1) <= tolerance &&
+                        Svgdom.euclidDistance(endpoints[0], p2) <= tolerance);
+            });
     },
 }

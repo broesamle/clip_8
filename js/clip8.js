@@ -50,6 +50,15 @@ var Clip8 = {
     visualise: false,          // visualise processing activity to the user
     highlighted: [],           // elements highlighted for visualization
 
+    _deriveToleranceFromElementStroke: function (el) {
+        var tolerance = el.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
+        if (! tolerance) {
+            console.warn("Could not derive tolerance from stroke width.", el);
+            tolerance = 1.0 * Clip8.STROKE_TOLERANCE_RATIO;
+        }
+        return tolerance;
+    },
+
     _isBlocklisted: function (el) {
         var debug = false;
         for (var i = 0; i < Clip8.blocklist.length; i++)
@@ -72,40 +81,6 @@ var Clip8 = {
         for (var i = 0; i < Clip8.highlighted.length; i++) {
             Clip8.highlighted[i].el.setAttribute("stroke", Clip8.highlighted[i].origstroke);
         }
-    },
-
-    removeFalsePositives: function (arearect, hitlist)  {
-        /** In the ISC components intersection is too weak as a criterion.
-         *  Reduce the `hitlist` so ad to keep only those objects with
-         *  one of the attachment points (end, corner, ...)
-         *  enclosed by `arearect`.
-         */
-        var points;         // points to check for the current element
-        var result = [];
-        for (var i = 0; i < hitlist.length; i++) {
-            var el = hitlist[i];
-            if (!el.getAttribute("stroke", "none") || el.getAttribute("stroke", "none") == "none")
-                continue;   // ignore data elements with no stroke.
-                // FIXME: Consistent data object detection across the whole code.
-            if (el instanceof SVGRectElement)
-                points = Svgdom.getCornersOfRectPoints(el);
-            else if (el instanceof SVGPathElement)
-                points = Svgdom.getBothEndsOfPath(el);
-            else if (el instanceof SVGLineElement)
-                points = Svgdom.getBothEndsOfLine(el);
-            else {
-                result.push(el);
-                continue;
-            }
-
-            for (var j = 0; j < points.length; j++) {
-                if (Svgdom.enclosesRectPoint(arearect, points[j])) {
-                    result.push(el);
-                    break;
-                }
-            }
-        }
-        return result;
     },
 
     retrieveISCElements: function (p, tagsI, tagsS, tagsC) {
@@ -520,31 +495,43 @@ var Clip8 = {
                         case 'DO-RE':
                         case 'DO-LE':
                             // DEL
-                            var p3 = Clip8.svgroot.createSVGPoint();
-                            var p4 = Clip8.svgroot.createSVGPoint();
+                            var p3, p4, opposite_diagonals, selectedelements1, tolerance;
+                            p3 = Clip8.svgroot.createSVGPoint();
+                            p4 = Clip8.svgroot.createSVGPoint();
                             p3.x = theline.getAttribute("x1");
                             p3.y = theline.getAttribute("y2");
                             p4.x = theline.getAttribute("x2");
                             p4.y = theline.getAttribute("y1");
-                            var opposite_diagonals = Svgretrieve.getLinesFromTo(p3, p4, epsilon);
+                            tolerance = Clip8._deriveToleranceFromElementStroke(theline);
+                            opposite_diagonals = Svgretrieve.getISCbyLocation(
+                                      p3,
+                                      tolerance,
+                                      Clip8.RETRIEVE_CPOINT_MAXNUM,
+                                      ["line"],
+                                      Svgretrieve.I_collection);
+                            opposite_diagonals = Svgretrieve.getLinesFromTo(
+                                                     p3, p4,
+                                                     tolerance,
+                                                     Clip8.RETRIEVE_CPOINT_MAXNUM,
+                                                     Svgretrieve.I_collection);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
-                            opposite_diagonals = Clip8.removeFalsePositives(Svgdom.epsilonRectAt(p3, epsilon), opposite_diagonals);
-                            if (debug) console.log("[executeOneOperation] opposite_diagonals (red):", opposite_diagonals);
-                            if (opposite_diagonals.length != 1) throw "[executeOneOperation / del] ambiguous diagonals.";
-                            var selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]]);
+                            if (opposite_diagonals.length != 1) {
+                                console.error("Ambiguous diagonals in (delete ?) instruction.",
+                                              opposite_diagonals )
+                                throw "[executeOneOperation / del] Ambiguous diagonals.";
+                            }
+                            selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]]);
                             for (var i = 0; i < selectedelements1.length; i++)
                                 selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                             break;
-                        default:        throw "[executeOneOperation] Encountered invalid line direction (b).";  break;
+                        default:
+                            throw "[executeOneOperation] Encountered invalid line direction (b).";
+                            break;
                     }
                 }
                 else {
                     // MOVE-REL
-                    var tolerance = theline.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
-                    if (! tolerance) {
-                        console.warn("Could not derive tolerance from stroke width.", theline);
-                        tolerance = 1.0 * Clip8.STROKE_TOLERANCE_RATIO;
-                    }
+                    var tolerance = Clip8._deriveToleranceFromElementStroke(theline);
                     var circles = Svgretrieve.getISCbyLocation(
                                       bothends[1],
                                       tolerance,
