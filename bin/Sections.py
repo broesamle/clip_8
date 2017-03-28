@@ -19,13 +19,14 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.0.12"
+refsheet_version = "0.0.13"
 refsheet_description = "encompasses a usable (incomplete) language repertoire."
 
 sections = [
     ("Iconic Instruction Language", "Control flow", 'test_controlflow.svg'),
     ("Iconic Instruction Language", "Selectors", 'test_selectors.svg'),
     ("Iconic Instruction Language", "Combining Instructions", 'test_combine-instructions.svg'),
+    ("Iconic Instruction Language", "The order of things", 'test_orderofthings.svg'),
     ("Paper inspired Operations", "Align relative", 'test_alignrel.svg'),
     ("Paper inspired Operations", "Align absolute", 'test_alignabs.svg'),
     ("Paper inspired Operations", "Move by vector (relative)", 'test_moverel.svg'),
@@ -36,6 +37,7 @@ sections = [
 expected_to_fail = [
     "disturbing-path2",
     "indirect1", "indirect2", "indirect3",
+    "ordered-clone-move1", "ordered-clone-move2",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "cut-vertical",
