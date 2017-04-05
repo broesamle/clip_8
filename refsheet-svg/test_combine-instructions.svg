@@ -3,27 +3,19 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g id="Background">
-	<rect fill="#606060" stroke="#9ACDCD" stroke-miterlimit="10" width="64" height="64"/>
+<g id="Background" display="none">
+	<rect display="inline" fill="#606060" stroke="#9ACDCD" stroke-miterlimit="10" width="64" height="64"/>
 </g>
-<g id="TEST-two-moves1" display="none">
-	<g id="t1_x5F_two-moves1" display="inline" opacity="0.5">
+<g id="TEST-two-moves1">
+	<g id="t1_x5F_two-moves1" opacity="0.5">
 		<rect x="10" y="44" width="8" height="8"/>
 		<rect x="26" y="40" width="8" height="8"/>
 	</g>
-	<g id="t0_x5F_two-moves1" display="inline" opacity="0.5">
+	<g id="t0_x5F_two-moves1" opacity="0.5">
 		<rect x="10" y="28" width="8" height="8"/>
 		<rect x="26" y="28" width="8" height="8"/>
 	</g>
-	<g id="I_x5F_two-moves1" display="inline">
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="36" cy="36" r="2.5"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="36" y1="24" x2="36" y2="36"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="20" cy="40" r="2.5"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="20" y1="24" x2="20" y2="40"/>
+	<g id="I_x5F_two-moves1">
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M4,24.06c3.566,9.999,10.148-5,16-0.013"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M20,24.06c3.565,9.998,10.149-4.999,16-0.013"/>
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M36,24.06c3.565,9.999,10.148-5,16-0.013"/>
@@ -31,15 +23,51 @@
 		<circle fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="52" cy="24" r="2"/>
 		<rect x="8" y="24" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="12" height="37"/>
 		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="24" r="1"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="20" y1="24" x2="20" y2="40"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="20" cy="40" r="2.5"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="36" cy="36" r="2.5"/>
 		<rect x="24" y="24" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="12" height="37"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="36" y1="24" x2="36" y2="36"/>
+	</g>
+	<rect x="64" fill="none" width="86" height="97"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Two instructions in a sequence from </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">left to right. Control flow always </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">starts at the single dot, i.e. it </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">goes from left to right in this </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">case. </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">At p0 the execution history defines </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">incoming and outgoing paths: If a </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">path was used as an incoming </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">control flow it is blocked for the </tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">way back, irrespective of the </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">technical direction of the SVG path </tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">element.</tspan><tspan x="0" y="67.2" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="72" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="76.8" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="81.6" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-two-moves2" display="none">
+	<g id="t1_x5F_two-moves2" display="inline" opacity="0.5">
+		<rect x="26.5" y="44" width="8" height="8"/>
+	</g>
+	<g id="t0_x5F_two-moves2" display="inline" opacity="0.5">
+		<rect x="10" y="28" width="8" height="8"/>
+	</g>
+	<g id="I_x5F_two-moves2" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M4,24.06c3.566,9.999,10.148-5,16-0.013"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M20,24.06c3.565,9.998,22.149-4.999,28-0.013"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M48,24.06c3.565,9.999,6.148-5,12-0.013"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="24" r="1"/>
+		<circle fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="24" r="2"/>
+		<rect x="8" y="24" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="12" height="37"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="24" r="1"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="20" y1="24" x2="36.5" y2="28"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="36.5" cy="28" r="2.5"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="48" cy="36" r="2.5"/>
+		<rect x="24" y="24" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="24" height="37"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="48" y1="24" x2="48" y2="36"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Two instructions in a sequence from </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">left to right. The incoming flow </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">will not be used as an outgoing </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">flow.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Two instructions in a sequence from </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">left to right. First move brings </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">the black square into the selecor </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">area of the second move, which then </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">pushes it down. The two sequences </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">test the position updating of the </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">block.</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="SECTIONINFO">
-	<rect y="-76" fill="none" width="140" height="59.25"/>
-	<text transform="matrix(1 0 0 1 0 -73.5479)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Several instructions can be combined. Control flow </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">procedes from the initial node (one filled circle) along </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">the attached `path`. The next drop-off point, `p0` is the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">opposite endpoint of the `path`.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">+ The istruction attached at `p0` is executed. </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">+ Control flow then continues on the next `path` element, </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">excluding the one from where it previously arrived. (Never </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">travel back principle.)</tspan></text>
-	<g id="I">
+<g id="SECTIONINFO" display="none">
+	<rect y="-76" display="inline" fill="none" width="140" height="59.25"/>
+	<text transform="matrix(1 0 0 1 0 -73.5479)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Several instructions can be combined. Control flow </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">procedes from the initial node (one filled circle) along </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">the attached `path`. The next drop-off point, `p0` is the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">opposite endpoint of the `path`.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">+ The istruction attached at `p0` is executed. </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">+ Control flow then continues on the next `path` element, </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">excluding the one from where it previously arrived. (Never </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">travel back principle.)</tspan></text>
+	<g id="I" display="inline">
 		<g>
 			<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="5.161" cy="31.281" r="2.143"/>
 			<circle fill="#9BC9C7" stroke="#9ACDCD" stroke-width="1.0714" stroke-miterlimit="10" cx="56.16" cy="31.281" r="2.143"/>
