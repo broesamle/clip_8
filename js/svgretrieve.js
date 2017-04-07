@@ -164,6 +164,7 @@ var Svgretrieve = {
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
     },
 
+
     registerRectElement: function(rect) {
         var cpts, itv;
         console.debug("register rect element:", rect);
@@ -192,6 +193,20 @@ var Svgretrieve = {
             return true;
         } else
             return false;
+    },
+
+    unregisterRectElement: function(rect) {
+        var itv = Svgretrieve._getMainInterval(rect);
+        var candidates = [], tobedeleted;
+        Svgretrieve.rect_intervals.queryPoint(itv[0],
+            function(itv) { candidates.push(itv) } );
+        tobedeleted = candidates.filter( function (can) {
+            return can[2] === rect;
+        })
+        if (tobedeleted.length == 1 && Svgretrieve.rect_intervals.remove(tobedeleted[0]))
+            console.debug("unregistered rect element:", rect);
+        else
+            throw "[unregisterRectElement] failed to remove"+rect;
     },
 
     getEnclosedRectangles: function (queryrect) {

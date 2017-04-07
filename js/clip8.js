@@ -542,7 +542,11 @@ var Clip8 = {
                     var deltaX, deltaY;
                     deltaX = bothends[1].x-bothends[0].x;
                     deltaY = bothends[1].y-bothends[0].y;
+                    for (var i=0; i<selectedelements1.length; i++)
+                        Svgretrieve.unregisterRectElement(selectedelements1[i]);
                     Paperclip.moveBy(selectedelements1, deltaX, deltaY);
+                    for (var i=0; i<selectedelements1.length; i++)
+                        Svgretrieve.registerRectElement(selectedelements1[i]);
                 }
             }
             else if (I0[Clip8.RECTTAG].length == 1) {
