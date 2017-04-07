@@ -178,8 +178,8 @@ var Svgretrieve = {
             // FIXME proper condition for a data element; cf. issue #77
             // data element
             console.debug("    DATA");
-            itv = Svgretrieve._getMainInterval(rect) // get interval
-            itv.push(rect); // append pointer to rect element
+            itv = Svgretrieve._getMainInterval(rect);  // get interval
+            itv.push(rect);                            // append pointer to rect element
             Svgretrieve.rect_intervals.insert(itv);
             return true;
         } else if ( rect.getAttribute("stroke-dasharray") ) {
