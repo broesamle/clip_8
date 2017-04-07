@@ -54,41 +54,19 @@ var Svgretrieve = {
             Svgretrieve._getMainInterval = Svginterval.getYIntervalRectElement;
             Svgretrieve._getOrthoInterval = Svginterval.getXIntervalRectElement;
         }
-        var intervals = [];
-        var elems, cpts, cpt, itv;
+        var elems, cpts, cpt;
 
         console.groupCollapsed("Register SVG graphics elements.");
         // RECT
+        Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init interval tree for data rectangles
         var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
         var unreg = [];
         for (var i=0; i<elems.length; i++) {
-            console.debug("register rect element:", elems[i]);
-            if  ( elems[i].getAttribute("stroke-linecap") == "round" ) {
-                console.debug("    INSTRUCTION");
-                cpts = Svgdom.getCornersOfRectPoints(elems[i]);
-                cpts.forEach( function (cpt) {
-                    cpt.ownerelement = elems[i];
-                    Svgretrieve.I_collection.insert(cpt) });
-            } else if (elems[i].getAttribute("fill") != "none") {
-                // FIXME proper condition for a data element; cf. issue #77
-                // data element
-                console.debug("    DATA");
-                itv = Svgretrieve._getMainInterval(elems[i]) // get interval
-                itv.push(elems[i]); // append pointer to rect element
-                intervals.push(itv);
-            } else if ( elems[i].getAttribute("stroke-dasharray") ) {
-                // selector element
-                console.debug("    SELECTOR");
-                cpts = Svgdom.getCornersOfRectPoints(elems[i]);
-                cpts.forEach( function (cpt) {
-                    cpt.ownerelement = elems[i];
-                    Svgretrieve.S_collection.insert(cpt) });
-            } else
+            if ( ! Svgretrieve.registerRectElement(elems[i]) )
                 unreg.push(elems[i]);
         }
-        Svgretrieve.rect_intervals = new IntervalTree1D(intervals);
-        console.debug("[registerRectElements_fromDOM ] tree, intervals, elems:",
-                                 Svgretrieve.rect_intervals, intervals, elems);
+        console.debug("[registerElements_fromDOM ] tree, elems:",
+                                 Svgretrieve.rect_intervals, elems);
         // CIRCLE
         elems = Svgretrieve.clip8root.getElementsByTagName("circle");
         for (var i=0; i<elems.length; i++) {
@@ -184,6 +162,36 @@ var Svgretrieve = {
         }
         console.groupEnd();
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
+    },
+
+    registerRectElement: function(rect) {
+        var cpts, itv;
+        console.debug("register rect element:", rect);
+        if  ( rect.getAttribute("stroke-linecap") == "round" ) {
+            console.debug("    INSTRUCTION");
+            cpts = Svgdom.getCornersOfRectPoints(rect);
+            cpts.forEach( function (cpt) {
+                cpt.ownerelement = rect;
+                Svgretrieve.I_collection.insert(cpt) });
+            return true;
+        } else if (rect.getAttribute("fill") != "none") {
+            // FIXME proper condition for a data element; cf. issue #77
+            // data element
+            console.debug("    DATA");
+            itv = Svgretrieve._getMainInterval(rect) // get interval
+            itv.push(rect); // append pointer to rect element
+            Svgretrieve.rect_intervals.insert(itv);
+            return true;
+        } else if ( rect.getAttribute("stroke-dasharray") ) {
+            // selector element
+            console.debug("    SELECTOR");
+            cpts = Svgdom.getCornersOfRectPoints(rect);
+            cpts.forEach( function (cpt) {
+                cpt.ownerelement = rect;
+                Svgretrieve.S_collection.insert(cpt) });
+            return true;
+        } else
+            return false;
     },
 
     getEnclosedRectangles: function (queryrect) {
