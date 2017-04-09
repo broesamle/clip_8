@@ -21,7 +21,7 @@
 
 // drawing precision tolerances
 var epsilon = 0.25;      // maximal difference for two coordinates to be considered equal
-var minlen = 0.5;       // minimal size of a graphics element to be "meaningful"
+var minlen = 0.5;        // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
     // Constants
@@ -34,8 +34,8 @@ var Clip8 = {
     UNKNOWNSELECTOR: 900,
     RECTSELECTOR: 901,
     CIRCLE_CENTRE_TOLERANCE_RATIO: 1/5.0,
-    STROKE_TOLERANCE_RATIO: 1/2.0,
-    PATH_MIN_DETAIL_RATIO: 3.0,     // `stroke-width` times `PATH_MIN_DETAIL_RATIO`
+    STROKE_TOLERANCE_RATIO: 1/5.0,
+    PATH_MIN_DETAIL_RATIO: .7,      // `stroke-width` times `PATH_MIN_DETAIL_RATIO`
                                     // is the minimal size for a meaningful detail
                                     // (arrow, control flow continuation etc.)
     RETRIEVE_CPOINT_MAXNUM: 10,     // number of control points considered in ISC retrieval
@@ -211,7 +211,7 @@ var Clip8 = {
             return Clip8.TERMINATE;
         else if (C[Clip8.PATHTAG].length == 1) {
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
-            Clip8.pminus1_point = p0;    // indicate old instruction pointer
+            Clip8.pminus1_point = p0;         // indicate old instruction pointer
         }
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
@@ -232,8 +232,8 @@ var Clip8 = {
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var condISC;            // the ISC where the condition is attached
                 var oppositeISC;        // the ISC opposite to where the condition is attached
-                var condpoint;       // the arearect where the condition is attached
-                var oppositepoint;   // the arearect opposite to where the condition is attached
+                var condpoint;          // the point where the condition is attached
+                var oppositepoint;      // the point opposite to where the condition is attached
                 // Determine the side whith an attached selector.
                 // We will call this side `cond` and the other side `opposite`
                 if (localISCa[1][Clip8.LINETAG].length == 0 && localISCa[1][Clip8.RECTTAG].length == 0) {
@@ -263,14 +263,14 @@ var Clip8 = {
                 if (condselected.length > 0)
                     if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
-                        Clip8.pminus1_point = condpoint;         // indicate old instruction pointer
+                        Clip8.pminus1_point = condpoint;           // indicate old instruction pointer
                     }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
                 else
                     if (oppositeISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
-                        Clip8.pminus1_point = oppositepoint;         // indicate old instruction pointer
+                        Clip8.pminus1_point = oppositepoint;           // indicate old instruction pointer
                     }
                     else
                         throw "[moveIP] Invalid control flow at alternative.";
@@ -282,11 +282,11 @@ var Clip8 = {
                                     points[1],
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 if (localISC[2][Clip8.PATHTAG].length == 1) {
-                    Clip8.ip = localISC[2][Clip8.PATHTAG][0];   // move instruction pointer
+                    Clip8.ip = localISC[2][Clip8.PATHTAG][0];    // move instruction pointer
                     Clip8.pminus1_point = points[1];             // indicate old instruction pointer
                 }
                 else if (localISC[2][Clip8.LINETAG].length == 1) {
-                    Clip8.ip = localISC[2][Clip8.LINETAG][0];   // move instruction pointer
+                    Clip8.ip = localISC[2][Clip8.LINETAG][0];    // move instruction pointer
                     Clip8.pminus1_point = points[1];             // indicate old instruction pointer
                 }
                 else
