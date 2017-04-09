@@ -12,9 +12,14 @@
 <script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine-html.js"></script>
 <script src="../lib/jasmine/lib/jasmine-2.5.2/boot.js"></script>
 
+<script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
+<script src="../lib/clip8dependencies.js"></script>
+
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
+
 <script src="../js/svgdom.js"></script>
+<script src="../js/svginterval.js"></script>
 <script src="../js/svgretrieve.js"></script>
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
@@ -142,7 +147,7 @@
 </svg>
 </span>
 </p>
-<p>First, the element is cloned. The second instruction moves both elements to the right. (This tests whether positions are updated correctly after the clone operation.) <br><span class="testmetainfo">[normal_execution 3] expected to fail.</span></p>
+<p>First, the element is cloned. The second instruction moves both elements to the right. (This tests whether positions are updated correctly after the clone operation.) <br><span class="testmetainfo">[normal_execution 3] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 3" id="ordered-clone-move1">
 <span class="pre-reference">
@@ -163,7 +168,7 @@
 </svg>
 </span>
 </p>
-<p>First, the element is cloned. The second instruction (move) does affect the original but not the clone, as the clone was placed to a location outside the selector. (This tests whether positions are updated correctly after the clone operation.) <br><span class="testmetainfo">[normal_execution 3] expected to fail.</span></p>
+<p>First, the element is cloned. The second instruction (move) does affect the original but not the clone, as the clone was placed to a location outside the selector. (This tests whether positions are updated correctly after the clone operation.) <br><span class="testmetainfo">[normal_execution 3] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest normal_execution 3" id="ordered-clone-move2">
 <span class="pre-reference">
@@ -250,7 +255,7 @@
 
 
 <footer>
-<p><b>Version 0.0.16</b></p>
+<p><b>Version 0.0.17</b></p>
 <p>
 Copyright 2017 Martin Brösamle.<br>
 All rights reserved.<br>

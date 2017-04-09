@@ -19,7 +19,7 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.0.16"
+refsheet_version = "0.0.17"
 refsheet_description = "encompasses a usable (incomplete) language repertoire."
 
 sections = [
@@ -35,9 +35,7 @@ sections = [
     ("Changing dimensions", "Scale and resize", 'test_scale+resize.svg') ]
 
 expected_to_fail = [
-    "disturbing-path2",
-    "indirect1", "indirect2", "indirect3",
-    "ordered-clone-move1", "ordered-clone-move2",
+    "indirect1", "indirect2", "indirect3", "selector-precision-similarrects3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "cut-vertical",
