@@ -435,6 +435,8 @@ var Clip8 = {
                 var S1 = ISC1[1];
                 if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
                 if (debug) console.log("[executeOneOperation] S1:", S1.reduce(function(a,b) {return a.concat(b)}));
+                for (var i=0; i<selectedelements1.length; i++)
+                    Svgretrieve.unregisterRectElement(selectedelements1[i]);
                 if (I1[Clip8.RECTTAG].length == 1 )
                     selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
                 switch (linedir) {
@@ -455,8 +457,14 @@ var Clip8 = {
                         else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
                         else throw "[executeOneOperation] Encountered invalid line arrow combination (b).";
                         break;
-                    default:        throw "[executeOneOperation] Encountered invalid line direction (a)."; break;
+                    default:
+                        console.error("Invalid line direction in ALIGN OPERATION: ", theline);
+                        break;
                 }
+                if (I1[Clip8.RECTTAG].length == 1 )
+                    selectedelements1.pop(); // Remove the absolute rectangle from the selected set.
+                for (var i=0; i<selectedelements1.length; i++)
+                    Svgretrieve.registerRectElement(selectedelements1[i]);
             }
             else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
@@ -464,6 +472,7 @@ var Clip8 = {
                     if (debug) console.log("one dashed line.");
                     // CUT, DEL
                     var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
+                    var newelements;
                     switch (linedir) {
                         case 'UP':
                         case 'DOWN':
@@ -488,7 +497,9 @@ var Clip8 = {
 
                             selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
                             if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
-                            Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                            newelements = Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                            for (var i=0; i<newelements.length; i++)
+                                Svgretrieve.registerRectElement(newelements[i]);
                             break;
                         case 'UP-RE':
                         case 'UP-LE':
@@ -551,11 +562,14 @@ var Clip8 = {
             }
             else if (I0[Clip8.RECTTAG].length == 1) {
                 // CLONE
+                var newelements;
                 if (debug) console.log("[executeOneOperation/clone]");
                 var deltaX, deltaY;
                 deltaX = bothends[1].x-bothends[0].x;
                 deltaY = bothends[1].y-bothends[0].y;
-                Paperclip.clone_moveBy(selectedelements1, deltaX, deltaY);
+                newelements = Paperclip.clone_moveBy(selectedelements1, deltaX, deltaY);
+                for (var i=0; i<newelements.length; i++)
+                    Svgretrieve.registerRectElement(newelements[i]);
             }
         }
         else

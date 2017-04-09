@@ -167,7 +167,7 @@ var Svgretrieve = {
 
     registerRectElement: function(rect) {
         var cpts, itv;
-        console.debug("register rect element:", rect);
+        //console.debug("register rect element:", rect);
         if  ( rect.getAttribute("stroke-linecap") == "round" ) {
             console.debug("    INSTRUCTION");
             cpts = Svgdom.getCornersOfRectPoints(rect);
@@ -204,7 +204,8 @@ var Svgretrieve = {
             return can[2] === rect;
         })
         if (tobedeleted.length == 1 && Svgretrieve.rect_intervals.remove(tobedeleted[0]))
-            console.debug("unregistered rect element:", rect);
+            //console.debug("unregistered rect element:", rect);
+            return;
         else
             throw "[unregisterRectElement] failed to remove"+rect;
     },
