@@ -216,8 +216,7 @@ var Clip8 = {
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
             var points = Svgdom.getPointsOfPoly(C[Clip8.POLYLINETAG][0]);
-            var arearect = Svgdom.epsilonRectAt(p0, 0.01);
-            if (Svgdom.enclosesRectPoint(arearect, points[1])) {
+            if ( Svgdom.euclidDistance(p0, points[1]) < epsilon ) {
                 // Alternative
                 console.log("ALTERNATIVE");
                 var endpoints = [points[0], points[2]];

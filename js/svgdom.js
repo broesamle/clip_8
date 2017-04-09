@@ -76,17 +76,6 @@ var Svgdom = {
         return Svgdom.newRectElement(r.x, r.y, r.width, r.height);
     },
 
-    epsilonRectAt: function (p, epsilon) {
-        var debug = false;
-        if (debug) console.log("[epsilonRectAt] p, epsilon:", p, epsilon);
-        var r = Svgdom.svgroot.createSVGRect();
-        r.x = p.x-epsilon;
-        r.y = p.y-epsilon;
-        r.width = epsilon*2;
-        r.height = epsilon*2;
-        return r;
-    },
-
     addRect: function (parentel,x,y,w,h) {
         var r = Svgdom.newRectElement(x,y,w,h);
         parentel.appendChild(r);
