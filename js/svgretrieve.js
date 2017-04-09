@@ -164,7 +164,6 @@ var Svgretrieve = {
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
     },
 
-
     registerRectElement: function(rect) {
         var cpts, itv;
         //console.debug("register rect element:", rect);
@@ -277,19 +276,6 @@ var Svgretrieve = {
             Initial use case: Select elements potentially affected by a vertical cut.
         */
         throw "[enclosingFullWidthStripe] not implemented."
-    },
-
-    _transformRect_svg2view: function (svgrect) {
-        var trafo = Svgretrieve.clip8root.getCTM();
-        var p1 = Svgretrieve.svgroot.createSVGPoint();
-        var p2 = Svgretrieve.svgroot.createSVGPoint();
-        p1.x = svgrect.x;
-        p1.y = svgrect.y;
-        p2.x = svgrect.x + svgrect.width;
-        p2.y = svgrect.y + svgrect.height;
-        p1 = p1.matrixTransform(trafo);
-        p2 = p2.matrixTransform(trafo);
-        return Svgdom.newSVGRect_fromPoints(p1, p2);
     },
 
     getISCbyLocation: function (point, radius, pointcandidates_count, tagnames, ISC_collection) {

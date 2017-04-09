@@ -144,19 +144,6 @@ var Clip8 = {
             return [Clip8.UNKNOWNSELECTOR];
     },
 
-    reduceSelectionHitlist: function (hitlist) {
-        var selection = [];
-                for ( var i = 0; i < hitlist.length; i++ )
-            if ( hitlist[i].tagName == "rect" &&
-                 (!hitlist[i].getAttribute("stroke") ||
-                  hitlist[i].getAttribute("stroke") == "none" ||
-                  hitlist[i].getAttribute("fill") != "none"
-                 ) )
-                 selection.push(hitlist[i]);
-        // console.log("[selectedElementSet] hitlist, selection:", hitlist, selection);
-        return selection;
-    },
-
     selectedElementSet: function (selectorcore) {
         /** Determine the set of selected elements based on given selector core.
          *  `selectorcore` is the list of SVG DOM elments being the core selector
@@ -197,7 +184,7 @@ var Clip8 = {
             hitlist = Svgretrieve.getIntersectingRectangles(s);
         else throw "[selectedElementSet] invalid dash pattern."
 
-        return Clip8.reduceSelectionHitlist(hitlist);
+        return hitlist;
     },
 
     // Constants
@@ -494,7 +481,6 @@ var Clip8 = {
                                      Svgdom.intersectsRectRectelement(below, hitlist[i]) )
                                     selectedelements1.push(hitlist[i]);
 
-                            //selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
                             if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                             newelements = Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
                             for (var i=0; i<newelements.length; i++)
