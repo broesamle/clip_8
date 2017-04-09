@@ -486,15 +486,15 @@ var Clip8 = {
                             var below = stripeNaboveNbelow[2];
 
                             if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
-                            var hitlist = Svgretrieve.getEnclosedElements(stripe);
+                            var hitlist = Svgretrieve.getEnclosedRectangles(Svgdom.newRectElement_fromSVGRect(stripe));
                             if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
                             var selectedelements1 = []
                             for (var i = 0; i < hitlist.length; i++)
-                                if ( Svgretrieve.checkIntersected(hitlist[i], above) &&
-                                     Svgretrieve.checkIntersected(hitlist[i], below) )
+                                if ( Svgdom.intersectsRectRectelement(above, hitlist[i]) &&
+                                     Svgdom.intersectsRectRectelement(below, hitlist[i]) )
                                     selectedelements1.push(hitlist[i]);
 
-                            selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
+                            //selectedelements1 = Clip8.reduceSelectionHitlist(selectedelements1);
                             if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
                             newelements = Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
                             for (var i=0; i<newelements.length; i++)

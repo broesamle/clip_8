@@ -110,6 +110,37 @@ var Svgdom = {
             svgrect.y+svgrect.height >= svgpoint.y;
     },
 
+    intersectsRectRectelement: function(svgrect, rectelement) {
+        var x1, y1, w1, h1, x2, y2, w2, h2;
+        x1 = rectelement.x.baseVal.value;
+        y1 = rectelement.y.baseVal.value;
+        w1 = rectelement.width.baseVal.value;
+        h1 = rectelement.height.baseVal.value;
+        x2 = svgrect.x;
+        y2 = svgrect.y;
+        w2 = svgrect.width;
+        h2 = svgrect.height;
+        if (x2 < x1 + w1 && x1 < x2 + w2 && y2 < y1 + h1)
+            return y1 < y2 + h2;
+        else return false;
+    },
+
+    enclosesRectRectelement: function(svgrect, rectelement) {
+        var x1, y1, w1, h1, x2, y2, w2, h2;
+        x1 = rectelement.x.baseVal.value;
+        y1 = rectelement.y.baseVal.value;
+        w1 = rectelement.width.baseVal.value;
+        h1 = rectelement.height.baseVal.value;
+        x2 = svgrect.x;
+        y2 = svgrect.y;
+        w2 = svgrect.width;
+        h2 = svgrect.height;
+        if (x1 <= x2 && x1+w1 >= x2+w2 &&
+            y1 <= y2 )
+            return y1+h1 >= y2+h2;
+        else return false;
+    },
+
     getCentrePoint: function (circle) {
         /** Returns an SVGPoint at the centre of `circle`.
         */

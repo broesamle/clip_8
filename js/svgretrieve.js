@@ -292,19 +292,6 @@ var Svgretrieve = {
         return Svgdom.newSVGRect_fromPoints(p1, p2);
     },
 
-    getIntersectedElements: function(arearect) {
-        return Svgretrieve.svgroot.getIntersectionList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
-    },
-    getEnclosedElements: function(arearect) {
-        return Svgretrieve.svgroot.getEnclosureList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
-    },
-    checkIntersected: function(el, arearect) {
-        return Svgretrieve.svgroot.checkIntersection(el, Svgretrieve._transformRect_svg2view(arearect));
-    },
-    checkEnclosed: function(el, arearect) {
-        return Svgretrieve.svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect));
-    },
-
     getISCbyLocation: function (point, radius, pointcandidates_count, tagnames, ISC_collection) {
         var result = [];
         if (ISC_collection.root != null) {   // check for empty collection
