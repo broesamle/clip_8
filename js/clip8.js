@@ -499,12 +499,6 @@ var Clip8 = {
                             p4.x = theline.getAttribute("x2");
                             p4.y = theline.getAttribute("y1");
                             tolerance = Clip8._deriveToleranceFromElementStroke(theline);
-                            opposite_diagonals = Svgretrieve.getISCbyLocation(
-                                      p3,
-                                      tolerance,
-                                      Clip8.RETRIEVE_CPOINT_MAXNUM,
-                                      ["line"],
-                                      Svgretrieve.I_collection);
                             opposite_diagonals = Svgretrieve.getLinesFromTo(
                                                      p3, p4,
                                                      tolerance,
