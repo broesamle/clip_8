@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
+	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<g id="Background" display="none">
+	<rect display="inline" fill="#606060" stroke="#9ACDCD" stroke-miterlimit="10" width="64" height="64"/>
+</g>
+<g id="TEST-ordered-moves1" display="none">
+	<g id="t1_x5F_ordered-moves1" display="inline" opacity="0.5">
+		<rect x="12" y="36" width="8" height="8"/>
+		<rect x="44" y="28" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="t0_x5F_ordered-moves1" display="inline" opacity="0.5">
+		<rect x="12" y="20" width="8" height="8"/>
+		<rect x="36" y="12" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="I_x5F_two-moves1" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M4,16.06c-1.75-4.393-1.852-13,4-8.013"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M8,8.06c3.25-4.31,34.149-4.999,40-0.013"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M48,8.06c3.565,9.999,6.148,3,12,7.987"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="16" r="1"/>
+		<circle fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="16" r="2"/>
+		<rect x="8" y="8" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="40" height="32"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="16" r="1"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="8" cy="24" r="2.5"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="56" cy="8" r="2.5"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="48" y1="8" x2="56" y2="8"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="8" x2="8" y2="24"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Two moves in a sequence. The first </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">instruction will move both blocks </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">down. The second will move to the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">right the red block. The black </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">block will have left the selector </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">area after the first move and, </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">hence, is not affected by the </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">second move. (This tests for </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">correct updating of retrieval </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">position.)</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-ordered-moves1turned">
+	<g id="t1_x5F_ordered-moves1turned" opacity="0.5">
+		<rect x="44" y="44" width="8" height="8"/>
+		<rect x="36" y="12" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="t0_x5F_ordered-moves1turned" opacity="0.5">
+		<rect x="28" y="44" width="8" height="8"/>
+		<rect x="20" y="20" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="I_x5F_two-moves1turned">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M24.06,59.952c-4.393,1.75-13,1.852-8.013-4"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M16.06,55.952c-4.31-3.25-4.999-34.149-0.013-40
+			"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M16.06,15.952c9.999-3.565,3-6.148,7.987-12"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="24" cy="3.952" r="1"/>
+		<circle fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="24" cy="3.952" r="2"/>
+		<rect x="16" y="15.952" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="32" height="40"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="24" cy="59.952" r="1"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="32" cy="55.952" r="2.5"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="16" cy="7.952" r="2.5"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="16" y1="16" x2="16" y2="8"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="16" y1="56" x2="32" y2="56"/>
+	</g>
+	<rect x="64" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Two moves in a sequence. The first </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">instruction will move both blocks </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">to the right. The second will move  </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">the red block upwards. The black </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">block will have left the selector </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">area after the first move and, </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">hence, is not affected by the </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">second move. (This tests for </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">correct updating of retrieval </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">position.)</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-ordered-moves2" display="none">
+	<g id="t1_x5F_ordered-moves2" display="inline" opacity="0.5">
+		<rect x="20" y="36" width="8" height="8"/>
+		<rect x="44" y="12" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="t0_x5F_ordered-moves2" display="inline" opacity="0.5">
+		<rect x="12" y="20" width="8" height="8"/>
+		<rect x="36" y="12" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="I_x5F_ordered-moves2" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M4,4.06C10.25,4.333,47.5,0,48,8.047"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M8,8.06c3.25-4.31,34.667-2.393,40-0.013"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M8,8c3.565,9.999,46.148,3.06,52,8.047"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="16" r="1"/>
+		<circle fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="16" r="2"/>
+		<rect x="8" y="8" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="40" height="32"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4" r="1"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="8" cy="24" r="2.5"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="56" cy="8" r="2.5"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="48" y1="8" x2="56" y2="8"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8" y1="8" x2="8" y2="24"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Two moves in a sequence. The first </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">instruction will move both blocks </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">to the right. The second will move </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">(down) only the black block. The </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">red block will have left the </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">selector area after the first move. </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">(This tests for correct updating of </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">retrieval position.)</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-ordered-moves2turned" display="none">
+	<g id="t1_x5F_ordered-moves2turned" display="inline" opacity="0.5">
+		<rect x="43" y="36" width="8" height="8"/>
+		<rect x="19" y="12" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="t0_x5F_ordered-moves2turned" display="inline" opacity="0.5">
+		<rect x="27" y="44" width="8" height="8"/>
+		<rect x="19" y="20" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="I_x5F_ordered-moves2turned" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M11.06,60c0.274-6.25-4.06-43.5,3.987-44"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M15.06,56c-4.31-3.25-2.393-34.667-0.013-40"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M15,56c9.999-3.565,3.06-46.148,8.047-52"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="23" cy="4" r="1"/>
+		<circle fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="23" cy="4" r="2"/>
+		<rect x="15" y="16" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="32" height="40"/>
+		<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" cx="11" cy="60" r="1"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="31" cy="56" r="2.5"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="15" cy="8" r="2.5"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="15" y1="16" x2="15" y2="8"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="15" y1="56" x2="31" y2="56"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Two moves in a sequence. The first </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">instruction will move both blocks </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">upwards. The second will move (to </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">the right) only the black block. </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">The red block will have left the </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">selector area after the first move. </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">(This tests for correct updating of </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">retrieval position.)</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-ordered-clone-move1" display="none">
+	<g id="t1_x5F_ordered-clone-move1" display="inline" opacity="0.5">
+		<rect x="20" y="16" width="12" height="32"/>
+		<rect x="36" y="26" width="12" height="32"/>
+	</g>
+	<g id="t0_x5F_ordered-clone-move1" display="inline" opacity="0.5">
+		<rect x="12" y="16" width="12" height="32"/>
+	</g>
+	<g id="I_x5F_ordered-clone-move1" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M4,14c3.25-4.31,45-10,46,0"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="58" cy="14" r="2.5"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="50" y1="14" x2="58" y2="14"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,3.877C7.333,2.653,4,11.551,4,14"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c-4.5,3.059-10,6-10,10"/>
+		<rect x="4" y="14" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="46" height="46"/>
+		
+			<rect x="4" y="10" fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8" height="4"/>
+		
+			<rect x="20" y="20" fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8" height="4"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4" y1="14" x2="20" y2="24"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">First, the element is cloned. The </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">second instruction moves both </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">elements to the right. (This tests </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">whether positions are updated </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">correctly after the clone </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">operation.)</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-ordered-clone-move2" display="none">
+	<g id="t1_x5F_ordered-clone-move2" display="inline" opacity="0.5">
+		<rect x="20" y="16" width="12" height="32"/>
+		<rect x="28" y="26" width="12" height="32"/>
+	</g>
+	<g id="t0_x5F_ordered-clone-move2" display="inline" opacity="0.5">
+		<rect x="12" y="16" width="12" height="32"/>
+	</g>
+	<g id="I_x5F_ordered-clone-move2" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M4,14c3.25-4.31,45-10,46,0"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="58" cy="14" r="2.5"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="50" y1="14" x2="58" y2="14"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,3.877C7.333,2.653,4,11.551,4,14"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c-4.5,3.059-10,6-10,10"/>
+		<rect x="4" y="14" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="46" height="37.375"/>
+		
+			<rect x="4" y="10" fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8" height="4"/>
+		
+			<rect x="20" y="20" fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8" height="4"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4" y1="14" x2="20" y2="24"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">First, the element is cloned. The </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">second instruction (move) does </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">affect the original but not the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">clone, as the clone was placed to a </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">location outside the selector. </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">(This tests whether positions are </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">updated correctly after the clone </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">operation.)</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-cut-move1" display="none">
+	<g id="t1_x5F_cut-move1" display="inline" opacity="0.5">
+		<rect x="20" y="20" stroke="#990000" stroke-miterlimit="10" width="16" height="12"/>
+		<rect x="12" y="32" stroke="#990000" stroke-miterlimit="10" width="16" height="20"/>
+	</g>
+	<g id="t0_x5F_cut-move1" display="inline" opacity="0.5">
+		<rect x="12" y="20" stroke="#990000" stroke-miterlimit="10" width="16" height="32"/>
+	</g>
+	<g id="I_x5F_cut-move1" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M8,32C9.375,0,17,2,50,14"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="58" cy="14" r="2.5"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,3.877C7.333,2.653,8,29.551,8,32"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c-4.5,3.059-10,6-10,10"/>
+		<rect x="4" y="14" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="46" height="30.375"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="50" y1="14" x2="58" y2="14"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="8" y1="32" x2="36" y2="32"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">The element is</tspan><tspan x="33.605" y="0" font-family="'CourierNewPSMT'" font-size="4"> </tspan><tspan x="35.926" y="0" font-family="'CourierNewPSMT'" font-size="4">cut into two. One </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">one of the resulting parts is in </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">the selector area for the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">subsequent move and will move to </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">the right, while the other remains </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">in place. (This tests whether </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">positions are updated correctly </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">after the cut.)</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-cut-move2" display="none">
+	<g id="t1_x5F_cut-move2" display="inline" opacity="0.5">
+		<rect x="12" y="9" stroke="#990000" stroke-miterlimit="10" width="16" height="12"/>
+		<rect x="20" y="21" stroke="#990000" stroke-miterlimit="10" width="16" height="20"/>
+	</g>
+	<g id="t0_x5F_cut-move2" display="inline" opacity="0.5">
+		<rect x="12" y="9" stroke="#990000" stroke-miterlimit="10" width="16" height="32"/>
+	</g>
+	<g id="I_x5F_cut-move2" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M8,21c1.005-23.399,8.144-19.312,42-7"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="58" cy="14" r="2.5"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,3.877C7.333,2.653,8,18.551,8,21"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c-4.5,3.059-10,6-10,10"/>
+		<rect x="4" y="14" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="46" height="30"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="50" y1="14" x2="58" y2="14"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="8" y1="21" x2="36" y2="21"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">First, the element is</tspan><tspan x="50.408" y="0" font-family="'CourierNewPSMT'" font-size="4"> </tspan><tspan x="52.729" y="0" font-family="'CourierNewPSMT'" font-size="4">cut into two. </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">One one of the resulting parts is </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">in the selector area for the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">subsequent move and will go to the </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">right, while the other remains in </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">place. (This tests whether </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">positions are updated correctly </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">after the cut.)</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-ordered-delete-move" display="none">
+	<g id="t1_x5F_ordered-delete-move" display="inline" opacity="0.5">
+		<rect x="46" y="22" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="t0_x5F_ordered-delete-move" display="inline" opacity="0.5">
+		<rect x="11.167" y="14.5" width="22" height="34.5"/>
+		<rect x="38" y="22" fill="#990000" width="8" height="8"/>
+	</g>
+	<g id="I_x5F_ordered-delete-move" display="inline">
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-miterlimit="10" d="M8,10c3.25-4.31,41-6,42,4"/>
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="58" cy="14" r="2.5"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="50" y1="14" x2="58" y2="14"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,3.877C7.333,2.653,8,7.551,8,10"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M60,4c-4.5,3.059-10,6-10,10"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="36" y1="54" x2="8" y2="10"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="8" y1="54" x2="36" y2="10"/>
+		<rect x="4" y="14" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="46" height="46.375"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="66.5"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">One element is deleted, the other </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">is not. Both elements are/were in </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">the selector area for the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">subsequent move (which, given </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">correct updating, should not run </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">into trouble with the previously </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">deleted element.)</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">cycles: 3;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="SECTIONINFO" display="none">
+	<rect y="-76" display="inline" fill="none" width="140" height="59.25"/>
+	<text transform="matrix(1 0 0 1 0 -73.5479)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Multiple instructions manipulate _the same_ object in a </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">sequential manner.</tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">+ Control flow defines the order of how things happen.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">+ We explore sequences of at least two instructions which </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">have a specific expected outcome based on the correct </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">order of execution.</tspan></text>
+	<g id="I" display="inline">
+		
+			<circle fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="28.667" cy="44.857" r="4.833"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M48.256,58.839
+			c0.197-9.148,0-10.981,6.744-13.982"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M55,44.856
+			C46.139,34.482,43.875,30.75,23.875,38"/>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="55" y1="44.856" x2="28.667" y2="44.856"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="48.281" cy="58.839" r="2.143"/>
+		<circle fill="#9BC9C7" stroke="#9ACDCD" stroke-width="1.0714" stroke-miterlimit="10" cx="48.281" cy="7.84" r="2.143"/>
+		<circle fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" cx="48.281" cy="7.839" r="4.821"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M23.875,38
+			c9.375-6.875,24.406-18.143,24.406-30.16"/>
+		<g>
+			
+				<line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="23.875" y1="38" x2="16" y2="28.126"/>
+			
+				<circle fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="16" cy="28.125" r="4.833"/>
+		</g>
+	</g>
+</g>
+</svg>

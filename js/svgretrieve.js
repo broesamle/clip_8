@@ -25,11 +25,212 @@
 var Svgretrieve = {
     svgroot: undefined,
     clip8root: undefined,
-
+    I_collection: undefined,
+    S_collection: undefined,
+    C_collection: undefined,
+    rect_intervals: undefined,
     init: function (svgroot) {
         Svgretrieve.svgroot = svgroot;
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
+        Svgretrieve.registerElements_fromDOM();
+    },
+
+    registerElements_fromDOM () {
+        Svgretrieve.I_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
+        Svgretrieve.S_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
+        Svgretrieve.C_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
+        var viewboxparams = Svgretrieve.svgroot.getAttribute("viewBox").split(" ");
+        var vBx = viewboxparams[0];
+        var vBy = viewboxparams[1];
+        var vBw = viewboxparams[2];
+        var vBh = viewboxparams[3];
+        if (vBw > vBh) {
+            // main direction horizontal -- x -- width
+            Svgretrieve._getMainInterval = Svginterval.getXIntervalRectElement;
+            Svgretrieve._getOrthoInterval = Svginterval.getYIntervalRectElement;
+        } else {
+            // main direction horizontal -- y -- height
+            Svgretrieve._getMainInterval = Svginterval.getYIntervalRectElement;
+            Svgretrieve._getOrthoInterval = Svginterval.getXIntervalRectElement;
+        }
+        var elems, cpts, cpt;
+
+        console.groupCollapsed("Register SVG graphics elements.");
+        // RECT
+        Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init interval tree for data rectangles
+        var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
+        var unreg = [];
+        for (var i=0; i<elems.length; i++) {
+            if ( ! Svgretrieve.registerRectElement(elems[i]) )
+                unreg.push(elems[i]);
+        }
+        console.debug("[registerElements_fromDOM ] tree, elems:",
+                                 Svgretrieve.rect_intervals, elems);
+        // CIRCLE
+        elems = Svgretrieve.clip8root.getElementsByTagName("circle");
+        for (var i=0; i<elems.length; i++) {
+            console.debug("register circle element:", elems[i]);
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none") {
+                console.debug("    CONTROL FLOW");
+                cpt = Svgdom.getCentrePoint(elems[i]);
+                cpt.ownerelement = elems[i];
+                Svgretrieve.C_collection.insert(cpt);
+            } else
+                unreg.push(elems[i]);
+        }
+        // PATH
+        elems = Svgretrieve.clip8root.getElementsByTagName("path");
+        for (var i=0; i<elems.length; i++) {
+            console.debug("register path element:", elems[i]);
+            try {
+                cpts = Svgdom.getBothEndsOfPath(elems[i]);
+            }
+            catch (err) {
+                console.warn("could not register", elems[i]);
+                continue
+            }
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none" &&
+                elems[i].getAttribute("stroke-linecap") == "round") {
+                console.debug("   INSTRUCTION");
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.I_collection.insert(cpt) });
+            } else if (elems[i].getAttribute("stroke", "none") &&
+                       elems[i].getAttribute("stroke", "none") != "none" &&
+                       elems[i].getAttribute("stroke-linecap") != "round") {
+                console.debug("   CONTROL FLOW");
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.C_collection.insert(cpt) });
+            } else
+                unreg.push(elems[i]);
+        }
+        // LINE
+        elems = Svgretrieve.clip8root.getElementsByTagName("line");
+        for (var i=0; i<elems.length; i++) {
+            console.debug("register line element:", elems[i]);
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none") {
+                if (elems[i].getAttribute("stroke-linecap") == "round") {
+                    console.debug("    INSTRUCTION");
+                    cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.I_collection.insert(cpt) });
+                } else {
+                    if ( elems[i].getAttribute("stroke-dasharray") ) {
+                        console.debug("    SELECTOR");
+                        cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                        cpts.forEach( function (cpt) {
+                            cpt.ownerelement = elems[i];
+                            Svgretrieve.S_collection.insert(cpt) });
+                    } else {
+                        console.debug("    CONTROL FLOW");
+                        cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                        cpts.forEach( function (cpt) {
+                            cpt.ownerelement = elems[i];
+                            Svgretrieve.C_collection.insert(cpt) });
+                    }
+                }
+            } else
+                unreg.push(elems[i]);
+        }
+        // POLYLINE
+        elems = Svgretrieve.clip8root.getElementsByTagName("polyline");
+        for (var i=0; i<elems.length; i++) {
+            console.debug("register polyline element:", elems[i]);
+            if (elems[i].getAttribute("stroke", "none") &&
+                elems[i].getAttribute("stroke", "none") != "none") {
+                if (elems[i].getAttribute("stroke-linecap") == "round") {
+                    console.debug("    INSTRUCTION");
+                    cpts = Svgdom.getPointsOfPoly(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.I_collection.insert(cpt) });
+                } else {
+                    console.debug("    CONTROL FLOW");
+                    cpts = Svgdom.getPointsOfPoly(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.C_collection.insert(cpt) });
+                }
+            } else
+                unreg.push(elems[i]);
+        }
+        console.groupEnd();
+        if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
+    },
+
+    registerRectElement: function(rect) {
+        var cpts, itv;
+        //console.debug("register rect element:", rect);
+        if  ( rect.getAttribute("stroke-linecap") == "round" ) {
+            console.debug("    INSTRUCTION");
+            cpts = Svgdom.getCornersOfRectPoints(rect);
+            cpts.forEach( function (cpt) {
+                cpt.ownerelement = rect;
+                Svgretrieve.I_collection.insert(cpt) });
+            return true;
+        } else if (rect.getAttribute("fill") != "none") {
+            // FIXME proper condition for a data element; cf. issue #77
+            // data element
+            console.debug("    DATA");
+            itv = Svgretrieve._getMainInterval(rect);  // get interval
+            itv.push(rect);                            // append pointer to rect element
+            Svgretrieve.rect_intervals.insert(itv);
+            return true;
+        } else if ( rect.getAttribute("stroke-dasharray") ) {
+            // selector element
+            console.debug("    SELECTOR");
+            cpts = Svgdom.getCornersOfRectPoints(rect);
+            cpts.forEach( function (cpt) {
+                cpt.ownerelement = rect;
+                Svgretrieve.S_collection.insert(cpt) });
+            return true;
+        } else
+            return false;
+    },
+
+    unregisterRectElement: function(rect) {
+        var itv = Svgretrieve._getMainInterval(rect);
+        var candidates = [], tobedeleted;
+        Svgretrieve.rect_intervals.queryPoint(itv[0],
+            function(itv) { candidates.push(itv) } );
+        tobedeleted = candidates.filter( function (can) {
+            return can[2] === rect;
+        })
+        if (tobedeleted.length == 1 && Svgretrieve.rect_intervals.remove(tobedeleted[0]))
+            //console.debug("unregistered rect element:", rect);
+            return;
+        else
+            throw "[unregisterRectElement] failed to remove"+rect;
+    },
+
+    getEnclosedRectangles: function (queryrect) {
+        var qi = Svgretrieve._getMainInterval(queryrect);
+        var oiv = Svgretrieve._getOrthoInterval(queryrect);
+        var candidates = Svgretrieve.getIntersectingRectangles(queryrect);
+        return candidates.filter(
+            function (can) {
+                return Svginterval.checkIntervalEnclosure(oiv, Svgretrieve._getOrthoInterval(can)) &&
+                       Svginterval.checkIntervalEnclosure(qi, Svgretrieve._getMainInterval(can));
+            } );
+    },
+
+    getIntersectingRectangles: function (queryrect) {
+        var qi = Svgretrieve._getMainInterval(queryrect);
+        var oiv = Svgretrieve._getOrthoInterval(queryrect);
+        var candidates = [];
+        var result = [];
+        Svgretrieve.rect_intervals.queryInterval(qi[0], qi[1],
+            function(itv) { candidates.push(itv[2]) } );
+        result = candidates.filter (
+            function (can) { return Svginterval.checkIntervalIntersection(oiv, Svgretrieve._getOrthoInterval(can)) } );
+        //console.debug("[getIntersectedRectangles] candidates", candidates, result);
+        return result;
     },
 
     enclosingFullHeightStripe: function(line) {
@@ -77,103 +278,37 @@ var Svgretrieve = {
         throw "[enclosingFullWidthStripe] not implemented."
     },
 
-    _transformRect_svg2view: function (svgrect) {
-        var trafo = Svgretrieve.clip8root.getCTM();
-        var p1 = Svgretrieve.svgroot.createSVGPoint();
-        var p2 = Svgretrieve.svgroot.createSVGPoint();
-        p1.x = svgrect.x;
-        p1.y = svgrect.y;
-        p2.x = svgrect.x + svgrect.width;
-        p2.y = svgrect.y + svgrect.height;
-        p1 = p1.matrixTransform(trafo);
-        p2 = p2.matrixTransform(trafo);
-        return Svgdom.newSVGRect_fromPoints(p1, p2);
-    },
-
-    getIntersectedElements: function(arearect) {
-        return Svgretrieve.svgroot.getIntersectionList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
-    },
-    getEnclosedElements: function(arearect) {
-        return Svgretrieve.svgroot.getEnclosureList(Svgretrieve._transformRect_svg2view(arearect), Svgretrieve.clip8root);
-    },
-    checkIntersected: function(el, arearect) {
-        return Svgretrieve.svgroot.checkIntersection(el, Svgretrieve._transformRect_svg2view(arearect));
-    },
-    checkEnclosed: function(el, arearect) {
-        return Svgretrieve.svgroot.checkEnclosure(el, Svgretrieve._transformRect_svg2view(arearect));
-    },
-
-    getCirclesAt: function(c, r1, r2) {
-        /** Return all circles roughly centred at `c` with a radius `r1 < radius < r2` (approximately).
-        */
-        var debug = false;
-        if (debug) console.log("[GETCIRCLESAT] c, r1, r2:", c, r1, r2);
-        if (parseFloat(r1) >= parseFloat(r2)) throw  "[getCirclesAt] expected r1 < r2.";
-        var epsilon = r2/100;   // small width compared to the larger radius
-        var candidates;         // A list of candidate circles
-        var confirmed = [];     // confirmed circles (hit by all test areas)
-        var testareas = [
-            Svgdom.newSVGRect (c.x-epsilon, c.y-parseFloat(r2), 2*epsilon, r2-parseFloat(r1)),  // "north"
-            Svgdom.newSVGRect (c.x-epsilon, c.y+parseFloat(r1), 2*epsilon, r2-parseFloat(r1)),  // "south"
-            Svgdom.newSVGRect (c.x-parseFloat(r2), c.y-epsilon, r2-parseFloat(r1), 2*epsilon),  // "west"
-            Svgdom.newSVGRect (c.x+parseFloat(r1), c.y-epsilon, r2-parseFloat(r1), 2*epsilon),  // "east"
-            ];     // Areas which should all be hit, for a circle to be confirmed
-        if (debug) {
-            for (var j = 0; j < testareas.length; j++) {
-                console.log("[getCirclesAt]", testareas[j]);
-                var r = Svgdom.addRectElement_SVGRect(Svgretrieve.svgroot, testareas[j]);
-                r.setAttribute("fill", "#ffff22");
+    getISCbyLocation: function (point, radius, pointcandidates_count, tagnames, ISC_collection) {
+        var result = [];
+        if (ISC_collection.root != null) {   // check for empty collection
+            var candidates = ISC_collection.nearest(point, pointcandidates_count, radius);
+            for (var i=0; i < candidates.length; i++) {
+                if (!tagnames || tagnames.indexOf(candidates[i][0].ownerelement.tagName) != -1)
+                    result.push(candidates[i][0].ownerelement);
             }
         }
-        candidates = Svgretrieve.getIntersectedElements(testareas[0]);
-        for (var i = 0; i < candidates.length; i++) {
-            if (candidates[i] instanceof SVGCircleElement) {
-                var reject = false;     // reject the currently tested candidate?
-                for (var j = 1; j < testareas.length; j++) {
-                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j]) ) {
-                        reject = true;
-                        break;
-                    }
-                }
-                if (!reject) confirmed.push(candidates[i]);
-            }
-        }
-        return confirmed;
+        return result
     },
 
-    getLinesFromTo: function(p1, p2, epsilon) {
+    getLinesFromTo: function(p1, p2, tolerance, pointcandidates_count, ISC_collection) {
         /** Return all lines roughly connecting points `p1`, `p2`.
         */
         var debug = false;
         if (debug) console.log("[GETLINESFROMTO] p1, p2:", p1, p2);
-
-        var candidates;         // A list of candidate lines starting at `p1`
-        var confirmed = [];     // confirmed lines (other endpoint at `p2`)
-        var testareas = [
-            Svgdom.epsilonRectAt(p1, epsilon),
-            Svgdom.epsilonRectAt(p2, epsilon),
-            ];     // Areas which should all be hit
-        if (debug) {
-            for (var j = 0; j < testareas.length; j++) {
-                console.log("[getLinesFromTo]", testareas[j]);
-                var r = Svgdom.addRectElement_SVGRect(Svgretrieve.svgroot, testareas[j]);
-                r.setAttribute("fill", "#ffff22");
-            }
-        }
-        candidates = Svgretrieve.getIntersectedElements(testareas[0]);
+        var candidates = Svgretrieve.getISCbyLocation(
+                         p1,
+                         tolerance,
+                         pointcandidates_count,
+                         ["line"],
+                         ISC_collection);
         if (debug) console.log("[getLinesFromTo] candidates", candidates);
-        for (var i = 0; i < candidates.length; i++) {
-            if (candidates[i] instanceof SVGLineElement) {
-                var reject = false;     // reject the currently tested candidate?
-                for (var j = 1; j < testareas.length; j++) {
-                    if ( ! Svgretrieve.checkIntersected(candidates[i], testareas[j]) ) {
-                        reject = true;
-                        break;
-                    }
-                }
-                if (!reject) confirmed.push(candidates[i]);
-            }
-        }
-        return confirmed;
+        return candidates.filter(
+            function (can) {
+                var endpoints = Svgdom.getBothEndsOfLine(can);
+                return (Svgdom.euclidDistance(endpoints[0], p1) <= tolerance &&
+                        Svgdom.euclidDistance(endpoints[1], p2) <= tolerance) ||
+                        (Svgdom.euclidDistance(endpoints[1], p1) <= tolerance &&
+                        Svgdom.euclidDistance(endpoints[0], p2) <= tolerance);
+            });
     },
 }

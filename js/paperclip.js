@@ -98,6 +98,7 @@ var Paperclip = {
 
     cutHorizontal: function (elems, cutY) {
         var theclone;
+        var newelements = [];
         for (var i = 0; i < elems.length; i++) {
             if ( ! elems[i] instanceof SVGRectElement ) throw "[cutHorizontal] not implemented for "+elems[i].constructor.name;
             theclone = elems[i].cloneNode();
@@ -105,7 +106,9 @@ var Paperclip = {
             elems[i].setAttribute("y", cutY);
             elems[i].setAttribute("height", elems[i].getAttribute("height") - theclone.getAttribute("height"));
             elems[i].parentElement.insertBefore(theclone, elems[i]);
+            newelements.push(theclone);
         }
+        return newelements;
     },
 
     // Move by (relative)
@@ -118,9 +121,9 @@ var Paperclip = {
     },
 
     clone_moveBy: function (elems, deltaX, deltaY) {
-        var debug = false;
-        if (debug) console.log("[clone_moveBy] elems, deltaX, deltaY:", elems, deltaX, deltaY);
+        // console.log("[clone_moveBy] elems, deltaX, deltaY:", elems, deltaX, deltaY);
         var theclone;
+        var newelements = [];
         for (var i = 0; i < elems.length; i++) {
             if ( ! elems[i] instanceof SVGRectElement ) throw "[clone_moveBy] not implemented for "+elems[i].constructor.name;
             theclone = elems[i].cloneNode();
@@ -129,7 +132,9 @@ var Paperclip = {
             elems[i].parentElement.insertBefore(theclone, elems[i]);
             elems[i].parentElement.removeChild(elems[i]);
             theclone.parentElement.insertBefore(elems[i], theclone);
+            newelements.push(theclone);
         }
+        return newelements;
     },
 
     // Shrink

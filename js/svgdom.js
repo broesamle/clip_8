@@ -28,6 +28,10 @@ var Svgdom = {
         Svgdom.SVGNS = svgroot.namespaceURI;
     },
 
+    euclidDistance: function (p1, p2) {
+        return Math.sqrt ( Math.pow(p1.x - p2.x, 2) +  Math.pow(p1.y - p2.y, 2) );
+    },
+
     addGroup: function (parentel) {
         var g = document.createElementNS(Svgdom.SVGNS, "g");
         parentel.appendChild(g);
@@ -72,17 +76,6 @@ var Svgdom = {
         return Svgdom.newRectElement(r.x, r.y, r.width, r.height);
     },
 
-    epsilonRectAt: function (p, epsilon) {
-        var debug = false;
-        if (debug) console.log("[epsilonRectAt] p, epsilon:", p, epsilon);
-        var r = Svgdom.svgroot.createSVGRect();
-        r.x = p.x-epsilon;
-        r.y = p.y-epsilon;
-        r.width = epsilon*2;
-        r.height = epsilon*2;
-        return r;
-    },
-
     addRect: function (parentel,x,y,w,h) {
         var r = Svgdom.newRectElement(x,y,w,h);
         parentel.appendChild(r);
@@ -117,6 +110,37 @@ var Svgdom = {
             svgrect.y+svgrect.height >= svgpoint.y;
     },
 
+    intersectsRectRectelement: function(svgrect, rectelement) {
+        var x1, y1, w1, h1, x2, y2, w2, h2;
+        x1 = rectelement.x.baseVal.value;
+        y1 = rectelement.y.baseVal.value;
+        w1 = rectelement.width.baseVal.value;
+        h1 = rectelement.height.baseVal.value;
+        x2 = svgrect.x;
+        y2 = svgrect.y;
+        w2 = svgrect.width;
+        h2 = svgrect.height;
+        if (x2 < x1 + w1 && x1 < x2 + w2 && y2 < y1 + h1)
+            return y1 < y2 + h2;
+        else return false;
+    },
+
+    enclosesRectRectelement: function(svgrect, rectelement) {
+        var x1, y1, w1, h1, x2, y2, w2, h2;
+        x1 = rectelement.x.baseVal.value;
+        y1 = rectelement.y.baseVal.value;
+        w1 = rectelement.width.baseVal.value;
+        h1 = rectelement.height.baseVal.value;
+        x2 = svgrect.x;
+        y2 = svgrect.y;
+        w2 = svgrect.width;
+        h2 = svgrect.height;
+        if (x1 <= x2 && x1+w1 >= x2+w2 &&
+            y1 <= y2 )
+            return y1+h1 >= y2+h2;
+        else return false;
+    },
+
     getCentrePoint: function (circle) {
         /** Returns an SVGPoint at the centre of `circle`.
         */
@@ -124,6 +148,10 @@ var Svgdom = {
         centre.x = circle.cx.baseVal.value;
         centre.y = circle.cy.baseVal.value;
         return centre;
+    },
+
+    getRadius: function (circle) {
+        return circle.r.baseVal.value;
     },
 
     getBothEndsOfLine: function (line) {
@@ -138,13 +166,13 @@ var Svgdom = {
         return [start, end];
     },
 
-    getBothEndsOfLine_arranged: function(arearect, line) {
+    getBothEndsOfLine_arranged: function(refpoint, line) {
         var bothends = Svgdom.getBothEndsOfLine(line);
-        if ( Svgdom.enclosesRectPoint(arearect, bothends[0]) )
-            return bothends;
-        else
-            bothends.reverse()
-            return bothends;
+        if ( Svgdom.euclidDistance(refpoint, bothends[0]) >
+             Svgdom.euclidDistance(refpoint, bothends[1]) )
+            bothends.reverse();
+
+        return bothends;
     },
 
     getBothEndsOfPath: function (path) {
