@@ -187,14 +187,9 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         var p0 = svgroot.createSVGPoint();
         p0.x = p0x;
         p0.y = p0y;
-        var arearect = Svgdom.epsilonRectAt(p0, epsilon);
         Clip8.blocklist = [];   // reset the blocklist; we are fetching a new instruction
-        var sel = Svgretrieve.getIntersectedElements(arearect);
-        var S = []
-        for ( var i = 0; i < Clip8.TAGS.length; i++ ) S.push([]);
-        for ( var i = 0; i < sel.length; i++ )
-            S = Clip8decode.pushByTagname(sel[i], Clip8.TAGS, S);
-        var retrselector = Clip8.retrieveCoreSelector(S, arearect, svgroot)
+        var S0 = Clip8.retrieveISCElements(p0, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS)[1];
+        var retrselector = Clip8.retrieveCoreSelector(S0, p0)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         var selectionset = Clip8.selectedElementSet(coreselector, svgroot);

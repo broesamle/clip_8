@@ -20,6 +20,8 @@
 import PyBroeModules.MultiTemplateA as MT
 from string import Template
 
+from CommonTemplates import *
+
 Document = Template("""
 <!DOCTYPE html>
 <html>
@@ -27,16 +29,6 @@ $HEADER
 $BODY
 </html>
 """)
-
-DependClip8_str = """
-<link rel="stylesheet" href="../css/refsheet.css">
-<link rel="stylesheet" href="../css/clip8.css">
-<script src="../js/svgdom.js"></script>
-<script src="../js/svgretrieve.js"></script>
-<script src="../js/paperclip.js"></script>
-<script src="../js/clip8decode.js"></script>
-<script src="../js/clip8.js"></script>
-"""
 
 Header = Template("""
 <head>
