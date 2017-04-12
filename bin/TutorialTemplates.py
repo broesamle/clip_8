@@ -1,3 +1,28 @@
+#
+#   clip_8 interpreter; iconic language for paper-inspired operations.
+#   Copyright (C) 2016, 2017  Martin Brösamle
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+
+import PyBroeModules.MultiTemplateA as MT
+from string import Template
+
+from CommonTemplates import *
+
+Klippen = Template("""
 <!DOCTYPE html>
 <html>
 
@@ -6,17 +31,11 @@
 <title>clip8 | Klippen</title>
 
 <link rel="stylesheet" href="../css/klippen.css">
-<link rel="stylesheet" href="../css/refsheet.css">
-<link rel="stylesheet" href="../css/clip8.css">
-<script src="../js/svgdom.js"></script>
-<script src="../js/svgretrieve.js"></script>
-<script src="../js/paperclip.js"></script>
-<script src="../js/clip8decode.js"></script>
-<script src="../js/clip8.js"></script>
+$dependencies
 </head>
 
 <body>
-<h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Klippen</h1>
+<h1><span class="sndtitle"><a href="index.html">clip_8 Tutorials</a>&nbsp;|</span>&nbsp;Klippen</h1>
 
 <p>
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
@@ -222,23 +241,8 @@
 </g>
 </svg>
 </p>
-
-<p>
-Not all browsers currently support all technological ingredients.
-See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
-</p>
-<footer>
-<p>
-© 2016, 2017 Martin Brösamle.<br>
-Demos and Graphics are licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"> creative commons (BY-NC-SA)</a> license.
-</p>
-<p>
-Powered by SVG, JS, and the DOM.
-</p>
-</footer>
-
+$footer
 <script src="../js/svgloader.js"></script>
-
 </body>
-
 </html>
+""")

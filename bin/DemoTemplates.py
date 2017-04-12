@@ -54,31 +54,12 @@ Powered by SVG, JS, and the DOM.
 </footer>
 """
 
-FooterIndexpage_str = """
-<footer>
-<p>
-<b>Browser support:</b><br>
-Not all browsers currently support all technological ingredients.
-See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
-</p>
-<p>
-© 2016, Martin Brösamle.<br>
-All rights reserved.
-</p>
-<p>
-Powered by SVG, JS, and the DOM.
-</p>
-</footer>
-"""
-
 Demo_ScriptInBody_str = """
 <script>
 window.onload = function () {
     Clip8controler.init(document.getElementById("clip8svgroot"));
 }
 </script>"""
-
-
 
 Body = Template("""
 <body>

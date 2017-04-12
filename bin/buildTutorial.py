@@ -17,14 +17,15 @@
 #
 
 
-import os
+import os, io, codecs, fnmatch
+import TutorialTemplates as TEM
+import CFG
 
-rootDIRabs = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-refsheetsvgDIR = "refsheet-svg"
-demosDIR = "demos"
-testsDIR = "tests"
-tutorialDIR = "tutorial"
+outDIRabs = os.path.join(CFG.rootDIRabs, CFG.tutorialDIR)
 
-testfile_ext = "html"
-demofile_ext = "html"
-testfile_generatedFromSVG_suffix = "_genfromSVG"
+klippenHTML = TEM.Klippen.substitute(dependencies=TEM.DependClip8_str, footer=TEM.FooterIndexpage_str)
+
+outFN = os.path.join(outDIRabs, "klippen.html")
+output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+output_file.write(klippenHTML)
+output_file.close()
