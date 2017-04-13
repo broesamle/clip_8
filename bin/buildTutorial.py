@@ -45,10 +45,10 @@ output_file.close()
 
 tocsectionsHTML = ""
 
-alltutorials = SCT.tutorials
-alltutorials.reverse()
-while len(SCT.tutorials) > 0:
-    title, infile = alltutorials.pop()
+allexercises = SCT.exercises
+allexercises.reverse()
+while len(allexercises) > 0:
+    title, infile = allexercises.pop()
     print("Processing title:", title)
     inFN = os.path.join(inDIRabs, infile)
     if not os.path.isfile(inFN):
