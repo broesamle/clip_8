@@ -28,21 +28,11 @@ TOCsection = Template("""
 </p>
 """)
 
-Klippen = Template("""
-<!DOCTYPE html>
-<html>
+DependClip8_str = DependClip8_str + """<link rel="stylesheet" href="../css/klippen.css">"""
 
-<head>
-<meta charset="utf-8">
-<title>clip8 | Klippen</title>
+ScriptInBody_str = """<script src="../js/svgloader.js"></script>"""
 
-<link rel="stylesheet" href="../css/klippen.css">
-$dependencies
-</head>
-
-<body>
-<h1><span class="sndtitle"><a href="index.html">clip_8 Tutorials</a>&nbsp;|</span>&nbsp;Klippen</h1>
-
+KlippenControler_str = """
 <p>
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
@@ -50,6 +40,9 @@ $dependencies
 <button onclick="handleStop()"                 >&#x25FC;           </button> &nbsp;&nbsp;&nbsp;
 <input type="file" id="filechooser" name="files[]"/>
 </p>
+"""
+
+KlippenInitialSVG_str = """
 <p>
 <svg id="clip8svgroot" viewBox="0 0 64 64">
 <g>
@@ -247,8 +240,4 @@ $dependencies
 </g>
 </svg>
 </p>
-$footer
-<script src="../js/svgloader.js"></script>
-</body>
-</html>
-""")
+"""

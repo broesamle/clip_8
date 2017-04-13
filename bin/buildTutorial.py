@@ -25,11 +25,22 @@ import CFG
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.tutorialDIR)
 outDIRabs = inDIRabs
 
-klippenHTML = TEM.Klippen.substitute(dependencies=TEM.DependClip8_str, footer=TEM.FooterIndexpage_str)
+### klippen.html
+backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Tutorial")
+nextlinkHTML = ""
+footerHTML = TEM.FooterIndexpage_str
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
+                               chapter="Klippen", chaptercnt="Online Interpreter",
+                               MAIN=TEM.KlippenControler_str+TEM.KlippenInitialSVG_str,
+                               link1=backlinkHTML, link2=nextlinkHTML,
+                               FOOTER=footerHTML,
+                               SCRIPT=TEM.ScriptInBody_str)
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Klippen")
+documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "klippen.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(klippenHTML)
+output_file.write(documentHTML)
 output_file.close()
 
 tocsectionsHTML = ""
