@@ -48,7 +48,7 @@ while len(SCT.tutorials) > 0:
     if not os.path.isfile(solutionFN):
         solutiontitle = ""
     else:
-        solutiontitle = " solution "
+        solutiontitle = "solution"
 
     tocsectionsHTML += TEM.TOCsection.substitute(
             tuttitle=title,
@@ -68,21 +68,21 @@ You can <b>view an exercise</b> directly in your browser by left-clicking it.
 The <b>zoom</b> function of your browser allows to adjust for an optimal view.
 </p>
 <p>
-To <b>work in an exercise</b>, please save the SVG file on your local machine.<br>
+To <b>work on an exercise</b>, please save the SVG file on your local machine.<br>
 Depending on your browser you can load the exercise SVG and then use <i>save page as</i>. Alternatively you may just right-click (PC) or command-key-click (MAC) one of the links and then choose <i>save/download link target</i> or the like.
 </p>
 <p>
-A vector graphics editor such as Inkscape or Illustrator can be used to <b>edit programs</b>.
-Save your changes as SVG file, again.
+Then, a vector graphics editor such as Inkscape or Illustrator can be used to <b>edit</b> exercises or other programs.
+Save your changes as SVG file.
 </p>
 <p>
-Using the <a href="klippen.html">online interpreter klippen</a> you can <b>load and execute</b> your solution or any other SVG file from your local machine.
+Using the <a href="klippen.html" target="_blank"><b>Klippen online interpreter</b></a> you can <b>load and execute</b> your solution or any other SVG file from your local machine.
 </p>
 <h2>Exercises</h2>
 """ + tocsectionsHTML
 
 backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
-nextlinkHTML = ""
+nextlinkHTML = TEM.Linknext.substitute(href="klippen.html", linktext="Klippen online interpreter")
 footerHTML = TEM.FooterIndexpage_str
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Tutorial", chaptercnt="",
@@ -90,7 +90,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT="")
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Demos")
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
 outFN = os.path.join(outDIRabs, "index.html")
