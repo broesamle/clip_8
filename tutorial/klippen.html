@@ -6,8 +6,6 @@
 <meta charset="utf-8">
 <title>clip8 | Klippen</title>
 
-<link rel="stylesheet" href="../css/klippen.css">
-
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
 
@@ -20,11 +18,23 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
-
+<link rel="stylesheet" href="../css/klippen.css">
 </head>
 
+
 <body>
-<h1><span class="sndtitle"><a href="index.html">clip_8 Tutorials</a>&nbsp;|</span>&nbsp;Klippen</h1>
+<nav>
+
+<div class="leftlink">
+<a href="index.html">Tutorial<br>
+&lt;&lt;&lt;&lt;
+</a>
+</div>
+
+<div class="chapternavtitle">Online Interpreter</div>
+
+</nav>
+<h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Klippen</h1>
 
 <p>
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
@@ -33,6 +43,7 @@
 <button onclick="handleStop()"                 >&#x25FC;           </button> &nbsp;&nbsp;&nbsp;
 <input type="file" id="filechooser" name="files[]"/>
 </p>
+
 <p>
 <svg id="clip8svgroot" viewBox="0 0 64 64">
 <g>
@@ -231,6 +242,7 @@
 </svg>
 </p>
 
+
 <footer>
 <p>
 <b>Browser support:</b><br>
@@ -248,4 +260,5 @@ Powered by SVG, JS, and the DOM.
 
 <script src="../js/svgloader.js"></script>
 </body>
+
 </html>
