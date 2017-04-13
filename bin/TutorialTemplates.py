@@ -22,6 +22,12 @@ from string import Template
 
 from CommonTemplates import *
 
+TOCsection = Template("""
+<p>
+<b><a href="$tuthref">$tuttitle</a></b> [<a href="$solutionhref">$solutiontitle</a>]
+</p>
+""")
+
 Klippen = Template("""
 <!DOCTYPE html>
 <html>
