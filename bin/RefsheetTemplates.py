@@ -21,14 +21,6 @@ from string import Template
 
 from CommonTemplates import *
 
-Document = Template("""
-<!DOCTYPE html>
-<html>
-$HEADER
-$BODY
-</html>
-""")
-
 DependJasmine_str = """
 <link rel="shortcut icon" type="image/png" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine_favicon.png">
 <link rel="stylesheet" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine.css">
@@ -37,13 +29,6 @@ DependJasmine_str = """
 <script src="../lib/jasmine/lib/jasmine-2.5.2/boot.js"></script>
 """
 
-Header = Template("""
-<head>
-<meta charset="utf-8">
-<title>clip8 | $chapter</title>
-$dependencies
-</head>
-""")
 
 FooterRefsheet = Template("""
 <footer>
@@ -70,19 +55,7 @@ Powered by Jasmine, SVG, JS, and the DOM.
 </footer>
 """)
 
-Body = Template("""
-<body>
-<nav>
-$link1
-<div class="chapternavtitle">$chaptercnt</div>
-$link2
-</nav>
-<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
-$TESTSECTIONS
-$FOOTER
-<script src="../spec/spec_DOMrefsheet.js"></script>
-</body>
-""")
+ScriptInBody_str = """<script src="../spec/spec_DOMrefsheet.js"></script>"""
 
 Testsection = Template("""
 <h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>

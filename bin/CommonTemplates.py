@@ -33,6 +33,36 @@ DependClip8_str = """
 <script src="../js/clip8.js"></script>
 """
 
+Document = Template("""
+<!DOCTYPE html>
+<html>
+$HEADER
+$BODY
+</html>
+""")
+
+Header = Template("""
+<head>
+<meta charset="utf-8">
+<title>clip8 | $chapter</title>
+$dependencies
+</head>
+""")
+
+Body = Template("""
+<body>
+<nav>
+$link1
+<div class="chapternavtitle">$chaptercnt</div>
+$link2
+</nav>
+<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
+$MAIN
+$FOOTER
+$SCRIPT
+</body>
+""")
+
 Linkback = Template("""
 <div class="leftlink">
 <a href="$href">$linktext<br>

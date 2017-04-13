@@ -22,22 +22,6 @@ from string import Template
 
 from CommonTemplates import *
 
-Document = Template("""
-<!DOCTYPE html>
-<html>
-$HEADER
-$BODY
-</html>
-""")
-
-Header = Template("""
-<head>
-<meta charset="utf-8">
-<title>clip8 | $chapter</title>
-$dependencies
-</head>
-""")
-
 Footer_str = """
 <p>
 Not all browsers currently support all technological ingredients.
@@ -54,26 +38,12 @@ Powered by SVG, JS, and the DOM.
 </footer>
 """
 
-Demo_ScriptInBody_str = """
+ScriptInBody_str = """
 <script>
 window.onload = function () {
     Clip8controler.init(document.getElementById("clip8svgroot"));
 }
 </script>"""
-
-Body = Template("""
-<body>
-<nav>
-$link1
-<div class="chapternavtitle">$chaptercnt</div>
-$link2
-</nav>
-<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
-$DEMOS
-$FOOTER
-$SCRIPT
-</body>
-""")
 
 Demos = Template("$THEITEMS")
 
