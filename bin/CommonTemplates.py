@@ -33,6 +33,36 @@ DependClip8_str = """
 <script src="../js/clip8.js"></script>
 """
 
+Document = Template("""
+<!DOCTYPE html>
+<html>
+$HEADER
+$BODY
+</html>
+""")
+
+Header = Template("""
+<head>
+<meta charset="utf-8">
+<title>clip8 | $chapter</title>
+$dependencies
+</head>
+""")
+
+Body = Template("""
+<body>
+<nav>
+$link1
+<div class="chapternavtitle">$chaptercnt</div>
+$link2
+</nav>
+<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
+$MAIN
+$FOOTER
+$SCRIPT
+</body>
+""")
+
 Linkback = Template("""
 <div class="leftlink">
 <a href="$href">$linktext<br>
@@ -47,3 +77,20 @@ Linknext = Template("""
 &gt;&gt;&gt;&gt;</a>
 </div>
 """)
+
+FooterIndexpage_str = """
+<footer>
+<p>
+<b>Browser support:</b><br>
+Not all browsers currently support all technological ingredients.
+See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
+</p>
+<p>
+© 2016, Martin Brösamle.<br>
+All rights reserved.
+</p>
+<p>
+Powered by SVG, JS, and the DOM.
+</p>
+</footer>
+"""
