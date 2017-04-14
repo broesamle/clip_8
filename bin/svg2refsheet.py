@@ -174,9 +174,10 @@ while len(SCT.sections) > 0:
         footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
         bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                         chapter=chapter, chaptercnt="Chapter "+str(chaptercnt),
-                                        TESTSECTIONS=testsectionsHTML,
+                                        MAIN=testsectionsHTML,
                                         link1=backlinkHTML, link2=nextlinkHTML,
-                                        FOOTER=footerHTML)
+                                        FOOTER=footerHTML,
+                                        SCRIPT=TEM.ScriptInBody_str)
 
         headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter=chapter)
         documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML, chapter=chapter)
@@ -219,9 +220,10 @@ nextlinkHTML = TEM.Linknext.substitute(href="passing.html", linktext="Expected t
 footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="All Tests", chaptercnt="Appendix A",
-                               TESTSECTIONS=appendixsectionsHTML,
+                               MAIN=appendixsectionsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML)
+                               FOOTER=footerHTML,
+                               SCRIPT=TEM.ScriptInBody_str)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix A")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
@@ -249,9 +251,10 @@ Thank you for your contribution!
 """
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="Expected to pass", chaptercnt="Appendix B",
-                               TESTSECTIONS=passingtestsExplainHTML+passingtestsHTML,
+                               MAIN=passingtestsExplainHTML+passingtestsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML)
+                               FOOTER=footerHTML,
+                               SCRIPT=TEM.ScriptInBody_str)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix B")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
@@ -275,9 +278,10 @@ Thank you for your contribution!
 """
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="Expected to fail", chaptercnt="Appendix C",
-                               TESTSECTIONS=failingtestsExplainHTML+failingtestsHTML,
+                               MAIN=failingtestsExplainHTML+failingtestsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML)
+                               FOOTER=footerHTML,
+                               SCRIPT=TEM.ScriptInBody_str)
 
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix C")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
@@ -312,9 +316,10 @@ nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Table of Contents", chaptercnt="",
-                               TESTSECTIONS=tocsectionsHTML,
+                               MAIN=tocsectionsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML)
+                               FOOTER=footerHTML,
+                               SCRIPT="")
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
@@ -366,9 +371,10 @@ footerHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, r
 bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                chapter="Language Reference / Test Sheets",
                                chaptercnt="",
-                               TESTSECTIONS=contentHTML,
+                               MAIN=contentHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML)
+                               FOOTER=footerHTML,
+                               SCRIPT="")
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
