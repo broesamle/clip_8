@@ -82,7 +82,7 @@ $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle<
 </h3>
 """)
 
-
+## $THESERIES is used in MultiTemplate in the wrapper
 reftestcorewrapper = Template("""
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
@@ -110,6 +110,7 @@ ReftestCore.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] =
 ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestCore.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
+## $THESERIES is used in MultiTemplate in the wrapper
 reftestcorewrapper_withIntro = Template("""
 <p>$testdescription<br><span class="testmetainfo">[$THESERIES] expected to $expectedto.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
