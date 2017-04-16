@@ -42,6 +42,20 @@ expected_to_fail = [
     "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
 
+
+## as defined in `svgretrieve.js`, `ISCD`
+##    INVALID: 0,
+##    INSTRUCTION: 1,
+##    SELECTOR: 2,
+##    CONTROLFLOW: 3,
+##    DATA: 4,
+
+exampleelements = [
+    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", 1),
+    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", 1),
+    ("Non-valid Control Flow Elements", "from illustrator", "example-elements_controlflow-nonvalid_ai.svg", 1),
+    ("Non-valid Control Flow Elements", "from inkskape", "example-elements_controlflow-nonvalid_inkscape.svg", 1) ]
+
 demos = [
     ("Counter Example 3", "counter3.svg"),
     ("Seasons Greetings", "christmas1.svg"),
