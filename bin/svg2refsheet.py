@@ -308,10 +308,16 @@ class ExampleCollection(SVGGroupCollection):
 
 exampledefinitions = SCT.exampleelements
 exampledefinitions.reverse()
+oldsection=""
+sectioncnt = 0
 mainHTML = ""
 print("Processing example collections:")
 while len(exampledefinitions) > 0:
     section, collection, infile, expectedISCD = exampledefinitions.pop()
+    if section != oldsection:
+        sectioncnt += 1
+        mainHTML += TEM.Testsection_H3heading.substitute(chaptercnt="D", sectioncnt=sectioncnt, testsectiontitle=section)
+
     inFN = os.path.join(inDIRabs, infile)
     colID = os.path.splitext(infile)[0]
     if os.path.isfile(inFN):
@@ -330,11 +336,12 @@ while len(exampledefinitions) > 0:
                                         'width':"150px"})
     else:
         print("    ...ignored!", inFN)
+    oldsection = section
 
 nextlinkHTML = ""
 backlinkHTML = TEM.Linkback.substitute(href="failing.html", linktext="Expected to fail")
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
-                               chapter=chapter, chaptercnt="Demos",
+                               chapter="Graphics elements", chaptercnt="Appendix D",
                                MAIN=mainHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,

@@ -73,6 +73,10 @@ Testsection_inclHref = Template("""
 $THEITEMS
 """)
 
+Testsection_H3heading = Template("""
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
+""")
+
 TOCsection = Template("""
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
