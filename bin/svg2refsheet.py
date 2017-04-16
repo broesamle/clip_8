@@ -128,6 +128,7 @@ backlinktitle, backhref = "Table of Contents", "toc.html"
 SCT.sections.reverse()
 firstoutfile = None
 firstsection = None
+footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 
 while len(SCT.sections) > 0:
     chapter, section, infile = SCT.sections.pop()
@@ -171,7 +172,6 @@ while len(SCT.sections) > 0:
 
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
         nextlinkHTML = TEM.Linknext.substitute(href=nexthref, linktext=nextlinktitle)
-        footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
         bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                         chapter=chapter, chaptercnt="Chapter "+str(chaptercnt),
                                         MAIN=testsectionsHTML,
@@ -217,7 +217,6 @@ while len(SCT.sections) > 0:
 ### Appendix
 backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
 nextlinkHTML = TEM.Linknext.substitute(href="passing.html", linktext="Expected to pass")
-footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
                                chapter="All Tests", chaptercnt="Appendix A",
                                MAIN=appendixsectionsHTML,
@@ -236,7 +235,6 @@ output_file.close()
 ### passing.html
 backlinkHTML = TEM.Linkback.substitute(href="appendix.html", linktext="All Tests")
 nextlinkHTML = TEM.Linknext.substitute(href="failing.html", linktext="Expected to fail")
-footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 passingtestsExplainHTML = """
 <p>If you encounter a failing test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>. It may indicate several things:
 <br>(a) By accident, the test is not in the list of tests that are expected to fail.
@@ -313,7 +311,6 @@ tocsectionsHTML += TEM.TOCsection.substitute(
     sectioninstructionicon="")
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
-footerHTML = TEM.FooterRefsheet.substitute(refsheet_version=SCT.refsheet_version)
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Table of Contents", chaptercnt="",
                                MAIN=tocsectionsHTML,
@@ -367,13 +364,13 @@ See <a href="https://github.com/broesamle/clip_8/">project documentation at gith
 """
 backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
 nextlinkHTML = TEM.Linknext.substitute(href="toc.html", linktext="Table of Contents")
-footerHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
+footerintroHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
 bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                chapter="Language Reference / Test Sheets",
                                chaptercnt="",
                                MAIN=contentHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML,
+                               FOOTER=footerintroHTML,
                                SCRIPT="")
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)

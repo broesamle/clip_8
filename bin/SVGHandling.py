@@ -36,7 +36,6 @@ class XMLNodesCollection(ItemsCollection):
             self.processElement(el)
 
     def processSVGRoot(self, svgroot):
-        print ("Process SVG root element:", svgroot)
         self.viewBox = svgroot.attrib['viewBox']
         self.width = svgroot.attrib['width']
         self.height = svgroot.attrib['height']
