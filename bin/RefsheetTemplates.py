@@ -143,14 +143,18 @@ ReftestWithIntro.addTemplate("""$testtype $cycles""", lambda dict: dict['testtyp
 ReftestWithIntro.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestWithIntro.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
+## A collection of graphical elements to be tested as one SVG element.
+## An expected test result is used, rather than a reference in the DOM.
 ExampleCollections = Template("$THEITEMS")
-
 ExampleCollection = Template("""
-<p>$testdescription<br><span class="testmetainfo">[$examplecollection_id] expected to be classified as $expected_iscd.</span></p>
-<p>
-<svg id="$examplecollection_id" class="$expected_iscd" viewbox="$viewBox" width="$width">
+<p>$testdescription<br><span class="testmetainfo">[$examplecollection_id] expected to be detected as $expectedresult.</span></p>
+<p class="DOMreftest $testtype $expectedresult" id="$examplecollection_id">
+<span class="testDOM">
+<svg viewbox="$viewBox" width="$width">
 $svgdata
 </svg>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
 </p>
 """)
 

@@ -3,7 +3,7 @@ var CLIP8_RUNNINGTIME = 500
 
 // For normal test runs, the test sheet specifies an expected number of `cycles`
 // The test allows the clip8 interpreter to run for `cycles + EXCESS_CYCLES`.
-var EXCESS_CYCLES = 100         
+var EXCESS_CYCLES = 100
 
 var customMatchers = {
 
@@ -217,6 +217,21 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
     test_domids.push(reftestElement.id);
 }
 
+function addTest_element_ISCDdetection (reftestElement, expectedDetection) {
+    console.log("[TEST_ELEMENT-ISC-DETECTION] expectedDetection:", expectedDetection, reftestElement);
+    var spec;
+    var htmlstring = "";
+    for (var el=reftestElement.firstElementChild.firstElementChild.firstElementChild; el; el=el.nextElementSibling) {
+        htmlstring = el.outerHTML.replace(/\s+/gm, " ");
+        spec = it("Should be "+ISCD.legibleStr(expectedDetection)+" : "+htmlstring, function(done) {
+            expect(ISCD.detect(el)).toBe(expectedDetection);
+            done();
+        });
+        test_specids.push(spec.id);
+        test_domids.push(reftestElement.id);
+    }
+}
+
 describe("Reference Sheet Tester", function(){
     beforeEach(function() {
         jasmine.clock().install();
@@ -241,6 +256,10 @@ describe("Reference Sheet Tester", function(){
             p0y = parseFloat(tests[i].classList[2].split(",")[1]);
             color = tests[i].classList[3];
             addTest_selectionset(tests[i], p0x, p0y, color);
+        }
+        else if (tests[i].classList[1] === "element_ISCDdetection") {
+            var expectedDetection = parseInt(tests[i].classList[2]);
+            addTest_element_ISCDdetection(tests[i], expectedDetection);
         }
         else console.log("Found test without supported testtype.");
     }

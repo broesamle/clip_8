@@ -312,3 +312,31 @@ var Svgretrieve = {
             });
     },
 }
+
+var ISCD = {
+    INVALID     : 0,
+    INSTRUCTION : 1,
+    SELECTOR    : 2,
+    CONTROLFLOW : 3,
+    DATA        : 4,
+
+    detect: function(el) {
+        return ISCD.INVALID;
+    },
+
+    whichISCD_rect: function(rectelement) {
+        return ISCD.INVALID
+    },
+
+    legibleStr(iscdvalue) {
+        switch(iscdvalue) {
+            case ISCD.INVALID     : return "INVALID";
+            case ISCD.INSTRUCTION : return "INSTRUCTION";
+            case ISCD.SELECTOR    : return "SELECTOR";
+            case ISCD.CONTROLFLOW : return "CONTROLFLOW";
+            case ISCD.DATA        : return "DATA";
+            default:
+                throw "[ISCD.legibleStr] Invalid ISC value" + iscdvalue;
+        }
+    }
+}

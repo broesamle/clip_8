@@ -331,7 +331,8 @@ while len(exampledefinitions) > 0:
                                         seriesTEM=TEM.ExampleCollections,
                                         itemData={'examplecollection_id': colID,
                                         'testdescription':collection,
-                                        'expected_iscd': expectedISCD,
+                                        'testtype': "element_ISCDdetection",
+                                        'expectedresult': expectedISCD,
                                         'viewBox': excol.viewBox,
                                         'width':"150px"})
     else:
