@@ -34,9 +34,6 @@ Demos
 [Demos Page](https://broesamle.github.io/clip_8/demos/) including the
 [Loom Demo](https://broesamle.github.io/clip_8/demos/loom3.html) in the picture.
 
-![Loom Demo](VISUAL-ABSTRACT.jpg)
-
-
 Copyright
 ---------
 
