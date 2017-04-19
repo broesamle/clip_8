@@ -19,7 +19,7 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.0.17"
+refsheet_version = "0.0.18"
 refsheet_description = "encompasses a usable (incomplete) language repertoire."
 
 sections = [
