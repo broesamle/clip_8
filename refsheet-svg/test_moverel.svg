@@ -4,7 +4,7 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
 <g id="Background">
-	<rect fill="#808080" width="64" height="64"/>
+	<rect fill="#606060" stroke="#9ACDCD" stroke-miterlimit="10" width="64" height="64"/>
 </g>
 <g id="TEST-move-rel-v-down" display="none">
 	<g id="t1_x5F_down" display="inline" opacity="0.5">
@@ -18,16 +18,14 @@
 		<rect x="37" y="17" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_down" display="inline">
-		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,2" width="52" height="46"/>
+		<rect x="8" y="10" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="52" height="46"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="43"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="43"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,10c0,0,5.367-3.318,0-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
-		
-			<circle fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="60" cy="43" r="2.281"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)"><tspan x="0" y="0" display="inline" font-family="'CourierNewPSMT'" font-size="4">Move a set of objects downwards, as </tspan><tspan x="0" y="4.8" display="inline" font-family="'CourierNewPSMT'" font-size="4">indicated by the straight line. </tspan><tspan x="0" y="14.4" display="inline" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" display="inline" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" display="inline" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.8" display="inline" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
@@ -42,19 +40,47 @@
 		<rect x="37" y="17" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_downleft" display="inline">
-		<rect x="8" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,2" width="52" height="46"/>
+		<rect x="8" y="10" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="52" height="46"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="41" y2="20"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="41" y2="20"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,10c0,0,5.367-3.318,0-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
-		
-			<circle fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="41" cy="20" r="2.281"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Move a set of objects downwards, as </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">indicated by the straight line. </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-move-rel-dl-with-deco" display="none">
+	<g id="t1_x5F_move-rel-dl-with-deco" display="inline" opacity="0.5">
+		<rect x="3" y="23" width="12" height="8"/>
+		<rect x="18" y="28" width="12" height="12"/>
+	</g>
+	<g id="t0_x5F_move-rel-dl-with-deco" display="inline" opacity="0.5">
+		<rect x="22" y="13" width="12" height="8"/>
+		<rect x="37" y="18" width="12" height="12"/>
+	</g>
+	<g id="I_x5F_move-rel-dl-with-deco" display="inline">
+		<rect x="8" y="10" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="52" height="46"/>
+		<g>
+			<g>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" x1="60" y1="10" x2="41" y2="20"/>
+				<g>
+					<polygon fill="#E5B7B7" points="43.813,15.824 44.367,16.329 41.064,19.966 45.933,19.303 46.034,20.045 39.125,20.987 					
+						"/>
+				</g>
+			</g>
+		</g>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
+		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,10c0,0,5.367-3.318,0-6"/>
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="76"/>
+	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Move a set of objects downwards, as </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">indicated by the straight line. </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">Decorations such as arrows at line </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">ends can be added for legibility: </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">SVG allows to define `markers`. </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">They will not affect the </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">instruction semantics. (Make sure </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">your the SVG editor does not change </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">the length of the line that defines </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">the movement vector.</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="67.2" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
 <g id="TEST-move-bysize-down" display="none">
 	<g id="t1_x5F_bysize" display="inline" opacity="0.5">
@@ -68,18 +94,16 @@
 		<rect x="37" y="17" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_bysize" display="inline">
-		<rect x="19" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,2" width="41" height="21.375"/>
-		<rect x="3" y="7" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,2" width="7.625" height="41.375"/>
+		<rect x="19" y="10" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="41" height="21.375"/>
+		<rect x="3" y="7" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="7.625" height="41.375"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="37.5"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="37.5"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,10c0,0,5.367-3.318,0-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
-		<line fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,1" x1="60" y1="37.5" x2="10.625" y2="48.375"/>
-		
-			<circle fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="60" cy="37.5" r="2.281"/>
+		<line fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,1" x1="60" y1="37.5" x2="10.625" y2="48.375"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Move a set of objects downwards, as </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">indicated the height of the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">rectangle in the second selector </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">area.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
@@ -99,18 +123,16 @@
 		<rect x="37" y="16.833" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_bysize_2" display="inline">
-		<rect x="19" y="10" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,2" width="41" height="21.375"/>
-		<rect x="3" y="7" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,2" width="7.625" height="41.375"/>
+		<rect x="19" y="10" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="41" height="21.375"/>
+		<rect x="3" y="7" fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,2" width="7.625" height="41.375"/>
 		
-			<line fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="37.5"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="60" y1="10" x2="60" y2="37.5"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012" r="1"/>
 		<circle fill="#990000" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
 		<circle fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M60,10c0,0,5.367-3.318,0-6"/>
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c0,0,56,1,56,6"/>
-		<line fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="1,1" x1="60" y1="37.5" x2="10.625" y2="48.375"/>
-		
-			<circle fill="none" stroke="#FF8888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="60" cy="37.5" r="2.281"/>
+		<line fill="none" stroke="#E5B7B7" stroke-miterlimit="10" stroke-dasharray="1,1" x1="60" y1="37.5" x2="10.625" y2="48.375"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
 	<text transform="matrix(1 0 0 1 64 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Move a set of objects downwards, as </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">indicated the height of the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">rectangle (larger this time) in the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">second selector area.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
@@ -119,12 +141,15 @@
 	<rect y="-64" fill="none" width="119" height="55"/>
 	<text transform="matrix(1 0 0 1 0 -61.5479)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Move objects by a fixed distance and direction, </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">relative to their original position. </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">+ At `p0`: (1) The line `l` starts, indicating </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">direction and distance to move the objects. (2) A </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">selector rectangle defines the set of objects to </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">align.</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">+ At `p1`, where `l` ends: (3) An outlined circle </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">with no fill indicates `move`. </tspan></text>
 	<g id="I">
+		<path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M8,48c7,0,15-4,16-8"/>
+		<path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M56,48c-17.733,0-29.467-4-32-8"/>
 		<g>
 			
-				<line fill="none" stroke="#FF8888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.083" y1="50.416" x2="51.084" y2="18.417"/>
-			
-				<circle fill="none" stroke="#FF8888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="51.083" cy="18.417" r="4.833"/>
+				<line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="24" y1="40" x2="52" y2="8"/>
 		</g>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="8.143" cy="48.143" r="2.143"/>
+		<circle fill="#9BC9C7" stroke="#9ACDCD" stroke-width="1.0714" stroke-miterlimit="10" cx="56" cy="48" r="2.143"/>
+		<circle fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" cx="56" cy="47.999" r="4.821"/>
 	</g>
 </g>
 </svg>

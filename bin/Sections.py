@@ -19,8 +19,8 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.0.18"
-refsheet_description = "encompasses a usable (incomplete) language repertoire."
+refsheet_version = "0.1.1"
+refsheet_description = "In the process of developing a language standard."
 
 sections = [
     ("Iconic Instruction Language", "Control flow", 'test_controlflow.svg'),
