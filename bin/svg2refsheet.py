@@ -124,7 +124,7 @@ alltests = {}
 
 chaptercnt = 0
 lastchapter = None
-backlinktitle, backhref = "Table of Contents", "toc.html"
+backlinktitle, backhref = "Introduction", "introduction.html"
 SCT.sections.reverse()
 firstoutfile = None
 firstsection = None
@@ -151,6 +151,8 @@ while len(SCT.sections) > 0:
             chaptercnt += 1
             sectioncnt = 1
             lastchapter = chapter
+            tocsectionsHTML += TEM.TOCchapter.substitute(chapter=chapter, chaptercnt=chaptercnt)
+
         tests = TestSection(inFN, strictsubstitute=True)
         for thetest in tests.values():
             printid = thetest['testid'] + " "*max(0, 25-len(thetest['testid']))
@@ -173,7 +175,7 @@ while len(SCT.sections) > 0:
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
         nextlinkHTML = TEM.Linknext.substitute(href=nexthref, linktext=nextlinktitle)
         bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
-                                        chapter=chapter, chaptercnt="Chapter "+str(chaptercnt),
+                                        chapter=chapter, chaptercnt="Reference Tests "+str(chaptercnt),
                                         MAIN=testsectionsHTML,
                                         link1=backlinkHTML, link2=nextlinkHTML,
                                         FOOTER=footerHTML,
@@ -352,53 +354,66 @@ output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplac
 output_file.write(documentHTML)
 output_file.close()
 
-### toc.html
+### index.html
+tocsectionsHTML = TEM.TOCchapter.substitute(
+    chapter="Introduction",
+    chaptercnt="0") + tocsectionsHTML
+tocsectionsHTML += TEM.TOCchapter.substitute(
+    chapter="Appendix",
+    chaptercnt="_")
 tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="Appendix: All Tests",
+    testsectiontitle="All Tests",
     testsectionhref="appendix.html",
     chaptercnt="A",
     sectioncnt="",
     sectioninstructionicon="")
 tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="Appendix: Expected to pass",
+    testsectiontitle="Expected to pass",
     testsectionhref="passing.html",
     chaptercnt="B",
     sectioncnt="",
     sectioninstructionicon="")
 tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="Appendix: Expected to fail",
+    testsectiontitle="Expected to fail",
     testsectionhref="failing.html",
     chaptercnt="C",
     sectioncnt="",
     sectioninstructionicon="")
-backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Introduction")
-nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
+tocsectionsHTML += TEM.TOCsection.substitute(
+    testsectiontitle="Graphics elements",
+    testsectionhref="gfxelems.html",
+    chaptercnt="D",
+    sectioncnt="",
+    sectioninstructionicon="")
+backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
+nextlinkHTML = TEM.Linknext.substitute(href="introduction.html", linktext="Introduction")
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
-                               chapter="Table of Contents", chaptercnt="",
+                               chapter="Table of Contents", chaptercnt="Reference Tests",
                                MAIN=tocsectionsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT="")
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
+headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Reference Tests")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
-outFN = os.path.join(outDIRabs, "toc.html")
+outFN = os.path.join(outDIRabs, "index.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
 output_file.write(documentHTML)
 output_file.close()
 
-### index.html
+### introduction.html
 # FIXME: Make a proper template rather than re-using the test section template.
 contentHTML = """
 <p>
-Clip_8 is an iconic programming language inspired by paper manipulation operations. While each operation applies to graphical content, the instructions, in turn, are themselves given in a graphical form.
+The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter.
+Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form.
 </p>
+The reference test sheets define the language. At the same time, they test the current engine in the browser at hand. For each feature you can see whether it is actually available in that particular configuration.
+<a href="passing">Appendix B</a> defines the tests that are <b>exected to pass</b>, given the current version of the engine.
 <p>
-The following reference test sheets serve as language introduction and language reference.
-At the same time they are integration tests for the clip_8 interpreter.
 </p>
 <img src="example1.png">
-<h3>How to read a reference sheet</h3>
+<h3>How to read the language reference</h3>
 <p>
 The first box shows the precondition, before the instruction.<br>
 The second box the desired result or postcondition.<br>
@@ -418,18 +433,14 @@ The first test is a selftest: it checks whether precondition and test area match
 The second test checks success of execution: It will fail on runtime errors or infinite execution.<br>
 The third  test checks whether test and postcondition match after execution.
 </p>
-<h3>Browser support</h3>
-<p>
-Not all browsers currently support all technological ingredients.
-See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
-</p>
 """
-backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
-nextlinkHTML = TEM.Linknext.substitute(href="toc.html", linktext="Table of Contents")
+
+backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Table of Contents")
+nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 footerintroHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
 bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
-                               chapter="Language Reference / Test Sheets",
-                               chaptercnt="",
+                               chapter="Introduction",
+                               chaptercnt="Reference Tests",
                                MAIN=contentHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerintroHTML,
@@ -437,7 +448,7 @@ bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
-outFN = os.path.join(outDIRabs, "index.html")
+outFN = os.path.join(outDIRabs, "introduction.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
 output_file.write(documentHTML)
 output_file.close()
