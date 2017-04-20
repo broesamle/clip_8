@@ -356,7 +356,7 @@ output_file.close()
 
 ### index.html
 tocsectionsHTML = TEM.TOCchapter.substitute(
-    chapter="Introduction",
+    chapter="""<a href="introduction.html">Introduction</a>""",
     chaptercnt="0") + tocsectionsHTML
 tocsectionsHTML += TEM.TOCchapter.substitute(
     chapter="Appendix",
@@ -387,11 +387,12 @@ tocsectionsHTML += TEM.TOCsection.substitute(
     sectioninstructionicon="")
 backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
 nextlinkHTML = TEM.Linknext.substitute(href="introduction.html", linktext="Introduction")
+footerintroHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Table of Contents", chaptercnt="Reference Tests",
                                MAIN=tocsectionsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML,
+                               FOOTER=footerintroHTML,
                                SCRIPT="")
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Reference Tests")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
@@ -437,7 +438,6 @@ The third  test checks whether test and postcondition match after execution.
 
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Table of Contents")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
-footerintroHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)
 bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                chapter="Introduction",
                                chaptercnt="Reference Tests",
