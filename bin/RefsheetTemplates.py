@@ -73,6 +73,10 @@ Testsection_inclHref = Template("""
 $THEITEMS
 """)
 
+Testsection_H3heading = Template("""
+<h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
+""")
+
 TOCsection = Template("""
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
@@ -82,7 +86,7 @@ $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle<
 </h3>
 """)
 
-
+## $THESERIES is used in MultiTemplate in the wrapper
 reftestcorewrapper = Template("""
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
@@ -110,6 +114,7 @@ ReftestCore.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] =
 ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestCore.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
 
+## $THESERIES is used in MultiTemplate in the wrapper
 reftestcorewrapper_withIntro = Template("""
 <p>$testdescription<br><span class="testmetainfo">[$THESERIES] expected to $expectedto.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
@@ -137,6 +142,21 @@ ReftestWithIntro = MT.TemplateChoice(wrapper=reftestcorewrapper_withIntro)
 ReftestWithIntro.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
 ReftestWithIntro.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestWithIntro.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
+
+## A collection of graphical elements to be tested as one SVG element.
+## An expected test result is used, rather than a reference in the DOM.
+ExampleCollections = Template("$THEITEMS")
+ExampleCollection = Template("""
+<p>$testdescription<br><span class="testmetainfo">[$examplecollection_id] expected to be detected as $expectedresult.</span></p>
+<p class="DOMreftest $testtype $expectedresult" id="$examplecollection_id">
+<span class="testDOM">
+<svg viewbox="$viewBox" width="$width">
+$svgdata
+</svg>
+</span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</p>
+""")
 
 QuestionmarkIcon_svg = """
 <path fill="#FF00A8" d="M33.057,35.523v4.277c0,1.006-0.201,1.73-0.604,2.163c-0.403,0.438-0.906,0.656-1.51,0.656c-0.638,0-1.157-0.218-1.56-0.656
