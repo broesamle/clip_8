@@ -18,6 +18,14 @@
 
 from string import Template
 
+Footer_str = """
+<footer>
+<p>
+© 2016, 2017 Martin Brösamle.<br>
+</p>
+</footer>
+"""
+
 DependClip8_str = """
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
@@ -77,20 +85,3 @@ Linknext = Template("""
 &gt;&gt;&gt;&gt;</a>
 </div>
 """)
-
-FooterIndexpage_str = """
-<footer>
-<p>
-<b>Browser support:</b><br>
-Not all browsers currently support all technological ingredients.
-See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
-</p>
-<p>
-© 2016, Martin Brösamle.<br>
-All rights reserved.
-</p>
-<p>
-Powered by SVG, JS, and the DOM.
-</p>
-</footer>
-"""

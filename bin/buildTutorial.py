@@ -28,7 +28,7 @@ outDIRabs = inDIRabs
 ### klippen.html
 backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Tutorial")
 nextlinkHTML = ""
-footerHTML = TEM.FooterIndexpage_str
+footerHTML = TEM.Footer_str
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                chapter="Klippen", chaptercnt="Online Interpreter",
                                MAIN=TEM.KlippenControler_str+TEM.KlippenInitialSVG_str,
