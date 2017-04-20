@@ -238,9 +238,7 @@ nextlinkHTML = TEM.Linknext.substitute(href="failing.html", linktext="Expected t
 passingtestsExplainHTML = """
 <p>If you encounter a failing test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>. It may indicate several things:
 <br>(a) By accident, the test is not in the list of tests that are expected to fail.
-<br>(b) clip_8 has, in principle, the functionality to pass the test. However, the current implementation relies on
-some experimental features not supported by all browsers. Please refer to
-<a href="https://github.com/broesamle/clip_8/issues/9">Issue 9</a> in this respect.
+<br>(b) clip_8 has, in principle, the functionality to pass the test. Your browser's configuration may cause different results!
 <br>(c) Functionality is actually really broken and the test fails, for instance, because of recent disruptive changes.
 </p>
 <p>

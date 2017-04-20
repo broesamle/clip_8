@@ -22,6 +22,16 @@ from string import Template
 
 from CommonTemplates import *
 
+FooterIndexpage_str = """
+<footer>
+<p>
+Copyright 2016, 2017 Martin Brösamle.<br>
+All rights reserved.<br>
+The tutorial is explicitly excluded from the creative commons license statement. Please see COPYRIGHT and README for details.
+</p>
+</footer>
+"""
+
 TOCsection = Template("""
 <p>
 <b><a href="$tuthref">$tuttitle</a></b> [<a href="$solutionhref">$solutiontitle</a>]

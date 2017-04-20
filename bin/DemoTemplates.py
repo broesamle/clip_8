@@ -22,18 +22,11 @@ from string import Template
 
 from CommonTemplates import *
 
-Footer_str = """
-<p>
-Not all browsers currently support all technological ingredients.
-See <a href="https://github.com/broesamle/clip_8/">project documentation at github</a> for details.
-</p>
+FooterIndexpage_str = """
 <footer>
 <p>
 © 2016, 2017 Martin Brösamle.<br>
 Demos and Graphics are licensed under a <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"> creative commons (BY-NC-SA)</a> license.
-</p>
-<p>
-Powered by SVG, JS, and the DOM.
 </p>
 </footer>
 """
