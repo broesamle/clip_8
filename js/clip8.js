@@ -522,13 +522,6 @@ var Clip8 = {
                 else {
                     // MOVE-REL
                     var tolerance = Clip8._deriveToleranceFromElementStroke(theline);
-                    var circles = Svgretrieve.getISCbyLocation(
-                                      bothends[1],
-                                      tolerance,
-                                      Clip8.RETRIEVE_CPOINT_MAXNUM,
-                                      ["circle"],
-                                      Svgretrieve.I_collection);
-                    if (debug) console.log("[executeOneOperation/move-rel] circles:", circles);
                     var deltaX, deltaY;
                     deltaX = bothends[1].x-bothends[0].x;
                     deltaY = bothends[1].y-bothends[0].y;
