@@ -174,7 +174,7 @@ while len(SCT.sections) > 0:
 
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
         nextlinkHTML = TEM.Linknext.substitute(href=nexthref, linktext=nextlinktitle)
-        bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+        bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                         chapter=chapter, chaptercnt="Reference Tests "+str(chaptercnt),
                                         MAIN=testsectionsHTML,
                                         link1=backlinkHTML, link2=nextlinkHTML,
@@ -219,7 +219,7 @@ while len(SCT.sections) > 0:
 ### Appendix
 backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
 nextlinkHTML = TEM.Linknext.substitute(href="passing.html", linktext="Expected to pass")
-bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                chapter="All Tests", chaptercnt="Appendix A",
                                MAIN=appendixsectionsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
@@ -247,7 +247,7 @@ passingtestsExplainHTML = """
 Thank you for your contribution!
 </p>
 """
-bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                chapter="Expected to pass", chaptercnt="Appendix B",
                                MAIN=passingtestsExplainHTML+passingtestsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
@@ -274,7 +274,7 @@ Most likely, it was forgotten to remove the test from the expected-to-fail list 
 Thank you for your contribution!
 </p>
 """
-bodyHTML = TEM.Body.substitute(pagetitle='<a href="toc.html">clip_8</a>',
+bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                chapter="Expected to fail", chaptercnt="Appendix C",
                                MAIN=failingtestsExplainHTML+failingtestsHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
