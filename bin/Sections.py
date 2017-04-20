@@ -19,7 +19,7 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.0.17"
+refsheet_version = "0.0.18"
 refsheet_description = "encompasses a usable (incomplete) language repertoire."
 
 sections = [
@@ -41,6 +41,20 @@ expected_to_fail = [
     "cut-vertical",
     "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
+
+
+## as defined in `svgretrieve.js`, `ISCD`
+##    INVALID: 0,
+##    INSTRUCTION: 1,
+##    SELECTOR: 2,
+##    CONTROLFLOW: 3,
+##    DATA: 4,
+
+exampleelements = [
+    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", 1),
+    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", 1),
+    ("Invalid Control Flow Elements", "from illustrator", "example-elements_controlflow-nonvalid_ai.svg", 0),
+    ("Invalid Control Flow Elements", "from inkskape", "example-elements_controlflow-nonvalid_inkscape.svg", 0) ]
 
 demos = [
     ("Counter Example 3", "counter3.svg"),
