@@ -78,6 +78,8 @@ class TestSection(SVGGroupCollection):
             except ValueError:
                 return    # ignore any elements where the id could not be translated into a key
             newitem = {}
+            if self.viewBox:
+                newitem['viewBox'] = self.viewBox
             for child in el:
                 if child.get('id',"").startswith("t0"):
                     newitem['pre'] = allChildrenToSVG(child)
@@ -88,6 +90,14 @@ class TestSection(SVGGroupCollection):
                     newitem['pre'] += allChildrenToSVG(child)
                     newitem['post'] += allChildrenToSVG(child)
                     newitem['testDOM'] += allChildrenToSVG(child)
+                elif child.get('id',"").startswith("EX"):
+                    # Example element collection
+                    newitem['pre'] = "<!-- no precondition for this test -->"
+                    newitem['post'] = "<!-- no postcondition for this test -->"
+                    newitem['testDOM'] = allChildrenToSVG(child)
+                elif child.get('id',"").startswith("BBox"):
+                    # BBox overrides viewBox
+                    newitem['viewBox'] = child.get('x',"")+" "+child.get('y',"")+" "+child.get('width',"")+" "+child.get('height',"")
                 elif stripNamespaceFromTag(child.tag) == "g":
                     print("WARNING: Encountered invalid sublayer or group %s in test %s." % (child.get('id',"--unknown--"), key))
                 elif stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
@@ -103,6 +113,7 @@ class TestSection(SVGGroupCollection):
                         if len(parsedmeta.errors): print (parsedmeta.errors)
                         try:
                             for decl in parsedmeta.rules[0].declarations:
+                                ## print("   META:", decl.name, ":", decl.value.as_css().replace(" ", ""))
                                 newitem[decl.name] = decl.value.as_css().replace(" ", "")  # Remove " ": use meta info in class lists
 
                         except IndexError:

@@ -19,10 +19,11 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.1.1"
+refsheet_version = "0.1.2"
 refsheet_description = "In the process of developing a language standard."
 
 sections = [
+    ("Graphics elements", "by type", 'tree-of-graphics-elements.svg'),
     ("Iconic Instruction Language", "Control flow", 'test_controlflow.svg'),
     ("Iconic Instruction Language", "Selectors", 'test_selectors.svg'),
     ("Iconic Instruction Language", "Combining Instructions", 'test_combine-instructions.svg'),
@@ -42,19 +43,11 @@ expected_to_fail = [
     "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
 
-
-## as defined in `svgretrieve.js`, `ISCD`
-##    INVALID: 0,
-##    INSTRUCTION: 1,
-##    SELECTOR: 2,
-##    CONTROLFLOW: 3,
-##    DATA: 4,
-
 exampleelements = [
-    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", 1),
-    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", 1),
-    ("Invalid Control Flow Elements", "from illustrator", "example-elements_controlflow-nonvalid_ai.svg", 0),
-    ("Invalid Control Flow Elements", "from inkskape", "example-elements_controlflow-nonvalid_inkscape.svg", 0) ]
+    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", "INSTRUCTION"),
+    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", "INSTRUCTION"),
+    ("Invalid Control Flow Elements", "from illustrator", "example-elements_controlflow-nonvalid_ai.svg", "INVALID"),
+    ("Invalid Control Flow Elements", "from inkskape", "example-elements_controlflow-nonvalid_inkscape.svg", "INVALID") ]
 
 demos = [
     ("Counter Example 3", "counter3.svg"),

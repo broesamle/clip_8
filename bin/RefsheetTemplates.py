@@ -93,28 +93,29 @@ reftestcorewrapper = Template("""
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
-<svg $dimensionssettings>
+<svg viewbox="$viewBox" width="64">
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg $dimensionssettings>
+<svg viewbox="$viewBox" width="64">
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg $dimensionssettings>
+<svg viewbox="$viewBox" width="64">
 $testDOM
 </svg>
 </span>
-</p>""").safe_substitute(dimensionssettings='viewbox="0 0 64 64" width="64" height="64"')
+</p>""").safe_substitute()
 
 ReftestCore = MT.TemplateChoice(wrapper=reftestcorewrapper)
 ReftestCore.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
 ReftestCore.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestCore.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
+ReftestCore.addTemplate("""$testtype $expectedresult""", lambda dict: dict['testtype'] == "element_ISCDdetection")
 
 ## $THESERIES is used in MultiTemplate in the wrapper
 reftestcorewrapper_withIntro = Template("""
@@ -122,28 +123,29 @@ reftestcorewrapper_withIntro = Template("""
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
-<svg $dimensionssettings>
+<svg viewbox="$viewBox" width="20%">
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg $dimensionssettings>
+<svg viewbox="$viewBox" width="20%">
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg $dimensionssettings>
+<svg viewbox="$viewBox" width="20%">
 $testDOM
 </svg>
 </span>
-</p>""").safe_substitute(dimensionssettings='viewbox="0 0 64 64" width="20%" height="auto"')
+</p>""").safe_substitute()
 
 ReftestWithIntro = MT.TemplateChoice(wrapper=reftestcorewrapper_withIntro)
 ReftestWithIntro.addTemplate("""$testtype $cycles""", lambda dict: dict['testtype'] == "normal_execution")
 ReftestWithIntro.addTemplate("""$testtype $p0 $color""", lambda dict: dict['testtype'] == "selectionset")
 ReftestWithIntro.addTemplate("""$testtype $cycles $idcolors""", lambda dict: dict['testtype'] == "exec_approx-dim")
+ReftestWithIntro.addTemplate("""$testtype $expectedresult""", lambda dict: dict['testtype'] == "element_ISCDdetection")
 
 ## A collection of graphical elements to be tested as one SVG element.
 ## An expected test result is used, rather than a reference in the DOM.
@@ -151,6 +153,10 @@ ExampleCollections = Template("$THEITEMS")
 ExampleCollection = Template("""
 <p>$testdescription<br><span class="testmetainfo">[$examplecollection_id] expected to be detected as $expectedresult.</span></p>
 <p class="DOMreftest $testtype $expectedresult" id="$examplecollection_id">
+<span>
+</span>
+<span>
+</span>
 <span class="testDOM">
 <svg viewbox="$viewBox" width="$width">
 $svgdata
