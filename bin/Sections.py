@@ -37,6 +37,12 @@ sections = [
 
 expected_to_fail = [
     "controlflow-circle",
+    "instruction-elements",
+    "selector-line",
+    "controlflow-curvedpath",
+    "controlflow-mulitsegment",
+    "selector-area",
+    "data-filled-shape",
     "indirect1", "indirect2", "indirect3", "selector-precision-similarrects3",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
