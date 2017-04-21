@@ -33,7 +33,9 @@ footer {
 
 h3 svg {
     background: white;
+    width: 2em;
     height: 2em;
+    preserveAspectRatio: xMidYMid;
 }
 
 .testmetainfo {

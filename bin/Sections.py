@@ -23,7 +23,7 @@ refsheet_version = "0.1.2"
 refsheet_description = "In the process of developing a language standard."
 
 sections = [
-    ("Graphics elements", "by type", 'tree-of-graphics-elements.svg'),
+    ("Tree of Graphics", "Elements by type", 'tree-of-graphics-elements.svg'),
     ("Iconic Instruction Language", "Control flow", 'test_controlflow.svg'),
     ("Iconic Instruction Language", "Selectors", 'test_selectors.svg'),
     ("Iconic Instruction Language", "Combining Instructions", 'test_combine-instructions.svg'),

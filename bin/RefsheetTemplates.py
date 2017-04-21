@@ -56,7 +56,7 @@ ScriptInBody_str = """<script src="../spec/spec_DOMrefsheet.js"></script>"""
 Testsection = Template("""
 <h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
 <div class="sectionintro">
-<svg class="sectioninstructionicon" viewbox="0 0 64 64">
+<svg class="sectioninstructionicon" viewbox="$viewBox">
 $sectioninstructionicon
 </svg>
 $sectiondescription
@@ -81,7 +81,7 @@ $chaptercnt&nbsp;&nbsp;$chapter
 
 TOCsection = Template("""
 <h3>
-<svg class="sectioninstructionicon" viewbox="0 0 64 64">
+<svg class="sectioninstructionicon" viewbox="$viewBox">
 $sectioninstructionicon
 </svg>
 $chaptercnt.$sectioncnt&nbsp;&nbsp;<a href="$testsectionhref">$testsectiontitle</a>
@@ -93,19 +93,19 @@ reftestcorewrapper = Template("""
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest $THESERIES" id="$testid">
 <span class="pre-reference">
-<svg viewbox="$viewBox" width="64">
+<svg viewbox="$viewBox" width="64" height="64" preserveAspectRatio="xMidYMid">
 $pre
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
-<svg viewbox="$viewBox" width="64">
+<svg viewbox="$viewBox" width="64" height="64" preserveAspectRatio="xMidYMid">
 $post
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
-<svg viewbox="$viewBox" width="64">
+<svg viewbox="$viewBox" width="64" height="64" preserveAspectRatio="xMidYMid">
 $testDOM
 </svg>
 </span>
