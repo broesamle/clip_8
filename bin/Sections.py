@@ -26,6 +26,7 @@ sections = [
     ("Tree of Graphics", "Elements by type", 'tree-of-graphics-elements.svg'),
     ("Iconic Instruction Language", "Control flow", 'test_controlflow.svg'),
     ("Iconic Instruction Language", "Selectors", 'test_selectors.svg'),
+    ("Iconic Instruction Language", "Parameters", 'test_selectors-param.svg'),
     ("Iconic Instruction Language", "Combining Instructions", 'test_combine-instructions.svg'),
     ("Iconic Instruction Language", "The order of things", 'test_orderofthings.svg'),
     ("Paper inspired Operations", "Align relative", 'test_alignrel.svg'),
@@ -36,14 +37,8 @@ sections = [
     ("Changing dimensions", "Scale and resize", 'test_scale+resize.svg') ]
 
 expected_to_fail = [
-    "controlflow-circle",
-    "instruction-elements",
-    "selector-line",
-    "controlflow-curvedpath",
-    "controlflow-mulitsegment",
-    "selector-area",
-    "data-filled-shape",
-    "indirect1", "indirect2", "indirect3", "selector-precision-similarrects3",
+    "controlflow-circle", "instruction-elements", "selector-line", "controlflow-curvedpath", "controlflow-mulitsegment", "selector-area", "data-filled-shape",
+     "selector-precision-similarrects3", "indirect1", "indirect2", "indirect3", "indirect4", "indirect5",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "cut-vertical",

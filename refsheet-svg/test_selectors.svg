@@ -1359,210 +1359,46 @@
 		</g>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">See intersect2: Connector line </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">technically runs in the inverse </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">direction (From selector rect to </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">arrow.) This should not affect </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">processing.</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">p0: 4, 4;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
-</g>
-<g id="TEST-indirect1" display="none">
-	<g id="t1_x5F_indirect1" display="inline" opacity="0.5">
-		<rect x="29" y="13" width="6" height="6"/>
-		<rect x="37" y="13" fill="#9E005D" width="6" height="6"/>
-		<rect x="45" y="13" width="6" height="6"/>
-		<rect x="53" y="13" width="6" height="6"/>
-		<rect x="29" y="21" width="6" height="6"/>
-		<rect x="37" y="21" width="6" height="6"/>
-		<rect x="45" y="21" width="6" height="6"/>
-		<rect x="53" y="21" width="6" height="6"/>
-		<rect x="29" y="29" width="6" height="6"/>
-		<rect x="37" y="29" width="6" height="6"/>
-		<rect x="45" y="29" width="6" height="6"/>
-		<rect x="53" y="29" width="6" height="6"/>
-		<rect x="29" y="37" width="6" height="6"/>
-		<rect x="37" y="37" width="6" height="6"/>
-		<rect x="45" y="37" width="6" height="6"/>
-		<rect x="53" y="37" width="6" height="6"/>
-		<rect x="16" y="5" width="24" height="2"/>
-	</g>
-	<g id="t0_x5F_indirect1" display="inline" opacity="0.5">
-		<rect x="29" y="13" width="6" height="6"/>
-		<rect x="37" y="13" width="6" height="6"/>
-		<rect x="45" y="13" width="6" height="6"/>
-		<rect x="53" y="13" width="6" height="6"/>
-		<rect x="29" y="21" width="6" height="6"/>
-		<rect x="37" y="21" width="6" height="6"/>
-		<rect x="45" y="21" width="6" height="6"/>
-		<rect x="53" y="21" width="6" height="6"/>
-		<rect x="29" y="29" width="6" height="6"/>
-		<rect x="37" y="29" width="6" height="6"/>
-		<rect x="45" y="29" width="6" height="6"/>
-		<rect x="53" y="29" width="6" height="6"/>
-		<rect x="29" y="37" width="6" height="6"/>
-		<rect x="37" y="37" width="6" height="6"/>
-		<rect x="45" y="37" width="6" height="6"/>
-		<rect x="53" y="37" width="6" height="6"/>
-		<rect x="16" y="5" width="24" height="2"/>
-	</g>
-	<g id="I_x5F_indirect1" display="inline">
-		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1,1" x1="16" y1="8" x2="16" y2="16"/>
-		<polygon fill="#E8ACAC" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="0.2,0.2" points="16,8 16,4 20,6 		"/>
-		<g>
-			<g>
-				<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="8" y1="8" x2="11.191895" y2="11.191895"/>
-				<g>
-					<polygon points="8.584473,10.981934 10.98291,10.98291 10.981934,8.584473 12,9.602539 12,12 9.602539,12 					"/>
-				</g>
-			</g>
-		</g>
-	</g>
-	<rect x="64" display="inline" fill="none" width="86" height="88"/>
-	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Make an indirect selection: Unlike </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the direct selection, the location </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">is determined by the dimensions of </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">another object. (1) The triangle </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">arrow serves as indirect selector. </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">It captures the width of the </tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">lengthy rectangle. (2) Selection </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">area is a point, offset from (3), </tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">the point of attachment. (4) The </tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">rectangle width (step 1) determines </tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">the horizontal offset for step 2.</tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="67.200195" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="72" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="76.799805" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
-</g>
-<g id="TEST-indirect2" display="none">
-	<g id="t1_x5F_indirect2" display="inline" opacity="0.5">
-		<rect x="29" y="13" width="6" height="6"/>
-		<rect x="37" y="13" width="6" height="6"/>
-		<rect x="45" y="13" width="6" height="6"/>
-		<rect x="53" y="13" fill="#9E005D" width="6" height="6"/>
-		<rect x="29" y="21" width="6" height="6"/>
-		<rect x="37" y="21" width="6" height="6"/>
-		<rect x="45" y="21" width="6" height="6"/>
-		<rect x="53" y="21" width="6" height="6"/>
-		<rect x="29" y="29" width="6" height="6"/>
-		<rect x="37" y="29" width="6" height="6"/>
-		<rect x="45" y="29" width="6" height="6"/>
-		<rect x="53" y="29" width="6" height="6"/>
-		<rect x="29" y="37" width="6" height="6"/>
-		<rect x="37" y="37" width="6" height="6"/>
-		<rect x="45" y="37" width="6" height="6"/>
-		<rect x="53" y="37" width="6" height="6"/>
-		<rect x="16" y="5" width="40" height="2"/>
-	</g>
-	<g id="t0_x5F_indirect2" display="inline" opacity="0.5">
-		<rect x="29" y="13" width="6" height="6"/>
-		<rect x="37" y="13" width="6" height="6"/>
-		<rect x="45" y="13" width="6" height="6"/>
-		<rect x="53" y="13" width="6" height="6"/>
-		<rect x="29" y="21" width="6" height="6"/>
-		<rect x="37" y="21" width="6" height="6"/>
-		<rect x="45" y="21" width="6" height="6"/>
-		<rect x="53" y="21" width="6" height="6"/>
-		<rect x="29" y="29" width="6" height="6"/>
-		<rect x="37" y="29" width="6" height="6"/>
-		<rect x="45" y="29" width="6" height="6"/>
-		<rect x="53" y="29" width="6" height="6"/>
-		<rect x="29" y="37" width="6" height="6"/>
-		<rect x="37" y="37" width="6" height="6"/>
-		<rect x="45" y="37" width="6" height="6"/>
-		<rect x="53" y="37" width="6" height="6"/>
-		<rect x="16" y="5" width="40" height="2"/>
-	</g>
-	<g id="I_x5F_indirect2" display="inline">
-		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1,1" x1="16" y1="8" x2="16" y2="16"/>
-		<polygon fill="#E8ACAC" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="0.2,0.2" points="16,8 16,4 20,6 		"/>
-		<g>
-			<g>
-				<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="8" y1="8" x2="11.191895" y2="11.191895"/>
-				<g>
-					<polygon points="8.584473,10.981934 10.98291,10.98291 10.981934,8.584473 12,9.602539 12,12 9.602539,12 					"/>
-				</g>
-			</g>
-		</g>
-	</g>
-	<rect x="64" display="inline" fill="none" width="86" height="82"/>
-	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">cf. former test.</tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
-</g>
-<g id="TEST-indirect3" display="none">
-	<g id="t1_x5F_indirect3" display="inline" opacity="0.5">
-		<rect x="29" y="13" width="6" height="6"/>
-		<rect x="37" y="13" width="6" height="6"/>
-		<rect x="45" y="13" width="6" height="6"/>
-		<rect x="53" y="13" width="6" height="6"/>
-		<rect x="29" y="21" width="6" height="6"/>
-		<rect x="37" y="21" width="6" height="6"/>
-		<rect x="45" y="21" width="6" height="6"/>
-		<rect x="53" y="21" width="6" height="6"/>
-		<rect x="29" y="29" width="6" height="6"/>
-		<rect x="37" y="29" width="6" height="6"/>
-		<rect x="45" y="29" width="6" height="6"/>
-		<rect x="53" y="29" fill="#9E005D" width="6" height="6"/>
-		<rect x="29" y="37" width="6" height="6"/>
-		<rect x="37" y="37" width="6" height="6"/>
-		<rect x="45" y="37" width="6" height="6"/>
-		<rect x="53" y="37" width="6" height="6"/>
-		<rect x="16" y="5" width="40" height="2"/>
-		<rect x="4" y="40" width="4" height="16"/>
-	</g>
-	<g id="t0_x5F_indirect3" display="inline" opacity="0.5">
-		<rect x="29" y="13" width="6" height="6"/>
-		<rect x="37" y="13" width="6" height="6"/>
-		<rect x="45" y="13" width="6" height="6"/>
-		<rect x="53" y="13" width="6" height="6"/>
-		<rect x="29" y="21" width="6" height="6"/>
-		<rect x="37" y="21" width="6" height="6"/>
-		<rect x="45" y="21" width="6" height="6"/>
-		<rect x="53" y="21" width="6" height="6"/>
-		<rect x="29" y="29" width="6" height="6"/>
-		<rect x="37" y="29" width="6" height="6"/>
-		<rect x="45" y="29" width="6" height="6"/>
-		<rect x="53" y="29" width="6" height="6"/>
-		<rect x="29" y="37" width="6" height="6"/>
-		<rect x="37" y="37" width="6" height="6"/>
-		<rect x="45" y="37" width="6" height="6"/>
-		<rect x="53" y="37" width="6" height="6"/>
-		<rect x="16" y="5" width="40" height="2"/>
-		<rect x="4" y="40" width="4" height="16"/>
-	</g>
-	<g id="I_x5F_indirect3" display="inline">
-		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1,1" x1="16" y1="8" x2="16" y2="16"/>
-		<polygon fill="#E8ACAC" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="0.2,0.2" points="16,8 16,4 20,6 		"/>
-		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1,1" x1="16" y1="16" x2="4" y2="40"/>
-		<polygon fill="#E8ACAC" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="0.2,0.2" points="4,40 8,40 6,44 		"/>
-		<g>
-			<g>
-				<line fill="none" stroke="#000000" stroke-miterlimit="10" x1="8" y1="8" x2="11.191895" y2="11.191895"/>
-				<g>
-					<polygon points="8.584473,10.981934 10.98291,10.98291 10.981934,8.584473 12,9.602539 12,12 9.602539,12 					"/>
-				</g>
-			</g>
-		</g>
-	</g>
-	<rect x="64" display="inline" fill="none" width="86" height="82"/>
-	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">cf. former test. (1) A second </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">indirect selector, facing </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">downwards, defines the vertical </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">offset, (2) based on the height of </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">the rectangle at the left edge. (3) </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">The position of the indirect </tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">selector does not affect the </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">offset; only the dimensions of the </tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">selected object.</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="67.200195" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<text transform="matrix(1 0 0 1 64 2.452148)"><tspan x="0" y="0" display="inline" font-family="'CourierNewPSMT'" font-size="4">See intersect2: Connector line </tspan><tspan x="0" y="4.799805" display="inline" font-family="'CourierNewPSMT'" font-size="4">technically runs in the inverse </tspan><tspan x="0" y="9.599609" display="inline" font-family="'CourierNewPSMT'" font-size="4">direction (From selector rect to </tspan><tspan x="0" y="14.399902" display="inline" font-family="'CourierNewPSMT'" font-size="4">arrow.) This should not affect </tspan><tspan x="0" y="19.199707" display="inline" font-family="'CourierNewPSMT'" font-size="4">processing.</tspan><tspan x="0" y="28.799805" display="inline" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="33.599609" display="inline" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="38.399414" display="inline" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="43.200195" display="inline" font-family="'CourierNewPSMT'" font-size="4">p0: 4, 4;</tspan><tspan x="0" y="48" display="inline" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
 <g id="SECTIONINFO">
-	<rect y="-84" fill="none" width="119" height="82"/>
-	<text transform="matrix(1 0 0 1 0 -81.547852)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Select sets of objects.</tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">+ Selectors are attached to instructions in in </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">order to define a selection (set) of object(s). </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">+ How this set is used depends on the </tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">instruction. Typically, the selection defines </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">those objects that will be affected by the </tspan><tspan x="0" y="38.399902" font-family="'CourierNewPSMT'" font-size="4">instruction.</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ For this section, selectors are presented in </tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">isolation, without any instruction. The point of </tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">attachment, otherwise appearent by the </tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">instruction, will be indicated by a small arrow.</tspan><tspan x="0" y="72" font-family="'CourierNewPSMT'" font-size="4">+ Similarly, the selection is indicated by colour </tspan><tspan x="0" y="76.799805" font-family="'CourierNewPSMT'" font-size="4">for presentation purposes.</tspan></text>
+	<rect y="-84" fill="none" width="139" height="83"/>
+	<text transform="matrix(1 0 0 1 0 -81.547852)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Select sets of objects.</tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">+ Selectors are attached to instructions at the control </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">flow drop-off point `p0`. </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">+ Typically, a selector defines a selection area or </tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">selection location. The selection set is the set of </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">object intersectiong with (or being enclosed by) that </tspan><tspan x="0" y="38.399902" font-family="'CourierNewPSMT'" font-size="4">location or area.</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ This section presents selectors in isolation, without </tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">any instruction. The reference point (otherwise defined </tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">by the context of the instruction) is indicated by a </tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">dummy control flow, or a small arrow.</tspan><tspan x="0" y="72" font-family="'CourierNewPSMT'" font-size="4">+ The objects in the selection set are expected to be </tspan><tspan x="0" y="76.799805" font-family="'CourierNewPSMT'" font-size="4">highlighted in a defined colour after the test run.</tspan></text>
 	<g id="I">
 		<g>
 			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="28,38.5 28,40 26.5,40 				"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="28,38.5 28,40 26.5,40 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="3.70588,8.647059" x1="17.853027" y1="40" x2="9.82373" y2="40"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="5.5,40 4,40 4,38.5 				"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="3.70588,8.647059" x1="17.853027" y1="40" x2="9.82373" y2="40"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="5.5,40 4,40 4,38.5 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="2.67568,6.24324" x1="4" y1="32.256836" x2="4" y2="8.621582"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="4,5.5 4,4 5.5,4 				"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="2.67568,6.24324" x1="4" y1="32.256836" x2="4" y2="8.621582"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="4,5.5 4,4 5.5,4 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="3.70588,8.647059" x1="14.146973" y1="4" x2="22.17627" y2="4"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="26.5,4 28,4 28,5.5 				"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="3.70588,8.647059" x1="14.146973" y1="4" x2="22.17627" y2="4"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="26.5,4 28,4 28,5.5 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="2.67568,6.24324" x1="28" y1="11.743164" x2="28" y2="35.37793"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="2.67568,6.24324" x1="28" y1="11.743164" x2="28" y2="35.37793"/>
 			</g>
 		</g>
 		<g>
 			<g>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="60,55.5 60,60 55.5,60 				"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="60,55.5 60,60 55.5,60 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="52.5" y1="60" x2="42" y2="60"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="40.5,60 36,60 36,55.5 				"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="52.5" y1="60" x2="42" y2="60"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="40.5,60 36,60 36,55.5 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="52.5" x2="36" y2="30"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="36,28.5 36,24 40.5,24 				"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="52.5" x2="36" y2="30"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="36,28.5 36,24 40.5,24 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="43.5" y1="24" x2="54" y2="24"/>
-				<polyline fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" points="55.5,24 60,24 60,28.5 				"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="43.5" y1="24" x2="54" y2="24"/>
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="55.5,24 60,24 60,28.5 				"/>
 				
-					<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="60" y1="31.5" x2="60" y2="54"/>
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="60" y1="31.5" x2="60" y2="54"/>
 			</g>
 		</g>
+		
+			<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="24" x2="60.625" y2="2.375"/>
 	</g>
 </g>
 </svg>

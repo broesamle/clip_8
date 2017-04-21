@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
+	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+<g id="Background">
+	<rect fill="#606060" width="64" height="64"/>
+</g>
+<g id="TEST-indirect1" display="none">
+	<g id="t1_x5F_indirect1" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" fill="#9E005D" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="5" width="19" height="2"/>
+	</g>
+	<g id="t0_x5F_indirect1" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="5" width="19" height="2"/>
+	</g>
+	<g id="I_x5F_indirect1" display="inline">
+		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="55" y2="16"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="39" height="34"/>
+		<g id="labels">
+			<g>
+				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 13 54)" font-family="'CourierNewPSMT'" font-size="4">pY</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 14)" font-family="'CourierNewPSMT'" font-size="4">pX</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 54)" font-family="'CourierNewPSMT'" font-size="4">pXY</text>
+			</g>
+			<path fill="none" stroke="#9BC9C7" stroke-width="0.7" stroke-miterlimit="10" d="M4,4c0,0,6,18.625,12,12.125"/>
+		</g>
+	</g>
+	<rect x="64" display="inline" fill="none" width="123" height="130"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Parameterise a selector: Unlike the ordinary </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">selection, the selection location is determined by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the dimensions of another object. (1) The selector </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">area, as usual, restricts the set of objects (i.e. </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">no objects outside the area will be affected). </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">`pX`, `pY`, `pXY` can be used to attach a PARAMETER </tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">object. via a dash-dotted line. (2) A parameter </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">object attached to `pX` will be evaluated based on </tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">its width. (3) The selection location will be </tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">offset from `p0` by the `width` of the parameter </tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">object.</tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">(4) Likewise, the selection location can be offset </tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">in y-direction by the `height` of an object by </tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">attaching it as a parameter to `pY`, or `pXY` for </tspan><tspan x="0" y="67.200195" font-family="'CourierNewPSMT'" font-size="4">both directions.</tspan><tspan x="0" y="76.799805" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="81.599609" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="86.399414" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="91.200195" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="96" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-indirect2" display="none">
+	<g id="t1_x5F_indirect2" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" fill="#9E005D" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="5" width="35" height="2"/>
+	</g>
+	<g id="t0_x5F_indirect2" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="5" width="35" height="2"/>
+	</g>
+	<g id="I_x5F_indirect2" display="inline">
+		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="55" y2="16"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="39" height="34"/>
+		<g id="labels_1_">
+			<g>
+				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 13 54)" font-family="'CourierNewPSMT'" font-size="4">pY</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 14)" font-family="'CourierNewPSMT'" font-size="4">pX</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 54)" font-family="'CourierNewPSMT'" font-size="4">pXY</text>
+			</g>
+			<path fill="none" stroke="#9BC9C7" stroke-width="0.7" stroke-miterlimit="10" d="M4,4c0,0,6,18.625,12,12.125"/>
+		</g>
+	</g>
+	<rect x="64" display="inline" fill="none" width="123" height="130"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Same as above, this time the parameter object has a </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">higher width.</tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-indirect3" display="none">
+	<g id="t1_x5F_indirect3_1_" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" fill="#9E005D" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="3" y="58" width="35" height="2"/>
+	</g>
+	<g id="t0_x5F_indirect3_1_" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="3" y="58" width="35" height="2"/>
+	</g>
+	<g id="I_x5F_indirect3_1_" display="inline">
+		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="11" y1="59" x2="63" y2="16"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="47" height="34"/>
+		<g id="labels_Kopie">
+			<g>
+				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 13 54)" font-family="'CourierNewPSMT'" font-size="4">pY</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 14)" font-family="'CourierNewPSMT'" font-size="4">pX</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 54)" font-family="'CourierNewPSMT'" font-size="4">pXY</text>
+			</g>
+			<path fill="none" stroke="#9BC9C7" stroke-width="0.7" stroke-miterlimit="10" d="M4,4c0,0,6,18.625,12,12.125"/>
+		</g>
+	</g>
+	<rect x="64" display="inline" fill="none" width="123" height="130"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Same as above. (1) Neither the x/y location of the </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">parameter object nor the size of the primary </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">selector area has an effect on the final selection </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">locationhas. aOffset is always calculated from `p0` </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">and in the direction towards the used attachment </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">point `pX`, `pY`, `pXY`</tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-indirect4" display="none">
+	<g id="t1_x5F_indirect4" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="5" width="35" height="2"/>
+	</g>
+	<g id="t0_x5F_indirect4" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="5" width="35" height="2"/>
+	</g>
+	<g id="I_x5F_indirect4" display="inline">
+		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="45" y2="16"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="29" height="34"/>
+		<g id="labels_2_">
+			<g>
+				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 13 54)" font-family="'CourierNewPSMT'" font-size="4">pY</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 14)" font-family="'CourierNewPSMT'" font-size="4">pX</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 54)" font-family="'CourierNewPSMT'" font-size="4">pXY</text>
+			</g>
+			<path fill="none" stroke="#9BC9C7" stroke-width="0.7" stroke-miterlimit="10" d="M4,4c0,0,6,18.625,12,12.125"/>
+		</g>
+	</g>
+	<rect x="64" display="inline" fill="none" width="123" height="130"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Even though the calculated selection location can </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">be outside the area of the primary selector, there </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">is no way of selecting an object that is outside </tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">the selection set defined by the primary selector </tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">(i.e. the upper-right box is a the tselection </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">position but it is not in the set of elements that </tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">intersect with the dashed rectangle of the primary </tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">selector).</tspan><tspan x="0" y="43.200195" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="52.799805" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="57.599609" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="62.399414" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-indirect5" display="none">
+	<g id="t1_x5F_indirect5" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" fill="#9E005D" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="3" width="28" height="7"/>
+	</g>
+	<g id="t0_x5F_indirect5" display="inline" opacity="0.5">
+		<rect x="24" y="13" width="6" height="6"/>
+		<rect x="32" y="13" width="6" height="6"/>
+		<rect x="40" y="13" width="6" height="6"/>
+		<rect x="48" y="13" width="6" height="6"/>
+		<rect x="24" y="21" width="6" height="6"/>
+		<rect x="32" y="21" width="6" height="6"/>
+		<rect x="40" y="21" width="6" height="6"/>
+		<rect x="48" y="21" width="6" height="6"/>
+		<rect x="24" y="29" width="6" height="6"/>
+		<rect x="32" y="29" width="6" height="6"/>
+		<rect x="40" y="29" width="6" height="6"/>
+		<rect x="48" y="29" width="6" height="6"/>
+		<rect x="24" y="37" width="6" height="6"/>
+		<rect x="32" y="37" width="6" height="6"/>
+		<rect x="40" y="37" width="6" height="6"/>
+		<rect x="48" y="37" width="6" height="6"/>
+		<rect x="16" y="3" width="28" height="7"/>
+	</g>
+	<g id="I_x5F_indirect5" display="inline">
+		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="55" y2="50"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="39" height="34"/>
+		<g id="labels_3_">
+			<g>
+				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 13 54)" font-family="'CourierNewPSMT'" font-size="4">pY</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 14)" font-family="'CourierNewPSMT'" font-size="4">pX</text>
+			</g>
+			<g>
+				<text transform="matrix(1 0 0 1 56 54)" font-family="'CourierNewPSMT'" font-size="4">pXY</text>
+			</g>
+			<path fill="none" stroke="#9BC9C7" stroke-width="0.7" stroke-miterlimit="10" d="M4,4c0,0,6,18.625,12,12.125"/>
+		</g>
+	</g>
+	<rect x="64" display="inline" fill="none" width="123" height="130"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">A parameter at`pXY` uses an object‘s `width` in </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">x-direction and its `height` in y-direction as an </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">offset from `p0`.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: selectionset;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">color: #9E005D;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">p0: 16, 16;</tspan><tspan x="0" y="38.399414" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="SECTIONINFO">
+	<rect y="-50" fill="none" width="139" height="49"/>
+	<text transform="matrix(1 0 0 1 0 -47.547852)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Selectors can be parameterised.</tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">+ A PARAMETER is defined by a dash-dotted line, attached </tspan><tspan x="0" y="14.399414" font-family="'CourierNewPSMT'" font-size="4">to the core selector rectangle.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">+ By using an object as a parameter, the dimensions of </tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">the parameter object modify the selection location.</tspan></text>
+	<g id="I">
+		<g>
+			<g>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="60,55.5 60,60 55.5,60 				"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="52.5" y1="60" x2="42" y2="60"/>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="40.5,60 36,60 36,55.5 				"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="52.5" x2="36" y2="30"/>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="36,28.5 36,24 40.5,24 				"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="43.5" y1="24" x2="54" y2="24"/>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="55.5,24 60,24 60,28.5 				"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="60" y1="31.5" x2="60" y2="54"/>
+			</g>
+		</g>
+		
+			<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="24" x2="4.625" y2="60.375"/>
+		<rect x="4" y="4" width="38" height="7"/>
+		
+			<line fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="13" y1="7" x2="60" y2="24"/>
+	</g>
+</g>
+</svg>
