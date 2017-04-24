@@ -78,6 +78,8 @@ class TestSection(SVGGroupCollection):
             except ValueError:
                 return    # ignore any elements where the id could not be translated into a key
             newitem = {}
+            if self.viewBox:
+                newitem['viewBox'] = self.viewBox
             for child in el:
                 if child.get('id',"").startswith("t0"):
                     newitem['pre'] = allChildrenToSVG(child)
@@ -88,6 +90,14 @@ class TestSection(SVGGroupCollection):
                     newitem['pre'] += allChildrenToSVG(child)
                     newitem['post'] += allChildrenToSVG(child)
                     newitem['testDOM'] += allChildrenToSVG(child)
+                elif child.get('id',"").startswith("EX"):
+                    # Example element collection
+                    newitem['pre'] = "<!-- no precondition for this test -->"
+                    newitem['post'] = "<!-- no postcondition for this test -->"
+                    newitem['testDOM'] = allChildrenToSVG(child)
+                elif child.get('id',"").startswith("BBox"):
+                    # BBox overrides viewBox
+                    newitem['viewBox'] = child.get('x',"")+" "+child.get('y',"")+" "+child.get('width',"")+" "+child.get('height',"")
                 elif stripNamespaceFromTag(child.tag) == "g":
                     print("WARNING: Encountered invalid sublayer or group %s in test %s." % (child.get('id',"--unknown--"), key))
                 elif stripNamespaceFromTag(child.tag) in ["text", "flowRoot"]:
@@ -103,6 +113,7 @@ class TestSection(SVGGroupCollection):
                         if len(parsedmeta.errors): print (parsedmeta.errors)
                         try:
                             for decl in parsedmeta.rules[0].declarations:
+                                ## print("   META:", decl.name, ":", decl.value.as_css().replace(" ", ""))
                                 newitem[decl.name] = decl.value.as_css().replace(" ", "")  # Remove " ": use meta info in class lists
 
                         except IndexError:
@@ -169,7 +180,9 @@ while len(SCT.sections) > 0:
                 'chaptercnt':chaptercnt,
                 'sectioncnt':sectioncnt,
                 'sectiondescription': "\n<p>" + "</p>\n<p>".join(tests.sectiondescription) + "</p>",
-                'sectioninstructionicon': tests.sectioninstructionicon}
+                'sectioninstructionicon': tests.sectioninstructionicon,
+                'viewBox': tests.viewBox,
+                }
             )
 
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
@@ -212,7 +225,8 @@ while len(SCT.sections) > 0:
             testsectionhref=outfile,
             chaptercnt=chaptercnt,
             sectioncnt=sectioncnt,
-            sectioninstructionicon=tests.sectioninstructionicon)
+            sectioninstructionicon=tests.sectioninstructionicon,
+            viewBox=tests.viewBox)
     else:
         print ("Sections.py mentions a non existing file:", infile)
 
@@ -342,7 +356,7 @@ while len(exampledefinitions) > 0:
 nextlinkHTML = ""
 backlinkHTML = TEM.Linkback.substitute(href="failing.html", linktext="Expected to fail")
 bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
-                               chapter="Graphics elements", chaptercnt="Appendix D",
+                               chapter="Graphics Elements and SVG Editors", chaptercnt="Appendix D",
                                MAIN=mainHTML,
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
@@ -366,25 +380,29 @@ tocsectionsHTML += TEM.TOCsection.substitute(
     testsectionhref="appendix.html",
     chaptercnt="A",
     sectioncnt="",
-    sectioninstructionicon="")
+    sectioninstructionicon="",
+    viewBox="1 1 2 2")
 tocsectionsHTML += TEM.TOCsection.substitute(
     testsectiontitle="Expected to pass",
     testsectionhref="passing.html",
     chaptercnt="B",
     sectioncnt="",
-    sectioninstructionicon="")
+    sectioninstructionicon="",
+    viewBox="1 1 2 2")
 tocsectionsHTML += TEM.TOCsection.substitute(
     testsectiontitle="Expected to fail",
     testsectionhref="failing.html",
     chaptercnt="C",
     sectioncnt="",
-    sectioninstructionicon="")
+    sectioninstructionicon="",
+    viewBox="1 1 2 2")
 tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="Graphics elements",
+    testsectiontitle="Graphics Elements and SVG Editors",
     testsectionhref="gfxelems.html",
     chaptercnt="D",
     sectioncnt="",
-    sectioninstructionicon="")
+    sectioninstructionicon="",
+    viewBox="1 1 2 2")
 backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
 nextlinkHTML = TEM.Linknext.substitute(href="introduction.html", linktext="Introduction")
 footerintroHTML = TEM.FooterIntro.substitute(refsheet_version=SCT.refsheet_version, refsheet_description=SCT.refsheet_description)

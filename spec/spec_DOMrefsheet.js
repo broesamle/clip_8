@@ -92,6 +92,7 @@ jasmine.getEnv().addReporter(visualReporter);
 function getPrecondition(reftestElement) { return reftestElement.firstElementChild; }
 function getPostcondition(reftestElement) { return reftestElement.firstElementChild.nextElementSibling; }
 function getTestDOM(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling; }
+function getTestSVG(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild }
 
 var GenericTestFns = {
     matchPre: function (reftestElement) {
@@ -221,10 +222,10 @@ function addTest_element_ISCDdetection (reftestElement, expectedDetection) {
     console.log("[TEST_ELEMENT-ISC-DETECTION] expectedDetection:", expectedDetection, reftestElement);
     var spec;
     var htmlstring = "";
-    for (var el=reftestElement.firstElementChild.firstElementChild.firstElementChild; el; el=el.nextElementSibling) {
+    for (var el=getTestSVG(reftestElement).firstElementChild; el; el=el.nextElementSibling) {
         htmlstring = el.outerHTML.replace(/\s+/gm, " ");
-        spec = it("Should be "+ISCD.legibleStr(expectedDetection)+" : "+htmlstring, function(done) {
-            expect(ISCD.detect(el)).toBe(expectedDetection);
+        spec = it("Should be "+expectedDetection+" : "+htmlstring, function(done) {
+            expect ( ISCD.legibleStr(ISCD.detect(el)) ).toBe(expectedDetection);
             done();
         });
         test_specids.push(spec.id);
@@ -258,8 +259,7 @@ describe("Reference Sheet Tester", function(){
             addTest_selectionset(tests[i], p0x, p0y, color);
         }
         else if (tests[i].classList[1] === "element_ISCDdetection") {
-            var expectedDetection = parseInt(tests[i].classList[2]);
-            addTest_element_ISCDdetection(tests[i], expectedDetection);
+            addTest_element_ISCDdetection(tests[i], tests[i].classList[2]);
         }
         else console.log("Found test without supported testtype.");
     }
