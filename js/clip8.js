@@ -271,10 +271,6 @@ var Clip8 = {
                     Clip8.ip = localISC[2][Clip8.PATHTAG][0];    // move instruction pointer
                     Clip8.pminus1_point = points[1];             // indicate old instruction pointer
                 }
-                else if (localISC[2][Clip8.LINETAG].length == 1) {
-                    Clip8.ip = localISC[2][Clip8.LINETAG][0];    // move instruction pointer
-                    Clip8.pminus1_point = points[1];             // indicate old instruction pointer
-                }
                 else
                     throw "[moveIP] Invalid control flow at merge.";
             }
@@ -344,8 +340,6 @@ var Clip8 = {
         var p0candidates, p0;
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
-        else if (Clip8.ip.tagName == "line")
-            p0candidates = Svgdom.getBothEndsOfLine(Clip8.ip);
         else throw "[executeOneOperation] expected path or line as ip element.";
         if ( Svgdom.euclidDistance(Clip8.pminus1_point, p0candidates[0]) < 1.0*Clip8.STROKE_TOLERANCE_RATIO )
             if ( Svgdom.euclidDistance(Clip8.pminus1_point, p0candidates[1]) > 1.0*Clip8.PATH_MIN_DETAIL_RATIO )
