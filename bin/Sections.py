@@ -46,8 +46,8 @@ expected_to_fail = [
     ]
 
 exampleelements = [
-    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", "INSTRUCTION"),
-    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", "INSTRUCTION"),
+    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", "CONTROLFLOW"),
+    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", "CONTROLFLOW"),
     ("Invalid Control Flow Elements", "from illustrator", "example-elements_controlflow-nonvalid_ai.svg", "INVALID"),
     ("Invalid Control Flow Elements", "from inkskape", "example-elements_controlflow-nonvalid_inkscape.svg", "INVALID") ]
 
