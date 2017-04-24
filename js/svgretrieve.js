@@ -321,7 +321,11 @@ var ISCD = {
     DATA        : 4,
 
     detect: function(el) {
-        return ISCD.INVALID;
+        console.log("[ISCD]", el, el.tagName);
+        if (el.tagName === "circle" || el.tagName === "ellipse" )
+            return ISCD.CONTROLFLOW;
+        else
+            return ISCD.INVALID;
     },
 
     whichISCD_rect: function(rectelement) {
