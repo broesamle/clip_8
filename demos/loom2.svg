@@ -22,27 +22,15 @@
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="19.667" y1="12" x2="10.833" y2="22.667"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="10.833" cy="22.667" r="1"/>
-		
-			<line fill="none" stroke="#E5B7B7" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="59.833" y1="27.834" x2="59.833" y2="29.734"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="59.833" cy="29.733" r="0.667"/>
+			<line fill="none" stroke="#E5B7B7" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="59.833" y1="27.834" x2="59.833" y2="29.867"/>
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="21.667" y1="12" x2="20.833" y2="22.667"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="20.833" cy="22.667" r="1"/>
-		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="23.667" y1="12" x2="30.833" y2="22.667"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="30.833" cy="22.667" r="1"/>
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="25.667" y1="12" x2="40.833" y2="22.667"/>
 		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="40.833" cy="22.667" r="1"/>
-		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="27.667" y1="12" x2="50.833" y2="22.667"/>
-		
-			<circle fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="50.833" cy="22.667" r="1"/>
 		
 			<rect x="15.932" y="6.167" fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-miterlimit="10" stroke-dasharray="1,0.5" width="14.542" height="4.333"/>
 		
