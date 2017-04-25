@@ -333,6 +333,14 @@ var ISCD = {
                     computedStyle.getPropertyValue("stroke-linejoin") == "round" ) {
             if (ISCD.debug) console.log("    INSTRUCTION");
             return ISCD.INSTRUCTION;
+        } else if (el.tagName === "line") {
+            if (computedStyle.getPropertyValue("stroke-dasharray") != "" || computedStyle.getPropertyValue("stroke-dasharray") != "none" ) {
+                if (ISCD.debug) console.log("    SELECTOR");
+                return ISCD.SELECTOR;
+            } else {
+                if (ISCD.debug) console.log("    INVALID");
+                return ISCD.INVALID;
+            }
         } else {
             if (ISCD.debug) console.log("    INVALID");
             return ISCD.INVALID;
