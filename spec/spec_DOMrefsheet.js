@@ -222,12 +222,16 @@ function addTest_element_ISCDdetection (reftestElement, expectedDetection) {
     console.log("[TEST_ELEMENT-ISC-DETECTION] expectedDetection:", expectedDetection, reftestElement);
     var spec;
     var htmlstring = "";
-    for (var el=getTestSVG(reftestElement).firstElementChild; el; el=el.nextElementSibling) {
-        htmlstring = el.outerHTML.replace(/\s+/gm, " ");
-        spec = it("Should be "+expectedDetection+" : "+htmlstring, function(done) {
+    var elementtester = function (el) {
+        var htmlstring = el.outerHTML.replace(/\s+/gm, " ");
+        return it("Should be "+expectedDetection+" : "+htmlstring, function(done) {
             expect ( ISCD.legibleStr(ISCD.detect(el)) ).toBe(expectedDetection);
             done();
         });
+    }
+
+    for (var el=getTestSVG(reftestElement).firstElementChild; el; el=el.nextElementSibling) {
+        spec = elementtester(el);
         test_specids.push(spec.id);
         test_domids.push(reftestElement.id);
     }

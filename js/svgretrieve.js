@@ -36,6 +36,11 @@ var Svgretrieve = {
         Svgretrieve.registerElements_fromDOM();
     },
 
+
+    // The current implementation has a redundancy in it:
+    // First, elements are retrieved by tagName but `ISCD.detect` makes no use of that information but
+    // classifies them generically, assuming any SVG element.
+    // For testing and code legibility I decided to stick with it for now.
     registerElements_fromDOM () {
         Svgretrieve.I_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
         Svgretrieve.S_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
@@ -70,10 +75,7 @@ var Svgretrieve = {
         // CIRCLE
         elems = Svgretrieve.clip8root.getElementsByTagName("circle");
         for (var i=0; i<elems.length; i++) {
-            console.debug("register circle element:", elems[i]);
-            if (elems[i].getAttribute("stroke", "none") &&
-                elems[i].getAttribute("stroke", "none") != "none") {
-                console.debug("    CONTROL FLOW");
+            if (ISCD.detect(elems[i]) == ISCD.CONTROLFLOW) {
                 cpt = Svgdom.getCentrePoint(elems[i]);
                 cpt.ownerelement = elems[i];
                 Svgretrieve.C_collection.insert(cpt);
@@ -83,82 +85,73 @@ var Svgretrieve = {
         // PATH
         elems = Svgretrieve.clip8root.getElementsByTagName("path");
         for (var i=0; i<elems.length; i++) {
-            console.debug("register path element:", elems[i]);
             try {
                 cpts = Svgdom.getBothEndsOfPath(elems[i]);
             }
             catch (err) {
-                console.warn("could not register", elems[i]);
+                unreg.push(elems[i]);
                 continue
             }
-            if (elems[i].getAttribute("stroke", "none") &&
-                elems[i].getAttribute("stroke", "none") != "none" &&
-                elems[i].getAttribute("stroke-linecap") == "round") {
-                console.debug("   INSTRUCTION");
-                cpts.forEach( function (cpt) {
-                    cpt.ownerelement = elems[i];
-                    Svgretrieve.I_collection.insert(cpt) });
-            } else if (elems[i].getAttribute("stroke", "none") &&
-                       elems[i].getAttribute("stroke", "none") != "none" &&
-                       elems[i].getAttribute("stroke-linecap") != "round") {
-                console.debug("   CONTROL FLOW");
-                cpts.forEach( function (cpt) {
-                    cpt.ownerelement = elems[i];
-                    Svgretrieve.C_collection.insert(cpt) });
-            } else
-                unreg.push(elems[i]);
+            switch(ISCD.detect(elems[i])) {
+                case ISCD.INSTRUCTION:
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.I_collection.insert(cpt) });
+                    break;
+                case ISCD.CONTROLFLOW:
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.C_collection.insert(cpt) });
+                    break;
+                default:
+                    unreg.push(elems[i]);
+            }
         }
         // LINE
         elems = Svgretrieve.clip8root.getElementsByTagName("line");
         for (var i=0; i<elems.length; i++) {
-            console.debug("register line element:", elems[i]);
-            if (elems[i].getAttribute("stroke", "none") &&
-                elems[i].getAttribute("stroke", "none") != "none") {
-                if (elems[i].getAttribute("stroke-linecap") == "round") {
-                    console.debug("    INSTRUCTION");
+            switch(ISCD.detect(elems[i])) {
+                case ISCD.INSTRUCTION:
                     cpts = Svgdom.getBothEndsOfLine(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
-                } else {
-                    if ( elems[i].getAttribute("stroke-dasharray") ) {
-                        console.debug("    SELECTOR");
-                        cpts = Svgdom.getBothEndsOfLine(elems[i]);
-                        cpts.forEach( function (cpt) {
-                            cpt.ownerelement = elems[i];
-                            Svgretrieve.S_collection.insert(cpt) });
-                    } else {
-                        console.debug("    CONTROL FLOW");
-                        cpts = Svgdom.getBothEndsOfLine(elems[i]);
-                        cpts.forEach( function (cpt) {
-                            cpt.ownerelement = elems[i];
-                            Svgretrieve.C_collection.insert(cpt) });
-                    }
-                }
-            } else
-                unreg.push(elems[i]);
+                    break;
+                case ISCD.SELECTOR:
+                    cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.S_collection.insert(cpt) });
+                    break;
+                case ISCD.CONTROLFLOW:
+                    cpts = Svgdom.getBothEndsOfLine(elems[i]);
+                    cpts.forEach( function (cpt) {
+                        cpt.ownerelement = elems[i];
+                        Svgretrieve.C_collection.insert(cpt) });
+                    break;
+                default:
+                    unreg.push(elems[i]);
+            }
         }
         // POLYLINE
         elems = Svgretrieve.clip8root.getElementsByTagName("polyline");
         for (var i=0; i<elems.length; i++) {
-            console.debug("register polyline element:", elems[i]);
-            if (elems[i].getAttribute("stroke", "none") &&
-                elems[i].getAttribute("stroke", "none") != "none") {
-                if (elems[i].getAttribute("stroke-linecap") == "round") {
-                    console.debug("    INSTRUCTION");
+            switch(ISCD.detect(elems[i])) {
+                case ISCD.INSTRUCTION:
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
-                } else {
-                    console.debug("    CONTROL FLOW");
+                    break;
+                case ISCD.CONTROLFLOW:
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.C_collection.insert(cpt) });
-                }
-            } else
-                unreg.push(elems[i]);
+                    break;
+                default:
+                    unreg.push(elems[i]);
+            }
         }
         console.groupEnd();
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
@@ -166,32 +159,27 @@ var Svgretrieve = {
 
     registerRectElement: function(rect) {
         var cpts, itv;
-        //console.debug("register rect element:", rect);
-        if  ( rect.getAttribute("stroke-linecap") == "round" ) {
-            console.debug("    INSTRUCTION");
-            cpts = Svgdom.getCornersOfRectPoints(rect);
-            cpts.forEach( function (cpt) {
-                cpt.ownerelement = rect;
-                Svgretrieve.I_collection.insert(cpt) });
-            return true;
-        } else if (rect.getAttribute("fill") != "none") {
-            // FIXME proper condition for a data element; cf. issue #77
-            // data element
-            console.debug("    DATA");
-            itv = Svgretrieve._getMainInterval(rect);  // get interval
-            itv.push(rect);                            // append pointer to rect element
-            Svgretrieve.rect_intervals.insert(itv);
-            return true;
-        } else if ( rect.getAttribute("stroke-dasharray") ) {
-            // selector element
-            console.debug("    SELECTOR");
-            cpts = Svgdom.getCornersOfRectPoints(rect);
-            cpts.forEach( function (cpt) {
-                cpt.ownerelement = rect;
-                Svgretrieve.S_collection.insert(cpt) });
-            return true;
-        } else
-            return false;
+        switch(ISCD.detect(rect)) {
+            case ISCD.INSTRUCTION:
+                cpts = Svgdom.getCornersOfRectPoints(rect);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = rect;
+                    Svgretrieve.I_collection.insert(cpt) });
+                return true;
+            case ISCD.SELECTOR:
+                cpts = Svgdom.getCornersOfRectPoints(rect);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = rect;
+                    Svgretrieve.S_collection.insert(cpt) });
+                return true;
+            case ISCD.DATA:
+                itv = Svgretrieve._getMainInterval(rect);  // get interval
+                itv.push(rect);                            // append pointer to rect element
+                Svgretrieve.rect_intervals.insert(itv);
+                return true;
+            default:
+                return false;
+        }
     },
 
     unregisterRectElement: function(rect) {
@@ -314,14 +302,83 @@ var Svgretrieve = {
 }
 
 var ISCD = {
+    debug       : false,
+    verbose     : true,
     INVALID     : 0,
     INSTRUCTION : 1,
     SELECTOR    : 2,
     CONTROLFLOW : 3,
     DATA        : 4,
 
+    _isDashed: function (style) {
+        return style.getPropertyValue("stroke-dasharray") != "" && style.getPropertyValue("stroke-dasharray") != "none";
+    },
+    _isFilled: function (style) {
+        return style.getPropertyValue("fill") != "" && style.getPropertyValue("fill") != "none";
+    },
+    _detectClosedElement: function (style) {
+        if (ISCD._isDashed(style)) {
+            if (ISCD.verbose) console.log("    SELECTOR (area)");
+            return ISCD.SELECTOR;
+        } else {
+            if (ISCD._isFilled(style)) {
+                if (ISCD.verbose) console.log("    DATA");
+                return ISCD.DATA;
+            } else {
+                if (ISCD.verbose) console.log("    INVALID (no continuous stroke, no fill, no rounded edges)");
+                return ISCD.INVALID;
+            }
+        }
+    },
+
     detect: function(el) {
-        return ISCD.INVALID;
+        if (ISCD.debug) console.log("[ISCD] element, tagName", el, el.tagName);
+        var computedStyle = window.getComputedStyle(el);
+        if (ISCD.debug) console.log("----computedStyle", computedStyle);
+        // See `tree-of-graphics-elements.pdf` for an overview of graphics element detection.
+        if (el.tagName === "circle" || el.tagName === "ellipse") {
+            if (ISCD.verbose) console.log("    CONTROLFLOW");
+            return ISCD.CONTROLFLOW;
+        } else if ( computedStyle.getPropertyValue("stroke") != "none" &&
+                    computedStyle.getPropertyValue("stroke-linecap") == "round" &&
+                    computedStyle.getPropertyValue("stroke-linejoin") == "round" ) {
+            if (ISCD.verbose) console.log("    INSTRUCTION");
+            return ISCD.INSTRUCTION;
+        } else if (el.tagName === "line") {
+            if (ISCD._isDashed(computedStyle)) {
+                // dashed line
+                if (ISCD.verbose) console.log("    SELECTOR (connector/parameter line)");
+                return ISCD.SELECTOR;
+            } else {
+                // continuous line
+                if (ISCD.verbose) console.log("    INVALID (cont. line)");
+                return ISCD.INVALID;
+            }
+        } else if (el.tagName === "polyline") {
+        // FIXME: cf. #94, detect polyline and polygon elements.
+        // FIXME: cf. #94, detect rect-shaped paths.
+            if (ISCD.verbose) console.log("    CONTROLFLOW (alternative/join)");
+            return ISCD.CONTROLFLOW;
+        } else if (el.tagName === "path") {
+            if (Svgdom.isClosedPath(el)) {
+                // closed path
+                return ISCD._detectClosedElement(computedStyle);
+            } else {
+                // open path
+                if (Svgdom.isCurvedPath(el)) {
+                    if (ISCD.verbose) console.log("    CONTROLFLOW (path)");
+                    return ISCD.CONTROLFLOW;
+                } else {
+                // FIXME: cf. #94, detect straight-segmented paths like (poly)line.
+                    throw "not implemented! " + "FIXME: cf. #94, detect straight-segmented paths like (poly)line.";
+                }
+            }
+        } else if ( el.tagName === "rect" || el.tagName === "polygon" ) {
+            return ISCD._detectClosedElement(computedStyle);
+        } else {
+            if (ISCD.verbose) console.log("    INVALID");
+            return ISCD.INVALID;
+        }
     },
 
     whichISCD_rect: function(rectelement) {
