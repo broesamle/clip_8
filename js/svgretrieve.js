@@ -23,13 +23,21 @@
 "use strict";
 
 var Svgretrieve = {
+    highlight_unregistered: false,
+    highlight_isc: false,
+    highlighterFn: undefined,
+    UNREGISTERED_COLOUR: "#ffbb22",
     svgroot: undefined,
     clip8root: undefined,
     I_collection: undefined,
     S_collection: undefined,
     C_collection: undefined,
     rect_intervals: undefined,
-    init: function (svgroot) {
+    init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn) {
+        console.log("[Svgretrieve.init]", svgroot, highlight_unregistered, highlight_isc, highlighterFn)
+        Svgretrieve.highlight_unregistered = highlight_unregistered;
+        Svgretrieve.highlight_isc = highlight_isc;
+        Svgretrieve.highlighterFn = highlighterFn;
         Svgretrieve.svgroot = svgroot;
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
@@ -155,6 +163,8 @@ var Svgretrieve = {
         }
         console.groupEnd();
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
+        if (Svgretrieve.highlight_unregistered)
+            unreg.forEach(function (el) { Svgretrieve.highlighterFn(el, Svgretrieve.UNREGISTERED_COLOUR) } );
     },
 
     registerRectElement: function(rect) {

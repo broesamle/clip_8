@@ -41,7 +41,7 @@ function insertSVG(newsvgroot) {
         svgroot.appendChild(movingchild.cloneNode(true));
         movingchild = movingchild.nextSibling;
     }
-    Clip8controler.init(document.getElementById("clip8svgroot"));
+    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false);
 }
 
 function loadSVG(e2) {

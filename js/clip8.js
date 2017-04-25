@@ -47,7 +47,7 @@ var Clip8 = {
     ip: undefined,             // instruction pointer
     pminus1_point: undefined,  // p0 of former round
     blocklist: [],             // lements retrieved during current round
-    visualise: false,          // visualise processing activity to the user
+    visualiseIP: false,          // visualise processing activity to the user
     highlighted: [],           // elements highlighted for visualization
 
     _deriveToleranceFromElementStroke: function (el) {
@@ -71,9 +71,12 @@ var Clip8 = {
     },
 
     _highlightElement: function(el) {
-        //console.log("VISL:", el);
+        Clip8._hightlightElementColour(el, "#fff");
+    },
+
+    _hightlightElementColour: function(el, colourtag) {
         var old = el.getAttribute("stroke");
-        el.setAttribute("stroke",  "#fff");
+        el.setAttribute("stroke",  colourtag);
         Clip8.highlighted.push({el: el, origstroke: old});
     },
 
@@ -321,7 +324,7 @@ var Clip8 = {
                 }
                 if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
                 Clip8.pminus1_point = centres_offilled[i];
-                if (Clip8.visualise) Clip8._highlightElement(hitlist[0]);
+                if (Clip8.visualiseIP) Clip8._highlightElement(hitlist[0]);
                 return hitlist[0];
             }
         }
@@ -360,7 +363,7 @@ var Clip8 = {
         if (debug) console.log("[executeOneOperation] I0:", I0.reduce(function(a,b) {return a.concat(b)}));
         if (debug) console.log("[executeOneOperation] S0:", S0.reduce(function(a,b) {return a.concat(b)}));
         if (debug) console.log("[executeOneOperation] C0:", C0.reduce(function(a,b) {return a.concat(b)}));
-        if (Clip8.visualise) {
+        if (Clip8.visualiseIP) {
             Clip8._clearHighlight();
             for (var i = 0; i < I0.length; i++) {
                 for (var j = 0; j < I0[i].length; j++)
@@ -542,12 +545,12 @@ var Clip8 = {
             throw "Could not decode instruction X";
     },
 
-    init: function (svgroot) {
+    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
         console.log("[clip8.init]", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
-
+        Clip8.visualiseIP = visualiseIP;
         Svgdom.init(svgroot);
-        Svgretrieve.init(svgroot);
+        Svgretrieve.init(svgroot, highlightErr, highlightErr, Clip8._hightlightElementColour);
         Clip8.stopTimer();
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
@@ -567,17 +570,16 @@ var Clip8 = {
 
 var Clip8controler = {
     svgroot: null,
+    initialised: false,
 
-    init: function (svgroot, visualise) {
-        console.log("INIT", svgroot);
-        Clip8.visualise = visualise;
+    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
+        console.log("[INIT] svgroot, visualiseIP, highlightErr, highlightSyntax", svgroot, visualiseIP, highlightErr, highlightSyntax);
         Clip8controler.svgroot;
-        Clip8.init(svgroot);
+        Clip8.init(svgroot, visualiseIP, highlightErr, highlightSyntax);
     },
 
     testRun: function (maxcycles) {
         console.log("TEST-RUN: maxcycles:", maxcycles);
-        Clip8.visualise = false;
         Clip8.maxcycles = maxcycles;
         Clip8.startTimer();
     },
@@ -586,7 +588,6 @@ var Clip8controler = {
         console.log("PLAY clip_8");
         Clip8.maxcycles = 0;
         Clip8.startTimer();
-        Clip8.visualise = true;
         Clip8controler.initialised = true;
     },
 
@@ -597,7 +598,6 @@ var Clip8controler = {
 
     stepAction: function () {
         console.log("STEP clip_8");
-        Clip8.visualise = true;
         Clip8.executeOneOperation(Clip8controler.svgroot);
     }
 }

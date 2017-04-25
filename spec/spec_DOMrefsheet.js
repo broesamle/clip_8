@@ -139,7 +139,7 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(svgroot.id).toBe("clip8svgroot");
         expect(
             function () {
-                Clip8controler.init(svgroot, visualise=false);
+                Clip8controler.init(svgroot, visualiseIP=false, highlightErr=false, highlightSyntax=false);
                 Clip8controler.testRun(cycles+EXCESS_CYCLES);
             }).not.toThrow();
         jasmine.clock().tick(CLIP8_RUNNINGTIME);
@@ -184,7 +184,7 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         var svgroot = proc.firstElementChild;
         expect(svgroot).toBeElement();
         Svgdom.init(svgroot);
-        Svgretrieve.init(svgroot);
+        Svgretrieve.init(svgroot, highlight_unregistered=false, highlight_isc=false, highlighterFn=function(){});
         var p0 = svgroot.createSVGPoint();
         p0.x = p0x;
         p0.y = p0y;
