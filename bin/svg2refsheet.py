@@ -307,6 +307,8 @@ output_file.close()
 ### gfxelems.html
 class ExampleCollection(SVGGroupCollection):
     def __init__(self, filename, *args, **kwargs):
+        self.debug = False
+        if self.debug: print("ExampleCollection", filename, args, kwargs)
         SVGGroupCollection.__init__(
             self,
             filename,
@@ -318,6 +320,7 @@ class ExampleCollection(SVGGroupCollection):
         elid = el.get('id',"")
         newitem = {}
         newitem['svgdata'] = allChildrenToSVG(el)
+        if self.debug: print("NEWITEM:", newitem)
         self.addItem("theonlyitem", newitem)
 
 exampledefinitions = SCT.exampleelements
