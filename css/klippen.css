@@ -1,1 +1,6 @@
 #filechooser { color: white; }
+
+#erroroutput {
+    color: #ff2222;
+    background: #ffff88;
+}

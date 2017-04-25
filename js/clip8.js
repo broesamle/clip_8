@@ -44,11 +44,12 @@ var Clip8 = {
     cyclescounter: 0,
     exectimer: undefined,
     svgroot: undefined,
-    ip: undefined,             // instruction pointer
-    pminus1_point: undefined,  // p0 of former round
-    blocklist: [],             // lements retrieved during current round
-    visualiseIP: false,          // visualise processing activity to the user
-    highlighted: [],           // elements highlighted for visualization
+    ip: undefined,                  // instruction pointer
+    pminus1_point: undefined,       // p0 of former round
+    blocklist: [],                  // elements retrieved during current round
+    visualiseIP: false,             // visualise processing activity to the user
+    highlightErr: true,             // hightlight dom elements related to the current terror
+    highlighted: [],                // elements highlighted for visualization
 
     _deriveToleranceFromElementStroke: function (el) {
         var tolerance = el.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
@@ -275,7 +276,7 @@ var Clip8 = {
                     Clip8.pminus1_point = points[1];             // indicate old instruction pointer
                 }
                 else
-                    throw "[moveIP] Invalid control flow at merge.";
+                    Clip8.reportError("moveIP", "Invalid control flow at merge.", C[Clip8.POLYLINETAG][0]);
             }
             return Clip8.CONTINUE;
         } else {
@@ -549,6 +550,7 @@ var Clip8 = {
         console.log("[clip8.init]", svgroot);
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
         Clip8.visualiseIP = visualiseIP;
+        Clip8.highlightErr = highlightErr;
         Svgdom.init(svgroot);
         Svgretrieve.init(svgroot, highlightErr, highlightSyntax, Clip8._hightlightElementColour);
         Clip8.stopTimer();
@@ -565,39 +567,81 @@ var Clip8 = {
     stopTimer: function () {
         if (Clip8.exectimer)
             clearInterval(Clip8.exectimer);
+    },
+
+    reportError: function (source, message, domelement) {
+        console.error("ERROR ["+source+"]:", message, domelement);
+        if (Clip8.highlightErr)
+            Clip8._hightlightElementColour(domelement, "#ff2222");
+        // callback to controler (to stop the timer and update state.)
+        Clip8controler.error(message);
     }
 };
 
 var Clip8controler = {
+    INIT:      0,
+    READY:     1,
+    RUNNING:   2,
+    ERROR:    64,
     svgroot: null,
-    initialised: false,
+    erroroutput: undefined,
+    state: undefined,
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
+        if (Clip8controler.state == Clip8controler.ERROR) {
+            while (Clip8controler.erroroutput.firstChild)
+                Clip8controler.erroroutput.removeChild(Clip8controler.erroroutput.firstChild);
+        }
+        Clip8controler.state = Clip8controler.INIT;
         console.log("[INIT] svgroot, visualiseIP, highlightErr, highlightSyntax", svgroot, visualiseIP, highlightErr, highlightSyntax);
         Clip8controler.svgroot;
+        Clip8controler.erroroutput = document.getElementById("erroroutput");
         Clip8.init(svgroot, visualiseIP, highlightErr, highlightSyntax);
+        Clip8controler.state = Clip8controler.READY;
     },
 
     testRun: function (maxcycles) {
         console.log("TEST-RUN: maxcycles:", maxcycles);
+        if (Clip8controler.state != Clip8controler.READY)
+            throw "[testRun] not READY.";
         Clip8.maxcycles = maxcycles;
         Clip8.startTimer();
+        Clip8controler.state = Clip8controler.RUNNING;
     },
 
     playAction: function () {
         console.log("PLAY clip_8");
-        Clip8.maxcycles = 0;
-        Clip8.startTimer();
-        Clip8controler.initialised = true;
+        if (Clip8controler.state == Clip8controler.READY) {
+            Clip8.maxcycles = 0;
+            Clip8.startTimer();
+            Clip8controler.state = Clip8controler.RUNNING;
+            console.log("  ...running");
+        } else {
+            console.log("  ...ignored.");
+        }
     },
 
     pauseAction: function () {
-        console.log("not implemented: PAUSE clip_8");
-        Clip8.stopTimer();
+        if (Clip8controler.state == Clip8controler.RUNNING) {
+            Clip8.stopTimer();
+            Clip8controler.state = Clip8controler.READY;
+            console.log("  ...ready");
+        } else {
+            console.log("  ...ignored.");
+        }
     },
 
     stepAction: function () {
         console.log("STEP clip_8");
-        Clip8.executeOneOperation(Clip8controler.svgroot);
+        if (Clip8controler.state == Clip8controler.READY)
+            Clip8.executeOneOperation(Clip8controler.svgroot);
+        else
+            console.log("  ...ignored.");
+    },
+
+    error: function (message) {
+        Clip8.stopTimer();
+        Clip8controler.state = Clip8controler.ERROR;
+        Clip8controler.erroroutput.appendChild(document.createTextNode(message));
     }
 }

@@ -51,6 +51,8 @@ KlippenControler_str = """
 <input type="file" id="filechooser" name="files[]"/>
 <input type="checkbox" id="hightlightISC">highlight I./S./C.
 </p>
+<div id="erroroutput">
+</div>
 """
 
 KlippenInitialSVG_str = """
