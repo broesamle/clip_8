@@ -550,7 +550,7 @@ var Clip8 = {
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
         Clip8.visualiseIP = visualiseIP;
         Svgdom.init(svgroot);
-        Svgretrieve.init(svgroot, highlightErr, highlightErr, Clip8._hightlightElementColour);
+        Svgretrieve.init(svgroot, highlightErr, highlightSyntax, Clip8._hightlightElementColour);
         Clip8.stopTimer();
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;

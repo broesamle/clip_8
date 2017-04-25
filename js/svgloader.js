@@ -25,6 +25,7 @@ var CLIP8_EXECROOT_ID = "clip8"
 
 var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
 var fileChooser = document.getElementById('filechooser');
+var highlightISCCheckbox = document.getElementById("hightlightISC");
 var lastloadedSVG = undefined;
 
 function insertSVG(newsvgroot) {
@@ -41,7 +42,8 @@ function insertSVG(newsvgroot) {
         svgroot.appendChild(movingchild.cloneNode(true));
         movingchild = movingchild.nextSibling;
     }
-    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false);
+    console.log("XXX", highlightISCCheckbox.checked)
+    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, highlightISCCheckbox.checked );
 }
 
 function loadSVG(e2) {
