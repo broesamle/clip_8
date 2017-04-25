@@ -321,10 +321,32 @@ var ISCD = {
     CONTROLFLOW : 3,
     DATA        : 4,
 
+    _isDashed: function (style) {
+        return style.getPropertyValue("stroke-dasharray") != "" && style.getPropertyValue("stroke-dasharray") != "none";
+    },
+    _isFilled: function (style) {
+        return style.getPropertyValue("fill") != "" && style.getPropertyValue("fill") != "none";
+    },
+    _detectClosedElement: function (style) {
+        if (ISCD._isDashed(style)) {
+            if (ISCD.debug) console.log("    SELECTOR (area)");
+            return ISCD.SELECTOR;
+        } else {
+            if (ISCD._isFilled(style)) {
+                if (ISCD.debug) console.log("    DATA");
+                return ISCD.DATA;
+            } else {
+                if (ISCD.debug) console.log("    INVALID (no continuous stroke, no fill, no rounded edges)");
+                return ISCD.INVALID;
+            }
+        }
+    },
+
     detect: function(el) {
         if (ISCD.debug) console.log("[ISCD] element, tagName", el, el.tagName);
         var computedStyle = window.getComputedStyle(el);
         if (ISCD.debug) console.log("----computedStyle", computedStyle);
+        // See `tree-of-graphics-elements.pdf` for an overview of graphics element detection.
         if (el.tagName === "circle" || el.tagName === "ellipse") {
             if (ISCD.debug) console.log("    CONTROLFLOW");
             return ISCD.CONTROLFLOW;
@@ -334,13 +356,36 @@ var ISCD = {
             if (ISCD.debug) console.log("    INSTRUCTION");
             return ISCD.INSTRUCTION;
         } else if (el.tagName === "line") {
-            if (computedStyle.getPropertyValue("stroke-dasharray") != "" || computedStyle.getPropertyValue("stroke-dasharray") != "none" ) {
-                if (ISCD.debug) console.log("    SELECTOR");
+            if (ISCD._isDashed(computedStyle)) {
+                // dashed line
+                if (ISCD.debug) console.log("    SELECTOR (connector/parameter line)");
                 return ISCD.SELECTOR;
             } else {
-                if (ISCD.debug) console.log("    INVALID");
+                // continuous line
+                if (ISCD.debug) console.log("    INVALID (cont. line)");
                 return ISCD.INVALID;
             }
+        } else if (el.tagName === "polyline") {
+        // FIXME: cf. #94, detect polyline and polygon elements.
+        // FIXME: cf. #94, detect rect-shaped paths.
+            if (ISCD.debug) console.log("    CONTROLFLOW (alternative/join)");
+            return ISCD.CONTROLFLOW;
+        } else if (el.tagName === "path") {
+            if (Svgdom.isClosedPath(el)) {
+                // closed path
+                return ISCD._detectClosedElement(computedStyle);
+            } else {
+                // open path
+                if (Svgdom.isCurvedPath(el)) {
+                    if (ISCD.debug) console.log("    CONTROLFLOW (path)");
+                    return ISCD.CONTROLFLOW;
+                } else {
+                // FIXME: cf. #94, detect straight-segmented paths like (poly)line.
+                    throw "not implemented! " + "FIXME: cf. #94, detect straight-segmented paths like (poly)line.";
+                }
+            }
+        } else if ( el.tagName === "rect" || el.tagName === "polygon" ) {
+            return ISCD._detectClosedElement(computedStyle);
         } else {
             if (ISCD.debug) console.log("    INVALID");
             return ISCD.INVALID;

@@ -74,7 +74,7 @@
 <p>How does clip_8 interpret graphics elements, depending on their type, style and shape?</p>
 </div>
 
-<p>Inital and terminal symbol both consist of `circle` elements. Circle elements (filled or unfilled, with stroke or without) are reserved for that purpose. <br><span class="testmetainfo">[element_ISCDdetection CONTROLFLOW] expected to fail.</span></p>
+<p>Inital and terminal symbol both consist of `circle` elements. Circle elements (filled or unfilled, with stroke or without) are reserved for that purpose. <br><span class="testmetainfo">[element_ISCDdetection CONTROLFLOW] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest element_ISCDdetection CONTROLFLOW" id="controlflow-circle">
 <span class="pre-reference">
@@ -95,7 +95,7 @@
 </svg>
 </span>
 </p>
-<p>Any shape (except for circles) can be an INSTRUCTION element. `stroke-linecap` and `stroke-linejoin` must be set to `round`. <br><span class="testmetainfo">[element_ISCDdetection INSTRUCTION] expected to fail.</span></p>
+<p>Any shape (except for circles) can be an INSTRUCTION element. `stroke-linecap` and `stroke-linejoin` must be set to `round`. <br><span class="testmetainfo">[element_ISCDdetection INSTRUCTION] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest element_ISCDdetection INSTRUCTION" id="instruction-elements">
 <span class="pre-reference">
@@ -116,7 +116,7 @@
 </svg>
 </span>
 </p>
-<p>Dashed lines with sharp `stroke-linejoin` and `stroke-linecap` (i.e. not set to `round`) are interpretet as SELECTOR. The two left-most patterns connect instructions with selector areas. The right one selects an object to be used as a parameter. <br><span class="testmetainfo">[element_ISCDdetection SELECTOR] expected to fail.</span></p>
+<p>Dashed lines with sharp `stroke-linejoin` and `stroke-linecap` (i.e. not set to `round`) are interpretet as SELECTOR. The two left-most patterns connect instructions with selector areas. The right one selects an object to be used as a parameter. <br><span class="testmetainfo">[element_ISCDdetection SELECTOR] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest element_ISCDdetection SELECTOR" id="selector-line">
 <span class="pre-reference">
@@ -137,7 +137,7 @@
 </svg>
 </span>
 </p>
-<p>Curved, open, undashed paths are CONTROLFLOW paths. The direction of the flow is defined by the context; i.e. depending on which end the flow enters it can travel any direction on the element. <br><span class="testmetainfo">[element_ISCDdetection CONTROLFLOW] expected to fail.</span></p>
+<p>Curved, open, undashed paths are CONTROLFLOW paths. The direction of the flow is defined by the context; i.e. depending on which end the flow enters it can travel any direction on the element. <br><span class="testmetainfo">[element_ISCDdetection CONTROLFLOW] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest element_ISCDdetection CONTROLFLOW" id="controlflow-curvedpath">
 <span class="pre-reference">
@@ -158,7 +158,7 @@
 </svg>
 </span>
 </p>
-<p>Multi-segment, open `path` and `polyline` elements with sharp edges are considered CONTROLFLOW elements. Typically, this defines an alternative or a join in the flow. <br><span class="testmetainfo">[element_ISCDdetection CONTROLFLOW] expected to fail.</span></p>
+<p>Multi-segment, open `path` and `polyline` elements with sharp edges are considered CONTROLFLOW elements. Typically, this defines an alternative or a join in the flow. <br><span class="testmetainfo">[element_ISCDdetection CONTROLFLOW] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest element_ISCDdetection CONTROLFLOW" id="controlflow-mulitsegment">
 <span class="pre-reference">
@@ -179,7 +179,7 @@
 </svg>
 </span>
 </p>
-<p>Closed, unfilled, dashed shapes are considered SELECTOR areas. Neither `stroke-linecap` nor `stroke-linejoin` should be `round`. <br><span class="testmetainfo">[element_ISCDdetection SELECTOR] expected to fail.</span></p>
+<p>Closed, unfilled, dashed shapes are considered SELECTOR areas. Neither `stroke-linecap` nor `stroke-linejoin` should be `round`. <br><span class="testmetainfo">[element_ISCDdetection SELECTOR] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest element_ISCDdetection SELECTOR" id="selector-area">
 <span class="pre-reference">
@@ -200,7 +200,7 @@
 </svg>
 </span>
 </p>
-<p>Any filled, closed form with or without stroke is considered a DATA element or form. Stroke may be visible but must not be dashed or rounded. <br><span class="testmetainfo">[element_ISCDdetection DATA] expected to fail.</span></p>
+<p>Any filled, closed form with or without stroke is considered a DATA element or form. Stroke may be visible but must not be dashed or rounded. <br><span class="testmetainfo">[element_ISCDdetection DATA] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest element_ISCDdetection DATA" id="data-filled-shape">
 <span class="pre-reference">

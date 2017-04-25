@@ -37,7 +37,6 @@ sections = [
     ("Changing dimensions", "Scale and resize", 'test_scale+resize.svg') ]
 
 expected_to_fail = [
-    "controlflow-circle", "instruction-elements", "selector-line", "controlflow-curvedpath", "controlflow-mulitsegment", "selector-area", "data-filled-shape",
      "selector-precision-similarrects3", "indirect1", "indirect2", "indirect3", "indirect4", "indirect5",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
