@@ -111,7 +111,6 @@ var Svgretrieve = {
         // LINE
         elems = Svgretrieve.clip8root.getElementsByTagName("line");
         for (var i=0; i<elems.length; i++) {
-            console.debug("register line element:", elems[i]);
             switch(ISCD.detect(elems[i])) {
                 case ISCD.INSTRUCTION:
                     cpts = Svgdom.getBothEndsOfLine(elems[i]);
@@ -139,24 +138,23 @@ var Svgretrieve = {
         // POLYLINE
         elems = Svgretrieve.clip8root.getElementsByTagName("polyline");
         for (var i=0; i<elems.length; i++) {
-            console.debug("register polyline element:", elems[i]);
-            if (elems[i].getAttribute("stroke", "none") &&
-                elems[i].getAttribute("stroke", "none") != "none") {
-                if (elems[i].getAttribute("stroke-linecap") == "round") {
-                    console.debug("    INSTRUCTION");
+            switch(ISCD.detect(elems[i])) {
+                case ISCD.INSTRUCTION:
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
-                } else {
-                    console.debug("    CONTROL FLOW");
+                    break;
+                case ISCD.CONTROLFLOW:
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.C_collection.insert(cpt) });
-                }
-            } else
-                unreg.push(elems[i]);
+                    break;
+                default:
+                    unreg.push(elems[i]);
+                    break;
+            }
         }
         console.groupEnd();
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
