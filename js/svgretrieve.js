@@ -314,6 +314,7 @@ var Svgretrieve = {
 }
 
 var ISCD = {
+    debug       : true,
     INVALID     : 0,
     INSTRUCTION : 1,
     SELECTOR    : 2,
@@ -321,11 +322,21 @@ var ISCD = {
     DATA        : 4,
 
     detect: function(el) {
-        console.log("[ISCD]", el, el.tagName);
-        if (el.tagName === "circle" || el.tagName === "ellipse" )
+        if (ISCD.debug) console.log("[ISCD] element, tagName", el, el.tagName);
+        var computedStyle = window.getComputedStyle(el);
+        if (ISCD.debug) console.log("----computedStyle", computedStyle);
+        if (el.tagName === "circle" || el.tagName === "ellipse") {
+            if (ISCD.debug) console.log("    CONTROLFLOW");
             return ISCD.CONTROLFLOW;
-        else
+        } else if ( computedStyle.getPropertyValue("stroke") != "none" &&
+                    computedStyle.getPropertyValue("stroke-linecap") == "round" &&
+                    computedStyle.getPropertyValue("stroke-linejoin") == "round" ) {
+            if (ISCD.debug) console.log("    INSTRUCTION");
+            return ISCD.INSTRUCTION;
+        } else {
+            if (ISCD.debug) console.log("    INVALID");
             return ISCD.INVALID;
+        }
     },
 
     whichISCD_rect: function(rectelement) {
