@@ -42,7 +42,6 @@ function insertSVG(newsvgroot) {
         svgroot.appendChild(movingchild.cloneNode(true));
         movingchild = movingchild.nextSibling;
     }
-    console.log("XXX", highlightISCCheckbox.checked)
     Clip8controler.init(document.getElementById("clip8svgroot"), true, true, highlightISCCheckbox.checked );
 }
 
