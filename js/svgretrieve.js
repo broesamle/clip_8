@@ -105,7 +105,6 @@ var Svgretrieve = {
                     break;
                 default:
                     unreg.push(elems[i]);
-                    break;
             }
         }
         // LINE
@@ -132,7 +131,6 @@ var Svgretrieve = {
                     break;
                 default:
                     unreg.push(elems[i]);
-                    break;
             }
         }
         // POLYLINE
@@ -153,7 +151,6 @@ var Svgretrieve = {
                     break;
                 default:
                     unreg.push(elems[i]);
-                    break;
             }
         }
         console.groupEnd();
