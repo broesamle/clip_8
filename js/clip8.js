@@ -249,7 +249,6 @@ var Clip8 = {
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
                 var condselected = Clip8.selectedElementSet(coreselector);
-                console.log("XXX", condselected);
                 if (condselected.length > 0)
                     if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
