@@ -229,7 +229,7 @@ var Clip8 = {
                     // no selector at this end
                     if (localISCb[1][Clip8.LINETAG].length == 0 && localISCb[1][Clip8.RECTTAG].length == 0)
                         // no selector at the other end
-                        throw "[moveIP] Alternative without selector.";
+                        Clip8.reportError("moveIP", "ALTERNATIVE is missing a SELECTOR.", C[Clip8.POLYLINETAG], endpoints);
                     else {
                         endpoints = endpoints.reverse();
                         var localISCtemp = localISCa;
@@ -249,20 +249,21 @@ var Clip8 = {
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
                 var condselected = Clip8.selectedElementSet(coreselector);
+                console.log("XXX", condselected);
                 if (condselected.length > 0)
                     if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
                         Clip8.pminus1_point = condpoint;           // indicate old instruction pointer
                     }
                     else
-                        throw "[moveIP] Invalid control flow at alternative.";
+                        Clip8.reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", condISC[2][Clip8.PATHTAG], [condpoint]);
                 else
                     if (oppositeISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
                         Clip8.pminus1_point = oppositepoint;           // indicate old instruction pointer
                     }
                     else
-                        throw "[moveIP] Invalid control flow at alternative.";
+                        Clip8.reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", oppositeISC[2][Clip8.PATHTAG], [condpoint]);
             }
             else {
                 // Merge
