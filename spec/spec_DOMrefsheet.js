@@ -145,7 +145,7 @@ function addTest_normal_execution(reftestElement, cycles) {
         jasmine.clock().tick(CLIP8_RUNNINGTIME);
         expect(Clip8.executeOneOperation).toHaveBeenCalled();
         expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles, "(instruction of cycles)");
-        expect(Clip8.stopTimer).toHaveBeenCalled();
+        expect(Clip8controler._stopTimer).toHaveBeenCalled();
         svgroot.removeAttribute("id", reftestElement.id);
         done();
     });
@@ -244,7 +244,7 @@ describe("Reference Sheet Tester", function(){
         var oldroot = document.getElementById("clip8svgroot");
         if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
         spyOn(Clip8,"executeOneOperation").and.callThrough();
-        spyOn(Clip8,"stopTimer").and.callThrough();
+        spyOn(Clip8controler,"_stopTimer").and.callThrough();
     });
     afterEach(function() {
         jasmine.clock().uninstall();

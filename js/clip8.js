@@ -24,6 +24,11 @@ var epsilon = 0.25;      // maximal difference for two coordinates to be conside
 var minlen = 0.5;        // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
+    // Execution status constants
+    TERMINATE: 0,
+    CONTINUE: 1,
+    EXECUTE: 2,
+    ERROR: 64,
     // Constants
     TAGS: ["line", "polyline", "circle", "rect", "path"],
     LINETAG: 0,
@@ -40,9 +45,6 @@ var Clip8 = {
                                     // (arrow, control flow continuation etc.)
     RETRIEVE_CPOINT_MAXNUM: 10,     // number of control points considered in ISC retrieval
     // Variables
-    maxcycles: 1000,
-    cyclescounter: 0,
-    exectimer: undefined,
     svgroot: undefined,
     ip: undefined,                  // instruction pointer
     pminus1_point: undefined,       // p0 of former round
@@ -50,7 +52,6 @@ var Clip8 = {
     visualiseIP: false,             // visualise processing activity to the user
     highlightErr: true,             // hightlight dom elements related to the current terror
     highlighted: [],                // elements highlighted for visualization
-
     _reduce: function (reduceable) {
         return reduceable.reduce( function(a,b) {return a.concat(b)} );
     },
@@ -195,10 +196,6 @@ var Clip8 = {
         return hitlist;
     },
 
-    // Constants
-    TERMINATE: 0,
-    CONTINUE: 1,
-    EXECUTE: 2,
     moveIP: function (C, p0) {
         var debug = false;
         var epsilon = 0.01;
@@ -207,6 +204,7 @@ var Clip8 = {
         else if (C[Clip8.PATHTAG].length == 1) {
             Clip8.ip = C[Clip8.PATHTAG][0];   // move instruction pointer
             Clip8.pminus1_point = p0;         // indicate old instruction pointer
+            return Clip8.EXECUTE;
         }
         else if (C[Clip8.POLYLINETAG].length == 1) {
             if (debug) console.log("[moveIP] polyline.");
@@ -283,10 +281,9 @@ var Clip8 = {
                     Clip8.reportError("moveIP", "Invalid control flow at merge.", Clip8._reduce(localISC[2]), [points[1]]);
             }
             return Clip8.CONTINUE;
-        } else {
+        } else
             Clip8.reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0]);
-        }
-        return Clip8.EXECUTE;
+        throw "should never happen : )";
     },
 
     initControlFlow: function () {
@@ -338,11 +335,6 @@ var Clip8 = {
     executeOneOperation: function() {
         var debug = true;
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip);
-        Clip8.cyclescounter++;
-        if (Clip8.maxcycles > 0 && Clip8.cyclescounter >= Clip8.maxcycles) {
-            Clip8.stopTimer();
-            throw "Maximal number of cycles";
-        }
 
         var p0candidates, p0;
         if (Clip8.ip.tagName == "path")
@@ -383,15 +375,10 @@ var Clip8 = {
             }
         }
         var execstatus = Clip8.moveIP(C0, p0);
-        switch (execstatus) {
-            case Clip8.EXECUTE:
-                break;      // redundant but more readable.
-            case Clip8.CONTINUE:
-                return;     // without any instruction execution in this cycle
-            case Clip8.TERMINATE:
-                Clip8.stopTimer();
-                return;     // stop execution
-        }
+
+        if (execstatus != Clip8.EXECUTE)
+            return execstatus;
+
         var retrselector = Clip8.retrieveCoreSelector(S0, p0)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
@@ -402,7 +389,6 @@ var Clip8 = {
         else
             throw "received an invalid selectortype from retrieveCoreSelector: "+selectortype;
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
-
 
         if (I0[Clip8.LINETAG].length == 1) {
             // ALIGN, CUT, MOVE-REL, CLONE, DEL
@@ -544,6 +530,7 @@ var Clip8 = {
                 for (var i=0; i<newelements.length; i++)
                     Svgretrieve.registerRectElement(newelements[i]);
             }
+            return Clip8.EXECUTE;
         }
         else
             Clip8.reportError("exec", "Could not decode instruction.", Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)), [p0]);
@@ -556,20 +543,10 @@ var Clip8 = {
         Clip8.highlightErr = highlightErr;
         Svgdom.init(svgroot);
         Svgretrieve.init(svgroot, highlightErr, highlightSyntax, Clip8._hightlightElementColour);
-        Clip8.stopTimer();
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
         Clip8.ip = Clip8.initControlFlow();     // instruction pointer: the active control flow path
         return svgroot;
-    },
-
-    startTimer: function () {
-        Clip8.exectimer = setInterval( function() { Clip8.executeOneOperation() }, 50 );
-    },
-
-    stopTimer: function () {
-        if (Clip8.exectimer)
-            clearInterval(Clip8.exectimer);
     },
 
     reportError: function (source, message, errorelements=[], locations=[]) {
@@ -598,21 +575,58 @@ var Clip8 = {
             }
         }
         console.groupEnd();
-        // callback to controler (to stop the timer and update state.)
-        Clip8controler.error(message);
+        throw message;
     }
 };
 
 var Clip8controler = {
-    INIT:      0,
-    READY:     1,
-    RUNNING:   2,
-    ERROR:    64,
+    INIT:        0,
+    READY:       1,
+    RUNNING:     2,
+    TERMINATED:  3,
+    ERROR:      64,
     svgroot: null,
     erroroutput: undefined,
     state: undefined,
+    maxcycles: 1000,
+    cyclescounter: 0,
+    exectimer: undefined,
+
+    _execOneCycle: function () {
+        var enginestatus;
+        Clip8controler.cyclescounter++;
+        if (Clip8controler.maxcycles > 0 && Clip8controler.cyclescounter >= Clip8controler.maxcycles) {
+            Clip8controler.stopTimer();
+            throw "Maximal number of cycles";
+        }
+        try {
+            enginestatus = Clip8.executeOneOperation();
+            if (enginestatus == Clip8.TERMINATE) {
+                Clip8controler._stopTimer();
+                Clip8controler.state = Clip8controler.TERMINATED;
+                console.log("TERMINATED-state.");
+            }
+        }
+        catch (msg) {
+            Clip8controler._stopTimer();
+            Clip8controler.erroroutput.appendChild(document.createTextNode(msg))
+            Clip8controler.state = Clip8controler.ERROR;
+            console.log("ERROR-state.");
+        }
+    },
+
+    _startTimer: function () {
+        Clip8controler.exectimer = setInterval( function() { Clip8controler._execOneCycle() }, 50 );
+    },
+
+    _stopTimer: function () {
+        if (Clip8controler.exectimer)
+            clearInterval(Clip8controler.exectimer);
+    },
+
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
+        Clip8controler.cyclescounter = 0;
         if (Clip8controler.state == Clip8controler.ERROR) {
             while (Clip8controler.erroroutput.firstChild)
                 Clip8controler.erroroutput.removeChild(Clip8controler.erroroutput.firstChild);
@@ -629,28 +643,29 @@ var Clip8controler = {
         console.log("TEST-RUN: maxcycles:", maxcycles);
         if (Clip8controler.state != Clip8controler.READY)
             throw "[testRun] not READY.";
-        Clip8.maxcycles = maxcycles;
-        Clip8.startTimer();
+        Clip8controler.maxcycles = maxcycles;
+        Clip8controler._startTimer();
         Clip8controler.state = Clip8controler.RUNNING;
     },
 
     playAction: function () {
         console.log("PLAY clip_8");
         if (Clip8controler.state == Clip8controler.READY) {
-            Clip8.maxcycles = 0;
-            Clip8.startTimer();
+            Clip8controler.maxcycles = 0;
+            Clip8controler._startTimer();
             Clip8controler.state = Clip8controler.RUNNING;
-            console.log("  ...running");
+            console.log("  ...RUNNING-state");
         } else {
             console.log("  ...ignored.");
         }
     },
 
     pauseAction: function () {
+        console.log("PAUSE clip_8");
         if (Clip8controler.state == Clip8controler.RUNNING) {
-            Clip8.stopTimer();
+            Clip8controler._stopTimer();
             Clip8controler.state = Clip8controler.READY;
-            console.log("  ...ready");
+            console.log("  ...READY-state.");
         } else {
             console.log("  ...ignored.");
         }
@@ -662,11 +677,5 @@ var Clip8controler = {
             Clip8.executeOneOperation(Clip8controler.svgroot);
         else
             console.log("  ...ignored.");
-    },
-
-    error: function (message) {
-        Clip8.stopTimer();
-        Clip8controler.state = Clip8controler.ERROR;
-        Clip8controler.erroroutput.appendChild(document.createTextNode(message));
     }
 }
