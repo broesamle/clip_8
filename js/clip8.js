@@ -163,16 +163,13 @@ var Clip8 = {
         var debug = true;
         if (debug) console.log("[SELECTEDELEMENTSET] selectorcore:", selectorcore);
         // List of selected Elements based on primary selector
-        var hitlist;
         var s; // The rectangle to be used as area of selection
         if (selectorcore[0] instanceof SVGRectElement) {
             // rectangle
-            var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
-            s = selectorcore[0]
+            s = selectorcore[0];
         }
         else if (selectorcore[0] instanceof SVGLineElement && selectorcore[1] instanceof SVGLineElement) {
             // DELETE: X icon defines the selection area
-            var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);
             var x1 = parseFloat(selectorcore[0].getAttribute("x1"));
             var y1 = parseFloat(selectorcore[0].getAttribute("y1"));
             var x2 = parseFloat(selectorcore[0].getAttribute("x2"));
@@ -187,13 +184,13 @@ var Clip8 = {
             return undefined;
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
+        var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);;
         if (dashes.length == 2 && dashes[0] < dashes[1] )
-            hitlist = Svgretrieve.getEnclosedRectangles(s);
+            return Svgretrieve.getEnclosedRectangles(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
-            hitlist = Svgretrieve.getIntersectingRectangles(s);
-        else throw "[selectedElementSet] invalid dash pattern."
-
-        return hitlist;
+            return Svgretrieve.getIntersectingRectangles(s);
+        else
+            Clip8.reportError("selectedElementSet", "Invalid dash pattern in selector", selectorcore, []);
     },
 
     moveIP: function (C, p0) {
@@ -283,7 +280,7 @@ var Clip8 = {
             return Clip8.CONTINUE;
         } else
             Clip8.reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0]);
-        throw "should never happen : )";
+        throw "You should never read this : ) -- consider filing an issue THX.";
     },
 
     initControlFlow: function () {
