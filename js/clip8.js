@@ -51,6 +51,10 @@ var Clip8 = {
     highlightErr: true,             // hightlight dom elements related to the current terror
     highlighted: [],                // elements highlighted for visualization
 
+    _reduce: function (reduceable) {
+        return reduceable.reduce( function(a,b) {return a.concat(b)} );
+    },
+
     _deriveToleranceFromElementStroke: function (el) {
         var tolerance = el.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
         if (! tolerance) {
@@ -276,12 +280,11 @@ var Clip8 = {
                     Clip8.pminus1_point = points[1];             // indicate old instruction pointer
                 }
                 else
-                    Clip8.reportError("moveIP", "Invalid control flow at merge.", C[Clip8.POLYLINETAG][0]);
+                    Clip8.reportError("moveIP", "Invalid control flow at merge.", Clip8._reduce(localISC[2]), [points[1]]);
             }
             return Clip8.CONTINUE;
         } else {
-            console.error("Invalid control flow, retrieved elements C at location p:", C, p0);
-            throw "[moveIP] Invalid control flow.";
+            Clip8.reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0]);
         }
         return Clip8.EXECUTE;
     },
@@ -543,7 +546,7 @@ var Clip8 = {
             }
         }
         else
-            throw "Could not decode instruction X";
+            Clip8.reportError("exec", "Could not decode instruction.", Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)), [p0]);
     },
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
@@ -569,10 +572,32 @@ var Clip8 = {
             clearInterval(Clip8.exectimer);
     },
 
-    reportError: function (source, message, domelement) {
-        console.error("ERROR ["+source+"]:", message, domelement);
-        if (Clip8.highlightErr)
-            Clip8._hightlightElementColour(domelement, "#ff2222");
+    reportError: function (source, message, errorelements=[], locations=[]) {
+        console.error("ERROR ["+source+"]:", message);
+        if (errorelements.length > 0) {
+            console.groupCollapsed("Elements");
+            for (var i=0; i<errorelements.length; i++) {
+                console.error (errorelements[i]);
+                if (Clip8.highlightErr)
+                    Clip8._hightlightElementColour(errorelements[i], "#ff2222");
+            }
+            console.groupEnd();
+        }
+        if (locations.length > 0) {
+            console.groupCollapsed("Locations");
+            var locrect;
+            for (var i=0; i<locations.length; i++) {
+                console.error (locations[i]);
+                if (Clip8.highlightErr) {
+                    locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
+                    locrect.setAttribute('fill', "none");
+                    locrect.setAttribute('stroke', "#ee22cc");
+                    locrect.setAttribute('stroke-width', "1");
+                    Clip8.svgroot.appendChild (locrect);
+                }
+            }
+        }
+        console.groupEnd();
         // callback to controler (to stop the timer and update state.)
         Clip8controler.error(message);
     }
