@@ -53,6 +53,8 @@ KlippenControler_str = """
 </p>
 <div id="erroroutput">
 </div>
+<div id="hintoutput">
+</div>
 """
 
 KlippenInitialSVG_str = """

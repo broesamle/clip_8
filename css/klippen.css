@@ -3,4 +3,10 @@
 #erroroutput {
     color: #ff2222;
     background: #ffff88;
+    font-weight: bold;
+}
+
+#hintoutput {
+    color: #666666;
+    background: #ffff88;
 }

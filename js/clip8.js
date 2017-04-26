@@ -190,7 +190,9 @@ var Clip8 = {
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
             return Svgretrieve.getIntersectingRectangles(s);
         else
-            Clip8.reportError("selectedElementSet", "Invalid dash pattern in selector", selectorcore, []);
+            Clip8.reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.", selectorcore, [],
+                              "For example, gaps and dashes of the SELECTOR AREA are exactly of the same length: Then there is no way of determining whether it selects INTERSECTING or ENCLOSED objects."
+                              );
     },
 
     moveIP: function (C, p0) {
@@ -546,7 +548,7 @@ var Clip8 = {
         return svgroot;
     },
 
-    reportError: function (source, message, errorelements=[], locations=[]) {
+    reportError: function (source, message, errorelements=[], locations=[], hinttext="") {
         console.error("ERROR ["+source+"]:", message);
         if (errorelements.length > 0) {
             console.groupCollapsed("Elements");
@@ -572,7 +574,7 @@ var Clip8 = {
             }
         }
         console.groupEnd();
-        throw message;
+        throw {'error': message, 'hint': hinttext};
     }
 };
 
@@ -604,11 +606,13 @@ var Clip8controler = {
                 console.log("TERMINATED-state.");
             }
         }
-        catch (msg) {
+        catch (exc) {
+            console.log("Hint:", exc);
             Clip8controler._stopTimer();
-            Clip8controler.erroroutput.appendChild(document.createTextNode(msg))
+            Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
+            Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
             Clip8controler.state = Clip8controler.ERROR;
-            console.log("ERROR-state.");
+            console.log("ERROR-state.", exc);
         }
     },
 
@@ -627,11 +631,14 @@ var Clip8controler = {
         if (Clip8controler.state == Clip8controler.ERROR) {
             while (Clip8controler.erroroutput.firstChild)
                 Clip8controler.erroroutput.removeChild(Clip8controler.erroroutput.firstChild);
+            while (Clip8controler.hintoutput.firstChild)
+                Clip8controler.hintoutput.removeChild(Clip8controler.hintoutput.firstChild);
         }
         Clip8controler.state = Clip8controler.INIT;
         console.log("[INIT] svgroot, visualiseIP, highlightErr, highlightSyntax", svgroot, visualiseIP, highlightErr, highlightSyntax);
         Clip8controler.svgroot;
         Clip8controler.erroroutput = document.getElementById("erroroutput");
+        Clip8controler.hintoutput = document.getElementById("hintoutput");
         Clip8.init(svgroot, visualiseIP, highlightErr, highlightSyntax);
         Clip8controler.state = Clip8controler.READY;
     },
