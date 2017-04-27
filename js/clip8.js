@@ -198,6 +198,7 @@ var Clip8 = {
     moveIP: function (C, p0) {
         var debug = false;
         var epsilon = 0.01;
+
         if ( C[Clip8.CIRCLETAG].length == 2 )
             return Clip8.TERMINATE;
         else if (C[Clip8.PATHTAG].length == 1) {
@@ -282,7 +283,7 @@ var Clip8 = {
             return Clip8.CONTINUE;
         } else
             Clip8.reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0]);
-        throw "You should never read this : ) -- consider filing an issue THX.";
+        Clip8.reportError("moveIP", "This error should never happen.", [], [], "It is an internal error of clip_8 engine. Consider filing and issue. Your contribution is appreciated!");
     },
 
     initControlFlow: function () {
@@ -318,10 +319,9 @@ var Clip8 = {
                                   ['path'],
                                   Svgretrieve.C_collection);
                 if (debug) console.debug("[initControlFlow] hitlist", hitlist);
-                if (!hitlist[0]) {
-                    console.error("[initControlFlow] failed to identify intial path segment at", centres_offilled[i])
-                    throw "[initControlFlow] failed to identify intial path segment";
-                }
+                if (!hitlist[0])
+                    Clip8.reportError("initControlFlow", "Failed to identify intial path segment.", concentrics, [centres_offilled[i]]);
+
                 if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
                 Clip8.pminus1_point = centres_offilled[i];
                 if (Clip8.visualiseIP) Clip8._highlightElement(hitlist[0]);
