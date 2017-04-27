@@ -46,7 +46,7 @@ var Clip8 = {
     RETRIEVE_CPOINT_MAXNUM: 10,     // number of control points considered in ISC retrieval
     // Variables
     svgroot: undefined,
-    ip: undefined,                  // instruction pointer
+    ip: undefined,                  // instruction pointer: the active control flow path
     pminus1_point: undefined,       // p0 of former round
     blocklist: [],                  // elements retrieved during current round
     visualiseIP: false,             // visualise processing activity to the user
@@ -334,9 +334,13 @@ var Clip8 = {
 
     executeOneOperation: function() {
         var debug = true;
+        var p0candidates, p0;
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip);
 
-        var p0candidates, p0;
+        // initialise control flow if necessary
+        if (Clip8.ip == undefined)
+            Clip8.ip = Clip8.initControlFlow();
+
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
         else throw "[executeOneOperation] expected path or line as ip element.";
@@ -538,6 +542,9 @@ var Clip8 = {
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
         console.log("[clip8.init]", svgroot);
+        Clip8.ip = undefined;   // invalidate old instruction pointer
+                                // This signals to executeOneOperation to init a new one
+                                // when executing the first instruction after init.
         if (!(svgroot instanceof SVGElement)) { throw "[clip8] no SVG root."; }
         Clip8.visualiseIP = visualiseIP;
         Clip8.highlightErr = highlightErr;
@@ -545,7 +552,6 @@ var Clip8 = {
         Svgretrieve.init(svgroot, highlightErr, highlightSyntax, Clip8._hightlightElementColour);
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
-        Clip8.ip = Clip8.initControlFlow();     // instruction pointer: the active control flow path
         return svgroot;
     },
 
