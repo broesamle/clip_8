@@ -164,23 +164,22 @@ var Clip8 = {
     retrieveCoreSelector: function (S, point) {
         var debug = false;
         if (debug) console.log("[RETRIEVECORESELECTOR] S:", S);
-        var coreS;
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
             var lineend = Svgdom.getBothEndsOfLine_arranged(point, S[Clip8.LINETAG][0])[1];
             var isc = Clip8.retrieveISCElements(lineend, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
-            coreS = isc[1];
+            if      (isc[1][Clip8.RECTTAG].length == 1)
+                return [Clip8.RECTSELECTOR, isc[1][Clip8.RECTTAG]];
+            else
+                Clip8._reportError("retrieveCoreSelector", "Invalid core selector.", Clip8._reduce(isc[1]), [lineend],
+                                   "A selector (connector element) was found but a valid core selector at its other end was not found. Highlighted in red may be any invalid elements found instead.");
         }
-        else {
-            coreS = S;
-        }
-        if (debug) console.log("[retrieveCoreSelector] coreS:", coreS);
-        if (debug) console.log("[retrieveCoreSelector] coreS[Clip8.RECTTAG].length:", coreS[Clip8.RECTTAG].length);
-        if      (coreS[Clip8.RECTTAG].length == 1)
-            return [Clip8.RECTSELECTOR, coreS[Clip8.RECTTAG]];
         else
-            return [Clip8.UNKNOWNSELECTOR];
+            if (S[Clip8.RECTTAG].length == 1)
+                return [Clip8.RECTSELECTOR, S[Clip8.RECTTAG]];
+            else
+                return [Clip8.UNKNOWNSELECTOR];
     },
 
     selectedElementSet: function (selectorcore) {
@@ -438,9 +437,12 @@ var Clip8 = {
         if      (selectortype == Clip8.RECTSELECTOR)
             var selectedelements1 = Clip8.selectedElementSet(coreselector);
         else if (selectortype == Clip8.UNKNOWNSELECTOR)
+            // We may not be able to detect the selector for now.
+            // Depending on the instruction this does however not necessarily matter.
             {}
         else
-            throw "received an invalid selectortype from retrieveCoreSelector: "+selectortype;
+            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Invalid selector type!", Clip8._reduce(S0), [p0], Clip8.INTERNAL_ERROR_HINT);
+
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         if (I0[Clip8.LINETAG].length == 1) {
