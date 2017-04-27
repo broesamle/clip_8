@@ -551,17 +551,16 @@ var Clip8 = {
                                                      Clip8.RETRIEVE_CPOINT_MAXNUM,
                                                      Svgretrieve.I_collection);
                             if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
-                            if (opposite_diagonals.length != 1) {
-                                console.error("Ambiguous diagonals in (delete ?) instruction.",
-                                              opposite_diagonals )
-                                throw "[executeOneOperation / del] Ambiguous diagonals.";
-                            }
+                            if (opposite_diagonals.length != 1)
+                                Clip8._reportError("executeOneOperation", "Ambiguous diagonals in instruction.", [theline], [p3, p4],
+                                                   "The lines are not arranged so that two of them clearly belong to a DELETE instruction. The other diagonal may be missing entirely, or there could be too many. If there are exactly two and you still get this error, please make sure that they are neatly aligned. Using a snap to grid or an align functionality of your SVG editor will help.");
+
                             selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]]);
                             for (var i = 0; i < selectedelements1.length; i++)
                                 selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                             break;
                         default:
-                            throw "[executeOneOperation] Encountered invalid line direction (b).";
+                            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [theline], [p0], Clip8.INTERNAL_ERROR_HINT);
                             break;
                     }
                 }
