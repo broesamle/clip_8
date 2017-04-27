@@ -24,6 +24,7 @@ var epsilon = 0.25;      // maximal difference for two coordinates to be conside
 var minlen = 0.5;        // minimal size of a graphics element to be "meaningful"
 
 var Clip8 = {
+    INTERNAL_ERROR_HINT: "This is an internal error and should never happen. Consider filing and issue. Your contribution is appreciated!",
     // Execution status constants
     TERMINATE: 0,
     CONTINUE: 1,
@@ -311,8 +312,11 @@ var Clip8 = {
             }
             return Clip8.CONTINUE;
         } else
-            Clip8._reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0]);
-        Clip8._reportError("moveIP", "This error should never happen.", [], [], "It is an internal error of clip_8 engine. Consider filing and issue. Your contribution is appreciated!");
+            // FIXME: Add an additional check for nearby candidate elements.
+            Clip8._reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0],
+                               "There should be exactly one end of a suitable control flow element. There seem to be multiple or none.");
+
+        Clip8._reportError("moveIP", "INTERNAL ERROR: Unforeseen condition!", [], [], Clip8.INTERNAL_ERROR_HINT);
     },
 
     initControlFlow: function () {
@@ -349,8 +353,17 @@ var Clip8 = {
                                   ['path'],
                                   Svgretrieve.C_collection);
                 if (debug) console.debug("[initControlFlow] hitlist", hitlist);
-                if (!hitlist[0])
-                    Clip8._reportError("initControlFlow", "Failed to identify intial path segment.", concentrics, [centres_offilled[i]]);
+                if (!hitlist[0]) {
+                    var candidates = Svgretrieve.getISCbyLocation(
+                                  centres_offilled[i],
+                                  radii_offilled[i]*Clip8.CIRCLE_CENTRE_TOLERANCE_RATIO*5,
+                                  10,
+                                  ['path'],
+                                  Svgretrieve.C_collection);
+                    Clip8._reportError("initControlFlow", "Failed to identify intial path segment.", candidates, [centres_offilled[i]],
+                                       "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");
+                }
+
 
                 if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
                 Clip8.pminus1_point = centres_offilled[i];
@@ -358,7 +371,8 @@ var Clip8 = {
                 return hitlist[0];
             }
         }
-        throw "Failed to idendify point of entry.";
+        Clip8._reportError("initControlFlow", "Failed to idendify point of entry.", circles, [],
+                           "Control flow starts at a single filled circle. If it is co-located with other cicles it might not be recognised.");
     },
 
     executeOneOperation: function() {
@@ -372,16 +386,22 @@ var Clip8 = {
 
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
-        else throw "[executeOneOperation] expected path or line as ip element.";
+        else
+            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: invalid IP!", Clip8.ip, [], Clip8.INTERNAL_ERROR_HINT);
+
         if ( Svgdom.euclidDistance(Clip8.pminus1_point, p0candidates[0]) < 1.0*Clip8.STROKE_TOLERANCE_RATIO )
             if ( Svgdom.euclidDistance(Clip8.pminus1_point, p0candidates[1]) > 1.0*Clip8.PATH_MIN_DETAIL_RATIO )
                 p0 = p0candidates[1];
-            else {
-                console.error("Control flow ambiguous (both path ends are close to former p0).", Clip8.ip)
-                throw "Control flow ambiguous (both path ends are close to former p0)."
-            }
+            else
+                Clip8._reportError("executeOneOperation", "Ambiguous control flow.", [Clip8.ip], p0candidates,
+                                   "Control is not clearly drawn so that it is not clear which end to take. Both ends are too close to the former anchor point (p0) of the former instruction.");
         else
-            p0 = p0candidates[0];
+            if ( Svgdom.euclidDistance(Clip8.pminus1_point, p0candidates[0]) > 1.0*Clip8.PATH_MIN_DETAIL_RATIO )
+                p0 = p0candidates[0];
+            else
+                Clip8._reportError("executeOneOperation", "Ambiguous control flow.", [Clip8.ip], p0candidates,
+                                   "Control is not clearly drawn so that it is not clear which end to take. Both ends are too close to the former anchor point (p0) of the former instruction.");
+
 
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
