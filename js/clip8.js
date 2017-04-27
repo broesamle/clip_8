@@ -477,13 +477,17 @@ var Clip8 = {
                             var distanceY = Math.abs(bothends[1].y-bothends[0].y);
                             Paperclip.shrinkFromTop (selectedelements1, distanceY);
                         }
-                        else throw "[executeOneOperation] Encountered invalid line arrow combination (a).";
+                        else
+                            Clip8._reportError("executeOneOperation", "Encountered invalid line arrow combination in ALIGN. (line: vertical, arrow: "+angledir+"", [theline, thepoly], [p0],
+                                               "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
                     case 'LEFT':
                     case 'RIGHT':
                         if (angledir == 'UP')           Paperclip.alignrelTop (selectedelements1);
                         else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
-                        else throw "[executeOneOperation] Encountered invalid line arrow combination (b).";
+                        else
+                            Clip8._reportError("executeOneOperation", "Encountered invalid line arrow combination in ALIGN. (line: horizontal, arrow: "+angledir+"", [theline, thepoly], [p0],
+                                               "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
                     default:
                         console.error("Invalid line direction in ALIGN OPERATION: ", theline);
