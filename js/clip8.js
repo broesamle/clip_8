@@ -287,7 +287,8 @@ var Clip8 = {
     },
 
     initControlFlow: function () {
-        var debug = true;
+        var debug = false;
+        if (debug) console.log("[initControlFlow]")
         var debugcolour = false;
         var circles = Clip8.svgroot.getElementsByTagName("circle");
         var centres_offilled = [];  // Centres of filled circles (candidates).
