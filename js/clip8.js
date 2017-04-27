@@ -92,6 +92,35 @@ var Clip8 = {
         }
     },
 
+    _reportError: function (source, message, errorelements=[], locations=[], hinttext="") {
+        console.error("ERROR ["+source+"]:", message);
+        if (errorelements.length > 0) {
+            console.groupCollapsed("Elements");
+            for (var i=0; i<errorelements.length; i++) {
+                console.error (errorelements[i]);
+                if (Clip8.highlightErr)
+                    Clip8._hightlightElementColour(errorelements[i], "#ff2222");
+            }
+            console.groupEnd();
+        }
+        if (locations.length > 0) {
+            console.groupCollapsed("Locations");
+            var locrect;
+            for (var i=0; i<locations.length; i++) {
+                console.error (locations[i]);
+                if (Clip8.highlightErr) {
+                    locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
+                    locrect.setAttribute('fill', "none");
+                    locrect.setAttribute('stroke', "#ee22cc");
+                    locrect.setAttribute('stroke-width', "1");
+                    Clip8.svgroot.appendChild (locrect);
+                }
+            }
+        }
+        console.groupEnd();
+        throw {'error': message, 'hint': hinttext};
+    },
+
     retrieveISCElements: function (p, tagsI, tagsS, tagsC) {
         var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] location p:", p);
@@ -190,7 +219,7 @@ var Clip8 = {
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
             return Svgretrieve.getIntersectingRectangles(s);
         else
-            Clip8.reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.", selectorcore, [],
+            Clip8._reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.", selectorcore, [],
                               "For example, gaps and dashes of the SELECTOR AREA are exactly of the same length: Then there is no way of determining whether it selects INTERSECTING or ENCLOSED objects."
                               );
     },
@@ -232,7 +261,7 @@ var Clip8 = {
                     // no selector at this end
                     if (localISCb[1][Clip8.LINETAG].length == 0 && localISCb[1][Clip8.RECTTAG].length == 0)
                         // no selector at the other end
-                        Clip8.reportError("moveIP", "ALTERNATIVE is missing a SELECTOR.", C[Clip8.POLYLINETAG], endpoints);
+                        Clip8._reportError("moveIP", "ALTERNATIVE is missing a SELECTOR.", C[Clip8.POLYLINETAG], endpoints);
                     else {
                         endpoints = endpoints.reverse();
                         var localISCtemp = localISCa;
@@ -258,14 +287,14 @@ var Clip8 = {
                         Clip8.pminus1_point = condpoint;           // indicate old instruction pointer
                     }
                     else
-                        Clip8.reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", condISC[2][Clip8.PATHTAG], [condpoint]);
+                        Clip8._reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", condISC[2][Clip8.PATHTAG], [condpoint]);
                 else
                     if (oppositeISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
                         Clip8.pminus1_point = oppositepoint;           // indicate old instruction pointer
                     }
                     else
-                        Clip8.reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", oppositeISC[2][Clip8.PATHTAG], [condpoint]);
+                        Clip8._reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", oppositeISC[2][Clip8.PATHTAG], [condpoint]);
             }
             else {
                 // Merge
@@ -278,12 +307,12 @@ var Clip8 = {
                     Clip8.pminus1_point = points[1];             // indicate old instruction pointer
                 }
                 else
-                    Clip8.reportError("moveIP", "Invalid control flow at merge.", Clip8._reduce(localISC[2]), [points[1]]);
+                    Clip8._reportError("moveIP", "Invalid control flow at merge.", Clip8._reduce(localISC[2]), [points[1]]);
             }
             return Clip8.CONTINUE;
         } else
-            Clip8.reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0]);
-        Clip8.reportError("moveIP", "This error should never happen.", [], [], "It is an internal error of clip_8 engine. Consider filing and issue. Your contribution is appreciated!");
+            Clip8._reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0]);
+        Clip8._reportError("moveIP", "This error should never happen.", [], [], "It is an internal error of clip_8 engine. Consider filing and issue. Your contribution is appreciated!");
     },
 
     initControlFlow: function () {
@@ -321,7 +350,7 @@ var Clip8 = {
                                   Svgretrieve.C_collection);
                 if (debug) console.debug("[initControlFlow] hitlist", hitlist);
                 if (!hitlist[0])
-                    Clip8.reportError("initControlFlow", "Failed to identify intial path segment.", concentrics, [centres_offilled[i]]);
+                    Clip8._reportError("initControlFlow", "Failed to identify intial path segment.", concentrics, [centres_offilled[i]]);
 
                 if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
                 Clip8.pminus1_point = centres_offilled[i];
@@ -537,7 +566,7 @@ var Clip8 = {
             return Clip8.EXECUTE;
         }
         else
-            Clip8.reportError("exec", "Could not decode instruction.", Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)), [p0]);
+            Clip8._reportError("exec", "Could not decode instruction.", Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)), [p0]);
     },
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
@@ -553,35 +582,6 @@ var Clip8 = {
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
         return svgroot;
-    },
-
-    reportError: function (source, message, errorelements=[], locations=[], hinttext="") {
-        console.error("ERROR ["+source+"]:", message);
-        if (errorelements.length > 0) {
-            console.groupCollapsed("Elements");
-            for (var i=0; i<errorelements.length; i++) {
-                console.error (errorelements[i]);
-                if (Clip8.highlightErr)
-                    Clip8._hightlightElementColour(errorelements[i], "#ff2222");
-            }
-            console.groupEnd();
-        }
-        if (locations.length > 0) {
-            console.groupCollapsed("Locations");
-            var locrect;
-            for (var i=0; i<locations.length; i++) {
-                console.error (locations[i]);
-                if (Clip8.highlightErr) {
-                    locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
-                    locrect.setAttribute('fill', "none");
-                    locrect.setAttribute('stroke', "#ee22cc");
-                    locrect.setAttribute('stroke-width', "1");
-                    Clip8.svgroot.appendChild (locrect);
-                }
-            }
-        }
-        console.groupEnd();
-        throw {'error': message, 'hint': hinttext};
     }
 };
 
