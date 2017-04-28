@@ -10,3 +10,7 @@
     color: #666666;
     background: #ffff88;
 }
+
+#clip8svgroot {
+    min-width: 1024px;
+}
