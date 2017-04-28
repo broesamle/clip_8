@@ -1,1 +1,16 @@
 #filechooser { color: white; }
+
+#erroroutput {
+    color: #ff2222;
+    background: #ffff88;
+    font-weight: bold;
+}
+
+#hintoutput {
+    color: #666666;
+    background: #ffff88;
+}
+
+#clip8svgroot {
+    min-width: 1024px;
+}

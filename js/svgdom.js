@@ -217,6 +217,18 @@ var Svgdom = {
         return endpoints;
     },
 
+    isClosedPath: function (pathelement) {
+        var pathdata = pathelement.getAttribute("d").trim();
+        if ( pathdata.indexOf("z") != -1 || pathdata.indexOf("Z") != -1 ) return true;
+        else return false;
+    },
+
+    isCurvedPath: function (pathelement) {
+        var pathdata = pathelement.getAttribute("d").trim();
+        if ( pathdata.indexOf("c") != -1 || pathdata.indexOf("C") != -1 ) return true;
+        else return false;
+    },
+
     getPointsOfPoly: function (poly, referenceArea) {
     /** Returns the points of a polyline element as `SVGPoint`s.
      */

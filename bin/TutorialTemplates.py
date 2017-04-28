@@ -49,7 +49,12 @@ KlippenControler_str = """
 <button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
 <button onclick="handleStop()"                 >&#x25FC;           </button> &nbsp;&nbsp;&nbsp;
 <input type="file" id="filechooser" name="files[]"/>
+<input type="checkbox" id="hightlightISC">highlight I./S./C.
 </p>
+<div id="erroroutput">
+</div>
+<div id="hintoutput">
+</div>
 """
 
 KlippenInitialSVG_str = """
