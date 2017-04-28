@@ -23,13 +23,24 @@
 "use strict";
 
 var Svgretrieve = {
+    highlight_unregistered: false,
+    highlight_isc: false,
+    highlighterFn: undefined,
+    UNREGISTERED_COLOUR: "#ff1111",
+    INSCTRUCTION_COLOUR: "#ffffff",
+    SELECTOR_COLOUR: "#C97A4F",
+    CONTROLFLOW_COLOUR: "#9BC9C7",
     svgroot: undefined,
     clip8root: undefined,
     I_collection: undefined,
     S_collection: undefined,
     C_collection: undefined,
     rect_intervals: undefined,
-    init: function (svgroot) {
+    init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn) {
+        console.log("[Svgretrieve.init]", svgroot, highlight_unregistered, highlight_isc, highlighterFn)
+        Svgretrieve.highlight_unregistered = highlight_unregistered;
+        Svgretrieve.highlight_isc = highlight_isc;
+        Svgretrieve.highlighterFn = highlighterFn;
         Svgretrieve.svgroot = svgroot;
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
@@ -79,6 +90,8 @@ var Svgretrieve = {
                 cpt = Svgdom.getCentrePoint(elems[i]);
                 cpt.ownerelement = elems[i];
                 Svgretrieve.C_collection.insert(cpt);
+                if (Svgretrieve.highlight_isc)
+                    Svgretrieve.highlighterFn(elems[i], Svgretrieve.CONTROLFLOW_COLOUR);
             } else
                 unreg.push(elems[i]);
         }
@@ -97,11 +110,15 @@ var Svgretrieve = {
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
+                if (Svgretrieve.highlight_isc)
+                    Svgretrieve.highlighterFn(elems[i], Svgretrieve.INSTRUCTION_COLOUR);
                     break;
                 case ISCD.CONTROLFLOW:
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.C_collection.insert(cpt) });
+                    if (Svgretrieve.highlight_isc)
+                        Svgretrieve.highlighterFn(elems[i], Svgretrieve.CONTROLFLOW_COLOUR);
                     break;
                 default:
                     unreg.push(elems[i]);
@@ -116,18 +133,24 @@ var Svgretrieve = {
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
+                    if (Svgretrieve.highlight_isc)
+                        Svgretrieve.highlighterFn(elems[i], Svgretrieve.INSCTRUCTION_COLOUR);
                     break;
                 case ISCD.SELECTOR:
                     cpts = Svgdom.getBothEndsOfLine(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.S_collection.insert(cpt) });
+                    if (Svgretrieve.highlight_isc)
+                        Svgretrieve.highlighterFn(elems[i], Svgretrieve.SELECTOR_COLOUR);
                     break;
                 case ISCD.CONTROLFLOW:
                     cpts = Svgdom.getBothEndsOfLine(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.C_collection.insert(cpt) });
+                        if (Svgretrieve.highlight_isc)
+                            Svgretrieve.highlighterFn(elems[i], Svgretrieve.CONTROLFLOW_COLOUR);
                     break;
                 default:
                     unreg.push(elems[i]);
@@ -142,12 +165,16 @@ var Svgretrieve = {
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.I_collection.insert(cpt) });
+                    if (Svgretrieve.highlight_isc)
+                        Svgretrieve.highlighterFn(elems[i], Svgretrieve.INSTRUCTION_COLOUR);
                     break;
                 case ISCD.CONTROLFLOW:
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
                     cpts.forEach( function (cpt) {
                         cpt.ownerelement = elems[i];
                         Svgretrieve.C_collection.insert(cpt) });
+                        if (Svgretrieve.highlight_isc)
+                            Svgretrieve.highlighterFn(elems[i], Svgretrieve.CONTROLFLOW_COLOUR);
                     break;
                 default:
                     unreg.push(elems[i]);
@@ -155,6 +182,8 @@ var Svgretrieve = {
         }
         console.groupEnd();
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
+        if (Svgretrieve.highlight_unregistered)
+            unreg.forEach(function (el) { Svgretrieve.highlighterFn(el, Svgretrieve.UNREGISTERED_COLOUR) } );
     },
 
     registerRectElement: function(rect) {
@@ -165,12 +194,16 @@ var Svgretrieve = {
                 cpts.forEach( function (cpt) {
                     cpt.ownerelement = rect;
                     Svgretrieve.I_collection.insert(cpt) });
+                if (Svgretrieve.highlight_isc)
+                    Svgretrieve.highlighterFn(rect, Svgretrieve.INSTRUCTION_COLOUR);
                 return true;
             case ISCD.SELECTOR:
                 cpts = Svgdom.getCornersOfRectPoints(rect);
                 cpts.forEach( function (cpt) {
                     cpt.ownerelement = rect;
                     Svgretrieve.S_collection.insert(cpt) });
+                if (Svgretrieve.highlight_isc)
+                    Svgretrieve.highlighterFn(rect, Svgretrieve.SELECTOR_COLOUR);
                 return true;
             case ISCD.DATA:
                 itv = Svgretrieve._getMainInterval(rect);  // get interval

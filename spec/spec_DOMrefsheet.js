@@ -139,13 +139,13 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(svgroot.id).toBe("clip8svgroot");
         expect(
             function () {
-                Clip8controler.init(svgroot, visualise=false);
+                Clip8controler.init(svgroot, visualiseIP=false, highlightErr=false, highlightSyntax=false);
                 Clip8controler.testRun(cycles+EXCESS_CYCLES);
             }).not.toThrow();
         jasmine.clock().tick(CLIP8_RUNNINGTIME);
         expect(Clip8.executeOneOperation).toHaveBeenCalled();
         expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles, "(instruction of cycles)");
-        expect(Clip8.stopTimer).toHaveBeenCalled();
+        expect(Clip8controler._stopTimer).toHaveBeenCalled();
         svgroot.removeAttribute("id", reftestElement.id);
         done();
     });
@@ -184,7 +184,7 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         var svgroot = proc.firstElementChild;
         expect(svgroot).toBeElement();
         Svgdom.init(svgroot);
-        Svgretrieve.init(svgroot);
+        Svgretrieve.init(svgroot, highlight_unregistered=false, highlight_isc=false, highlighterFn=function(){});
         var p0 = svgroot.createSVGPoint();
         p0.x = p0x;
         p0.y = p0y;
@@ -244,7 +244,7 @@ describe("Reference Sheet Tester", function(){
         var oldroot = document.getElementById("clip8svgroot");
         if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
         spyOn(Clip8,"executeOneOperation").and.callThrough();
-        spyOn(Clip8,"stopTimer").and.callThrough();
+        spyOn(Clip8controler,"_stopTimer").and.callThrough();
     });
     afterEach(function() {
         jasmine.clock().uninstall();
