@@ -29,7 +29,6 @@ var Clip8 = {
     TERMINATE: 0,
     CONTINUE: 1,
     EXECUTE: 2,
-    ERROR: 64,
     // Constants
     TAGS: ["line", "polyline", "circle", "rect", "path"],
     LINETAG: 0,
@@ -95,6 +94,8 @@ var Clip8 = {
 
     _reportError: function (source, message, errorelements=[], locations=[], hinttext="") {
         console.error("ERROR ["+source+"]:", message);
+        if (!source) source = "--no source provided : / --";
+        if (!message) message = "--no error message provided : / --";
         if (errorelements.length > 0) {
             console.groupCollapsed("Elements");
             for (var i=0; i<errorelements.length; i++) {
