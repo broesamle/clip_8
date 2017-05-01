@@ -82,16 +82,13 @@ var Clip8 = {
     },
 
     _hightlightElementColour: function(el, colourtag) {
-        // FIXME: clarify use of style vs attribute
-        var old = el.getAttribute("stroke");
-        el.setAttribute("stroke",  colourtag);
-        Clip8.highlighted.push({el: el, origstroke: old});
+        Clip8.highlighted.push({el: el, origstroke: el.style.getPropertyValue('stroke')});
+        el.style.setProperty('stroke', colourtag);
     },
 
     _clearHighlight: function() {
         for (var i = 0; i < Clip8.highlighted.length; i++) {
-            // FIXME: clarify use of style vs attribute
-            Clip8.highlighted[i].el.setAttribute("stroke", Clip8.highlighted[i].origstroke);
+            Clip8.highlighted[i].el.style.setProperty('stroke', Clip8.highlighted[i].origstroke);
         }
     },
 
