@@ -16,8 +16,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-/** Derive `SVGRect` instances based on relevant geometric properties of SVG DOM elements.
+/** Detect, classify, register and retrieve (multiple) SVG elements based on their
+    tag, style, location or other spatial properties.
 */
 
 "use strict";
@@ -53,6 +53,7 @@ var Svgretrieve = {
     // classifies them generically, assuming any SVG element.
     // For testing and code legibility I decided to stick with it for now.
     registerElements_fromDOM () {
+        var debug = false;
         Svgretrieve.I_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
         Svgretrieve.S_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
         Svgretrieve.C_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
@@ -85,6 +86,7 @@ var Svgretrieve = {
                                  Svgretrieve.rect_intervals, elems);
         // CIRCLE
         elems = Svgretrieve.clip8root.getElementsByTagName("circle");
+        if (debug) console.debug("CIRCLE elements:", elems);
         for (var i=0; i<elems.length; i++) {
             if (ISCD.detect(elems[i]) == ISCD.CONTROLFLOW) {
                 cpt = Svgdom.getCentrePoint(elems[i]);
@@ -97,6 +99,7 @@ var Svgretrieve = {
         }
         // PATH
         elems = Svgretrieve.clip8root.getElementsByTagName("path");
+        if (debug) console.debug("PATH elements:", elems);
         for (var i=0; i<elems.length; i++) {
             try {
                 cpts = Svgdom.getBothEndsOfPath(elems[i]);
@@ -126,6 +129,7 @@ var Svgretrieve = {
         }
         // LINE
         elems = Svgretrieve.clip8root.getElementsByTagName("line");
+        if (debug) console.debug("LINE elements:", elems);
         for (var i=0; i<elems.length; i++) {
             switch(ISCD.detect(elems[i])) {
                 case ISCD.INSTRUCTION:
@@ -158,6 +162,7 @@ var Svgretrieve = {
         }
         // POLYLINE
         elems = Svgretrieve.clip8root.getElementsByTagName("polyline");
+        if (debug) console.debug("POLYLINE elements:", elems);
         for (var i=0; i<elems.length; i++) {
             switch(ISCD.detect(elems[i])) {
                 case ISCD.INSTRUCTION:
@@ -181,6 +186,7 @@ var Svgretrieve = {
             }
         }
         console.groupEnd();
+        if (debug) console.log("unreg el: ", unreg);
         if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
         if (Svgretrieve.highlight_unregistered)
             unreg.forEach(function (el) { Svgretrieve.highlighterFn(el, Svgretrieve.UNREGISTERED_COLOUR) } );
@@ -336,7 +342,7 @@ var Svgretrieve = {
 
 var ISCD = {
     debug       : false,
-    verbose     : true,
+    verbose     : false,
     INVALID     : 0,
     INSTRUCTION : 1,
     SELECTOR    : 2,

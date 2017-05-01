@@ -57,6 +57,7 @@ var Clip8 = {
     },
 
     _deriveToleranceFromElementStroke: function (el) {
+        // FIXME: clarify use of style vs attribute
         var tolerance = el.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
         if (! tolerance) {
             console.warn("Could not derive tolerance from stroke width.", el);
@@ -81,6 +82,7 @@ var Clip8 = {
     },
 
     _hightlightElementColour: function(el, colourtag) {
+        // FIXME: clarify use of style vs attribute
         var old = el.getAttribute("stroke");
         el.setAttribute("stroke",  colourtag);
         Clip8.highlighted.push({el: el, origstroke: old});
@@ -88,6 +90,7 @@ var Clip8 = {
 
     _clearHighlight: function() {
         for (var i = 0; i < Clip8.highlighted.length; i++) {
+            // FIXME: clarify use of style vs attribute
             Clip8.highlighted[i].el.setAttribute("stroke", Clip8.highlighted[i].origstroke);
         }
     },
@@ -111,6 +114,7 @@ var Clip8 = {
             for (var i=0; i<locations.length; i++) {
                 console.error (locations[i]);
                 if (Clip8.highlightErr) {
+                    // FIXME: clarify use of style vs attribute
                     locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
                     locrect.setAttribute('fill', "none");
                     locrect.setAttribute('stroke', "#ee22cc");
@@ -214,6 +218,7 @@ var Clip8 = {
             return undefined;
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
+        // FIXME: clarify use of style vs attribute
         var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);;
         if (dashes.length == 2 && dashes[0] < dashes[1] )
             return Svgretrieve.getEnclosedRectangles(s);
@@ -329,6 +334,7 @@ var Clip8 = {
         var initialflow = null;
 
         for (var i = 0, c; i < circles.length; i++) {
+            // FIXME: clarify use of style vs attribute
             if (debugcolour) circles[i].setAttribute("stroke", "#95C9EF");
             if (circles[i].getAttribute("fill", "none") != "none") {
                 if (debugcolour) circles[i].setAttribute("fill", "#3EA3ED");
@@ -364,7 +370,7 @@ var Clip8 = {
                                        "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");
                 }
 
-
+                // FIXME: clarify use of style vs attribute
                 if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
                 Clip8.pminus1_point = centres_offilled[i];
                 if (Clip8.visualiseIP) Clip8._highlightElement(hitlist[0]);
@@ -501,6 +507,7 @@ var Clip8 = {
             }
             else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
+                // FIXME: clarify use of style vs attribute
                 if (theline.getAttribute("stroke-dasharray")) {
                     if (debug) console.log("one dashed line.");
                     // CUT, DEL

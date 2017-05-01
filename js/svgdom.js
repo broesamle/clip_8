@@ -19,6 +19,8 @@
 
 "use strict";
 
+/** Processes single SVG elements and their geometric aspects in the DOM
+*/
 var Svgdom = {
     svgroot: undefined,
     SVGNS: undefined,
