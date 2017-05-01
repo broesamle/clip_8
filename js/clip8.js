@@ -646,8 +646,13 @@ var Clip8controler = {
         catch (exc) {
             console.log("Hint:", exc);
             Clip8controler._stopTimer();
-            Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
-            Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
+            if (exc.error && exc.hint) {
+                Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
+            } else {
+                Clip8controler.erroroutput.appendChild(document.createTextNode("unexpected error!"));
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc));
+            }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
         }
