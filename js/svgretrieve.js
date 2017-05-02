@@ -104,9 +104,13 @@ var Svgretrieve = {
             try {
                 cpts = Svgdom.getBothEndsOfPath(elems[i]);
             }
-            catch (err) {
-                unreg.push(elems[i]);
-                continue
+            catch (exc) {
+                if (exc.source === "getBothEndsOfPath") {
+                    unreg.push(elems[i]);
+                    continue;
+                }
+                else
+                    throw exc;
             }
             switch(ISCD.detect(elems[i])) {
                 case ISCD.INSTRUCTION:
