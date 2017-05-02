@@ -111,11 +111,8 @@ var Clip8 = {
             for (var i=0; i<locations.length; i++) {
                 console.error (locations[i]);
                 if (Clip8.highlightErr) {
-                    // FIXME: clarify use of style vs attribute
                     locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
-                    locrect.setAttribute('fill', "none");
-                    locrect.setAttribute('stroke', "#ee22cc");
-                    locrect.setAttribute('stroke-width', "1");
+                    locrect.style = "fill:none; stroke:#ee22cc; stroke-width: 1";
                     Clip8.svgroot.appendChild (locrect);
                 }
             }
