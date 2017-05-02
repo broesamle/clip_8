@@ -57,8 +57,7 @@ var Clip8 = {
     },
 
     _deriveToleranceFromElementStroke: function (el) {
-        // FIXME: clarify use of style vs attribute
-        var tolerance = el.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
+        var tolerance = ISCD.getExplicitProperty(el, 'stroke-width') * Clip8.STROKE_TOLERANCE_RATIO;
         if (! tolerance) {
             console.warn("Could not derive tolerance from stroke width.", el);
             tolerance = 1.0 * Clip8.STROKE_TOLERANCE_RATIO;
