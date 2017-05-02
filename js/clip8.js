@@ -495,8 +495,7 @@ var Clip8 = {
             }
             else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
-                // FIXME: clarify use of style vs attribute
-                if (theline.getAttribute("stroke-dasharray")) {
+                if ( ISCD.getExplicitProperty(theline, 'stroke-dasharray') ) {
                     if (debug) console.log("one dashed line.");
                     // CUT, DEL
                     var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);

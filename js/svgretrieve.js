@@ -375,8 +375,8 @@ var ISCD = {
     */
     getExplicitProperty: function (el, property) {
         var computedStyle = window.getComputedStyle(el);
-        if (computedStyle != "none")
-            return computedStyle;
+        if (computedStyle.getPropertyValue(property) != "none")
+            return computedStyle.getPropertyValue(property);
         else
             return "";
     },
