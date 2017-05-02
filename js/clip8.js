@@ -646,7 +646,7 @@ var Clip8controler = {
         catch (exc) {
             console.log("Hint:", exc);
             Clip8controler._stopTimer();
-            if (exc.error && exc.hint) {
+            if (exc.error) {
                 Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
                 Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
             } else {

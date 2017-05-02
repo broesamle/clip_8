@@ -186,8 +186,7 @@ var Svgretrieve = {
             }
         }
         console.groupEnd();
-        if (debug) console.log("unreg el: ", unreg);
-        if (unreg.len > 0) console.warn("there were unregistered elements:", unreg);
+        if (unreg.length > 0) console.warn("there were unregistered elements:", unreg);
         if (Svgretrieve.highlight_unregistered)
             unreg.forEach(function (el) { Svgretrieve.highlighterFn(el, Svgretrieve.UNREGISTERED_COLOUR) } );
     },
@@ -342,7 +341,7 @@ var Svgretrieve = {
 
 var ISCD = {
     debug       : false,
-    verbose     : false,
+    verbose     : true,
     INVALID     : 0,
     INSTRUCTION : 1,
     SELECTOR    : 2,
@@ -371,7 +370,7 @@ var ISCD = {
     },
 
     detect: function(el) {
-        if (ISCD.debug) console.log("[ISCD] element, tagName", el, el.tagName);
+        if (ISCD.verbose) console.log("[ISCD.detect]", el);
         var computedStyle = window.getComputedStyle(el);
         if (ISCD.debug) console.log("----computedStyle", computedStyle);
         // See `tree-of-graphics-elements.pdf` for an overview of graphics element detection.
