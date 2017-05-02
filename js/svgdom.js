@@ -184,6 +184,10 @@ var Svgdom = {
         if (path.tagName != "path") throw "[getBothEndsOfPath] expected a path.";
         var endpoints = [Svgdom.svgroot.createSVGPoint(), Svgdom.svgroot.createSVGPoint()];
         var pathdata = path.getAttribute("d").trim();
+        console.groupCollapsed("[getBothEndsOfPath] Parsed path data:")
+        var path = SvgPath(pathdata).abs().unshort();
+        path.iterate(console.log);
+        console.groupEnd();
         if (!pathdata.startsWith("M")) throw ("[getBothEndsOfPath] pathdata should start with M. "+pathdata);
         if (debug) console.log("[GETBOTHENDSOFPATH] pathdata:", pathdata);
         // "-" seems to be an implicit separator, which we make explicit, here
