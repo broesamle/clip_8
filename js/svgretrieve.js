@@ -369,6 +369,18 @@ var ISCD = {
         }
     },
 
+    /** Checks if a property is explicitly assigned to an element.
+        The idea is to return exactly the visually effective properties; such as a visible stroke.
+        If it is not set or `none` the return value is "".
+    */
+    getExplicitProperty: function (el, property) {
+        var computedStyle = window.getComputedStyle(el);
+        if (computedStyle != "none")
+            return computedStyle;
+        else
+            return "";
+    },
+
     detect: function(el) {
         if (ISCD.verbose) console.log("[ISCD.detect]", el);
         var computedStyle = window.getComputedStyle(el);

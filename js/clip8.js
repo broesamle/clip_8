@@ -322,17 +322,13 @@ var Clip8 = {
     initControlFlow: function () {
         var debug = false;
         if (debug) console.log("[initControlFlow]")
-        var debugcolour = false;
         var circles = Clip8.svgroot.getElementsByTagName("circle");
         var centres_offilled = [];  // Centres of filled circles (candidates).
         var radii_offilled = [];    // and their respective radius
         var initialflow = null;
 
         for (var i = 0, c; i < circles.length; i++) {
-            // FIXME: clarify use of style vs attribute
-            if (debugcolour) circles[i].setAttribute("stroke", "#95C9EF");
-            if (circles[i].getAttribute("fill", "none") != "none") {
-                if (debugcolour) circles[i].setAttribute("fill", "#3EA3ED");
+            if ( ISCD.getExplicitProperty(circles[i], 'fill') ) {
                 centres_offilled.push(Svgdom.getCentrePoint(circles[i]));
                 radii_offilled.push(Svgdom.getRadius(circles[i]));
             }
@@ -364,9 +360,6 @@ var Clip8 = {
                     Clip8._reportError("initControlFlow", "Failed to identify intial path segment.", candidates, [centres_offilled[i]],
                                        "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");
                 }
-
-                // FIXME: clarify use of style vs attribute
-                if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
                 Clip8.pminus1_point = centres_offilled[i];
                 if (Clip8.visualiseIP) Clip8._highlightElement(hitlist[0]);
                 return hitlist[0];
