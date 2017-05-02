@@ -26,7 +26,7 @@ var Svgretrieve = {
     highlight_unregistered: false,
     highlight_isc: false,
     highlighterFn: undefined,
-    UNREGISTERED_COLOUR: "#ff1111",
+    UNREGISTERED_COLOUR: "#ffff88",
     INSCTRUCTION_COLOUR: "#ffffff",
     SELECTOR_COLOUR: "#C97A4F",
     CONTROLFLOW_COLOUR: "#9BC9C7",
