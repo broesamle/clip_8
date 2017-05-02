@@ -212,8 +212,9 @@ var Clip8 = {
             return undefined;
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
-        // FIXME: clarify use of style vs attribute
-        var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);;
+        var dashes = window.getComputedStyle(selectorcore[0])
+                           .getPropertyValue('stroke-dasharray')
+                           .split(",").map(parseFloat);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
             return Svgretrieve.getEnclosedRectangles(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
