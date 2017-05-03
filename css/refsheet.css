@@ -12,8 +12,8 @@ nav {
     height:2.6em;
 }
 
-a:link		{ outline: none; text-decoration: none; color:#97b595; }
-a:visited	{ outline: none; text-decoration: none; color:#97b595; }
+a:link		{ outline: none; text-decoration: none; color:#97b595; font-weight: bold;}
+a:visited	{ outline: none; text-decoration: none; color:#97b595; font-weight: bold;}
 
 h1, h2, h3, p { clear: left; }
 
@@ -21,6 +21,8 @@ footer {
     font-size: 0.8em;
     margin-top:3em;
 }
+
+.redtext { color: #ee1111; }
 
 .sectionintro p { clear: none; }
 

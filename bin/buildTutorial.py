@@ -70,25 +70,64 @@ while len(allexercises) > 0:
 ### index.html
 ### For the tutorials, index.html contains the TOC.
 tocsectionsHTML = """
+<h2 class="redtext">Survival Guide</h2>
+<p>
+`Clip_8` is under heavy development. <b>You will need patience! And it will be fun!</b>
+Things are currently changing every coupple of days. 
+Please check the <a href="https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started">Tutorial and Getting Started Issues</a> 
+for recent information for users.
+</p>
+<h3 id="edit-svg-files" class="redtext">Editing SVG files</h3>
+<p>
+The tutorial assumes you have some experience with 
+<a target="_blank" href="https://en.wikipedia.org/wiki/Vector_graphics_editor">vector graphics editors</a> 
+and have one ready to export 
+<a target="_blank" href="https://en.wikipedia.org/wiki/Vector_graphics_editor">Scalable Vector Graphics (SVG)</a>. 
+If you are unsure, try <a target="_blank" href="https://inkscape.org">Inkscape</a> (its free) or try using an online SVG editor.
+</p>
+<p>
+<b>Do not mix SVG editors.</b> They each have their dialects. Files you have edited with Illustrator, say, may confuse Inkscape -- resulting in even stranger dialects. Clip_8 might run into trouble understanding such mixed files. 
+</p>
+<p>
+<b>Use the snap function!</b> Elements need to be positioned precisely, otherwise clip_8 will not find them. 
+Snap, this is a function of decent SVG editors, makes endpoints and centre points magnetic which makes editing much easier.
+</p>
+<h3 id="edit-svg-files" class="redtext">Get help / contributed by reporting errors</h3>
+If you run into trouble running a program or if you encounter any unexpected behaviours please <a href="https://github.com/broesamle/clip_8/issues/new">file an issue</a>.
+In this early phase, also small error reports can help a lot! Thank you in advance!
+</p>
+<p>
+Ideally you
+<ul>
+<li>include the SVG file you used,</li>
+<li>describe what happened,</li>
+<li>cite any error messages,</li>
+<li>tell us which SVG editor, browser, and operating system you were using.</li>
+</ul>
+
 <h2>Getting Started</h2>
 <p>
-Every exercise is a clip_8 program in an SVG file.
+<b><a href="exercises.zip">Download the Exercises</a> and unpack them.</b>
+Every exercise is a clip_8 program in an SVG file. Have the unpacked files ready in a file manager/explorer/finder window.
 </p>
 <p>
-You can <b>view an exercise</b> directly in your browser by left-clicking it.
-The <b>zoom</b> function of your browser allows to adjust for an optimal view.
+<b>Edit the exercises</b> with the <a href="#edit-svg-files">vector graphics editor (see above)</a>.
 </p>
 <p>
-To <b>work on an exercise</b>, please save the SVG file on your local machine.<br>
-Depending on your browser you can load the exercise SVG and then use <i>save page as</i>. Alternatively you may just right-click (PC) or command-key-click (MAC) one of the links and then choose <i>save/download link target</i> or the like.
+<b>Save your changes as SVG file.</b>
 </p>
 <p>
-Then, a vector graphics editor such as Inkscape or Illustrator can be used to <b>edit</b> exercises or other programs.
-Save your changes as SVG file.
+Using the <a href="klippen.html" target="_blank">Klippen online interpreter</a> you can <b>load and execute</b> your solution.
 </p>
 <p>
-Using the <a href="klippen.html" target="_blank"><b>Klippen online interpreter</b></a> you can <b>load and execute</b> your solution or any other SVG file from your local machine.
+To sum up, for a fluent work environment you keep the following windows open at all times:
 </p>
+<ul>
+<li>Browser window with this tutorial.</li>
+<li>Browser window with <a href="klippen.html" target="_blank">Klippen online interpreter</a></li>
+<li>File manager with exercise SVG files.</li>
+<li>SVG Editor, with the current exercise open.</li>
+</ul>
 <h2>Exercises</h2>
 """ + tocsectionsHTML
 
