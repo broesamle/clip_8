@@ -394,8 +394,7 @@ var ISCD = {
             if (ISCD.verbose) console.log("    CONTROLFLOW");
             return ISCD.CONTROLFLOW;
         } else if ( computedStyle.getPropertyValue("stroke") != "none" &&
-                    computedStyle.getPropertyValue("stroke-linecap") == "round" &&
-                    computedStyle.getPropertyValue("stroke-linejoin") == "round" ) {
+                    computedStyle.getPropertyValue("stroke-linecap") == "round" ) {
             if (ISCD.verbose) console.log("    INSTRUCTION");
             return ISCD.INSTRUCTION;
         } else if (el.tagName === "line") {
