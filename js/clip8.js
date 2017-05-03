@@ -19,10 +19,6 @@
 
 "use strict";
 
-// drawing precision tolerances
-var epsilon = 0.25;      // maximal difference for two coordinates to be considered equal
-var minlen = 0.5;        // minimal size of a graphics element to be "meaningful"
-
 var Clip8 = {
     INTERNAL_ERROR_HINT: "This is an internal error and should never happen. Consider filing and issue. Your contribution is appreciated!",
     // Execution status constants
@@ -54,15 +50,6 @@ var Clip8 = {
     highlighted: [],                // elements highlighted for visualization
     _reduce: function (reduceable) {
         return reduceable.reduce( function(a,b) {return a.concat(b)} );
-    },
-
-    _deriveToleranceFromElementStroke: function (el) {
-        var tolerance = ISCD.getExplicitProperty(el, 'stroke-width') * Clip8.STROKE_TOLERANCE_RATIO;
-        if (! tolerance) {
-            console.warn("Could not derive tolerance from stroke width.", el);
-            tolerance = 1.0 * Clip8.STROKE_TOLERANCE_RATIO;
-        }
-        return tolerance;
     },
 
     _isBlocklisted: function (el) {
@@ -458,10 +445,10 @@ var Clip8 = {
                 var theline = I0[Clip8.LINETAG][0];
                 var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
 
-                var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
+                var linedir = Clip8decode.directionOfSVGLine(theline);
                 if (debug) console.log("[executeOneOperation] direction:", linedir);
                 var thepoly = I0[Clip8.POLYLINETAG][0];
-                var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
+                var angledir = Clip8decode.directionOfPolyAngle(thepoly);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
                 // FIXME: refactor for semantic retrieval
                 var ISC1 = Clip8.retrieveISCElements(bothends[1], Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
@@ -511,7 +498,7 @@ var Clip8 = {
                 var theline = I0[Clip8.LINETAG][0];
                 var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
 
-                var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
+                var linedir = Clip8decode.directionOfSVGLine(theline);
                 var newelements;
                 switch (linedir) {
                     case 'UP':
@@ -552,7 +539,7 @@ var Clip8 = {
                         p3.y = theline.getAttribute("y2");
                         p4.x = theline.getAttribute("x2");
                         p4.y = theline.getAttribute("y1");
-                        tolerance = Clip8._deriveToleranceFromElementStroke(theline);
+                        tolerance = Clip8decode.deriveToleranceFromElementStroke(theline);
                         opposite_diagonals = Svgretrieve.getLinesFromTo(
                                                  p3, p4,
                                                  tolerance,
@@ -579,7 +566,7 @@ var Clip8 = {
                 var theline = I0[Clip8.LINETAG][0];
                 var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
 
-                var tolerance = Clip8._deriveToleranceFromElementStroke(theline);
+                var tolerance = Clip8decode.deriveToleranceFromElementStroke(theline);
                 var deltaX, deltaY;
                 deltaX = bothends[1].x-bothends[0].x;
                 deltaY = bothends[1].y-bothends[0].y;
