@@ -41,11 +41,7 @@ var Clip8decode = {
         return tolerance;
     },
 
-    directionOfSVGLine: function (line) {
-        if (!(line instanceof SVGLineElement)) { throw "[directionOfSVGLine] expected line element."; }
-
-        var deltax = line.x2.baseVal.value - line.x1.baseVal.value;
-        var deltay = line.y2.baseVal.value - line.y1.baseVal.value;
+    _directionBasedonDeltas: function (deltax, deltay) {
         if ( Math.abs(deltax) < Clip8decode.epsilon && Math.abs(deltay) > Clip8decode.minlen )
             // vertical
             if (deltay > 0)     return 'DOWN';
@@ -65,6 +61,17 @@ var Clip8decode = {
             else if (deltax < -Clip8decode.minlen) return 'DO-LE';
             else throw "Unklar, me and logic :-)";
         else throw "This shoudl never happen, or, me and logic :-)";
+    },
+
+    directionOfSVGLine: function (line) {
+        if (!(line instanceof SVGLineElement)) { throw "[directionOfSVGLine] expected line element."; }
+        return Clip8decode._directionBasedonDeltas(
+                               line.x2.baseVal.value - line.x1.baseVal.value,
+                               line.y2.baseVal.value - line.y1.baseVal.value );
+    },
+
+    directionFromPoints: function (p1, p2) {
+        return Clip8decode._directionBasedonDeltas(p2.x-p1.x, p2.y-p1.y);
     },
 
     directionOfPolyAngle: function (polyline) {
@@ -92,13 +99,36 @@ var Clip8decode = {
     decodeInstruction: function (I0, p0) {
         var verbose = true;
         var instruction = {};
-        if (I0[Clip8.LINETAG].length == 1) {
+        var line_like = I0[Clip8.LINETAG];      // Straight lines and synonyms
+        var nontrivialpaths = [];               // Paths that are more than straight lines
+        var cps;
+
+        // find synonym elements
+        // PATH
+        for (var i=0; i<I0[Clip8.PATHTAG].length; i++) {
+            cps = Svgdom.getAbsoluteControlpoints(
+                                 I0[Clip8.PATHTAG][i].getAttribute('d'));
+            if (cps.length == 2) line_like.push(I0[Clip8.PATHTAG][i]);
+            else nontrivialpaths.push(el);
+        }
+
+        // decode the instruction
+        if (line_like.length == 1) {
             // ALIGN, CUT, MOVE-REL, CLONE, DEL
-            instruction.primary = I0[Clip8.LINETAG][0];
-            var bothends = Svgdom.getBothEndsOfLine_arranged(p0, instruction.primary)
+            instruction.primary = line_like[0];
+            var bothends;   // both ends of the primary, i.e. line-like element
+            if (instruction.primary.tagName === "line")
+                bothends = Svgdom.getBothEndsOfLine_arranged(p0, instruction.primary)
+            else if (instruction.primary.tagName === "path")
+                bothends = Svgdom.getBothEndsOfPath(instruction.primary)
+            else
+                throw "[decodeInstruction] unexpected line_like element.";
+            Svgdom.arrangePoints(p0, bothends);
             instruction.p0prime = bothends[0];
             instruction.p1 = bothends[1];
-            instruction.linedir = Clip8decode.directionOfSVGLine(instruction.primary);
+            instruction.linedir = Clip8decode.directionFromPoints(
+                                                  instruction.p0prime,
+                                                  instruction.p1);
             if (I0[Clip8.POLYLINETAG].length == 1) {
                 // ALIGN
                 if (verbose) console.log("decoded ALIGN");

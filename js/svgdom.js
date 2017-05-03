@@ -170,11 +170,14 @@ var Svgdom = {
 
     getBothEndsOfLine_arranged: function(refpoint, line) {
         var bothends = Svgdom.getBothEndsOfLine(line);
-        if ( Svgdom.euclidDistance(refpoint, bothends[0]) >
-             Svgdom.euclidDistance(refpoint, bothends[1]) )
-            bothends.reverse();
+        return Svgdom.arrangePoints(refpoint, bothends);
+    },
 
-        return bothends;
+    arrangePoints: function(refpoint, twopoints) {
+        if ( Svgdom.euclidDistance(refpoint, twopoints[0]) >
+             Svgdom.euclidDistance(refpoint, twopoints[1]) )
+            twopoints.reverse();
+        return twopoints;
     },
 
     getAbsoluteControlpoints: function(pathdatastring) {
