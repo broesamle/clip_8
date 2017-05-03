@@ -418,6 +418,7 @@ var Clip8 = {
         var execstatus = Clip8.moveIP(C0, p0);
 
         if (execstatus != Clip8.EXECUTE)
+        if (execstatus != Clip8.EXECUTE)
             return execstatus;
 
         var decoded_instruction = Clip8decode.decodeInstruction(I0, p0);
@@ -444,7 +445,7 @@ var Clip8 = {
                 // FIXME: we don't need `theline` and `bothends` really, do we?
                 var theline = I0[Clip8.LINETAG][0];
                 var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
-
+                
                 var linedir = Clip8decode.directionOfSVGLine(theline);
                 if (debug) console.log("[executeOneOperation] direction:", linedir);
                 var thepoly = I0[Clip8.POLYLINETAG][0];
@@ -460,7 +461,7 @@ var Clip8 = {
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
                 if (I1[Clip8.RECTTAG].length == 1 )
                     selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
-                switch (linedir) {
+                switch (decoded_instruction.linedir) {
                     case 'UP':
                     case 'DOWN':
                         if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
@@ -483,7 +484,8 @@ var Clip8 = {
                                                "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
                     default:
-                        console.error("Invalid line direction in ALIGN OPERATION: ", theline);
+                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in ALIGN!",
+                                           [decoded_instruction.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
                         break;
                 }
                 if (I1[Clip8.RECTTAG].length == 1 )
@@ -498,9 +500,10 @@ var Clip8 = {
                 var theline = I0[Clip8.LINETAG][0];
                 var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
 
+
                 var linedir = Clip8decode.directionOfSVGLine(theline);
                 var newelements;
-                switch (linedir) {
+                switch (decoded_instruction.linedir) {
                     case 'UP':
                     case 'DOWN':
 

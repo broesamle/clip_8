@@ -91,38 +91,42 @@ var Clip8decode = {
 
     decodeInstruction: function (I0, p0) {
         var verbose = true;
+        var instruction = {};
         if (I0[Clip8.LINETAG].length == 1) {
             // ALIGN, CUT, MOVE-REL, CLONE, DEL
-            var theline = I0[Clip8.LINETAG][0];
-            var p1 = Svgdom.getBothEndsOfLine_arranged(p0, theline)[1];
+            instruction.primary = I0[Clip8.LINETAG][0];
+            instruction.p1 = Svgdom.getBothEndsOfLine_arranged(p0, instruction.primary)[1];
+            instruction.linedir = Clip8decode.directionOfSVGLine(instruction.primary);
             if (I0[Clip8.POLYLINETAG].length == 1) {
                 // ALIGN
                 if (verbose) console.log("decoded ALIGN");
-                return {opcode: OP.ALIGN, p1: p1};
+                instruction.opcode = OP.ALIGN;
             }
             else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
-                if ( ISCD.getExplicitProperty(theline, 'stroke-dasharray') ) {
+                if ( ISCD.getExplicitProperty(instruction.primary, 'stroke-dasharray') ) {
                     if (verbose) console.log("CUT / DELETE");
-                    return {opcode: (OP.CUT+OP.DEL), p1: p1};
+                    instruction.opcode = OP.CUT + OP.DEL;
                 }
                 else {
                     if (verbose) console.log("MOVE_REL");
-                    return {opcode: OP.MOVE_REL, p1: p1};
+                    instruction.opcode = OP.MOVE_REL;
                 }
             }
             else if (I0[Clip8.RECTTAG].length == 1) {
                 // CLONE
                 if (verbose) console.log("CLONE");
-                return {opcode: OP.CLONE, p1: p1};
+                instruction.opcode = OP.CLONE;
             }
             else {
                 if (verbose) console.log("DECODE_ERROR");
-                return OP.DECODE_ERROR;
+                instruction.opcode = OP.DECODE_ERROR;
             }
         }
-        else
+        else {
             if (verbose) console.log("DECODE_ERROR");
-            return OP.DECODE_ERROR;
+            instruction.opcode = OP.DECODE_ERROR;
+        }
+        return instruction;
     }
 }
