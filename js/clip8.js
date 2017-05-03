@@ -440,10 +440,12 @@ var Clip8 = {
         var coreselector = retrselector[1];
         if      (selectortype == Clip8.RECTSELECTOR)
             var selectedelements1 = Clip8.selectedElementSet(coreselector);
-        else if (selectortype == Clip8.UNKNOWNSELECTOR)
-            // We may not be able to detect the selector for now.
-            // Depending on the instruction this does however not necessarily matter.
-            {}
+        else if (selectortype == Clip8.UNKNOWNSELECTOR) {
+            if (decodedinstr.needsselector) {
+                Clip8._reportError("executeOneOperation", "This instruction needs a selector but it was not found.",
+                            Clip8._reduce(S0), [p0]);
+            }
+        }
         else
             Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Invalid selector type!",
                                Clip8._reduce(S0), [p0], Clip8.INTERNAL_ERROR_HINT);
@@ -451,6 +453,7 @@ var Clip8 = {
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
         if (debug) console.log("[executeOneOperation] decodedinstr:", decodedinstr);
+
         switch(decodedinstr.opcode) {
             case OP.ALIGN:
                 if (debug) console.log("[executeOneOperation] ALIGN");
@@ -484,7 +487,7 @@ var Clip8 = {
                             Clip8._reportError("executeOneOperation",
                                       "Encountered invalid line arrow combination in ALIGN. (line: vertical, arrow: "
                                        +angledir,
-                                      [theline, thepoly],
+                                      [decodedinstr.primary, thepoly],
                                       [p0],
                                       "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
@@ -496,7 +499,7 @@ var Clip8 = {
                             Clip8._reportError("executeOneOperation",
                                       "Encountered invalid line arrow combination in ALIGN. (line: horizontal, arrow: "
                                         +angledir,
-                                      [theline, thepoly],
+                                      [decodedinstr.primary, thepoly],
                                       [p0],
                                       "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
