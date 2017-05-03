@@ -162,7 +162,10 @@ var Clip8 = {
             if      (isc[1][Clip8.RECTTAG].length == 1)
                 return [Clip8.RECTSELECTOR, isc[1][Clip8.RECTTAG]];
             else
-                Clip8._reportError("retrieveCoreSelector", "Invalid core selector.", Clip8._reduce(isc[1]), [lineend],
+                Clip8._reportError("retrieveCoreSelector",
+                                   "Invalid core selector.",
+                                   Clip8._reduce(isc[1]),
+                                   [lineend],
                                    "A selector (connector element) was found but a valid core selector at its other end was not found. Highlighted in red may be any invalid elements found instead.");
         }
         else
@@ -211,9 +214,10 @@ var Clip8 = {
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
             return Svgretrieve.getIntersectingRectangles(s);
         else
-            Clip8._reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.", selectorcore, [],
-                              "For example, gaps and dashes of the SELECTOR AREA are exactly of the same length: Then there is no way of determining whether it selects INTERSECTING or ENCLOSED objects."
-                              );
+            Clip8._reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.",
+                               selectorcore,
+                               [],
+                               "For example, gaps and dashes of the SELECTOR AREA are exactly of the same length: Then there is no way of determining whether it selects INTERSECTING or ENCLOSED objects.");
     },
 
     moveIP: function (C, p0) {
@@ -255,7 +259,8 @@ var Clip8 = {
                     // no selector at this end
                     if (localISCb[1][Clip8.LINETAG].length == 0 && localISCb[1][Clip8.RECTTAG].length == 0)
                         // no selector at the other end
-                        Clip8._reportError("moveIP", "ALTERNATIVE is missing a SELECTOR.", C[Clip8.POLYLINETAG], endpoints);
+                        Clip8._reportError("moveIP", "ALTERNATIVE is missing a SELECTOR.",
+                                           C[Clip8.POLYLINETAG], endpoints);
                     else {
                         endpoints = endpoints.reverse();
                         var localISCtemp = localISCa;
@@ -281,14 +286,16 @@ var Clip8 = {
                         Clip8.pminus1_point = condpoint;           // indicate old instruction pointer
                     }
                     else
-                        Clip8._reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", condISC[2][Clip8.PATHTAG], [condpoint]);
+                        Clip8._reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.",
+                                           condISC[2][Clip8.PATHTAG], [condpoint]);
                 else
                     if (oppositeISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = oppositeISC[2][Clip8.PATHTAG][0];   // move instruction pointer opposite side
                         Clip8.pminus1_point = oppositepoint;           // indicate old instruction pointer
                     }
                     else
-                        Clip8._reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.", oppositeISC[2][Clip8.PATHTAG], [condpoint]);
+                        Clip8._reportError("moveIP", "Invalid CONTROLFLOW at ALTERNATIVE.",
+                                           oppositeISC[2][Clip8.PATHTAG], [condpoint]);
             }
             else {
                 // Merge
@@ -351,8 +358,10 @@ var Clip8 = {
                                   10,
                                   ['path'],
                                   Svgretrieve.C_collection);
-                    Clip8._reportError("initControlFlow", "Failed to identify intial path segment.", candidates, [centres_offilled[i]],
-                                       "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");
+                    Clip8._reportError("initControlFlow", "Failed to identify intial path segment.",
+                              candidates,
+                              [centres_offilled[i]],
+                              "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");
                 }
                 Clip8.pminus1_point = centres_offilled[i];
                 if (Clip8.visualiseIP) Clip8._highlightElement(hitlist[0]);
@@ -375,7 +384,10 @@ var Clip8 = {
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
         else
-            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: invalid IP!", Clip8.ip, [], Clip8.INTERNAL_ERROR_HINT);
+            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: invalid IP!",
+                      Clip8.ip,
+                      [],
+                      Clip8.INTERNAL_ERROR_HINT);
 
         if ( Svgdom.euclidDistance(Clip8.pminus1_point, p0candidates[0]) < 1.0*Clip8.STROKE_TOLERANCE_RATIO )
             if ( Svgdom.euclidDistance(Clip8.pminus1_point, p0candidates[1]) > 1.0*Clip8.PATH_MIN_DETAIL_RATIO )
@@ -421,7 +433,7 @@ var Clip8 = {
         if (execstatus != Clip8.EXECUTE)
             return execstatus;
 
-        var decoded_instruction = Clip8decode.decodeInstruction(I0, p0);
+        var decodedinstr = Clip8decode.decodeInstruction(I0, p0);
 
         var retrselector = Clip8.retrieveCoreSelector(S0, p0)
         var selectortype = retrselector[0];
@@ -433,52 +445,64 @@ var Clip8 = {
             // Depending on the instruction this does however not necessarily matter.
             {}
         else
-            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Invalid selector type!", Clip8._reduce(S0), [p0], Clip8.INTERNAL_ERROR_HINT);
+            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Invalid selector type!",
+                               Clip8._reduce(S0), [p0], Clip8.INTERNAL_ERROR_HINT);
 
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        if (debug) console.log("[executeOneOperation] decoded_instruction:", decoded_instruction);
-        switch(decoded_instruction.opcode) {
+        if (debug) console.log("[executeOneOperation] decodedinstr:", decodedinstr);
+        switch(decodedinstr.opcode) {
             case OP.ALIGN:
                 if (debug) console.log("[executeOneOperation] ALIGN");
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
                 // FIXME: refactor for semantic retrieval
-                var ISC1 = Clip8.retrieveISCElements(decoded_instruction.p1, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var ISC1 = Clip8.retrieveISCElements(decodedinstr.p1, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
-                if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
-                if (debug) console.log("[executeOneOperation] S1:", S1.reduce(function(a,b) {return a.concat(b)}));
+                if (debug) console.log("[executeOneOperation] I1:",
+                                       I1.reduce(function(a,b) {return a.concat(b)}));
+                if (debug) console.log("[executeOneOperation] S1:",
+                                       S1.reduce(function(a,b) {return a.concat(b)}));
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
                 if (I1[Clip8.RECTTAG].length == 1 )
-                    selectedelements1.push(I1[Clip8.RECTTAG][0]); // Add the absolute rectangle to the selected set.
-                switch (decoded_instruction.linedir) {
+                    // Add the absolute rectangle to the selected set.
+                    selectedelements1.push(I1[Clip8.RECTTAG][0]);
+                switch (decodedinstr.linedir) {
                     case 'UP':
                     case 'DOWN':
                         if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
                         else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
                         else if (angledir == 'DOWN') {
                             var deltaX, deltaY;
-                            var distanceY = Math.abs(decoded_instruction.p1.y-decoded_instruction.p0prime.y);
+                            var distanceY = Math.abs(decodedinstr.p1.y-decodedinstr.p0prime.y);
                             Paperclip.shrinkFromTop (selectedelements1, distanceY);
                         }
                         else
-                            Clip8._reportError("executeOneOperation", "Encountered invalid line arrow combination in ALIGN. (line: vertical, arrow: "+angledir+"", [theline, thepoly], [p0],
-                                               "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
+                            Clip8._reportError("executeOneOperation",
+                                      "Encountered invalid line arrow combination in ALIGN. (line: vertical, arrow: "
+                                       +angledir,
+                                      [theline, thepoly],
+                                      [p0],
+                                      "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
                     case 'LEFT':
                     case 'RIGHT':
                         if (angledir == 'UP')           Paperclip.alignrelTop (selectedelements1);
                         else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
                         else
-                            Clip8._reportError("executeOneOperation", "Encountered invalid line arrow combination in ALIGN. (line: horizontal, arrow: "+angledir+"", [theline, thepoly], [p0],
-                                               "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
+                            Clip8._reportError("executeOneOperation",
+                                      "Encountered invalid line arrow combination in ALIGN. (line: horizontal, arrow: "
+                                        +angledir,
+                                      [theline, thepoly],
+                                      [p0],
+                                      "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
                     default:
                         Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in ALIGN!",
-                                           [decoded_instruction.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
+                                           [decodedinstr.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
                         break;
                 }
                 if (I1[Clip8.RECTTAG].length == 1 )
@@ -488,9 +512,9 @@ var Clip8 = {
                 break;
             case (OP.CUT+OP.DEL):
                 if (debug) console.log("[executeOneOperation] CUT / DEL");
-                var linedir = Clip8decode.directionOfSVGLine(decoded_instruction.primary);
+                var linedir = Clip8decode.directionOfSVGLine(decodedinstr.primary);
                 var newelements;
-                switch (decoded_instruction.linedir) {
+                switch (decodedinstr.linedir) {
                     case 'UP':
                     case 'DOWN':
 
@@ -498,12 +522,13 @@ var Clip8 = {
                     case 'LEFT':
                     case 'RIGHT':
                         // CUT
-                        var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(decoded_instruction.primary);
+                        var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(decodedinstr.primary);
                         var stripe = stripeNaboveNbelow[0];
                         var above = stripeNaboveNbelow[1];
                         var below = stripeNaboveNbelow[2];
 
-                        if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
+                        if (debug) console.log("[executeOneOperation] stripe, above, below:",
+                                               stripe, above, below);
                         var hitlist = Svgretrieve.getEnclosedRectangles(Svgdom.newRectElement_fromSVGRect(stripe));
                         if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
                         var selectedelements1 = []
@@ -513,7 +538,8 @@ var Clip8 = {
                                 selectedelements1.push(hitlist[i]);
 
                         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
-                        newelements = Paperclip.cutHorizontal(selectedelements1, decoded_instruction.primary.getAttribute("y1"));
+                        newelements = Paperclip.cutHorizontal(selectedelements1,
+                                                              decodedinstr.primary.getAttribute("y1"));
                         for (var i=0; i<newelements.length; i++)
                             Svgretrieve.registerRectElement(newelements[i]);
                         break;
@@ -525,11 +551,11 @@ var Clip8 = {
                         var p3, p4, opposite_diagonals, selectedelements1, tolerance;
                         p3 = Clip8.svgroot.createSVGPoint();
                         p4 = Clip8.svgroot.createSVGPoint();
-                        p3.x = decoded_instruction.primary.getAttribute("x1");
-                        p3.y = decoded_instruction.primary.getAttribute("y2");
-                        p4.x = decoded_instruction.primary.getAttribute("x2");
-                        p4.y = decoded_instruction.primary.getAttribute("y1");
-                        tolerance = Clip8decode.deriveToleranceFromElementStroke(decoded_instruction.primary);
+                        p3.x = decodedinstr.primary.getAttribute("x1");
+                        p3.y = decodedinstr.primary.getAttribute("y2");
+                        p4.x = decodedinstr.primary.getAttribute("x2");
+                        p4.y = decodedinstr.primary.getAttribute("y1");
+                        tolerance = Clip8decode.deriveToleranceFromElementStroke(decodedinstr.primary);
                         opposite_diagonals = Svgretrieve.getLinesFromTo(
                                                  p3, p4,
                                                  tolerance,
@@ -537,24 +563,27 @@ var Clip8 = {
                                                  Svgretrieve.I_collection);
                         if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
                         if (opposite_diagonals.length != 1)
-                            Clip8._reportError("executeOneOperation", "Ambiguous diagonals in instruction.", [decoded_instruction.primary], [p3, p4],
-                                               "The lines are not arranged so that two of them clearly belong to a DELETE instruction. The other diagonal may be missing entirely, or there could be too many. If there are exactly two and you still get this error, please make sure that they are neatly aligned. Using a snap to grid or an align functionality of your SVG editor will help.");
+                            Clip8._reportError("executeOneOperation",
+                                      "Ambiguous diagonals in instruction.",
+                                      [decodedinstr.primary],
+                                      [p3, p4],
+                                      "The lines are not arranged so that two of them clearly belong to a DELETE instruction. The other diagonal may be missing entirely, or there could be too many. If there are exactly two and you still get this error, please make sure that they are neatly aligned. Using a snap to grid or an align functionality of your SVG editor will help.");
 
-                        selectedelements1 = Clip8.selectedElementSet([decoded_instruction.primary, opposite_diagonals[0]]);
+                        selectedelements1 = Clip8.selectedElementSet([decodedinstr.primary, opposite_diagonals[0]]);
                         for (var i = 0; i < selectedelements1.length; i++)
                             selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                         break;
                     default:
-                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [decoded_instruction.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
+                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [decodedinstr.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
                         break;
                 }
                 break;
             case OP.MOVE_REL:
                 if (debug) console.log("[executeOneOperation] MOVE_REL");
-                var tolerance = Clip8decode.deriveToleranceFromElementStroke(decoded_instruction.primary);
+                var tolerance = Clip8decode.deriveToleranceFromElementStroke(decodedinstr.primary);
                 var deltaX, deltaY;
-                deltaX = decoded_instruction.p1.x-decoded_instruction.p0prime.x;
-                deltaY = decoded_instruction.p1.y-decoded_instruction.p0prime.y;
+                deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
+                deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
                 Paperclip.moveBy(selectedelements1, deltaX, deltaY);
@@ -565,8 +594,8 @@ var Clip8 = {
                 if (debug) console.log("[executeOneOperation] CLONE");
                 var newelements;
                 var deltaX, deltaY;
-                deltaX = decoded_instruction.p1.x-decoded_instruction.p0prime.x;
-                deltaY = decoded_instruction.p1.y-decoded_instruction.p0prime.y;
+                deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
+                deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
                 newelements = Paperclip.clone_moveBy(selectedelements1, deltaX, deltaY);
                 for (var i=0; i<newelements.length; i++)
                     Svgretrieve.registerRectElement(newelements[i]);
@@ -662,7 +691,8 @@ var Clip8controler = {
                 Clip8controler.hintoutput.removeChild(Clip8controler.hintoutput.firstChild);
         }
         Clip8controler.state = Clip8controler.INIT;
-        console.log("[INIT] svgroot, visualiseIP, highlightErr, highlightSyntax", svgroot, visualiseIP, highlightErr, highlightSyntax);
+        console.log("[INIT] svgroot, visualiseIP, highlightErr, highlightSyntax",
+                    svgroot, visualiseIP, highlightErr, highlightSyntax);
         Clip8controler.svgroot;
         Clip8controler.erroroutput = document.getElementById("erroroutput");
         Clip8controler.hintoutput = document.getElementById("hintoutput");
