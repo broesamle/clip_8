@@ -70,23 +70,5 @@ var Clip8decode = {
             else if (coords[1] - coords[3] < -minlen) return 'DOWN';
             else throw "[directionOfPolyAngle] Angle to flat (u/d). "+coords;
         else throw "[directionOfPolyAngle] Direction not detectable as left, right, up, down.";
-    },
-
-    pushByTagname: function (el, tagnames, bins) {
-        /** Push `el` to bins; `tagnames`, `el.tagName` determine the push position.
-         *  `tagNames` an array of strings, each representing the tagName for one bin.
-         *  `bins` has the same number of elements as `tagNames`, each element is a bin.
-         *  No match of tagname: bins will be unchanged.
-         */
-        var debug = false;
-        var currenttagname, currentcount;
-        for ( var j = 0; j < tagnames.length; j++ ) {
-            currenttagname = tagnames[j];
-            if (el.tagName == currenttagname) {
-                bins[j].push(el);
-                break;
-            }
-        }
-        return bins;
     }
 }
