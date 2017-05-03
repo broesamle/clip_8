@@ -488,11 +488,7 @@ var Clip8 = {
                 break;
             case (OP.CUT+OP.DEL):
                 if (debug) console.log("[executeOneOperation] CUT / DEL");
-
-                // FIXME: we don't need `theline` and `bothends` really, do we?
-                var theline = I0[Clip8.LINETAG][0];
-
-                var linedir = Clip8decode.directionOfSVGLine(theline);
+                var linedir = Clip8decode.directionOfSVGLine(decoded_instruction.primary);
                 var newelements;
                 switch (decoded_instruction.linedir) {
                     case 'UP':
@@ -502,7 +498,7 @@ var Clip8 = {
                     case 'LEFT':
                     case 'RIGHT':
                         // CUT
-                        var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline);
+                        var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(decoded_instruction.primary);
                         var stripe = stripeNaboveNbelow[0];
                         var above = stripeNaboveNbelow[1];
                         var below = stripeNaboveNbelow[2];
@@ -517,7 +513,7 @@ var Clip8 = {
                                 selectedelements1.push(hitlist[i]);
 
                         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
-                        newelements = Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                        newelements = Paperclip.cutHorizontal(selectedelements1, decoded_instruction.primary.getAttribute("y1"));
                         for (var i=0; i<newelements.length; i++)
                             Svgretrieve.registerRectElement(newelements[i]);
                         break;
@@ -529,11 +525,11 @@ var Clip8 = {
                         var p3, p4, opposite_diagonals, selectedelements1, tolerance;
                         p3 = Clip8.svgroot.createSVGPoint();
                         p4 = Clip8.svgroot.createSVGPoint();
-                        p3.x = theline.getAttribute("x1");
-                        p3.y = theline.getAttribute("y2");
-                        p4.x = theline.getAttribute("x2");
-                        p4.y = theline.getAttribute("y1");
-                        tolerance = Clip8decode.deriveToleranceFromElementStroke(theline);
+                        p3.x = decoded_instruction.primary.getAttribute("x1");
+                        p3.y = decoded_instruction.primary.getAttribute("y2");
+                        p4.x = decoded_instruction.primary.getAttribute("x2");
+                        p4.y = decoded_instruction.primary.getAttribute("y1");
+                        tolerance = Clip8decode.deriveToleranceFromElementStroke(decoded_instruction.primary);
                         opposite_diagonals = Svgretrieve.getLinesFromTo(
                                                  p3, p4,
                                                  tolerance,
@@ -541,25 +537,21 @@ var Clip8 = {
                                                  Svgretrieve.I_collection);
                         if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
                         if (opposite_diagonals.length != 1)
-                            Clip8._reportError("executeOneOperation", "Ambiguous diagonals in instruction.", [theline], [p3, p4],
+                            Clip8._reportError("executeOneOperation", "Ambiguous diagonals in instruction.", [decoded_instruction.primary], [p3, p4],
                                                "The lines are not arranged so that two of them clearly belong to a DELETE instruction. The other diagonal may be missing entirely, or there could be too many. If there are exactly two and you still get this error, please make sure that they are neatly aligned. Using a snap to grid or an align functionality of your SVG editor will help.");
 
-                        selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]]);
+                        selectedelements1 = Clip8.selectedElementSet([decoded_instruction.primary, opposite_diagonals[0]]);
                         for (var i = 0; i < selectedelements1.length; i++)
                             selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                         break;
                     default:
-                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [theline], [p0], Clip8.INTERNAL_ERROR_HINT);
+                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [decoded_instruction.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
                         break;
                 }
                 break;
             case OP.MOVE_REL:
                 if (debug) console.log("[executeOneOperation] MOVE_REL");
-
-                // FIXME: we don't need `theline` and `bothends` really, do we?
-                var theline = I0[Clip8.LINETAG][0];
-
-                var tolerance = Clip8decode.deriveToleranceFromElementStroke(theline);
+                var tolerance = Clip8decode.deriveToleranceFromElementStroke(decoded_instruction.primary);
                 var deltaX, deltaY;
                 deltaX = decoded_instruction.p1.x-decoded_instruction.p0prime.x;
                 deltaY = decoded_instruction.p1.y-decoded_instruction.p0prime.y;
@@ -571,10 +563,6 @@ var Clip8 = {
                 break;
             case OP.CLONE:
                 if (debug) console.log("[executeOneOperation] CLONE");
-
-                // FIXME: we don't need `theline` and `bothends` really, do we?
-                var theline = I0[Clip8.LINETAG][0];
-
                 var newelements;
                 var deltaX, deltaY;
                 deltaX = decoded_instruction.p1.x-decoded_instruction.p0prime.x;
