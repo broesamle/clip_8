@@ -120,6 +120,10 @@ var Clip8 = {
         throw {'error': message, 'hint': hinttext};
     },
 
+    // FIXME: refactor for semantic retrieval
+    // The tagbased broadband retrieval is no longer appropriate.
+    // Elements should be retrieved selectively to match the language semantics
+    // expected at a certain time and location.
     retrieveISCElements: function (p, tagsI, tagsS, tagsC) {
         var debug = false;
         if (debug) console.log("[RETRIEVEISCELEMENTS] location p:", p);
@@ -164,6 +168,7 @@ var Clip8 = {
         if (debug) console.log("[RETRIEVECORESELECTOR] S:", S);
         if (S[Clip8.LINETAG].length == 1) {
             // there is a selector
+            // FIXME: refactor for semantic retrieval
             var lineend = Svgdom.getBothEndsOfLine_arranged(point, S[Clip8.LINETAG][0])[1];
             var isc = Clip8.retrieveISCElements(lineend, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
             if (debug) console.log("[retrieveCoreSelector] local isc [0, 1, 2]:", isc[0], isc[1], isc[2]);
@@ -244,10 +249,12 @@ var Clip8 = {
                 var endpoints = [points[0], points[2]];
                 if (debug) console.log("[moveIP] endpoints:", endpoints);
                 var pointA = endpoints[0];
+                // FIXME: refactor for semantic retrieval
                 var localISCa = Clip8.retrieveISCElements(
                                     endpoints[0],
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var pointB = endpoints[1];
+                // FIXME: refactor for semantic retrieval
                 var localISCb = Clip8.retrieveISCElements(
                                     endpoints[1],
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
@@ -299,6 +306,7 @@ var Clip8 = {
             else {
                 // Merge
                 console.log("MERGE");
+                // FIXME: refactor for semantic retrieval
                 var localISC = Clip8.retrieveISCElements(
                                     points[1],
                                     Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
@@ -398,6 +406,7 @@ var Clip8 = {
 
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
+        // FIXME: refactor for semantic retrieval
         var ISC0 = Clip8.retrieveISCElements(p0, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
         var I0 = ISC0[0];
         var S0 = ISC0[1];
@@ -452,6 +461,7 @@ var Clip8 = {
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly, epsilon, minlen);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
+                // FIXME: refactor for semantic retrieval
                 var ISC1 = Clip8.retrieveISCElements(bothends[1], Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
