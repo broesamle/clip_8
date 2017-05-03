@@ -57,7 +57,7 @@ var Clip8 = {
     },
 
     _deriveToleranceFromElementStroke: function (el) {
-        var tolerance = el.getAttribute("stroke-width") * Clip8.STROKE_TOLERANCE_RATIO;
+        var tolerance = ISCD.getExplicitProperty(el, 'stroke-width') * Clip8.STROKE_TOLERANCE_RATIO;
         if (! tolerance) {
             console.warn("Could not derive tolerance from stroke width.", el);
             tolerance = 1.0 * Clip8.STROKE_TOLERANCE_RATIO;
@@ -81,14 +81,13 @@ var Clip8 = {
     },
 
     _hightlightElementColour: function(el, colourtag) {
-        var old = el.getAttribute("stroke");
-        el.setAttribute("stroke",  colourtag);
-        Clip8.highlighted.push({el: el, origstroke: old});
+        Clip8.highlighted.push({el: el, origstroke: el.style.getPropertyValue('stroke')});
+        el.style.setProperty('stroke', colourtag);
     },
 
     _clearHighlight: function() {
         for (var i = 0; i < Clip8.highlighted.length; i++) {
-            Clip8.highlighted[i].el.setAttribute("stroke", Clip8.highlighted[i].origstroke);
+            Clip8.highlighted[i].el.style.setProperty('stroke', Clip8.highlighted[i].origstroke);
         }
     },
 
@@ -112,9 +111,7 @@ var Clip8 = {
                 console.error (locations[i]);
                 if (Clip8.highlightErr) {
                     locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
-                    locrect.setAttribute('fill', "none");
-                    locrect.setAttribute('stroke', "#ee22cc");
-                    locrect.setAttribute('stroke-width', "1");
+                    locrect.style = "fill:none; stroke:#ee22cc; stroke-width: 1";
                     Clip8.svgroot.appendChild (locrect);
                 }
             }
@@ -214,7 +211,9 @@ var Clip8 = {
             return undefined;
         }
         if (debug) console.log("[selectedElementSet] selector from selectorcore:", s);
-        var dashes = selectorcore[0].getAttribute("stroke-dasharray").split(",").map(parseFloat);;
+        var dashes = window.getComputedStyle(selectorcore[0])
+                           .getPropertyValue('stroke-dasharray')
+                           .split(",").map(parseFloat);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
             return Svgretrieve.getEnclosedRectangles(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
@@ -322,16 +321,13 @@ var Clip8 = {
     initControlFlow: function () {
         var debug = false;
         if (debug) console.log("[initControlFlow]")
-        var debugcolour = false;
         var circles = Clip8.svgroot.getElementsByTagName("circle");
         var centres_offilled = [];  // Centres of filled circles (candidates).
         var radii_offilled = [];    // and their respective radius
         var initialflow = null;
 
         for (var i = 0, c; i < circles.length; i++) {
-            if (debugcolour) circles[i].setAttribute("stroke", "#95C9EF");
-            if (circles[i].getAttribute("fill", "none") != "none") {
-                if (debugcolour) circles[i].setAttribute("fill", "#3EA3ED");
+            if ( ISCD.getExplicitProperty(circles[i], 'fill') ) {
                 centres_offilled.push(Svgdom.getCentrePoint(circles[i]));
                 radii_offilled.push(Svgdom.getRadius(circles[i]));
             }
@@ -363,9 +359,6 @@ var Clip8 = {
                     Clip8._reportError("initControlFlow", "Failed to identify intial path segment.", candidates, [centres_offilled[i]],
                                        "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");
                 }
-
-
-                if (debugcolour) hitlist[0].setAttribute("stroke", "#ED1E79");
                 Clip8.pminus1_point = centres_offilled[i];
                 if (Clip8.visualiseIP) Clip8._highlightElement(hitlist[0]);
                 return hitlist[0];
@@ -501,7 +494,7 @@ var Clip8 = {
             }
             else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
-                if (theline.getAttribute("stroke-dasharray")) {
+                if ( ISCD.getExplicitProperty(theline, 'stroke-dasharray') ) {
                     if (debug) console.log("one dashed line.");
                     // CUT, DEL
                     var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
@@ -642,8 +635,13 @@ var Clip8controler = {
         catch (exc) {
             console.log("Hint:", exc);
             Clip8controler._stopTimer();
-            Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
-            Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
+            if (exc.error) {
+                Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
+            } else {
+                Clip8controler.erroroutput.appendChild(document.createTextNode("unexpected error!"));
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc));
+            }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
         }
