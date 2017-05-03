@@ -95,7 +95,9 @@ var Clip8decode = {
         if (I0[Clip8.LINETAG].length == 1) {
             // ALIGN, CUT, MOVE-REL, CLONE, DEL
             instruction.primary = I0[Clip8.LINETAG][0];
-            instruction.p1 = Svgdom.getBothEndsOfLine_arranged(p0, instruction.primary)[1];
+            var bothends = Svgdom.getBothEndsOfLine_arranged(p0, instruction.primary)
+            instruction.p0prime = bothends[0];
+            instruction.p1 = bothends[1];
             instruction.linedir = Clip8decode.directionOfSVGLine(instruction.primary);
             if (I0[Clip8.POLYLINETAG].length == 1) {
                 // ALIGN

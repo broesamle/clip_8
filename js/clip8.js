@@ -441,16 +441,11 @@ var Clip8 = {
         switch(decoded_instruction.opcode) {
             case OP.ALIGN:
                 if (debug) console.log("[executeOneOperation] ALIGN");
-
-                // FIXME: we don't need `theline` and `bothends` really, do we?
-                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, decoded_instruction.primary);
-                if (debug) console.log("[executeOneOperation] direction:", linedir);
-
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
                 // FIXME: refactor for semantic retrieval
-                var ISC1 = Clip8.retrieveISCElements(bothends[1], Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                var ISC1 = Clip8.retrieveISCElements(decoded_instruction.p1, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
                 var I1 = ISC1[0];
                 var S1 = ISC1[1];
                 if (debug) console.log("[executeOneOperation] I1:", I1.reduce(function(a,b) {return a.concat(b)}));
@@ -466,7 +461,7 @@ var Clip8 = {
                         else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
                         else if (angledir == 'DOWN') {
                             var deltaX, deltaY;
-                            var distanceY = Math.abs(bothends[1].y-bothends[0].y);
+                            var distanceY = Math.abs(decoded_instruction.p1.y-decoded_instruction.p0prime.y);
                             Paperclip.shrinkFromTop (selectedelements1, distanceY);
                         }
                         else
@@ -496,8 +491,6 @@ var Clip8 = {
 
                 // FIXME: we don't need `theline` and `bothends` really, do we?
                 var theline = I0[Clip8.LINETAG][0];
-                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
-
 
                 var linedir = Clip8decode.directionOfSVGLine(theline);
                 var newelements;
@@ -565,12 +558,11 @@ var Clip8 = {
 
                 // FIXME: we don't need `theline` and `bothends` really, do we?
                 var theline = I0[Clip8.LINETAG][0];
-                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
 
                 var tolerance = Clip8decode.deriveToleranceFromElementStroke(theline);
                 var deltaX, deltaY;
-                deltaX = bothends[1].x-bothends[0].x;
-                deltaY = bothends[1].y-bothends[0].y;
+                deltaX = decoded_instruction.p1.x-decoded_instruction.p0prime.x;
+                deltaY = decoded_instruction.p1.y-decoded_instruction.p0prime.y;
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
                 Paperclip.moveBy(selectedelements1, deltaX, deltaY);
@@ -582,12 +574,11 @@ var Clip8 = {
 
                 // FIXME: we don't need `theline` and `bothends` really, do we?
                 var theline = I0[Clip8.LINETAG][0];
-                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
 
                 var newelements;
                 var deltaX, deltaY;
-                deltaX = bothends[1].x-bothends[0].x;
-                deltaY = bothends[1].y-bothends[0].y;
+                deltaX = decoded_instruction.p1.x-decoded_instruction.p0prime.x;
+                deltaY = decoded_instruction.p1.y-decoded_instruction.p0prime.y;
                 newelements = Paperclip.clone_moveBy(selectedelements1, deltaX, deltaY);
                 for (var i=0; i<newelements.length; i++)
                     Svgretrieve.registerRectElement(newelements[i]);
