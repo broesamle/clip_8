@@ -403,7 +403,6 @@ var Clip8 = {
                 Clip8._reportError("executeOneOperation", "Ambiguous control flow.", [Clip8.ip], p0candidates,
                                    "Control is not clearly drawn so that it is not clear which end to take. Both ends are too close to the former anchor point (p0) of the former instruction.");
 
-
         // reset the blocklist and fetch a new instruction
         Clip8.blocklist = [Clip8.ip];
         // FIXME: refactor for semantic retrieval
@@ -434,6 +433,8 @@ var Clip8 = {
         if (execstatus != Clip8.EXECUTE)
             return execstatus;
 
+        var decoded_instruction = Clip8decode.decodeInstruction(I0, p0);
+
         var retrselector = Clip8.retrieveCoreSelector(S0, p0)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
@@ -448,14 +449,15 @@ var Clip8 = {
 
         if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
 
-        if (I0[Clip8.LINETAG].length == 1) {
-            // ALIGN, CUT, MOVE-REL, CLONE, DEL
-            var theline = I0[Clip8.LINETAG][0];
-            var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
-            if (debug) console.log("[executeOneOperation] theline:", theline);
-            if (I0[Clip8.POLYLINETAG].length == 1) {
-                // ALIGN
-                if (debug) console.log("[executeOneOperation] 1 line, 1 polyline.");
+        if (debug) console.log("[executeOneOperation] decoded_instruction:", decoded_instruction);
+        switch(decoded_instruction.opcode) {
+            case OP.ALIGN:
+                if (debug) console.log("[executeOneOperation] ALIGN");
+
+                // FIXME: we don't need `theline` and `bothends` really, do we?
+                var theline = I0[Clip8.LINETAG][0];
+                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
+
                 var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
                 if (debug) console.log("[executeOneOperation] direction:", linedir);
                 var thepoly = I0[Clip8.POLYLINETAG][0];
@@ -501,101 +503,118 @@ var Clip8 = {
                     selectedelements1.pop(); // Remove the absolute rectangle from the selected set.
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.registerRectElement(selectedelements1[i]);
-            }
-            else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
-                // MOVE-REL, CUT, DEL
-                if ( ISCD.getExplicitProperty(theline, 'stroke-dasharray') ) {
-                    if (debug) console.log("one dashed line.");
-                    // CUT, DEL
-                    var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
-                    var newelements;
-                    switch (linedir) {
-                        case 'UP':
-                        case 'DOWN':
+                break;
+            case (OP.CUT+OP.DEL):
+                if (debug) console.log("[executeOneOperation] CUT / DEL");
 
-                            break;
-                        case 'LEFT':
-                        case 'RIGHT':
-                            // CUT
-                            var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline);
-                            var stripe = stripeNaboveNbelow[0];
-                            var above = stripeNaboveNbelow[1];
-                            var below = stripeNaboveNbelow[2];
+                // FIXME: we don't need `theline` and `bothends` really, do we?
+                var theline = I0[Clip8.LINETAG][0];
+                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
 
-                            if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
-                            var hitlist = Svgretrieve.getEnclosedRectangles(Svgdom.newRectElement_fromSVGRect(stripe));
-                            if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
-                            var selectedelements1 = []
-                            for (var i = 0; i < hitlist.length; i++)
-                                if ( Svgdom.intersectsRectRectelement(above, hitlist[i]) &&
-                                     Svgdom.intersectsRectRectelement(below, hitlist[i]) )
-                                    selectedelements1.push(hitlist[i]);
-
-                            if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
-                            newelements = Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
-                            for (var i=0; i<newelements.length; i++)
-                                Svgretrieve.registerRectElement(newelements[i]);
-                            break;
-                        case 'UP-RE':
-                        case 'UP-LE':
-                        case 'DO-RE':
-                        case 'DO-LE':
-                            // DEL
-                            var p3, p4, opposite_diagonals, selectedelements1, tolerance;
-                            p3 = Clip8.svgroot.createSVGPoint();
-                            p4 = Clip8.svgroot.createSVGPoint();
-                            p3.x = theline.getAttribute("x1");
-                            p3.y = theline.getAttribute("y2");
-                            p4.x = theline.getAttribute("x2");
-                            p4.y = theline.getAttribute("y1");
-                            tolerance = Clip8._deriveToleranceFromElementStroke(theline);
-                            opposite_diagonals = Svgretrieve.getLinesFromTo(
-                                                     p3, p4,
-                                                     tolerance,
-                                                     Clip8.RETRIEVE_CPOINT_MAXNUM,
-                                                     Svgretrieve.I_collection);
-                            if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
-                            if (opposite_diagonals.length != 1)
-                                Clip8._reportError("executeOneOperation", "Ambiguous diagonals in instruction.", [theline], [p3, p4],
-                                                   "The lines are not arranged so that two of them clearly belong to a DELETE instruction. The other diagonal may be missing entirely, or there could be too many. If there are exactly two and you still get this error, please make sure that they are neatly aligned. Using a snap to grid or an align functionality of your SVG editor will help.");
-
-                            selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]]);
-                            for (var i = 0; i < selectedelements1.length; i++)
-                                selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
-                            break;
-                        default:
-                            Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [theline], [p0], Clip8.INTERNAL_ERROR_HINT);
-                            break;
-                    }
-                }
-                else {
-                    // MOVE-REL
-                    var tolerance = Clip8._deriveToleranceFromElementStroke(theline);
-                    var deltaX, deltaY;
-                    deltaX = bothends[1].x-bothends[0].x;
-                    deltaY = bothends[1].y-bothends[0].y;
-                    for (var i=0; i<selectedelements1.length; i++)
-                        Svgretrieve.unregisterRectElement(selectedelements1[i]);
-                    Paperclip.moveBy(selectedelements1, deltaX, deltaY);
-                    for (var i=0; i<selectedelements1.length; i++)
-                        Svgretrieve.registerRectElement(selectedelements1[i]);
-                }
-            }
-            else if (I0[Clip8.RECTTAG].length == 1) {
-                // CLONE
+                var linedir = Clip8decode.directionOfSVGLine(theline, epsilon, minlen);
                 var newelements;
-                if (debug) console.log("[executeOneOperation/clone]");
+                switch (linedir) {
+                    case 'UP':
+                    case 'DOWN':
+
+                        break;
+                    case 'LEFT':
+                    case 'RIGHT':
+                        // CUT
+                        var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(theline);
+                        var stripe = stripeNaboveNbelow[0];
+                        var above = stripeNaboveNbelow[1];
+                        var below = stripeNaboveNbelow[2];
+
+                        if (debug) console.log("[executeOneOperation] stripe, above, below:", stripe, above, below);
+                        var hitlist = Svgretrieve.getEnclosedRectangles(Svgdom.newRectElement_fromSVGRect(stripe));
+                        if (debug) console.log("[executeOneOperation] hitlist:", hitlist);
+                        var selectedelements1 = []
+                        for (var i = 0; i < hitlist.length; i++)
+                            if ( Svgdom.intersectsRectRectelement(above, hitlist[i]) &&
+                                 Svgdom.intersectsRectRectelement(below, hitlist[i]) )
+                                selectedelements1.push(hitlist[i]);
+
+                        if (debug) console.log("[executeOneOperation] selectedelements1:", selectedelements1);
+                        newelements = Paperclip.cutHorizontal(selectedelements1, theline.getAttribute("y1"));
+                        for (var i=0; i<newelements.length; i++)
+                            Svgretrieve.registerRectElement(newelements[i]);
+                        break;
+                    case 'UP-RE':
+                    case 'UP-LE':
+                    case 'DO-RE':
+                    case 'DO-LE':
+                        // DEL
+                        var p3, p4, opposite_diagonals, selectedelements1, tolerance;
+                        p3 = Clip8.svgroot.createSVGPoint();
+                        p4 = Clip8.svgroot.createSVGPoint();
+                        p3.x = theline.getAttribute("x1");
+                        p3.y = theline.getAttribute("y2");
+                        p4.x = theline.getAttribute("x2");
+                        p4.y = theline.getAttribute("y1");
+                        tolerance = Clip8._deriveToleranceFromElementStroke(theline);
+                        opposite_diagonals = Svgretrieve.getLinesFromTo(
+                                                 p3, p4,
+                                                 tolerance,
+                                                 Clip8.RETRIEVE_CPOINT_MAXNUM,
+                                                 Svgretrieve.I_collection);
+                        if (debug) console.log("[executeOneOperation] opposite_diagonals:", opposite_diagonals);
+                        if (opposite_diagonals.length != 1)
+                            Clip8._reportError("executeOneOperation", "Ambiguous diagonals in instruction.", [theline], [p3, p4],
+                                               "The lines are not arranged so that two of them clearly belong to a DELETE instruction. The other diagonal may be missing entirely, or there could be too many. If there are exactly two and you still get this error, please make sure that they are neatly aligned. Using a snap to grid or an align functionality of your SVG editor will help.");
+
+                        selectedelements1 = Clip8.selectedElementSet([theline, opposite_diagonals[0]]);
+                        for (var i = 0; i < selectedelements1.length; i++)
+                            selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
+                        break;
+                    default:
+                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [theline], [p0], Clip8.INTERNAL_ERROR_HINT);
+                        break;
+                }
+                break;
+            case OP.MOVE_REL:
+                if (debug) console.log("[executeOneOperation] MOVE_REL");
+
+                // FIXME: we don't need `theline` and `bothends` really, do we?
+                var theline = I0[Clip8.LINETAG][0];
+                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
+
+                var tolerance = Clip8._deriveToleranceFromElementStroke(theline);
+                var deltaX, deltaY;
+                deltaX = bothends[1].x-bothends[0].x;
+                deltaY = bothends[1].y-bothends[0].y;
+                for (var i=0; i<selectedelements1.length; i++)
+                    Svgretrieve.unregisterRectElement(selectedelements1[i]);
+                Paperclip.moveBy(selectedelements1, deltaX, deltaY);
+                for (var i=0; i<selectedelements1.length; i++)
+                    Svgretrieve.registerRectElement(selectedelements1[i]);
+                break;
+            case OP.CLONE:
+                if (debug) console.log("[executeOneOperation] CLONE");
+
+                // FIXME: we don't need `theline` and `bothends` really, do we?
+                var theline = I0[Clip8.LINETAG][0];
+                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
+
+                var newelements;
                 var deltaX, deltaY;
                 deltaX = bothends[1].x-bothends[0].x;
                 deltaY = bothends[1].y-bothends[0].y;
                 newelements = Paperclip.clone_moveBy(selectedelements1, deltaX, deltaY);
                 for (var i=0; i<newelements.length; i++)
                     Svgretrieve.registerRectElement(newelements[i]);
-            }
-            return Clip8.EXECUTE;
+                break;
+            case OP.DECODE_ERROR:
+                Clip8._reportError("exec", "Could not decode instruction.",
+                               Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)),
+                               [p0]);
+                break;
+            default:
+                Clip8._reportError("exec", "INTERNAL ERROR: Unforeseen opcode!",
+                               Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)),
+                               [p0], INTERNAL_ERROR_HINT);
         }
-        else
-            Clip8._reportError("exec", "Could not decode instruction.", Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)), [p0]);
+        return Clip8.EXECUTE;
     },
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {

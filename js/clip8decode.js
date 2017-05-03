@@ -19,7 +19,18 @@
 
 "use strict";
 
+var OP = {
+    DECODE_ERROR: 0x0000,
+    XXXX:         0x0001,
+    MOVE_REL:     0x0002,
+    ALIGN:        0x0004,
+    CUT:          0x0008,
+    CLONE:        0x0010,
+    DEL:          0x0020,
+}
+
 var Clip8decode = {
+    //constants
     directionOfSVGLine: function (line, epsilon, minlen) {
         if (!(line instanceof SVGLineElement)) { throw "[directionOfSVGLine] expected line element."; }
         if (!epsilon) { throw "[directionOfSVGLine] expected epsilon to be a number > 0"; }
@@ -70,5 +81,42 @@ var Clip8decode = {
             else if (coords[1] - coords[3] < -minlen) return 'DOWN';
             else throw "[directionOfPolyAngle] Angle to flat (u/d). "+coords;
         else throw "[directionOfPolyAngle] Direction not detectable as left, right, up, down.";
+    },
+
+    decodeInstruction: function (I0, p0) {
+        var verbose = true;
+        if (I0[Clip8.LINETAG].length == 1) {
+            // ALIGN, CUT, MOVE-REL, CLONE, DEL
+            var theline = I0[Clip8.LINETAG][0];
+            var p1 = Svgdom.getBothEndsOfLine_arranged(p0, theline)[1];
+            if (I0[Clip8.POLYLINETAG].length == 1) {
+                // ALIGN
+                if (verbose) console.log("decoded ALIGN");
+                return {opcode: OP.ALIGN, p1: p1};
+            }
+            else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
+                // MOVE-REL, CUT, DEL
+                if ( ISCD.getExplicitProperty(theline, 'stroke-dasharray') ) {
+                    if (verbose) console.log("CUT / DELETE");
+                    return {opcode: (OP.CUT+OP.DEL), p1: p1};
+                }
+                else {
+                    if (verbose) console.log("MOVE_REL");
+                    return {opcode: OP.MOVE_REL, p1: p1};
+                }
+            }
+            else if (I0[Clip8.RECTTAG].length == 1) {
+                // CLONE
+                if (verbose) console.log("CLONE");
+                return {opcode: OP.CLONE, p1: p1};
+            }
+            else {
+                if (verbose) console.log("DECODE_ERROR");
+                return OP.DECODE_ERROR;
+            }
+        }
+        else
+            if (verbose) console.log("DECODE_ERROR");
+            return OP.DECODE_ERROR;
     }
 }
