@@ -443,11 +443,9 @@ var Clip8 = {
                 if (debug) console.log("[executeOneOperation] ALIGN");
 
                 // FIXME: we don't need `theline` and `bothends` really, do we?
-                var theline = I0[Clip8.LINETAG][0];
-                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, theline);
-                
-                var linedir = Clip8decode.directionOfSVGLine(theline);
+                var bothends = Svgdom.getBothEndsOfLine_arranged(p0, decoded_instruction.primary);
                 if (debug) console.log("[executeOneOperation] direction:", linedir);
+
                 var thepoly = I0[Clip8.POLYLINETAG][0];
                 var angledir = Clip8decode.directionOfPolyAngle(thepoly);
                 if (debug) console.log("[executeOneOperation] angle direction:", angledir);
