@@ -209,7 +209,11 @@ var Svgdom = {
                 case "Z":
                     break;
                 default:
-                    throw {source: "getAbsoluteControlpoints", error: "unhandled path segment type.", segmenttype: segment[0]};
+                    throw {
+                        source: "getAbsoluteControlpoints",
+                        error: "unhandled path segment type.",
+                        segmenttype: segment[0],
+                        hint: Clip8.INTERNAL_ERROR_HINT};
             }
             controlpoints.push(newpoint);
         });
@@ -224,7 +228,10 @@ var Svgdom = {
         var endpoints = [];
         var controlpoints = Svgdom.getAbsoluteControlpoints(path.getAttribute("d").trim());
         if (controlpoints.length < 2)
-            throw {source:"getBothEndsOfPath", error: "Found less than two control points."};
+            throw {
+                source:"getBothEndsOfPath",
+                error: "Found less than two control points.",
+                hint: Clip8.INTERNAL_ERROR_HINT};
         endpoints[0] = controlpoints[0];
         endpoints[1] = controlpoints[controlpoints.length-1];
         return endpoints;
