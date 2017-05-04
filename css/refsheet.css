@@ -12,8 +12,11 @@ nav {
     height:2.6em;
 }
 
-a:link		{ outline: none; text-decoration: none; color:#97b595; font-weight: bold;}
-a:visited	{ outline: none; text-decoration: none; color:#97b595; font-weight: bold;}
+a:link		{ outline: none; text-decoration: none; color:#97b595; }
+a:visited	{ outline: none; text-decoration: none; color:#97b595; }
+
+p a { font-weight: bold; }
+li a { font-weight: bold; }
 
 h1, h2, h3, p { clear: left; }
 
