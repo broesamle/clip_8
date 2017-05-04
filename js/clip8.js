@@ -20,7 +20,7 @@
 "use strict";
 
 var Clip8 = {
-    INTERNAL_ERROR_HINT: "This is an internal error and should never happen. Consider filing and issue. Your contribution is appreciated!",
+    INTERNAL_ERROR_HINT: "This is an internal error and could indicate a bug in clip_8. It could also be caused by SVG code that uses (currently) unsupported features. Consider filing and issue. Thank you for your contribution!",
     // Execution status constants
     TERMINATE: 0,
     CONTINUE: 1,
@@ -104,7 +104,7 @@ var Clip8 = {
             }
         }
         console.groupEnd();
-        throw {'error': message, 'hint': hinttext};
+        throw {error: message, hint: hinttext};
     },
 
     // FIXME: refactor for semantic retrieval
@@ -661,14 +661,15 @@ var Clip8controler = {
             }
         }
         catch (exc) {
-            console.log("Hint:", exc);
+            console.log("detected ERROR from Clip8.executeOneOperation:", exc);
             Clip8controler._stopTimer();
             if (exc.error) {
                 Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
                 Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
             } else {
                 Clip8controler.erroroutput.appendChild(document.createTextNode("unexpected error!"));
-                Clip8controler.hintoutput.appendChild(document.createTextNode(exc));
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc)
+                                                      +" "+INTERNAL_ERROR_HINT);
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
@@ -699,8 +700,25 @@ var Clip8controler = {
         Clip8controler.svgroot;
         Clip8controler.erroroutput = document.getElementById("erroroutput");
         Clip8controler.hintoutput = document.getElementById("hintoutput");
-        Clip8.init(svgroot, visualiseIP, highlightErr, highlightSyntax);
-        Clip8controler.state = Clip8controler.READY;
+
+        try {
+            Clip8.init(svgroot, visualiseIP, highlightErr, highlightSyntax);
+            Clip8controler.state = Clip8controler.READY;
+        }
+        catch (exc) {
+            console.log("detected ERROR from Clip8.init:", exc);
+            if (exc.error) {
+                Clip8controler.erroroutput.appendChild(document.createTextNode(exc.error));
+                if (exc.hint )
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
+            } else {
+                Clip8controler.erroroutput.appendChild(document.createTextNode("unexpected error!"));
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc)
+                                                      +" "+INTERNAL_ERROR_HINT);
+            }
+            Clip8controler.state = Clip8controler.ERROR;
+            console.log("ERROR-state.", exc);
+        }
     },
 
     testRun: function (maxcycles) {
