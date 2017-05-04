@@ -577,7 +577,10 @@ var Clip8 = {
                             selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                         break;
                     default:
-                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [decodedinstr.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
+                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!",
+                                           [decodedinstr.primary],
+                                           [p0],
+                                           Clip8.INTERNAL_ERROR_HINT);
                         break;
                 }
                 break;
@@ -714,7 +717,7 @@ var Clip8controler = {
             } else {
                 Clip8controler.erroroutput.appendChild(document.createTextNode("unexpected error!"));
                 Clip8controler.hintoutput.appendChild(document.createTextNode(exc)
-                                                      +" "+INTERNAL_ERROR_HINT);
+                                                      +" "+Clip8.INTERNAL_ERROR_HINT);
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
