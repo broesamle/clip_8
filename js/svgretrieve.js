@@ -71,13 +71,18 @@ var Svgretrieve = {
             Svgretrieve._getMainInterval = Svginterval.getYIntervalRectElement;
             Svgretrieve._getOrthoInterval = Svginterval.getXIntervalRectElement;
         }
+        var referenceEl = Svgdom.addRect(Svgretrieve.clip8root, 0, 0, 1, 1);
+        var refTrafo = referenceEl.getCTM();
+        if (debug) console.log("Reference Transformation:", refTrafo, referenceEl);
+        Svgretrieve.clip8root.removeChild(referenceEl);
         var elems, cpts, cpt;
 
         console.groupCollapsed("Register SVG graphics elements.");
         // RECT
         Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init interval tree for data rectangles
         var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
-        var unreg = [];
+        var transformed = [];   // elements that could not registered due to a transformation
+        var unreg = [];         // elements that were not registered for unspecific reasons
         for (var i=0; i<elems.length; i++) {
             if ( ! Svgretrieve.registerRectElement(elems[i]) )
                 unreg.push(elems[i]);
@@ -91,7 +96,14 @@ var Svgretrieve = {
             if (ISCD.detect(elems[i]) == ISCD.CONTROLFLOW) {
                 cpt = Svgdom.getCentrePoint(elems[i]);
                 cpt.ownerelement = elems[i];
-                Svgretrieve.C_collection.insert(cpt);
+                if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
+                if (Svgdom.compareCTMs(elems[i].getCTM(), refTrafo)) {
+                    Svgretrieve.C_collection.insert(cpt);
+                }
+                else {
+                    if (debug) console.log("ignore transformed element", elems[i]);
+                    transformed.push(elems[i]);
+                }
                 if (Svgretrieve.highlight_isc)
                     Svgretrieve.highlighterFn(elems[i], Svgretrieve.CONTROLFLOW_COLOUR);
             } else

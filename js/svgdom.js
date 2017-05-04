@@ -34,6 +34,15 @@ var Svgdom = {
         return Math.sqrt ( Math.pow(p1.x - p2.x, 2) +  Math.pow(p1.y - p2.y, 2) );
     },
 
+    compareCTMs: function (ctm1, ctm2) {
+        return ( ctm1.a == ctm2.a &&
+                 ctm1.b == ctm2.b &&
+                 ctm1.c == ctm2.c &&
+                 ctm1.d == ctm2.d &&
+                 ctm1.e == ctm2.e &&
+                 ctm1.f == ctm2.f );
+    },
+
     addGroup: function (parentel) {
         var g = document.createElementNS(Svgdom.SVGNS, "g");
         parentel.appendChild(g);
