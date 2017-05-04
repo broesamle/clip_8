@@ -19,6 +19,8 @@
 
 "use strict";
 
+/** Processes single SVG elements and their geometric aspects in the DOM
+*/
 var Svgdom = {
     svgroot: undefined,
     SVGNS: undefined,
@@ -168,53 +170,83 @@ var Svgdom = {
 
     getBothEndsOfLine_arranged: function(refpoint, line) {
         var bothends = Svgdom.getBothEndsOfLine(line);
-        if ( Svgdom.euclidDistance(refpoint, bothends[0]) >
-             Svgdom.euclidDistance(refpoint, bothends[1]) )
-            bothends.reverse();
+        return Svgdom.arrangePoints(refpoint, bothends);
+    },
 
-        return bothends;
+    arrangePoints: function(refpoint, twopoints) {
+        if ( Svgdom.euclidDistance(refpoint, twopoints[0]) >
+             Svgdom.euclidDistance(refpoint, twopoints[1]) )
+            twopoints.reverse();
+        return twopoints;
+    },
+
+    getAbsoluteControlpoints: function(pathdatastring) {
+        var debug = true;
+        var path = SvgPath(pathdatastring).abs().unshort();
+        var controlpoints = [];
+        if (debug) console.groupCollapsed("[getBothEndsOfPath] Parsed path data:")
+        path.iterate(function (segment, index, x, y) {
+            if (debug) console.log(segment, index, x, y);
+            var newpoint = Svgdom.svgroot.createSVGPoint()
+            switch (segment[0]) {
+                case "M":
+                case "L":
+                    newpoint.x = segment[1];
+                    newpoint.y = segment[2];
+                    break;
+                case "C":
+                    newpoint.x = segment[5];
+                    newpoint.y = segment[6];
+                    break;
+                case "V":
+                    newpoint.x = x;
+                    newpoint.y = segment[1];
+                    break;
+                case "H":
+                    newpoint.x = segment[1];
+                    newpoint.y = y;
+                    break;
+                case "Z":
+                    break;
+                default:
+                    throw {
+                        source: "getAbsoluteControlpoints",
+                        error: "unhandled path segment type.",
+                        segmenttype: segment[0],
+                        hint: Clip8.INTERNAL_ERROR_HINT};
+            }
+            controlpoints.push(newpoint);
+        });
+        if (debug) console.groupEnd();
+        return controlpoints;
     },
 
     getBothEndsOfPath: function (path) {
         /** Returns two `SVGPoint`s at both endpoints of a path.
         */
-        var debug = false;
         if (path.tagName != "path") throw "[getBothEndsOfPath] expected a path.";
-        var endpoints = [Svgdom.svgroot.createSVGPoint(), Svgdom.svgroot.createSVGPoint()];
-        var pathdata = path.getAttribute("d").trim();
-        if (!pathdata.startsWith("M")) throw ("[getBothEndsOfPath] pathdata should start with M. "+pathdata);
-        if (debug) console.log("[GETBOTHENDSOFPATH] pathdata:", pathdata);
-        // "-" seems to be an implicit separator, which we make explicit, here
-        // also, we remove the "M" at the first position
-        pathdata = pathdata.slice(1).replace(/\-/g, " -");
-        if (pathdata.split("c").length==2) {
-            // relative coords
-            var startpoint  = pathdata.split("c")[0].trim().split(/[\s,]+/);
-            var curveto     = pathdata.split("c")[1].trim().split(/[\s,]+/);
-            if (debug) console.log("[getBothEndsOfPath] curveto:", curveto);
-            if (debug) console.log("[getBothEndsOfPath] startpoint:", startpoint);
-            if (startpoint.length != 2) throw ("[getBothEndsOfPath] There should be 2 coords for startpoint: "+startpoint);
-            if (curveto.length != 6) throw ("[getBothEndsOfPath] There should be 6 coords for curveto: "+curveto+"; "+pathdata);
-            endpoints[1].x = parseFloat(startpoint[0]) + parseFloat(curveto[4]);
-            endpoints[1].y = parseFloat(startpoint[1]) + parseFloat(curveto[5]);
-            if (debug) console.log("[getBothEndsOfPath] endpoint[1] (A):", endpoints[1]);
-        }
-        else if (pathdata.split("C").length==2) {
-            // absolute coords
-            var startpoint  = pathdata.split("C")[0].trim().split(/[\s,]+/);
-            var curveto     = pathdata.split("C")[1].trim().split(/[\s,]+/);
-            if (debug) console.log("[getBothEndsOfPath] curveto", curveto);
-            if (debug) console.log("[getBothEndsOfPath] start", startpoint);
-            if (startpoint.length != 2) throw ("[getBothEndsOfPath] There should be 2 coords for startpoint: "+startpoint);
-            if (curveto.length != 6) throw ("[getBothEndsOfPath] There should be 6 coords for curveto: "+curveto);
-            endpoints[1].x = parseFloat(curveto[4]);
-            endpoints[1].y = parseFloat(curveto[5]);
-            if (debug) console.log("[getBothEndsOfPath] endpoints[1] (B):", endpoints[1]);
-        }
-        else throw ("[getBothEndsOfPath] Need exactly one curve segment: "+pathdata);
-        endpoints[0].x = parseFloat(startpoint[0]);
-        endpoints[0].y = parseFloat(startpoint[1]);
+        var endpoints = [];
+        var controlpoints = Svgdom.getAbsoluteControlpoints(path.getAttribute("d").trim());
+        if (controlpoints.length < 2)
+            throw {
+                source:"getBothEndsOfPath",
+                error: "Found less than two control points.",
+                hint: Clip8.INTERNAL_ERROR_HINT};
+        endpoints[0] = controlpoints[0];
+        endpoints[1] = controlpoints[controlpoints.length-1];
         return endpoints;
+    },
+
+    isClosedPath: function (pathelement) {
+        var pathdata = pathelement.getAttribute("d").trim();
+        if ( pathdata.indexOf("z") != -1 || pathdata.indexOf("Z") != -1 ) return true;
+        else return false;
+    },
+
+    isCurvedPath: function (pathelement) {
+        var pathdata = pathelement.getAttribute("d").trim();
+        if ( pathdata.indexOf("c") != -1 || pathdata.indexOf("C") != -1 ) return true;
+        else return false;
     },
 
     getPointsOfPoly: function (poly, referenceArea) {

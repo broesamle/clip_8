@@ -19,7 +19,7 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.1.2"
+refsheet_version = "0.1.4"
 refsheet_description = "In the process of developing a language standard."
 
 sections = [
@@ -37,7 +37,6 @@ sections = [
     ("Changing dimensions", "Scale and resize", 'test_scale+resize.svg') ]
 
 expected_to_fail = [
-    "controlflow-circle", "instruction-elements", "selector-line", "controlflow-curvedpath", "controlflow-mulitsegment", "selector-area", "data-filled-shape",
      "selector-precision-similarrects3", "indirect1", "indirect2", "indirect3", "indirect4", "indirect5",
     "move-bysize-down", "move-bysize-down2",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
@@ -46,8 +45,8 @@ expected_to_fail = [
     ]
 
 exampleelements = [
-    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", "INSTRUCTION"),
-    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", "INSTRUCTION"),
+    ("Valid Control Flow Elements", "from illustrator", "example-elements_controlflow-valid_ai.svg", "CONTROLFLOW"),
+    ("Valid Control Flow Elements", "from inkskape", "example-elements_controlflow-valid_inkscape.svg", "CONTROLFLOW"),
     ("Invalid Control Flow Elements", "from illustrator", "example-elements_controlflow-nonvalid_ai.svg", "INVALID"),
     ("Invalid Control Flow Elements", "from inkskape", "example-elements_controlflow-nonvalid_inkscape.svg", "INVALID") ]
 
