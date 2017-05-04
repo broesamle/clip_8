@@ -56,21 +56,21 @@ outDIRabs = inDIRabs
 mainHTML = """
 <h2>Getting Started</h2>
 <p>
-The tutorials and clip_8 are in an experimental state. <b>Please read the <a href="survival.zip">Survival Guide</a>!</b>
+The tutorials and clip_8 are in an experimental state. <b>Please read the <a href="survival.html">Survival Guide</a>!</b>
 </p>
 <p>
 <a href="exercises.zip">Download the Exercises</a> and <b>unpack them</b>.
 Have the unpacked files ready in a file manager/explorer/finder window.
 </p>
 <p>
-Every exercise contains a (potentially incomplete) <b>clip_8 program</b> together with the <b>instruction</b>.
+Every exercise contains a (potentially incomplete) <b>clip_8 program</b> together with the <b>learners instructions</b> for the exercise.
 </p>
 <p>
 Open the <a href="klippen.html" target="_blank">Klippen online interpreter</a> (in a separate window).
 </p>
 <p>
 <b>Drop an SVG file</b> from the excercises in the marked drop area.
-The control buttons let you <b>run</b>, <b>pause</b>, <b>run one step</b>, <b>stop and reload</b> the program.
+The control buttons let you <b>run `&#x25B6;`</b>, <b>pause `&#x2759;&#x2759;`</b>, <b>run one step `&#x276F;`</b>, <b>stop and reload `&#x25FC;`</b> the program.
 </p>
 <p>
 For a fluent work-flow it is best to keep the following windows open at all times:
@@ -131,7 +131,8 @@ Snap - this is a function of modern SVG editors - makes endpoints and centre poi
 </p>
 <h3 id="edit-svg-files" class="redtext">Get help / contributed by reporting errors</h3>
 <p>
-If you run into trouble running a program or if you encounter any unexpected behaviours please <a href="https://github.com/broesamle/clip_8/issues/new">file an issue</a>.
+If you run into trouble running a program or if you encounter any unexpected behaviours
+    please <a target="_blank" href="https://github.com/broesamle/clip_8/issues/new">file an issue</a> (you need to be signed in on GitHub to do so).
 In this early phase, also small error reports can help a lot! Thank you in advance!
 Ideally you...
 </p>
