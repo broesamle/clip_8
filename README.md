@@ -9,14 +9,10 @@ Each operation applies to graphical content. The instructions, in turn, are them
 The present project implements an interpreter as a client-side web application. It operates on _inline SVG_ elements in the Document Object Model (DOM) of the web browser.
 
 
-Demos
------
-
-[Demos Page](https://broesamle.github.io/clip_8/demos/)
-
-
 Getting Started
--------------------------------
+---------------
+
+[Demos](https://broesamle.github.io/clip_8/demos/), for a first impression.
 
 Try the [Tutorial](https://broesamle.github.io/clip_8/tutorial/). It is **work in progress!** But it can give you an idea what `clip_8` is about.
 
