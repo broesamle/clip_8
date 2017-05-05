@@ -114,7 +114,7 @@ var Svgretrieve = {
                 cpt = Svgdom.getCentrePoint(elems[i]);
                 cpt.ownerelement = elems[i];
                 if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
-                if (Svgdom.compareCTMs(elems[i].getCTM(), refTrafo)) {
+                if (Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
                     Svgretrieve.C_collection.insert(cpt);
                 }
                 else {
@@ -132,7 +132,7 @@ var Svgretrieve = {
         for (var i=0; i<elems.length; i++) {
             if ( Svgretrieve._excluded(elems[i]) ) continue;
             if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
-                if (!Svgdom.compareCTMs(elems[i].getCTM(), refTrafo)) {
+                if (!Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
                     if (debug) console.log("ignore transformed element", elems[i]);
                     transformed.push(elems[i]);
                     continue
@@ -173,7 +173,7 @@ var Svgretrieve = {
         for (var i=0; i<elems.length; i++) {
             if ( Svgretrieve._excluded(elems[i]) ) continue;
             if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
-                if (!Svgdom.compareCTMs(elems[i].getCTM(), refTrafo)) {
+                if (!Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
                     if (debug) console.log("ignore transformed element", elems[i]);
                     transformed.push(elems[i]);
                     continue
@@ -213,7 +213,7 @@ var Svgretrieve = {
         for (var i=0; i<elems.length; i++) {
             if ( Svgretrieve._excluded(elems[i]) ) continue;
             if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
-                if (!Svgdom.compareCTMs(elems[i].getCTM(), refTrafo)) {
+                if (!Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
                     if (debug) console.log("ignore transformed element", elems[i]);
                     transformed.push(elems[i]);
                     continue

@@ -34,7 +34,7 @@ var Svgdom = {
         return Math.sqrt ( Math.pow(p1.x - p2.x, 2) +  Math.pow(p1.y - p2.y, 2) );
     },
 
-    compareCTMs: function (ctm1, ctm2) {
+    equalCTMs: function (ctm1, ctm2) {
         return ( ctm1.a == ctm2.a &&
                  ctm1.b == ctm2.b &&
                  ctm1.c == ctm2.c &&
