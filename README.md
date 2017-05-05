@@ -2,31 +2,29 @@
 `Clip_8`
 ========
 
-`Clip_8` is an iconic programming language inspired by _paper manipulation_ operations. `Move`, `align`, `cut`, `transform` are all operations that can be intuitively comprehended as manipulations of cartonage pieces. These external counterparts serve as physical models for elementary mental concepts of calculation.
+The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter. `Move`, `align`, `cut`, `transform` are all operations that can be intuitively grasped. 
 
-While each operation applies to graphical content, the instructions, in turn, are themselves given in a graphical form.
+Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form. During execution, instructions and data appear in the same view. 
 
 The present project implements an interpreter as a client-side web application. It operates on _inline SVG_ elements in the Document Object Model (DOM) of the web browser.
 
 
-Tutorial and online Interpreter
+Demos
+-----
+
+[Demos Page](https://broesamle.github.io/clip_8/demos/)
+
+
+Getting Started
 -------------------------------
 
-[Tutorials (alpha)](https://broesamle.github.io/clip_8/tutorial/), WORK IN PROGRESS!!
-
-Drop and execute your drawing in [Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html), an online test environment.
+Try the [Tutorial](https://broesamle.github.io/clip_8/tutorial/). It is **work in progress!** But it can give you an idea what `clip_8` is about.
 
 
 Language documentation / Integration tests
 ------------------------------------------
 
 The integration tests are provided in [Reference Test Sheets](https://broesamle.github.io/clip_8/tests/) which serve as _language reference_, simultaneously.
-
-
-Demos
------
-
-[Demos Page](https://broesamle.github.io/clip_8/demos/) including the
 
 
 Copyright
