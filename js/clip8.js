@@ -577,7 +577,10 @@ var Clip8 = {
                             selectedelements1[i].parentElement.removeChild(selectedelements1[i]);
                         break;
                     default:
-                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!", [decodedinstr.primary], [p0], Clip8.INTERNAL_ERROR_HINT);
+                        Clip8._reportError("executeOneOperation", "INTERNAL ERROR: Unforeseen line direction in DELETE!",
+                                           [decodedinstr.primary],
+                                           [p0],
+                                           Clip8.INTERNAL_ERROR_HINT);
                         break;
                 }
                 break;
@@ -625,7 +628,20 @@ var Clip8 = {
         Clip8.visualiseIP = visualiseIP;
         Clip8.highlightErr = highlightErr;
         Svgdom.init(svgroot);
-        Svgretrieve.init(svgroot, highlightErr, highlightSyntax, Clip8._hightlightElementColour);
+        try {
+            Svgretrieve.init(svgroot, highlightErr, highlightSyntax, Clip8._hightlightElementColour);
+        }
+        catch(exc) {
+            if (exc.source == "registerElements_fromDOM" && exc.transformed_elements) {
+                Clip8._reportError(exc.source,
+                            "Transformations are not yet supported, sorry :-(",
+                            exc.transformed_elements,
+                            [],
+                            "The SVG code contains elements with transformations (red). Currently, clip_8 cannot process them. Please try to save an SVG without transformations. Depending on the SVG editor, general settings or export options might help.");
+            }
+            else
+                throw exc;
+        }
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
         return svgroot;
@@ -668,8 +684,8 @@ var Clip8controler = {
                 Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
             } else {
                 Clip8controler.erroroutput.appendChild(document.createTextNode("unexpected error!"));
-                Clip8controler.hintoutput.appendChild(document.createTextNode(exc)
-                                                      +" "+INTERNAL_ERROR_HINT);
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc
+                                                      +" "+INTERNAL_ERROR_HINT));
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
@@ -713,8 +729,8 @@ var Clip8controler = {
                 Clip8controler.hintoutput.appendChild(document.createTextNode(exc.hint));
             } else {
                 Clip8controler.erroroutput.appendChild(document.createTextNode("unexpected error!"));
-                Clip8controler.hintoutput.appendChild(document.createTextNode(exc)
-                                                      +" "+INTERNAL_ERROR_HINT);
+                Clip8controler.hintoutput.appendChild(document.createTextNode(exc
+                                                      +" "+Clip8.INTERNAL_ERROR_HINT));
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);

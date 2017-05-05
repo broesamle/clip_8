@@ -36,6 +36,23 @@ var Svgretrieve = {
     S_collection: undefined,
     C_collection: undefined,
     rect_intervals: undefined,
+
+    /** Tests whether an element is in an IGNORE subtree.
+        Traverses from `el` to `root` and checks whether the elements id contains "IGNORE"
+    */
+    _excluded: function(el) {
+        var checking = el;
+        while (checking !== Svgretrieve.svgroot) {
+            if ( checking.id.indexOf("IGNORE") != -1 ||
+                 ["defs", "marker"].indexOf(checking.tagName) != -1 ) {
+                console.log("to be ignored:", el, "because of parent:", checking);
+                return true;
+            }
+            checking = checking.parentNode;
+        }
+        return false;
+    },
+
     init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn) {
         console.log("[Svgretrieve.init]", svgroot, highlight_unregistered, highlight_isc, highlighterFn)
         Svgretrieve.highlight_unregistered = highlight_unregistered;
@@ -46,7 +63,6 @@ var Svgretrieve = {
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
         Svgretrieve.registerElements_fromDOM();
     },
-
 
     // The current implementation has a redundancy in it:
     // First, elements are retrieved by tagName but `ISCD.detect` makes no use of that information but
@@ -71,13 +87,18 @@ var Svgretrieve = {
             Svgretrieve._getMainInterval = Svginterval.getYIntervalRectElement;
             Svgretrieve._getOrthoInterval = Svginterval.getXIntervalRectElement;
         }
+        var referenceEl = Svgdom.addRect(Svgretrieve.clip8root, 0, 0, 1, 1);
+        var refTrafo = referenceEl.getCTM();
+        if (debug) console.log("Reference Transformation:", refTrafo, referenceEl);
+        Svgretrieve.clip8root.removeChild(referenceEl);
         var elems, cpts, cpt;
 
         console.groupCollapsed("Register SVG graphics elements.");
         // RECT
         Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init interval tree for data rectangles
         var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
-        var unreg = [];
+        var transformed = [];   // elements that could not registered due to a transformation
+        var unreg = [];         // elements that were not registered for unspecific reasons
         for (var i=0; i<elems.length; i++) {
             if ( ! Svgretrieve.registerRectElement(elems[i]) )
                 unreg.push(elems[i]);
@@ -88,10 +109,18 @@ var Svgretrieve = {
         elems = Svgretrieve.clip8root.getElementsByTagName("circle");
         if (debug) console.debug("CIRCLE elements:", elems);
         for (var i=0; i<elems.length; i++) {
+            if ( Svgretrieve._excluded(elems[i]) ) continue;
             if (ISCD.detect(elems[i]) == ISCD.CONTROLFLOW) {
                 cpt = Svgdom.getCentrePoint(elems[i]);
                 cpt.ownerelement = elems[i];
-                Svgretrieve.C_collection.insert(cpt);
+                if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
+                if (Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
+                    Svgretrieve.C_collection.insert(cpt);
+                }
+                else {
+                    if (debug) console.log("ignore transformed element", elems[i]);
+                    transformed.push(elems[i]);
+                }
                 if (Svgretrieve.highlight_isc)
                     Svgretrieve.highlighterFn(elems[i], Svgretrieve.CONTROLFLOW_COLOUR);
             } else
@@ -101,6 +130,13 @@ var Svgretrieve = {
         elems = Svgretrieve.clip8root.getElementsByTagName("path");
         if (debug) console.debug("PATH elements:", elems);
         for (var i=0; i<elems.length; i++) {
+            if ( Svgretrieve._excluded(elems[i]) ) continue;
+            if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
+                if (!Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
+                    if (debug) console.log("ignore transformed element", elems[i]);
+                    transformed.push(elems[i]);
+                    continue
+                }
             try {
                 cpts = Svgdom.getBothEndsOfPath(elems[i]);
             }
@@ -135,6 +171,13 @@ var Svgretrieve = {
         elems = Svgretrieve.clip8root.getElementsByTagName("line");
         if (debug) console.debug("LINE elements:", elems);
         for (var i=0; i<elems.length; i++) {
+            if ( Svgretrieve._excluded(elems[i]) ) continue;
+            if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
+                if (!Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
+                    if (debug) console.log("ignore transformed element", elems[i]);
+                    transformed.push(elems[i]);
+                    continue
+                }
             switch(ISCD.detect(elems[i])) {
                 case ISCD.INSTRUCTION:
                     cpts = Svgdom.getBothEndsOfLine(elems[i]);
@@ -168,6 +211,13 @@ var Svgretrieve = {
         elems = Svgretrieve.clip8root.getElementsByTagName("polyline");
         if (debug) console.debug("POLYLINE elements:", elems);
         for (var i=0; i<elems.length; i++) {
+            if ( Svgretrieve._excluded(elems[i]) ) continue;
+            if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
+                if (!Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
+                    if (debug) console.log("ignore transformed element", elems[i]);
+                    transformed.push(elems[i]);
+                    continue
+                }
             switch(ISCD.detect(elems[i])) {
                 case ISCD.INSTRUCTION:
                     cpts = Svgdom.getPointsOfPoly(elems[i]);
@@ -190,6 +240,14 @@ var Svgretrieve = {
             }
         }
         console.groupEnd();
+        if (transformed.length > 0) {
+            console.warn("there were transformed elements:", unreg);
+            throw {
+                source: "registerElements_fromDOM",
+                error: "Found transformed elements.",
+                transformed_elements: transformed,
+                hint: Clip8.INTERNAL_ERROR_HINT };
+        }
         if (unreg.length > 0) console.warn("there were unregistered elements:", unreg);
         if (Svgretrieve.highlight_unregistered)
             unreg.forEach(function (el) { Svgretrieve.highlighterFn(el, Svgretrieve.UNREGISTERED_COLOUR) } );
