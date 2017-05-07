@@ -315,7 +315,7 @@ var Clip8 = {
         } else
             // FIXME: Add an additional check for nearby candidate elements.
             Clip8._reportError("moveIP", "Invalid control flow.", Clip8._reduce(C), [p0],
-                               "There should be exactly one end of a suitable control flow element. There seem to be multiple or none.");
+                               "There should be exactly one outgoing control flow element at this point. Clip_8 either found none or multiple (ambiguous) ones.");
 
         Clip8._reportError("moveIP", "INTERNAL ERROR: Unforeseen condition!", [], [], Clip8.INTERNAL_ERROR_HINT);
     },
