@@ -28,4 +28,8 @@ tutorialDIR = "tutorial"
 testfile_ext = "html"
 demofile_ext = "html"
 testfile_generatedFromSVG_suffix = "_genfromSVG"
+
 tutorial_solution_suffix = "_solution"
+exerciseSVG_ext = "svg"
+exercisepage_ext = "html"
+exerciseinstruction_ext = "mdtxt"

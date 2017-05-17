@@ -17,39 +17,52 @@
 #
 
 
-import os, io, codecs, fnmatch
+import os, io, codecs, fnmatch, functools
 import TutorialTemplates as TEM
+from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
 import CFG
 
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.tutorialDIR)
 outDIRabs = inDIRabs
 
-#### this generates a link to all tutorial files (currently not used)
-####
-## mainHTML = ""
-## allexercises = SCT.exercises
-## allexercises.reverse()
-## while len(allexercises) > 0:
-##     title, infile = allexercises.pop()
-##     print("Processing title:", title)
-##     inFN = os.path.join(inDIRabs, infile)
-##     if not os.path.isfile(inFN):
-##         print("WARNING: is not a file: ", inFN)
-##
-##     solutionfile = os.path.splitext(infile)[0]+CFG.tutorial_solution_suffix+os.path.splitext(infile)[1]
-##     solutionFN = os.path.join(inDIRabs, solutionfile)
-##     if not os.path.isfile(solutionFN):
-##         solutiontitle = ""
-##     else:
-##         solutiontitle = "solution"
-##
-##     mainHTML += TEM.TOCsection.substitute(
-##             tuttitle=title,
-##             tuthref=infile,
-##             solutiontitle=solutiontitle,
-##             solutionhref=solutionfile)
+exercises = MDFilesCollection(
+                inputDIR=inDIRabs,
+                pattern='*.'+CFG.exerciseinstruction_ext)
 
+## collapse lists of strings into one string
+exercises.tryReformatFields( ['chapter', 'check'],
+                            (lambda field: functools.reduce((lambda s1, s2: s1+"\n"+s2), field)) )
+
+## add additional fields to each exercise item
+for mddatadict in exercises.values():
+    if 'check' not in mddatadict or not mddatadict['check']:
+        mddatadict['check'] = "undefined"
+    scriptblock = TEM.Script.substitute(mddatadict)
+    mddatadict['SCRIPT'] = scriptblock
+    mddatadict['chaptercnt'] = "Tutorial"
+    mddatadict['exerciseSVGfile'] = mddatadict['THIS_ELEMENT_KEY']+'.'+CFG.exerciseSVG_ext
+
+for key, bodyHTML in exercises.iterateSeries(
+    template=TEM.Body,
+    prevlinktemplate=TEM.Linkback,
+    nextlinktemplate=TEM.Linknext,
+    prevlink_forfirst=TEM.LinkbackToProjectpage_str,
+    additionalfields={'MAIN'       : TEM.KlippenControler_str+TEM.KlippenInitialSVG_str,
+                      'FOOTER'     : TEM.Footer_str,
+                      'pagetitle'  : "clip_8"}):
+    print ("Processing:", key)
+    headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
+    documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
+
+
+    outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
+    print ("  --output:", outFN)
+    output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
+    output_file.write(documentHTML)
+    output_file.close()
+
+exit(0)
 
 ### index.html
 ### For the tutorials, index.html contains the TOC.

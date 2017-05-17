@@ -21,6 +21,24 @@ import PyBroeModules.MultiTemplateA as MT
 from string import Template
 
 from CommonTemplates import *
+from CFG import exercisepage_ext
+
+Linkback = Template('<div class="leftlink"><a href="$ELEMENT_KEY.'+exercisepage_ext+'">$chapter<br>&lt;&lt;&lt;&lt;</a></div>')
+Linknext = Template('<div class="rightlink"><a href="$ELEMENT_KEY.'+exercisepage_ext+'">$chapter<br>&gt;&gt;&gt;&gt;</a></div>')
+
+Body = Template("""
+<body>
+<nav>
+$PREV_LINK
+<div class="chapternavtitle">$chaptercnt</div>
+$NEXT_LINK
+</nav>
+<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
+$MAIN
+$FOOTER
+$SCRIPT
+</body>
+""")
 
 FooterIndexpage_str = """
 <footer>
@@ -41,6 +59,13 @@ TOCsection = Template("""
 DependClip8_str = DependClip8_str + """<link rel="stylesheet" href="../css/klippen.css">"""
 
 ScriptInBody_str = """<script src="../js/svgloader.js"></script>"""
+
+Script = Template("""
+<script>
+terminationcallback = $check;
+</script>
+<script src="../js/svgloader.js"></script>
+""")
 
 KlippenControler_str = """
 <p>
