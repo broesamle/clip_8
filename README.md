@@ -14,11 +14,11 @@ Getting Started
 
 [Demos](https://broesamle.github.io/clip_8/demos/), for a first impression.
 
-[Tutorial](https://broesamle.github.io/clip_8/tutorial/); draw and execute an SVG.
+[Tutorial](https://broesamle.github.io/clip_8/tutorial/), draw and execute an SVG.
 
 For recent user information please check the [Tutorial and Getting Started Issues](https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started).
 
-[Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html) the `clip_8` interpreter; online test environment.
+[Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html), the `clip_8` interpreter; online test environment.
 
 
 Workflow
