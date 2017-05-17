@@ -3,14 +3,7 @@
 `clip_8` | Survival Guide
 =========================
 
-
-Tutorial
---------
-
 `Clip_8` is under heavy development. You will need patience! And it will be fun!
-
-Please check the [Tutorial and Getting Started Issues](https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started)
-for recent information for users.
 
 
 Editing SVG files
