@@ -68,15 +68,18 @@ for key, bodyHTML in exercises.iterateSeries(
 ### For the tutorials, index.html contains the TOC.
 mainHTML = """
 <p>
+Welcome to the `clip_8` language tutorial. Clip_8 is a programming language. Unlike most other programming languages, the instructions are icons. You will draw the program code in SVG.
+</p>
+<p>
 The tutorial assumes you have some experience with
 <a href="https://en.wikipedia.org/wiki/Vector_graphics_editor  target="_blank">vector graphics editors</a>.
 </p>
 <p>
-If you get stuck, please <b>read the <a href="survival.html">Survival Guide</a>!</b> as the tutorials and clip_8 are in an experimental state.
+If you get stuck, please <b>read the <a href="https://github.com/broesamle/clip_8/blob/master/survival-guide.md" target="_blank">Survival Guide</a>!</b> as the tutorials and clip_8 are in an experimental state.
 </p>
 <p>
 <p>
-<b>Happy drawing!</b>
+<a href="00_gettingStarted.html">Happy drawing!</a>
 </p>
 
 """
