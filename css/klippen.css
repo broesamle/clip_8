@@ -1,3 +1,18 @@
+code {
+	font-size: 14px;
+	background-color: #eee;
+	color: #444;
+	padding-left: 0.4em;
+	border-radius: 0.5em;
+	padding-right: 0.4em;
+}
+
+button {
+	font-size: 36px;
+	text-align: center;
+	vertical-align: bottom;
+}
+
 #filechooser { color: white; }
 
 #erroroutput {

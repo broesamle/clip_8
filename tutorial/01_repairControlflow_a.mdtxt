@@ -7,7 +7,7 @@ congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
 1. **Run the program** by clicking the &#x25B6; button.  
    _There will be an error._
    
-1. **Open `$exerciseSVGfile` in Inkskape** (or some other SVG editor).
+1. **Open and edit** `$exerciseSVGfile` in Inkskape (or some other SVG editor).
 
 1. Follow the instructions in the SVG file.
 

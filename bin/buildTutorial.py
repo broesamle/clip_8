@@ -18,6 +18,7 @@
 
 
 import os, io, codecs, fnmatch, functools
+from string import Template
 import TutorialTemplates as TEM
 from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
@@ -56,8 +57,9 @@ for key, bodyHTML in exercises.iterateSeries(
     print ("Processing:", key)
     headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
     documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
-
+    ## a bit hacky but it allows to use template fields in the instructions
+    documentHTML = Template(documentHTML).substitute(exercises[key])
+    ## write the file
     outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
     print ("  --output:", outFN)
     output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
