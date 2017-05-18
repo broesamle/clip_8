@@ -1,0 +1,14 @@
+chapter:        Repair controlflow
+congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
+
+
+1. **Drop the SVG file** `$exerciseSVGfile` in the test area below.  
+   
+1. **Run the program** by clicking the &#x25B6; button.  
+   _There will be an error._
+   
+1. **Open `$exerciseSVGfile` in Inkskape** (or some other SVG editor).
+
+1. Follow the instructions in the SVG file.
+
+1. After editing and saving the SVG file, **drop and start it again** in the test area below.
