@@ -44,11 +44,11 @@ for mddatadict in exercises.values():
     mddatadict['exerciseSVGfile'] = mddatadict['THIS_ELEMENT_KEY']+'.'+CFG.exerciseSVG_ext
 
 for key, bodyHTML in exercises.iterateSeries(
-    template=TEM.Body,
+    template=TEM.Body_ExercisePage,
     prevlinktemplate=TEM.Linkback,
     nextlinktemplate=TEM.Linknext,
-    prevlink_forfirst=TEM.LinkbackToProjectpage_str,
-    additionalfields={'MAIN'       : TEM.KlippenControler_str+TEM.KlippenInitialSVG_str,
+    prevlink_forfirst=TEM.Linkback.substitute(ELEMENT_KEY="index", chapter="Tutorial Start Page"),
+    additionalfields={'KLIPPEN'    : TEM.KlippenControler_str+TEM.KlippenInitialSVG_str,
                       'FOOTER'     : TEM.Footer_str,
                       'pagetitle'  : "clip_8"}):
     print ("Processing:", key)
@@ -62,53 +62,30 @@ for key, bodyHTML in exercises.iterateSeries(
     output_file.write(documentHTML)
     output_file.close()
 
-exit(0)
-
 ### index.html
 ### For the tutorials, index.html contains the TOC.
 mainHTML = """
-<h2>Getting Started</h2>
 <p>
-The tutorials and clip_8 are in an experimental state. <b>Please read the <a href="survival.html">Survival Guide</a>!</b>
+The tutorial assumes you have some experience with
+<a href="https://en.wikipedia.org/wiki/Vector_graphics_editor  target="_blank">vector graphics editors</a>.
 </p>
 <p>
-<a href="exercises.zip">Download the Exercises</a> and <b>unpack them</b>.
-Have the unpacked files ready in a file manager/explorer/finder window.
+If you get stuck, please <b>read the <a href="survival.html">Survival Guide</a>!</b> as the tutorials and clip_8 are in an experimental state.
 </p>
 <p>
-Every exercise contains a (potentially incomplete) <b>clip_8 program</b> together with the <b>learners instructions</b> for the exercise.
-</p>
-<p>
-Open the <a href="klippen.html" target="_blank">Klippen online interpreter</a> (in a separate window).
-</p>
-<p>
-<b>Drop an SVG file</b> from the excercises in the marked drop area.
-The control buttons let you <b>run `&#x25B6;`</b>, <b>pause `&#x2759;&#x2759;`</b>, <b>run one step `&#x276F;`</b>, <b>stop and reload `&#x25FC;`</b> the program.
-</p>
-<p>
-When <b>making changes</b> in an SVG file (i.e. exercise) save your work as SVG file again. <b>Drop the changed file</b> again into Klippen for testing.
-</p>
-<p>
-For a fluent work-flow it is best to keep the following windows open at all times:
-</p>
-<ul>
-<li>Browser window with Klippen</li>
-<li>File manager with exercise SVG files.</li>
-<li>SVG Editor, with the current exercise open.</li>
-</ul>
 <p>
 <b>Happy drawing!</b>
 </p>
 
 """
 
-backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
-nextlinkHTML = TEM.Linknext.substitute(href="survival.html", linktext="Survival Guide")
+backlinkHTML = TEM.LinkbackToProjectpage_str
+nextlinkHTML = TEM.Linknext.substitute(ELEMENT_KEY="00_gettingStarted", chapter="Getting started")
 footerHTML = TEM.FooterIndexpage_str
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Tutorial", chaptercnt="",
                                MAIN=mainHTML,
-                               link1=backlinkHTML, link2=nextlinkHTML,
+                               PREV_LINK=backlinkHTML, NEXT_LINK=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT="")
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
@@ -118,6 +95,8 @@ outFN = os.path.join(outDIRabs, "index.html")
 output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
 output_file.write(documentHTML)
 output_file.close()
+
+exit(0)
 
 ### klippen.html
 backlinkHTML = TEM.Linkback.substitute(href="survival.html", linktext="Survival Guide")

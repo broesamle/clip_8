@@ -40,6 +40,22 @@ $SCRIPT
 </body>
 """)
 
+Body_ExercisePage = Template("""
+<body>
+<nav>
+$PREV_LINK
+<div class="chapternavtitle">$chaptercnt</div>
+$NEXT_LINK
+</nav>
+<h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
+$contentHTML
+$KLIPPEN
+$FOOTER
+$SCRIPT
+</body>
+""")
+
+
 FooterIndexpage_str = """
 <footer>
 <p>
