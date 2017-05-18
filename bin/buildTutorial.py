@@ -119,65 +119,6 @@ output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplac
 output_file.write(documentHTML)
 output_file.close()
 
-### survival.html
-### For the tutorials, index.html contains the TOC.
-
-mainHTML = """
-<h2 class="redtext">Survival Guide</h2>
-<p>
-`Clip_8` is under heavy development. <b>You will need patience! And it will be fun!</b>
-Things are currently changing every coupple of days.
-Please check the <a target="_blank" href="https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started">Tutorial and Getting Started Issues</a>
-for recent information for users.
-</p>
-<h3 id="edit-svg-files" class="redtext">Editing SVG files</h3>
-<p>
-The tutorial assumes you have some experience with
-<a target="_blank" href="https://en.wikipedia.org/wiki/Vector_graphics_editor">vector graphics editors</a>
-and have one ready to export
-<a target="_blank" href="https://en.wikipedia.org/wiki/Scalable_Vector_Graphics">Scalable Vector Graphics (SVG)</a>.
-If you are unsure, try <a target="_blank" href="https://inkscape.org">Inkscape</a> (its free) or try using an online SVG editor.
-</p>
-<p>
-<b>Do not mix SVG editors.</b> They each have their dialects. Files you have edited with Illustrator, say, may confuse Inkscape -- resulting in even stranger dialects. Clip_8 might run into trouble understanding such mixed files.
-</p>
-<p>
-<b>Use the snap function!</b>Elements need to be positioned precisely so that clip_8 will find them.
-Snap - this is a function of modern SVG editors - makes endpoints and centre points magnetic, which makes editing much easier.
-</p>
-<h3 id="edit-svg-files" class="redtext">Get help / contributed by reporting errors</h3>
-<p>
-If you run into trouble running a program or if you encounter any unexpected behaviours
-    please <a target="_blank" href="https://github.com/broesamle/clip_8/issues/new">file an issue</a> (you need to be signed in on GitHub to do so).
-In this early phase, also small error reports can help a lot! Thank you in advance!
-Ideally you...
-</p>
-<ul>
-<li>...include the SVG file you used,</li>
-<li>describe what happened,</li>
-<li>cite any error messages,</li>
-<li>tell us which SVG editor, browser, and operating system you were using.</li>
-</ul>
-"""
-
-backlinkHTML = TEM.Linkback.substitute(href="index.html", linktext="Getting Started")
-nextlinkHTML = TEM.Linknext.substitute(href="klippen.html", linktext="Klippen online interpreter")
-footerHTML = TEM.FooterIndexpage_str
-bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
-                               chapter="Tutorial", chaptercnt="",
-                               MAIN=mainHTML,
-                               link1=backlinkHTML, link2=nextlinkHTML,
-                               FOOTER=footerHTML,
-                               SCRIPT="")
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
-outFN = os.path.join(outDIRabs, "survival.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
-
-
 ### klippen.html
 backlinkHTML = TEM.Linkback.substitute(href="survival.html", linktext="Survival Guide")
 nextlinkHTML = ""
