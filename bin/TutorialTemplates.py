@@ -83,24 +83,23 @@ terminationcallback = $check;
 <script src="../js/svgloader.js"></script>
 """)
 
-KlippenControler_str = """
-<p>
+KlippenInitialSVG = Template(KlippenControler_str+"""
+<p class="$klippenmode">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
 <button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
 <button onclick="handleStop()"                 >&#x25FC;           </button> &nbsp;&nbsp;&nbsp;
 <input type="file" id="filechooser" name="files[]"/>
+<span class="visible-for-pro">
 <input type="checkbox" id="hightlightISC">highlight I./S./C.
+</span>
 </p>
 <div id="erroroutput">
 </div>
 <div id="hintoutput">
 </div>
-"""
-
-KlippenInitialSVG = Template("""
-<p>
-<svg id="clip8svgroot" class="$klippenmode" viewBox="0 0 64 64">
+<p class="$klippenmode">
+<svg id="clip8svgroot"  viewBox="0 0 64 64">
 <g>
 	<g>
 		<polyline fill="none" stroke="#FF00A8" stroke-width="2" stroke-miterlimit="10" points="64,58 64,64 58,64 		"/>

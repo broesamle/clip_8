@@ -50,7 +50,7 @@ for key, bodyHTML in exercises.iterateSeries(
     prevlinktemplate=TEM.Linkback,
     nextlinktemplate=TEM.Linknext,
     prevlink_forfirst=TEM.Linkback.substitute(ELEMENT_KEY="index", chapter="Tutorial Start Page"),
-    additionalfields={'KLIPPEN'    : TEM.KlippenControler_str+klippenHTML,
+    additionalfields={'KLIPPEN'    : klippenHTML,
                       'FOOTER'     : TEM.Footer_str,
                       'pagetitle'  : "clip_8"}):
     print ("Processing:", key)
