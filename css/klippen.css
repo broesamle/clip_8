@@ -11,6 +11,10 @@
     background: #ffff88;
 }
 
-#clip8svgroot {
+#clip8svgroot.pro {
     min-width: 1024px;
+}
+
+#clip8svgroot.tutorial {
+    width: 100%;
 }

@@ -98,9 +98,9 @@ KlippenControler_str = """
 </div>
 """
 
-KlippenInitialSVG_str = """
+KlippenInitialSVG = Template("""
 <p>
-<svg id="clip8svgroot" viewBox="0 0 64 64">
+<svg id="clip8svgroot" class="$klippenmode" viewBox="0 0 64 64">
 <g>
 	<g>
 		<polyline fill="none" stroke="#FF00A8" stroke-width="2" stroke-miterlimit="10" points="64,58 64,64 58,64 		"/>
@@ -296,4 +296,4 @@ KlippenInitialSVG_str = """
 </g>
 </svg>
 </p>
-"""
+""")

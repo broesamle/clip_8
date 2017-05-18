@@ -43,12 +43,14 @@ for mddatadict in exercises.values():
     mddatadict['chaptercnt'] = "Tutorial"
     mddatadict['exerciseSVGfile'] = mddatadict['THIS_ELEMENT_KEY']+'.'+CFG.exerciseSVG_ext
 
+klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="tutorial")
+
 for key, bodyHTML in exercises.iterateSeries(
     template=TEM.Body_ExercisePage,
     prevlinktemplate=TEM.Linkback,
     nextlinktemplate=TEM.Linknext,
     prevlink_forfirst=TEM.Linkback.substitute(ELEMENT_KEY="index", chapter="Tutorial Start Page"),
-    additionalfields={'KLIPPEN'    : TEM.KlippenControler_str+TEM.KlippenInitialSVG_str,
+    additionalfields={'KLIPPEN'    : TEM.KlippenControler_str+klippenHTML,
                       'FOOTER'     : TEM.Footer_str,
                       'pagetitle'  : "clip_8"}):
     print ("Processing:", key)
