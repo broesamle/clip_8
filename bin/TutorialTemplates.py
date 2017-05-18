@@ -83,7 +83,7 @@ terminationcallback = $check;
 <script src="../js/svgloader.js"></script>
 """)
 
-KlippenInitialSVG = Template(KlippenControler_str+"""
+KlippenInitialSVG = Template("""
 <p class="$klippenmode">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
