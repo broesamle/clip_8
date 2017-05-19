@@ -1,0 +1,9 @@
+chapter:        Order of instructions
+congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
+
+
+1. Run `$exerciseSVGfile`.  
+   _The upper-left box moves before the lower-right one does._
+
+1. Reverse the controlflow so that the lower-right box moves first.
+
