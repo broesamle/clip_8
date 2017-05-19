@@ -11,7 +11,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="02_SelectorArea_a_solution.svg"
+   sodipodi:docname="03a_selectThings_solution.svg"
    width="1200"
    height="700">
   <metadata
@@ -76,7 +76,7 @@
      inkscape:snap-center="true"
      inkscape:snap-object-midpoints="true"
      inkscape:zoom="0.99333336"
-     inkscape:cx="628.4991"
+     inkscape:cx="449.80783"
      inkscape:cy="371.51058"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
@@ -136,10 +136,24 @@
      y1="372.70724"
      x1="463.8811"
      stroke-miterlimit="10" />
+  <circle
+     style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
+     id="circle6876-4"
+     r="12"
+     cy="157.16423"
+     cx="467.14285"
+     stroke-miterlimit="10" />
+  <rect
+     id="rect6890-0"
+     height="144"
+     width="122.53692"
+     y="449.8121"
+     x="88.731537"
+     style="fill:#000000;fill-opacity:1;stroke-width:1" />
   <g
      id="instruction_IGNORE"
      inkscape:label="#g4576"
-     transform="translate(0,100)">
+     transform="translate(-1.1145309e-6,100)">
     <g
        id="title_IGNORE"
        inkscape:label="#g4622"
@@ -201,12 +215,8 @@
          id="text4523"><tspan
            sodipodi:role="line"
            x="694.82141"
-           y="161.94638"
-           id="tspan4553">Change the SELECTOR (green)</tspan><tspan
-           sodipodi:role="line"
-           x="694.82141"
-           y="201.94638"
-           id="tspan6434">so that both boxes move.</tspan></text>
+           y="191.14095"
+           id="tspan6434" /></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -220,13 +230,13 @@
            sodipodi:role="line"
            x="696.91516"
            y="493.68051"
-           id="tspan6455">so that it encloses both boxes.</tspan></text>
+           id="tspan6455">so that it ENCLOSES both boxes.</tspan></text>
       <g
          transform="translate(-319.99994,-48.657654)"
          id="g4903">
         <path
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 624.43164,551.16016 v 2 h 426.84566 v -2 z"
+           d="m 624.43164,551.16016 v 2 h 392.84566 v -2 z"
            id="path4561"
            inkscape:connector-curvature="0"
            sodipodi:nodetypes="ccccc" />
@@ -245,11 +255,21 @@
            sodipodi:role="line"
            x="695.71722"
            y="51.666229"
-           id="tspan4563-6">If you start the program now,</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           id="tspan4579">Change the SELECTOR area so as to</tspan><tspan
            sodipodi:role="line"
            x="695.71722"
            y="78.332893"
-           id="tspan6447">only one of the boxes will move.</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           id="tspan4583">select both boxes.</tspan><tspan
+           sodipodi:role="line"
+           x="695.71722"
+           y="104.99957"
+           id="tspan4571">A SELECTOR defines the area</tspan><tspan
+           sodipodi:role="line"
+           x="695.71722"
+           y="131.66623"
+           id="tspan4575">that will be affected by an instruction.</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -259,14 +279,18 @@
            sodipodi:role="line"
            x="695.71722"
            y="299.66623"
-           id="tspan4563-6-2">One corner must remain exactly at this point.</tspan></text>
+           id="tspan4563-6-2">One corner must be exactly where the </tspan><tspan
+           sodipodi:role="line"
+           x="695.71722"
+           y="326.33289"
+           id="tspan4541">controlflow ends.</tspan></text>
       <g
          transform="translate(110.5665,-278.00526)"
          id="g4903-1-0">
         <path
            sodipodi:nodetypes="ccccc"
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 384.43164,551.16016 v 2 h 236.54872 v -2 z"
+           d="m 384.43164,551.16016 v 2 h 202.54872 v -2 z"
            id="path4561-5-4"
            inkscape:connector-curvature="0" />
         <path
@@ -277,18 +301,4 @@
       </g>
     </g>
   </g>
-  <circle
-     style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
-     id="circle6876-4"
-     r="12"
-     cy="157.16423"
-     cx="467.14285"
-     stroke-miterlimit="10" />
-  <rect
-     id="rect6890-0"
-     height="144"
-     width="122.53692"
-     y="449.8121"
-     x="88.731537"
-     style="fill:#000000;fill-opacity:1;stroke-width:1" />
 </svg>
