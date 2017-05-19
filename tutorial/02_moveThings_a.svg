@@ -11,7 +11,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="01_MoveBy-relative_a.svg"
+   sodipodi:docname="02_moveThings_a.svg"
    width="1200"
    height="700">
   <metadata
@@ -22,12 +22,40 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <defs
      id="defs15">
+    <marker
+       inkscape:stockid="Arrow2Send"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Send"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path4581"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#00998f;stroke-opacity:1;fill:#00998f;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(0.3) rotate(180) translate(-2.3,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="DotS"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="DotS"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4615"
+         d="M -2.5,-1.0 C -2.5,1.7600000 -4.7400000,4.0 -7.5,4.0 C -10.260000,4.0 -12.5,1.7600000 -12.5,-1.0 C -12.5,-3.7600000 -10.260000,-6.0 -7.5,-6.0 C -4.7400000,-6.0 -2.5,-3.7600000 -2.5,-1.0 z "
+         style="fill-rule:evenodd;stroke:#00998f;stroke-width:1pt;stroke-opacity:1;fill:#00998f;fill-opacity:1"
+         transform="scale(0.2) translate(7.4, 1)" />
+    </marker>
     <marker
        inkscape:stockid="Arrow2Mend"
        orient="auto"
@@ -75,13 +103,13 @@
      inkscape:object-nodes="true"
      inkscape:snap-center="true"
      inkscape:snap-object-midpoints="true"
-     inkscape:zoom="0.49666668"
-     inkscape:cx="253.11909"
-     inkscape:cy="352.47051"
+     inkscape:zoom="0.70239276"
+     inkscape:cx="138.51963"
+     inkscape:cy="197.04207"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="instruction_IGNORE"
+     inkscape:current-layer="instruction2_IGNORE"
      inkscape:snap-page="true"
      inkscape:snap-bbox="true"
      inkscape:bbox-nodes="true" />
@@ -127,12 +155,12 @@
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="cc" />
   <line
-     style="fill:none;stroke:#00998f;stroke-width:18;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1"
+     style="fill:none;stroke:#00998f;stroke-width:18;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;marker-end:url(#Arrow2Send)"
      id="line6886"
-     y2="327.37299"
-     x2="520.82062"
-     y1="405.92068"
-     x1="303.81406"
+     y2="232.81752"
+     x2="471.73621"
+     y1="405.92871"
+     x1="303.814"
      stroke-miterlimit="10" />
   <g
      id="instruction_IGNORE"
@@ -179,7 +207,7 @@
            sodipodi:role="line"
            id="tspan4517"
            x="696.64429"
-           y="563.57867">How to move things...</tspan></text>
+           y="563.57867">Let clip_8 move things</tspan></text>
     </g>
     <g
        id="instruction2_IGNORE"
@@ -195,38 +223,35 @@
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          x="694.82141"
-         y="81.946373"
+         y="21.946373"
          id="text4523"><tspan
            sodipodi:role="line"
            x="694.82141"
-           y="81.946373"
-           id="tspan4547">Change the upper-right</tspan><tspan
-           sodipodi:role="line"
-           x="694.82141"
-           y="121.94637"
-           id="tspan4553">end of the green line.</tspan></text>
+           y="51.140942"
+           id="tspan4898" /></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="696.91516"
-         y="479.01385"
+         x="694.95685"
+         y="485.01385"
          id="text4527"><tspan
            sodipodi:role="line"
-           x="696.91516"
-           y="479.01385"
-           id="tspan4557">Try to make the lower-left corner </tspan><tspan
+           x="694.95685"
+           y="485.01385"
+           id="tspan4539">After execution, the lower-right corner</tspan><tspan
            sodipodi:role="line"
-           x="696.91516"
-           y="505.68051"
-           id="tspan4563">of the black box land here.</tspan></text>
+           x="694.95685"
+           y="511.68051"
+           id="tspan4546">of the black rectangle should be here.</tspan></text>
       <g
          transform="translate(6.1035156e-5,-28.657654)"
          id="g4903">
         <path
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 624.43164,551.16016 v 2 h 126.8457 v -2 z"
+           d="m 624.43164,551.16016 v 2 h 70.14235 v -2 z"
            id="path4561"
-           inkscape:connector-curvature="0" />
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccccc" />
         <path
            d="m 634.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
            style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
@@ -236,44 +261,54 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="689.48163"
-         y="211.66623"
+         x="694.14435"
+         y="165.66623"
          id="text4527-4"><tspan
            sodipodi:role="line"
-           x="689.48163"
-           y="211.66623"
-           id="tspan4563-6">Change this end only.</tspan></text>
+           x="694.14435"
+           y="165.66623"
+           id="tspan5471">Direction distance of the move.</tspan><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="192.3329"
+           id="tspan4900" /></text>
       <g
-         transform="translate(-7.4334972,-330.00526)"
+         transform="translate(-54.748932,-376.8509)"
          id="g4903-1">
         <path
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 624.43164,551.16016 v 2 h 126.8457 v -2 z"
+           d="m 548.43164,551.16016 v 2 h 200.89134 v -2 z"
            id="path4561-5"
-           inkscape:connector-curvature="0" />
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ccccc" />
         <path
-           d="m 634.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           d="m 558.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
            style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
            id="path4909-3"
-           inkscape:connector-curvature="0" />
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc" />
       </g>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="689.48163"
-         y="323.66623"
+         x="694.14435"
+         y="271.66623"
          id="text4527-4-5"><tspan
            sodipodi:role="line"
-           x="689.48163"
-           y="323.66623"
-           id="tspan4563-6-2">One end must be exactly at this point.</tspan></text>
+           x="694.14435"
+           y="271.66623"
+           id="tspan4892">One end must be exactly at the end of a </tspan><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="298.33289"
+           id="tspan4584">controlflow element.</tspan></text>
       <g
-         transform="translate(-7.4335011,-250.00526)"
+         transform="translate(-54.748932,-246.00526)"
          id="g4903-1-0">
         <path
            sodipodi:nodetypes="ccccc"
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 384.43164,551.16016 v 2 h 366.8457 v -2 z"
+           d="m 384.43164,551.16016 v 2 h 364.89134 v -2 z"
            id="path4561-5-4"
            inkscape:connector-curvature="0" />
         <path
@@ -282,6 +317,61 @@
            id="path4909-3-8"
            inkscape:connector-curvature="0" />
       </g>
+      <g
+         id="g5513"
+         transform="translate(-356.40253)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="694.14435"
+         y="377.66623"
+         id="text4527-4-5-6"><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="377.66623"
+           id="tspan4892-9">The dashed rectangle selects an area</tspan><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="404.33289"
+           id="tspan5564">where the instruction will be effective.</tspan></text>
+      <g
+         transform="translate(-54.748931,-140.00526)"
+         id="g4903-1-0-4">
+        <path
+           sodipodi:nodetypes="ccccc"
+           style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           d="m 384.43164,551.16016 v 2 h 364.89134 v -2 z"
+           id="path4561-5-4-1"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 394.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
+           id="path4909-3-8-2"
+           inkscape:connector-curvature="0" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="694.14435"
+         y="65.666237"
+         id="text4527-4-7"><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="65.666237"
+           id="tspan5413">Edit the green line/arrow. </tspan><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="92.332901"
+           id="tspan5417">It defines the move instruction.</tspan><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="118.99957"
+           id="tspan4563"
+           style="-inkscape-font-specification:sans-serif;font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">(Leave other elements unchanged.)</tspan><tspan
+           sodipodi:role="line"
+           x="694.14435"
+           y="145.66624"
+           id="tspan4900-8" /></text>
     </g>
   </g>
   <circle

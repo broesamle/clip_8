@@ -1,0 +1,13 @@
+chapter:        Move things
+congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
+
+
+1. **Drop and run** `$exerciseSVGfile` in the test area below.  
+   _The black filled box moves up-right._
+   
+1. **Edit** `$exerciseSVGfile` so that the box will be moved down-right, as indicated by the arrow.
+
+1. **Save your solution** as SVG file.
+
+1. **Drop and run** (as in step 1).
+
