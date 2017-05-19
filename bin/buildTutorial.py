@@ -103,16 +103,17 @@ output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplac
 output_file.write(documentHTML)
 output_file.close()
 
-exit(0)
-
 ### klippen.html
-backlinkHTML = TEM.Linkback.substitute(href="survival.html", linktext="Survival Guide")
+
+backlinkHTML = TEM.Linkback.substitute(ELEMENT_KEY="index", chapter="Tutorial Start Page")
 nextlinkHTML = ""
+klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="pro")
 footerHTML = TEM.Footer_str
-bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
+bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Klippen", chaptercnt="Online Interpreter",
-                               MAIN=TEM.KlippenControler_str+TEM.KlippenInitialSVG_str,
-                               link1=backlinkHTML, link2=nextlinkHTML,
+                               MAIN=klippenHTML,
+                               PREV_LINK=backlinkHTML,
+                               NEXT_LINK=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptInBody_str)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Klippen")
