@@ -41,8 +41,8 @@ for mddatadict in exercises.values():
         mddatadict['check'] = "undefined"
     scriptblock = TEM.Script.substitute(mddatadict)
     mddatadict['SCRIPT'] = scriptblock
-    mddatadict['chaptercnt'] = "Tutorial"
     mddatadict['exerciseSVGfile'] = mddatadict['THIS_ELEMENT_KEY']+'.'+CFG.exerciseSVG_ext
+    mddatadict['chaptercnt'] = "[" + mddatadict['exerciseSVGfile'] + "]"
 
 klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="tutorial")
 
