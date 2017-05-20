@@ -2,9 +2,9 @@
 `Clip_8`
 ========
 
-The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter. `Move`, `align`, `cut`, `transform` are all operations that can be intuitively grasped. 
+The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter. `Move`, `align`, `cut`, `transform` are all operations that can be intuitively grasped.
 
-Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form. During execution, instructions and data appear in the same view. 
+Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form. During execution, instructions and data appear in the same view.
 
 The present project implements an interpreter as a client-side web application. It operates on _inline SVG_ elements in the Document Object Model (DOM) of the web browser.
 
@@ -14,7 +14,18 @@ Getting Started
 
 [Demos](https://broesamle.github.io/clip_8/demos/), for a first impression.
 
-Try the [Tutorial](https://broesamle.github.io/clip_8/tutorial/). It is **work in progress!** But it can give you an idea what `clip_8` is about.
+[Tutorial](https://broesamle.github.io/clip_8/tutorial/), draw and execute an SVG.
+
+For recent user information please check the [Tutorial and Getting Started Issues](https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started).
+
+[Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html), the `clip_8` interpreter; online test environment.
+
+
+Workflow
+--------
+
+FIXME: Screenshot of workflow.
+
 
 
 Language documentation / Integration tests

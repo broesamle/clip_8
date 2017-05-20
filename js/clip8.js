@@ -358,7 +358,7 @@ var Clip8 = {
                                   10,
                                   ['path'],
                                   Svgretrieve.C_collection);
-                    Clip8._reportError("initControlFlow", "Failed to identify intial path segment.",
+                    Clip8._reportError("initControlFlow", "Failed to identify initial controlflow path segment.",
                               candidates,
                               [centres_offilled[i]],
                               "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");

@@ -1,0 +1,10 @@
+chapter:        Connect instructions
+congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
+
+
+1. **Drop and run** `$exerciseSVGfile` in the test area below.  
+   _The controlflow between the two move instructions is missing._
+
+1. **Edit** `$exerciseSVGfile` so that one box moves after the other.
+
+1. **Save, and drop your solution below for testing**.

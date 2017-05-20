@@ -11,7 +11,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="00_gettingStarted.svg"
+   sodipodi:docname="03a_selectThings.svg"
    width="1200"
    height="700">
   <metadata
@@ -22,12 +22,43 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs15" />
+     id="defs15">
+    <marker
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4592"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Send"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Send"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4580"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.2,0,0,-0.2,-1.2,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -44,26 +75,71 @@
      inkscape:object-nodes="true"
      inkscape:snap-center="true"
      inkscape:snap-object-midpoints="true"
-     inkscape:zoom="0.99333334"
-     inkscape:cx="625.69627"
-     inkscape:cy="379.56019"
+     inkscape:zoom="0.64"
+     inkscape:cx="777.42993"
+     inkscape:cy="108.18908"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2"
-     inkscape:snap-bbox="true"
-     inkscape:bbox-nodes="true" />
+     inkscape:snap-page="true"
+     inkscape:snap-bbox="false"
+     inkscape:bbox-nodes="true"
+     showguides="true"
+     inkscape:guide-bbox="true" />
+  <rect
+     style="fill:none;stroke:#00998f;stroke-width:9.02999973;stroke-miterlimit:10;stroke-dasharray:9.02999973,18.05999947;stroke-opacity:1;stroke-dashoffset:0"
+     id="rect6874"
+     height="268.13315"
+     width="177.42282"
+     stroke-miterlimit="10"
+     y="372.70724"
+     x="286.45828" />
   <circle
      style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
      id="circle6876"
      r="12"
-     cy="175.14076"
-     cx="81.101372"
+     cy="228.85426"
+     cx="199.8811"
+     stroke-miterlimit="10" />
+  <rect
+     id="rect6890"
+     height="144"
+     width="122.53692"
+     y="420.70724"
+     x="317.34418"
+     style="fill:#000000;fill-opacity:1;stroke-width:1" />
+  <circle
+     style="fill:none;stroke:#000000;stroke-width:6;stroke-miterlimit:10;stroke-dasharray:none"
+     id="circle6876-3"
+     r="24"
+     cy="157.16423"
+     cx="467.14285"
+     stroke-miterlimit="10" />
+  <path
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.22300005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 199.8811,228.85425 c 6.93924,80.64828 139.36067,111.98549 264,143.85298 v 0"
+     id="path4145"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccc" />
+  <path
+     style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5.22300005;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 463.8811,372.70723 C 395.32721,230.50749 354.05802,139.08089 467.14285,157.16424"
+     id="path4145-9"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="cc" />
+  <line
+     style="fill:none;stroke:#000000;stroke-width:17.99999809;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1"
+     id="line6886"
+     y2="221.59695"
+     x2="439.31509"
+     y1="372.70724"
+     x1="463.8811"
      stroke-miterlimit="10" />
   <g
      id="instruction_IGNORE"
      inkscape:label="#g4576"
-     transform="translate(-1.1145308e-6,100)">
+     transform="translate(0,100)">
     <g
        id="title_IGNORE"
        inkscape:label="#g4622"
@@ -105,7 +181,7 @@
            sodipodi:role="line"
            id="tspan4517"
            x="696.64429"
-           y="563.57867">First clip_8 program</tspan></text>
+           y="563.57867">Choose objects by area</tspan></text>
     </g>
     <g
        id="instruction2_IGNORE"
@@ -119,114 +195,110 @@
          y="-32.285034" />
       <text
          xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="694.82141"
+         y="161.94638"
+         id="text4523"><tspan
+           sodipodi:role="line"
+           x="694.82141"
+           y="191.14095"
+           id="tspan6434" /></text>
+      <text
+         xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="695.71722"
-         y="39.666229"
-         id="text4527-4-5"><tspan
+         x="696.91516"
+         y="467.01385"
+         id="text4527"><tspan
            sodipodi:role="line"
-           x="695.71722"
-           y="39.666229"
-           id="tspan5500">Program execution always starts at a </tspan><tspan
+           x="696.91516"
+           y="467.01385"
+           id="tspan6451">Resize the dashed rectangle to the left</tspan><tspan
            sodipodi:role="line"
-           x="695.71722"
-           y="66.332893"
-           id="tspan6424">filled `circle` element.</tspan></text>
+           x="696.91516"
+           y="493.68051"
+           id="tspan6455">so that it ENCLOSES both boxes.</tspan></text>
       <g
-         transform="translate(270.5665,-478.00526)"
-         id="g4903-1-0">
+         transform="translate(-319.99994,-48.657654)"
+         id="g4903">
         <path
-           sodipodi:nodetypes="ccccc"
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m -155.56836,551.16016 v 2 h 582.87087 v -2 z"
-           id="path4561-5-4"
-           inkscape:connector-curvature="0" />
-        <path
-           d="m -145.10579,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
-           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
-           id="path4909-3-8"
+           d="m 624.43164,551.16016 v 2 h 392.84566 v -2 z"
+           id="path4561"
            inkscape:connector-curvature="0"
-           sodipodi:nodetypes="cccc" />
+           sodipodi:nodetypes="ccccc" />
+        <path
+           d="m 634.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
+           id="path4909"
+           inkscape:connector-curvature="0" />
       </g>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="695.47766"
-         y="151.83208"
-         id="text4527-4-5-5"><tspan
+         x="695.71722"
+         y="51.666229"
+         id="text4527-4"><tspan
            sodipodi:role="line"
-           x="695.47766"
-           y="151.83208"
-           id="tspan5407">CONTROLFLOW travels along </tspan><tspan
+           x="695.71722"
+           y="51.666229"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           id="tspan4579">Change the SELECTOR area so as to</tspan><tspan
            sodipodi:role="line"
-           x="695.47766"
-           y="178.49875"
-           id="tspan6451">curved `path` elements.</tspan></text>
-      <g
-         transform="translate(270.5665,-366.04074)"
-         id="g4903-1-0-4">
-        <path
-           sodipodi:nodetypes="ccccc"
-           style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m -75.56836,551.16016 v 2 h 502.87087 v -2 z"
-           id="path4561-5-4-5"
-           inkscape:connector-curvature="0" />
-        <path
-           d="m -65.10579,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
-           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
-           id="path4909-3-8-9"
-           inkscape:connector-curvature="0"
-           sodipodi:nodetypes="cccc" />
-      </g>
+           x="695.71722"
+           y="78.332893"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+           id="tspan4583">select both boxes.</tspan><tspan
+           sodipodi:role="line"
+           x="695.71722"
+           y="104.99957"
+           id="tspan4571">A SELECTOR defines the area</tspan><tspan
+           sodipodi:role="line"
+           x="695.71722"
+           y="131.66623"
+           id="tspan4575">that will be affected by an instruction.</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          x="695.71722"
          y="299.66623"
-         id="text4527-4-5-2"><tspan
+         id="text4527-4-5"><tspan
            sodipodi:role="line"
            x="695.71722"
            y="299.66623"
-           id="tspan5500-5">Program execution stops at a</tspan><tspan
+           id="tspan4563-6-2">One corner must be exactly where the </tspan><tspan
            sodipodi:role="line"
            x="695.71722"
            y="326.33289"
-           id="tspan5559">filled `circle` in an unfilled `circle`.</tspan></text>
+           id="tspan4541">controlflow ends.</tspan></text>
       <g
-         transform="translate(270.5665,-382.00526)"
-         id="g4903-1-0-46">
+         transform="translate(110.5665,-278.00526)"
+         id="g4903-1-0">
         <path
            sodipodi:nodetypes="ccccc"
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 124.43164,717.16016 v 2 h 302.87087 v -2 z"
-           id="path4561-5-4-59"
+           d="m 384.43164,551.16016 v 2 h 202.54872 v -2 z"
+           id="path4561-5-4"
            inkscape:connector-curvature="0" />
         <path
-           d="m 134.89421,723.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           d="m 394.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
            style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
-           id="path4909-3-8-0"
-           inkscape:connector-curvature="0"
-           sodipodi:nodetypes="cccc" />
+           id="path4909-3-8"
+           inkscape:connector-curvature="0" />
       </g>
     </g>
   </g>
-  <path
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 81.101372,175.14076 C 180.54902,205.6715 149.62025,433.56712 334.49867,437.44821"
-     id="path5326"
-     inkscape:connector-curvature="0"
-     sodipodi:nodetypes="cc" />
-  <circle
-     style="fill:none;stroke:#000000;stroke-width:6;stroke-miterlimit:10;stroke-dasharray:none"
-     id="circle6876-3"
-     r="24"
-     cy="437.44821"
-     cx="334.49866"
-     stroke-miterlimit="10" />
   <circle
      style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
-     id="circle6876-6"
+     id="circle6876-4"
      r="12"
-     cy="437.44821"
-     cx="334.49866"
+     cy="157.16423"
+     cx="467.14285"
      stroke-miterlimit="10" />
+  <rect
+     id="rect6890-0"
+     height="144"
+     width="122.53692"
+     y="449.8121"
+     x="88.731537"
+     style="fill:#000000;fill-opacity:1;stroke-width:1" />
 </svg>
