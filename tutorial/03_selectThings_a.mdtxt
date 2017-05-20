@@ -1,0 +1,10 @@
+chapter:        Select things
+congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
+
+
+1. **Drop and run** `$exerciseSVGfile` in the test area below.  
+   _Only one of the boxes will move._
+
+1. **Edit** `$exerciseSVGfile` so that both boxes move.
+
+1. **Save, and run your solution** (cf. step 1).

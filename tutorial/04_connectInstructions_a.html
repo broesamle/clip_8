@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>clip8 | Klippen</title>
+<title>clip8 | Tutorial</title>
 
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
@@ -24,13 +24,25 @@
 
 <body>
 <nav>
-<div class="leftlink"><a href="index.html">Tutorial Start Page<br>&lt;&lt;&lt;&lt;</a></div>
-<div class="chapternavtitle">Online Interpreter</div>
-
+<div class="leftlink"><a href="03_selectThings_b.html">Select things (b)<br>&lt;&lt;&lt;&lt;</a></div>
+<div class="chapternavtitle">[04_connectInstructions_a.svg]</div>
+<div class="rightlink"><a href="05_OrderOfInstructions_a.html">Order of instructions<br>&gt;&gt;&gt;&gt;</a></div>
 </nav>
-<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Klippen</h1>
+<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Connect instructions</h1>
+<ol>
+<li>
+<p><strong>Drop and run</strong> <code>04_connectInstructions_a.svg</code> in the test area below.<br />
+<em>The controlflow between the two move instructions is missing.</em></p>
+</li>
+<li>
+<p><strong>Edit</strong> <code>04_connectInstructions_a.svg</code> so that both boxes move, one after the other.</p>
+</li>
+<li>
+<p><strong>Save, and drop your solution below for testing</strong>.</p>
+</li>
+</ol>
 
-<p class="pro">
+<p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
 <button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
@@ -44,7 +56,7 @@
 </div>
 <div id="hintoutput">
 </div>
-<p class="pro">
+<p class="tutorial">
 <svg id="clip8svgroot"  viewBox="0 0 1200 700">
 <g id="rect5212">
 	<g>
@@ -488,7 +500,12 @@
 </p>
 </footer>
 
+
+<script>
+terminationcallback = undefined;
+</script>
 <script src="../js/svgloader.js"></script>
+
 </body>
 
 </html>

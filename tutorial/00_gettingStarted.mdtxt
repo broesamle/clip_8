@@ -1,0 +1,16 @@
+chapter:        Getting started
+congrat-msg:    Congratulations, you just executed a vector drawing!
+
+
+1. Download and install [Inkscape](https://inkscape.org)  
+   (or some other SVG editor).
+
+1. [Download the Exercises](exercises.zip) and **unpack them**.
+
+1. **Have the unpacked SVG files ready** in an open a manager/explorer/finder window.
+
+1. **Drop the SVG file** `$exerciseSVGfile` in the test environment below.  
+   _The SVG contains an iconic form of writing computer programs. Graphical elements express operations that can be executed._
+
+1. **Run the program** by clicking the &#x25B6; button.  
+   _The white flashing indicates the currently executed instruction (control flow)._

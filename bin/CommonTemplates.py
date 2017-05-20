@@ -79,6 +79,12 @@ Linkback = Template("""
 </div>
 """)
 
+LinkbackToProjectpage_str = """
+<div class="leftlink">
+<a href="https://github.com/broesamle/clip_8">[project page on GitHub]</a>
+</div>
+"""
+
 Linknext = Template("""
 <div class="rightlink">
 <a href="$href">$linktext<br>

@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>clip8 | Klippen</title>
+<title>clip8 | Tutorial</title>
 
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
@@ -24,13 +24,22 @@
 
 <body>
 <nav>
-<div class="leftlink"><a href="index.html">Tutorial Start Page<br>&lt;&lt;&lt;&lt;</a></div>
-<div class="chapternavtitle">Online Interpreter</div>
+<div class="leftlink"><a href="04_connectInstructions_a.html">Connect instructions<br>&lt;&lt;&lt;&lt;</a></div>
+<div class="chapternavtitle">[05_OrderOfInstructions_a.svg]</div>
 
 </nav>
-<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Klippen</h1>
+<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Order of instructions</h1>
+<ol>
+<li>
+<p>Run <code>05_OrderOfInstructions_a.svg</code>.<br />
+<em>The upper-left box moves before the lower-right one does.</em></p>
+</li>
+<li>
+<p>Reverse the controlflow so that the lower-right box moves first.</p>
+</li>
+</ol>
 
-<p class="pro">
+<p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
 <button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
@@ -44,7 +53,7 @@
 </div>
 <div id="hintoutput">
 </div>
-<p class="pro">
+<p class="tutorial">
 <svg id="clip8svgroot"  viewBox="0 0 1200 700">
 <g id="rect5212">
 	<g>
@@ -488,7 +497,12 @@
 </p>
 </footer>
 
+
+<script>
+terminationcallback = undefined;
+</script>
 <script src="../js/svgloader.js"></script>
+
 </body>
 
 </html>

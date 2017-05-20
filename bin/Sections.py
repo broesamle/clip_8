@@ -57,7 +57,3 @@ demos = [
     ("Loom 2", "loom2.svg"),
     ("Loom 3", "loom3.svg"),
     ("Analog Digital Converter", "ADConverter.svg")]
-
-exercises = [
-    ("Getting started", "00_gettingStarted.svg"),
-    ("Move objects (a)", "01_MoveBy-relative_a.svg")]

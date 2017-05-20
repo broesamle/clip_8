@@ -11,7 +11,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="00_gettingStarted.svg"
+   sodipodi:docname="01_repairControlflow_a_solution.svg"
    width="1200"
    height="700">
   <metadata
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -45,8 +45,8 @@
      inkscape:snap-center="true"
      inkscape:snap-object-midpoints="true"
      inkscape:zoom="0.99333334"
-     inkscape:cx="625.69627"
-     inkscape:cy="379.56019"
+     inkscape:cx="735.30206"
+     inkscape:cy="332.01457"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -57,56 +57,51 @@
      style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
      id="circle6876"
      r="12"
-     cy="175.14076"
+     cy="197.14076"
      cx="81.101372"
      stroke-miterlimit="10" />
   <g
      id="instruction_IGNORE"
      inkscape:label="#g4576"
      transform="translate(-1.1145308e-6,100)">
-    <g
-       id="title_IGNORE"
-       inkscape:label="#g4622"
-       transform="translate(6.1035156e-5,-621.60724)">
-      <rect
-         style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#010101;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-         id="rect7954-4"
-         width="517.20721"
-         height="67.714951"
-         x="682.79272"
-         y="521.60724" />
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:10.66666698px;line-height:125%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+    <rect
+       y="-100"
+       x="682.79279"
+       height="67.714951"
+       width="517.20721"
+       id="rect7954-4"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#010101;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:5.99999952;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+    <text
+       id="text4527-44"
+       y="-76.52533"
+       x="1196.7932"
+       style="font-style:normal;font-weight:normal;font-size:10.66666698px;line-height:125%;font-family:sans-serif;text-align:end;letter-spacing:0px;word-spacing:0px;text-anchor:end;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.99999994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="-76.52533"
+         x="1200.5432"
+         sodipodi:role="line"
+         id="tspan4582"
+         style="font-size:10.66666698px;text-align:end;text-anchor:end;fill:#808080;stroke-width:0.99999994px">Copyright 2017 </tspan><tspan
+         y="-63.191998"
          x="1196.7932"
-         y="545.08191"
-         id="text4527-44"><tspan
-           style="font-size:10.66666698px;text-align:end;text-anchor:end;fill:#808080;stroke-width:0.99999994px"
-           id="tspan4582"
-           sodipodi:role="line"
-           x="1200.5432"
-           y="545.08191">Copyright 2017 </tspan><tspan
-           id="tspan4613"
-           style="font-size:10.66666698px;text-align:end;text-anchor:end;fill:#808080;stroke-width:0.99999994px"
-           sodipodi:role="line"
-           x="1196.7932"
-           y="558.41522">Martin Brösamle</tspan><tspan
-           id="tspan4611"
-           style="font-size:10.66666698px;text-align:end;text-anchor:end;fill:#808080;stroke-width:0.99999994px"
-           sodipodi:role="line"
-           x="1196.7932"
-           y="571.7486">All rights reserved</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:29.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="696.64429"
-         y="563.57867"
-         id="text4519"><tspan
-           sodipodi:role="line"
-           id="tspan4517"
-           x="696.64429"
-           y="563.57867">First clip_8 program</tspan></text>
-    </g>
+         sodipodi:role="line"
+         style="font-size:10.66666698px;text-align:end;text-anchor:end;fill:#808080;stroke-width:0.99999994px"
+         id="tspan4613">Martin Brösamle</tspan><tspan
+         y="-49.858662"
+         x="1196.7932"
+         sodipodi:role="line"
+         style="font-size:10.66666698px;text-align:end;text-anchor:end;fill:#808080;stroke-width:0.99999994px"
+         id="tspan4611">All rights reserved</tspan></text>
+    <text
+       id="text4519"
+       y="-58.028564"
+       x="696.64435"
+       style="font-style:normal;font-weight:normal;font-size:29.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       xml:space="preserve"><tspan
+         y="-58.028564"
+         x="696.64435"
+         id="tspan4517"
+         sodipodi:role="line">Repair controlflow</tspan></text>
     <g
        id="instruction2_IGNORE"
        inkscape:label="#g4671">
@@ -120,19 +115,19 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="695.71722"
-         y="39.666229"
+         x="699.2381"
+         y="65.666229"
          id="text4527-4-5"><tspan
            sodipodi:role="line"
-           x="695.71722"
-           y="39.666229"
-           id="tspan5500">Program execution always starts at a </tspan><tspan
+           x="699.2381"
+           y="65.666229"
+           id="tspan5709">Program execution is initiated here. </tspan><tspan
            sodipodi:role="line"
-           x="695.71722"
-           y="66.332893"
-           id="tspan6424">filled `circle` element.</tspan></text>
+           x="699.2381"
+           y="92.332893"
+           id="tspan7041">A curved `path` element must start here.</tspan></text>
       <g
-         transform="translate(270.5665,-478.00526)"
+         transform="translate(270.5665,-454.00526)"
          id="g4903-1-0">
         <path
            sodipodi:nodetypes="ccccc"
@@ -150,28 +145,44 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="695.47766"
-         y="151.83208"
-         id="text4527-4-5-5"><tspan
+         x="698.37354"
+         y="279.66623"
+         id="text4527-4-5-2"><tspan
            sodipodi:role="line"
-           x="695.47766"
-           y="151.83208"
-           id="tspan5407">CONTROLFLOW travels along </tspan><tspan
+           x="698.37354"
+           y="279.66623"
+           id="tspan5795"><tspan
+   style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold'"
+   id="tspan5739">Snap</tspan> lets you draw precisely.</tspan><tspan
            sodipodi:role="line"
-           x="695.47766"
-           y="178.49875"
-           id="tspan6451">curved `path` elements.</tspan></text>
+           x="698.37354"
+           y="306.33289"
+           id="tspan5801">It makes edges, object centres, lines, etc.</tspan><tspan
+           sodipodi:role="line"
+           x="698.37354"
+           y="332.99957"
+           id="tspan5737">magnetic.</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="697.4256"
+         y="183.84073"
+         id="text4527-4-5-9"><tspan
+           sodipodi:role="line"
+           x="697.4256"
+           y="183.84073"
+           id="tspan5733-4">Move this end to the centre of the circle.</tspan></text>
       <g
-         transform="translate(270.5665,-366.04074)"
-         id="g4903-1-0-4">
+         transform="translate(270.5665,-358.00526)"
+         id="g4903-1-0-2">
         <path
            sodipodi:nodetypes="ccccc"
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m -75.56836,551.16016 v 2 h 502.87087 v -2 z"
-           id="path4561-5-4-5"
+           d="m -107.56836,551.16016 v 2 h 534.87087 v -2 z"
+           id="path4561-5-4-7"
            inkscape:connector-curvature="0" />
         <path
-           d="m -65.10579,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           d="m -97.10579,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
            style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
            id="path4909-3-8-9"
            inkscape:connector-curvature="0"
@@ -180,38 +191,26 @@
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="695.71722"
-         y="299.66623"
-         id="text4527-4-5-2"><tspan
+         x="698.1131"
+         y="399.66623"
+         id="text4527-4-5-2-6"><tspan
            sodipodi:role="line"
-           x="695.71722"
-           y="299.66623"
-           id="tspan5500-5">Program execution stops at a</tspan><tspan
+           x="698.1131"
+           y="399.66623"
+           id="tspan7083">Save the file,</tspan><tspan
            sodipodi:role="line"
-           x="695.71722"
-           y="326.33289"
-           id="tspan5559">filled `circle` in an unfilled `circle`.</tspan></text>
-      <g
-         transform="translate(270.5665,-382.00526)"
-         id="g4903-1-0-46">
-        <path
-           sodipodi:nodetypes="ccccc"
-           style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 124.43164,717.16016 v 2 h 302.87087 v -2 z"
-           id="path4561-5-4-59"
-           inkscape:connector-curvature="0" />
-        <path
-           d="m 134.89421,723.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
-           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
-           id="path4909-3-8-0"
-           inkscape:connector-curvature="0"
-           sodipodi:nodetypes="cccc" />
-      </g>
+           x="698.1131"
+           y="426.33289"
+           id="tspan7087">Return to the tutorial page</tspan><tspan
+           sodipodi:role="line"
+           x="698.1131"
+           y="452.99957"
+           id="tspan7077">Drop it in the test area again.</tspan></text>
     </g>
   </g>
   <path
-     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 81.101372,175.14076 C 180.54902,205.6715 149.62025,433.56712 334.49867,437.44821"
+     style="fill:none;fill-rule:evenodd;stroke:#00998f;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 81.101372,197.14076 C 180.54902,227.6715 203.62025,553.56712 388.49867,557.44821"
      id="path5326"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="cc" />
@@ -219,14 +218,14 @@
      style="fill:none;stroke:#000000;stroke-width:6;stroke-miterlimit:10;stroke-dasharray:none"
      id="circle6876-3"
      r="24"
-     cy="437.44821"
-     cx="334.49866"
+     cy="557.44824"
+     cx="388.49866"
      stroke-miterlimit="10" />
   <circle
      style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
      id="circle6876-6"
      r="12"
-     cy="437.44821"
-     cx="334.49866"
+     cy="557.44824"
+     cx="388.49866"
      stroke-miterlimit="10" />
 </svg>
