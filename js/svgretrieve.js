@@ -61,6 +61,11 @@ var Svgretrieve = {
         Svgretrieve.svgroot = svgroot;
         Svgretrieve.clip8root = svgroot.getElementById("clip8");
         if (! Svgretrieve.clip8root) Svgretrieve.clip8root = Svgretrieve.svgroot;
+        var viewboxparams = Svgretrieve.svgroot.getAttribute("viewBox").split(" ");
+        Svgretrieve.viewBoxX = viewboxparams[0];
+        Svgretrieve.viewBoxY = viewboxparams[1];
+        Svgretrieve.viewBoxW = viewboxparams[2];
+        Svgretrieve.viewBoxH = viewboxparams[3];
         Svgretrieve.registerElements_fromDOM();
     },
 
@@ -73,12 +78,8 @@ var Svgretrieve = {
         Svgretrieve.I_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
         Svgretrieve.S_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
         Svgretrieve.C_collection = new kdTree([], Svgdom.euclidDistance, ["x", "y"]);
-        var viewboxparams = Svgretrieve.svgroot.getAttribute("viewBox").split(" ");
-        var vBx = viewboxparams[0];
-        var vBy = viewboxparams[1];
-        var vBw = viewboxparams[2];
-        var vBh = viewboxparams[3];
-        if (vBw > vBh) {
+
+        if (Svgretrieve.viewBoxW > Svgretrieve.viewBoxH) {
             // main direction horizontal -- x -- width
             Svgretrieve._getMainInterval = Svginterval.getXIntervalRectElement;
             Svgretrieve._getOrthoInterval = Svginterval.getYIntervalRectElement;
@@ -326,34 +327,32 @@ var Svgretrieve = {
             Return a full-height vertical stripe/rectangle (from top to bottom of `Svgretrieve.svgroot`) with corresponding horizontal boundaries.
             Initial use case: Select elements potentially affected by a horizontal cut.
         */
-        var p1, p2, above, below, stripe, x1, y1, x2, y2, vBy, vBh;
+        var p1, p2, above, below, stripe, x1, y1, x2, y2;
         x1 = line.x1.baseVal.value;
         y1 = line.y1.baseVal.value;
         x2 = line.x2.baseVal.value;
         y2 = line.y2.baseVal.value;
-        vBy = Svgretrieve.svgroot.getAttribute("viewBox").split(" ")[1];
-        vBh = Svgretrieve.svgroot.getAttribute("viewBox").split(" ")[3];
 
         p1 = Svgretrieve.svgroot.createSVGPoint();
         p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = x1;
-        p1.y = vBy;
+        p1.y = Svgretrieve.viewBoxY;
         p2.x = x2;
-        p2.y = vBy+vBh;
+        p2.y = Svgretrieve.viewBoxY+Svgretrieve.viewBoxH;
         stripe = Svgdom.newSVGRect_fromPoints(p1, p2);
         p1 = Svgretrieve.svgroot.createSVGPoint();
         p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = x1;
         p1.y = y1;
         p2.x = x2;
-        p2.y = vBy+vBh;
+        p2.y = Svgretrieve.viewBoxY+Svgretrieve.viewBoxH;
         above = Svgdom.newSVGRect_fromPoints(p1, p2);
         p1 = Svgretrieve.svgroot.createSVGPoint();
         p2 = Svgretrieve.svgroot.createSVGPoint();
         p1.x = x1;
         p1.y = y1;
         p2.x = x2;
-        p2.y = vBy;
+        p2.y = Svgretrieve.viewBoxY;
         below = Svgdom.newSVGRect_fromPoints(p1, p2);
         return [stripe, above, below];
     },
