@@ -378,8 +378,11 @@ var Clip8 = {
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip);
 
         // initialise control flow if necessary
-        if (Clip8.ip == undefined)
+        if (Clip8.ip == undefined) {
             Clip8.ip = Clip8.initControlFlow();
+            return Clip8.EXECUTE;
+        }
+
 
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
