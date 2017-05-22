@@ -437,8 +437,6 @@ var Clip8 = {
             }
         }
         var execstatus = Clip8.moveIP(C0, p0);
-
-        if (execstatus != Clip8.EXECUTE)
         if (execstatus != Clip8.EXECUTE)
             return execstatus;
 
