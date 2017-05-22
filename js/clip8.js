@@ -48,6 +48,8 @@ var Clip8 = {
     visualiseIP: false,             // visualise processing activity to the user
     highlightErr: true,             // hightlight dom elements related to the current terror
     highlighted: [],                // elements highlighted for visualization
+    _reportMarkerSize: 10,          // size of the rectangle that indicates error positions
+    _reportMarkerStroke: 2,         // stroke width for the error indicator
     _reduce: function (reduceable) {
         return reduceable.reduce( function(a,b) {return a.concat(b)} );
     },
@@ -97,8 +99,11 @@ var Clip8 = {
             for (var i=0; i<locations.length; i++) {
                 console.error (locations[i]);
                 if (Clip8.highlightErr) {
-                    locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
-                    locrect.style = "fill:none; stroke:#ee22cc; stroke-width: 1";
+                    locrect = Svgdom.newRectElement(locations[i].x-Clip8._reportMarkerSize,
+                                                    locations[i].y-Clip8._reportMarkerSize,
+                                                    Clip8._reportMarkerSize*2,
+                                                    Clip8._reportMarkerSize*2);
+                    locrect.style = "fill:none; stroke:#ff4422; stroke-width: "+Clip8._reportMarkerStroke;
                     Clip8.svgroot.appendChild (locrect);
                 }
             }
@@ -378,8 +383,10 @@ var Clip8 = {
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip);
 
         // initialise control flow if necessary
-        if (Clip8.ip == undefined)
+        if (Clip8.ip == undefined) {
             Clip8.ip = Clip8.initControlFlow();
+            return Clip8.EXECUTE;
+        }
 
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
@@ -644,6 +651,8 @@ var Clip8 = {
         }
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
+        Clip8._reportMarkerSize = Math.min(Svgretrieve.viewBoxW, Svgretrieve.viewBoxH) / 40;
+        Clip8._reportMarkerStroke = Math.min(Svgretrieve.viewBoxW, Svgretrieve.viewBoxH) / 200;
         return svgroot;
     }
 };
