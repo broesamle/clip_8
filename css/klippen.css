@@ -18,6 +18,17 @@ button {
 	vertical-align: bottom;
 }
 
+#learner-feedback {
+    background: #a6cabe;
+    font-weight: bold;
+}
+
+#dynamic-nextlink  {
+    background: #a6cabe;
+    color:#456045;
+    text-align: right;
+}
+
 #filechooser { color: white; }
 
 #erroroutput {
