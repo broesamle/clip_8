@@ -28,8 +28,9 @@ var Svgretrieve = {
     highlighterFn: undefined,
     UNREGISTERED_COLOUR: "#ffff88",
     INSCTRUCTION_COLOUR: "#ffffff",
-    SELECTOR_COLOUR: "#C97A4F",
+    SELECTOR_COLOUR: "#4444FF",
     CONTROLFLOW_COLOUR: "#9BC9C7",
+    DATA_COLOUR: "#000000",
     svgroot: undefined,
     clip8root: undefined,
     I_collection: undefined,
@@ -277,6 +278,8 @@ var Svgretrieve = {
                 itv = Svgretrieve._getMainInterval(rect);  // get interval
                 itv.push(rect);                            // append pointer to rect element
                 Svgretrieve.rect_intervals.insert(itv);
+                if (Svgretrieve.highlight_isc)
+                    Svgretrieve.highlighterFn(rect, Svgretrieve.DATA_COLOUR);
                 return true;
             default:
                 return false;
