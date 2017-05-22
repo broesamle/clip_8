@@ -80,7 +80,7 @@ ScriptInBody_str = """<script src="../js/svgloader.js"></script>"""
 
 Script = Template("""
 <script>
-terminationcallback = $check;
+termination_callback = $check;
 display_success = function() {
     var feedbackelement = document.getElementById("learner-feedback");
     while (feedbackelement.firstChild) {
