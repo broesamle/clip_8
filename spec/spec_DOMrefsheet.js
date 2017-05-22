@@ -144,7 +144,7 @@ function addTest_normal_execution(reftestElement, cycles) {
             }).not.toThrow();
         jasmine.clock().tick(CLIP8_RUNNINGTIME);
         expect(Clip8.executeOneOperation).toHaveBeenCalled();
-        expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles, "(instruction of cycles)");
+        expect(Clip8.executeOneOperation.calls.count()).toEqual(cycles+1, "(instruction of cycles)");
         expect(Clip8controler._stopTimer).toHaveBeenCalled();
         svgroot.removeAttribute("id", reftestElement.id);
         done();
