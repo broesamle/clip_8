@@ -1,6 +1,8 @@
 chapter:        Repair controlflow
-congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
-
+congratmsg:     Congratulations, you just created an executable clip_8 drawing!
+check:          function (status, cycles, history) {
+                    if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+                }
 
 1. **Drop the SVG file** `$exerciseSVGfile` in the test area below.  
    

@@ -1,5 +1,8 @@
 chapter:        Getting started
-congrat-msg:    Congratulations, you just executed a vector drawing!
+congratmsg:     Congratulations, you just executed a drawing!
+check:          function (status, cycles, history) {
+                    if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+                }
 
 
 1. Download and install [Inkscape](https://inkscape.org)  
