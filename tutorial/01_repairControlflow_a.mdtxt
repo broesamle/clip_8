@@ -1,6 +1,6 @@
 chapter:        Repair controlflow
 congratmsg:     Congratulations, you just created an executable clip_8 drawing!
-check:          function (status, cycles, exec_protocol) {
+check:          function (status, cycles, history) {
                     if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
                 }
 

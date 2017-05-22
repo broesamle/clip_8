@@ -45,7 +45,8 @@ var Clip8 = {
     ip: undefined,                  // instruction pointer: the active control flow path
     pminus1_point: undefined,       // p0 of former round
     blocklist: [],                  // elements retrieved during current round
-    exec_protocol: [],
+    exec_history: [],               // keep the last instructions and affected objects
+    exec_history_maxlen: 8,         // how many items to keep in the execution history
     visualiseIP: false,             // visualise processing activity to the user
     highlightErr: true,             // hightlight dom elements related to the current terror
     highlighted: [],                // elements highlighted for visualization
@@ -462,6 +463,8 @@ var Clip8 = {
 
         if (debug) console.log("[executeOneOperation] decodedinstr:", decodedinstr);
 
+        decodedinstr.selectionset = []
+        decodedinstr.resultset = []
         switch(decodedinstr.opcode) {
             case OP.ALIGN:
                 if (debug) console.log("[executeOneOperation] ALIGN");
@@ -598,11 +601,13 @@ var Clip8 = {
                 var deltaX, deltaY;
                 deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
                 deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
+                decodedinstr.selectionset = selectedelements1;
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
                 Paperclip.moveBy(selectedelements1, deltaX, deltaY);
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.registerRectElement(selectedelements1[i]);
+                decodedinstr.resultset = selectedelements1;
                 break;
             case OP.CLONE:
                 if (debug) console.log("[executeOneOperation] CLONE");
@@ -624,6 +629,8 @@ var Clip8 = {
                                Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)),
                                [p0], INTERNAL_ERROR_HINT);
         }
+        Clip8.exec_history.push(decodedinstr);
+        Clip8.exec_history.shift();
         return Clip8.EXECUTE;
     },
 
@@ -652,6 +659,8 @@ var Clip8 = {
         }
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
+        for (var i = 0; i < Clip8.exec_history_maxlen; i++)
+            Clip8.exec_history.push(undefined);
         Clip8._reportMarkerSize = Math.min(Svgretrieve.viewBoxW, Svgretrieve.viewBoxH) / 40;
         Clip8._reportMarkerStroke = Math.min(Svgretrieve.viewBoxW, Svgretrieve.viewBoxH) / 200;
         return svgroot;
@@ -685,7 +694,7 @@ var Clip8controler = {
                 Clip8controler._stopTimer();
                 Clip8controler.state = Clip8controler.TERMINATED;
                 console.log("TERMINATED-state.");
-                Clip8controler.terminationCallback(Clip8controler.TERMINATED, Clip8controler.cyclescounter, Clip8.exec_protocol);
+                Clip8controler.terminationCallback(Clip8controler.TERMINATED, Clip8controler.cyclescounter, Clip8.exec_history);
             }
         }
         catch (exc) {
@@ -701,7 +710,7 @@ var Clip8controler = {
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
-            Clip8controler.terminationCallback(Clip8controler.ERROR, Clip8controler.cyclescounter, Clip8.exec_protocol);
+            Clip8controler.terminationCallback(Clip8controler.ERROR, Clip8controler.cyclescounter, Clip8.exec_history);
         }
     },
 
@@ -732,9 +741,9 @@ var Clip8controler = {
         if (terminationCallback)
             Clip8controler.terminationCallback = terminationCallback;
         else {
-            Clip8controler.terminationCallback = function (exec_status, cycles, exec_protocol) {
-                    console.log("[Clip8controler.terminationCallback] exec_status, cycles, exec_protocol:",
-                                exec_status, cycles, exec_protocol);
+            Clip8controler.terminationCallback = function (exec_status, cycles, exec_history) {
+                    console.log("[Clip8controler.terminationCallback] exec_status, cycles, exec_history:",
+                                exec_status, cycles, exec_history);
                 };
         }
 

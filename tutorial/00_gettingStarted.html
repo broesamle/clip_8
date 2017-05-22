@@ -512,10 +512,12 @@
 
 
 <script>
-terminationcallback = undefined;
+terminationcallback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+};
 display_success = function() {
     var feedbackelement = document.getElementById("learner-feedback");
-    feedbackelement.appendChild(document.createTextNode("Congratulations!"));
+    feedbackelement.appendChild(document.createTextNode("Congratulations, you just executed a drawing!"));
     document.getElementById("dynamic-nextlink").style.display="block";
 }
 </script>

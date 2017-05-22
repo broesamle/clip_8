@@ -1,4 +1,8 @@
 chapter:        Getting started
+congratmsg:     Congratulations, you just executed a drawing!
+check:          function (status, cycles, history) {
+                    if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+                }
 
 
 1. Download and install [Inkscape](https://inkscape.org)  

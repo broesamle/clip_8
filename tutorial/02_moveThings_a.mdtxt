@@ -1,9 +1,24 @@
 chapter:        Move things
+congratmsg:     Exactly!
+check:          function (status, cycles, history) {
+                    if (status == Clip8controler.TERMINATED &&
+                        cycles == 3 &&
+                        history[history.length-1] &&
+                        history[history.length-1].opcode == OP.MOVE_REL &&
+                        history[history.length-1].resultset.length == 1 &&
+                        history[history.length-1].resultset[0].tagName == "rect" ) {
+                        var rect = history[history.length-1].resultset[0];
+                        var xpos = parseFloat(rect.getAttribute("x")) + parseFloat(rect.getAttribute("width"));
+                        var ypos = parseFloat(rect.getAttribute("y")) + parseFloat(rect.getAttribute("height"));
+                        if (615 < xpos && xpos < 625 && 615 < ypos && ypos < 625)
+                            display_success();
+                    }
+                }
 
 
 1. **Drop and run** `$exerciseSVGfile` in the test area below.  
    _The black filled box moves up-right._
-   
+
 1. **Edit** `$exerciseSVGfile` so that the box will be moved down-right, as indicated by the arrow.
 
 1. **Save your solution** as SVG file.
