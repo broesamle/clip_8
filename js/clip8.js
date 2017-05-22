@@ -388,7 +388,6 @@ var Clip8 = {
             return Clip8.EXECUTE;
         }
 
-
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
         else
