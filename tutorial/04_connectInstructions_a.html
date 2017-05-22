@@ -504,10 +504,28 @@
 
 
 <script>
-terminationcallback = undefined;
+terminationcallback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED &&
+cycles == 4 &&
+history[history.length-1] &&
+history[history.length-2] &&
+history[history.length-1].opcode == OP.MOVE_REL &&
+history[history.length-2].opcode == OP.MOVE_REL &&
+history[history.length-1].resultset.length == 1 &&
+history[history.length-2].resultset.length == 1 &&
+history[history.length-1].resultset[0].tagName == "rect" &&
+history[history.length-2].resultset[0].tagName == "rect" ) {
+var instr1 = history[history.length-2];
+var instr2 = history[history.length-1];
+// check for the location of the last and the second last instruction
+if ( instr2.p0prime.x - instr1.p0prime.x > 200 &&
+instr2.p0prime.y - instr1.p0prime.y > 100 )
+display_success();
+}
+};
 display_success = function() {
     var feedbackelement = document.getElementById("learner-feedback");
-    feedbackelement.appendChild(document.createTextNode("Congratulations!"));
+    feedbackelement.appendChild(document.createTextNode("Exactly!"));
     document.getElementById("dynamic-nextlink").style.display="block";
 }
 </script>
