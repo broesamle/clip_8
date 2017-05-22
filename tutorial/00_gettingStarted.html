@@ -49,6 +49,8 @@
 <em>The white flashing indicates the currently executed instruction (control flow).</em></p>
 </li>
 </ol>
+<div id="learner-feedback"></div>
+<a id="dynamic-nextlink" href="01_repairControlflow_a.html" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 
 <p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
@@ -510,7 +512,18 @@
 
 
 <script>
-terminationcallback = undefined;
+termination_callback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+
+    feedbackelement.appendChild(document.createTextNode("Congratulations, you just executed a drawing!"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
 </script>
 <script src="../js/svgloader.js"></script>
 

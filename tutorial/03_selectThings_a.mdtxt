@@ -1,5 +1,21 @@
 chapter:        Select things
-congrat-msg:    Congratulations, you just created an executable clip_8 drawing!
+congratmsg:     Exactly!
+check:          function (status, cycles, history) {
+                    if (status == Clip8controler.TERMINATED &&
+                        cycles == 3 &&
+                        history[history.length-1] &&
+                        history[history.length-1].opcode == OP.MOVE_REL &&
+                        history[history.length-1].resultset.length == 2 &&
+                        history[history.length-1].resultset[0].tagName == "rect" &&
+                        history[history.length-1].resultset[1].tagName == "rect" ) {
+                        var rect1 = history[history.length-1].resultset[0];
+                        var rect2 = history[history.length-1].resultset[1];
+                        // check for a minimum distance (excludes the possibility of moving the boxes into the selector)
+                        // FIXME: stronger criterion for success?
+                        if ( Math.abs ( parseFloat(rect1.getAttribute("x"))-parseFloat(rect2.getAttribute("x")) ) > (290-64) )
+                            display_success();
+                    }
+                }
 
 
 1. **Drop and run** `$exerciseSVGfile` in the test area below.  

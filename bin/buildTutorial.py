@@ -29,10 +29,11 @@ outDIRabs = inDIRabs
 
 exercises = MDFilesCollection(
                 inputDIR=inDIRabs,
-                pattern='*.'+CFG.exerciseinstruction_ext)
+                pattern='*.'+CFG.exerciseinstruction_ext,
+                defaults={'congratmsg': ["Congratulations!"]})
 
 ## collapse lists of strings into one string
-exercises.tryReformatFields( ['chapter', 'check'],
+exercises.tryReformatFields( ['chapter', 'check', 'congratmsg'],
                             (lambda field: functools.reduce((lambda s1, s2: s1+"\n"+s2), field)) )
 
 ## add additional fields to each exercise item

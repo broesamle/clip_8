@@ -38,6 +38,8 @@
 <p>Reverse the controlflow so that the lower-right box moves first.</p>
 </li>
 </ol>
+<div id="learner-feedback"></div>
+<a id="dynamic-nextlink" href=".html" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 
 <p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
@@ -499,7 +501,34 @@
 
 
 <script>
-terminationcallback = undefined;
+termination_callback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED &&
+cycles == 4 &&
+history[history.length-1] &&
+history[history.length-2] &&
+history[history.length-1].opcode == OP.MOVE_REL &&
+history[history.length-2].opcode == OP.MOVE_REL &&
+history[history.length-1].resultset.length == 1 &&
+history[history.length-2].resultset.length == 1 &&
+history[history.length-1].resultset[0].tagName == "rect" &&
+history[history.length-2].resultset[0].tagName == "rect" ) {
+var instr1 = history[history.length-2];
+var instr2 = history[history.length-1];
+// check for the location of the last and the second last instruction
+if ( instr1.p0prime.x - instr2.p0prime.x > 200 &&
+instr1.p0prime.y - instr2.p0prime.y > 100 )
+display_success();
+}
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+
+    feedbackelement.appendChild(document.createTextNode("Thank you for testing the Tutorial. Currently, there is no next exercise and the LINK IS BROKEN, apologies."));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
 </script>
 <script src="../js/svgloader.js"></script>
 
