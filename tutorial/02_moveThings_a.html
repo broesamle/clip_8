@@ -44,6 +44,8 @@
 <p><strong>Drop and run</strong> (as in step 1).</p>
 </li>
 </ol>
+<div id="learner-feedback"></div>
+<a id="dynamic-nextlink" href="03_selectThings_a.html" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 
 <p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
@@ -506,6 +508,11 @@
 
 <script>
 terminationcallback = undefined;
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    feedbackelement.appendChild(document.createTextNode("Congratulations!"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
 </script>
 <script src="../js/svgloader.js"></script>
 

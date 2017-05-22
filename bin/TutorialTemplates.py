@@ -49,11 +49,13 @@ $NEXT_LINK
 </nav>
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
 $contentHTML
+<div id="learner-feedback"></div>
+<a id="dynamic-nextlink" href="$NEXT_ELEMENT_KEY.%s" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 $KLIPPEN
 $FOOTER
 $SCRIPT
 </body>
-""")
+""" % exercisepage_ext)
 
 
 FooterIndexpage_str = """
@@ -79,6 +81,11 @@ ScriptInBody_str = """<script src="../js/svgloader.js"></script>"""
 Script = Template("""
 <script>
 terminationcallback = $check;
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    feedbackelement.appendChild(document.createTextNode("$congratmsg"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
 </script>
 <script src="../js/svgloader.js"></script>
 """)

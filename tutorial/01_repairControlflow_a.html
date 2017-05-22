@@ -48,6 +48,8 @@
 <em>If all went well you should see the illuminated TERMINAL icon.</em></p>
 </li>
 </ol>
+<div id="learner-feedback"></div>
+<a id="dynamic-nextlink" href="02_moveThings_a.html" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 
 <p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
@@ -509,7 +511,14 @@
 
 
 <script>
-terminationcallback = undefined;
+terminationcallback = function (status, cycles, exec_protocol) {
+if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    feedbackelement.appendChild(document.createTextNode("Congratulations, you just created an executable clip_8 drawing!"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
 </script>
 <script src="../js/svgloader.js"></script>
 

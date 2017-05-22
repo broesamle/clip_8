@@ -42,7 +42,7 @@ function insertSVG(newsvgroot) {
         svgroot.appendChild(movingchild.cloneNode(true));
         movingchild = movingchild.nextSibling;
     }
-    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, highlightISCCheckbox.checked );
+    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, highlightISCCheckbox.checked, terminationcallback);
 }
 
 function loadSVG(e2) {

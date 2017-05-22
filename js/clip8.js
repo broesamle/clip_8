@@ -45,6 +45,7 @@ var Clip8 = {
     ip: undefined,                  // instruction pointer: the active control flow path
     pminus1_point: undefined,       // p0 of former round
     blocklist: [],                  // elements retrieved during current round
+    exec_protocol: [],
     visualiseIP: false,             // visualise processing activity to the user
     highlightErr: true,             // hightlight dom elements related to the current terror
     highlighted: [],                // elements highlighted for visualization
@@ -669,6 +670,7 @@ var Clip8controler = {
     maxcycles: 1000,
     cyclescounter: 0,
     exectimer: undefined,
+    terminationCallback: undefined,
 
     _execOneCycle: function () {
         var enginestatus;
@@ -683,6 +685,7 @@ var Clip8controler = {
                 Clip8controler._stopTimer();
                 Clip8controler.state = Clip8controler.TERMINATED;
                 console.log("TERMINATED-state.");
+                Clip8controler.terminationCallback(Clip8controler.TERMINATED, Clip8controler.cyclescounter, Clip8.exec_protocol);
             }
         }
         catch (exc) {
@@ -698,6 +701,7 @@ var Clip8controler = {
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
+            Clip8controler.terminationCallback(Clip8controler.ERROR, Clip8controler.cyclescounter, Clip8.exec_protocol);
         }
     },
 
@@ -711,7 +715,7 @@ var Clip8controler = {
     },
 
 
-    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
+    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback) {
         Clip8controler.cyclescounter = 0;
         if (Clip8controler.state == Clip8controler.ERROR) {
             while (Clip8controler.erroroutput.firstChild)
@@ -725,6 +729,14 @@ var Clip8controler = {
         Clip8controler.svgroot;
         Clip8controler.erroroutput = document.getElementById("erroroutput");
         Clip8controler.hintoutput = document.getElementById("hintoutput");
+        if (terminationCallback)
+            Clip8controler.terminationCallback = terminationCallback;
+        else {
+            Clip8controler.terminationCallback = function (exec_status, cycles, exec_protocol) {
+                    console.log("[Clip8controler.terminationCallback] exec_status, cycles, exec_protocol:",
+                                exec_status, cycles, exec_protocol);
+                };
+        }
 
         try {
             Clip8.init(svgroot, visualiseIP, highlightErr, highlightSyntax);
