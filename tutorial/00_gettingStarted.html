@@ -517,6 +517,10 @@ if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
 };
 display_success = function() {
     var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+
     feedbackelement.appendChild(document.createTextNode("Congratulations, you just executed a drawing!"));
     document.getElementById("dynamic-nextlink").style.display="block";
 }

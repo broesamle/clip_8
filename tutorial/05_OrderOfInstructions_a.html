@@ -522,6 +522,10 @@ display_success();
 };
 display_success = function() {
     var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+
     feedbackelement.appendChild(document.createTextNode("Thank you for testing the Tutorial. Currently, there is no next exercise and the LINK IS BROKEN, apologies."));
     document.getElementById("dynamic-nextlink").style.display="block";
 }

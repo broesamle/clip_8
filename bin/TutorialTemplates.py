@@ -83,6 +83,10 @@ Script = Template("""
 terminationcallback = $check;
 display_success = function() {
     var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+
     feedbackelement.appendChild(document.createTextNode("$congratmsg"));
     document.getElementById("dynamic-nextlink").style.display="block";
 }
