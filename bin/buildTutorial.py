@@ -71,20 +71,22 @@ for key, bodyHTML in exercises.iterateSeries(
 ### For the tutorials, index.html contains the TOC.
 mainHTML = """
 <p>
-Welcome to the `clip_8` language tutorial. Clip_8 is a programming language. Unlike most other programming languages, the instructions are icons. You will draw the program code in SVG.
+Welcome to the `clip_8` tutorial.
+</p>
+<p>
+`Clip_8` is an arts project. At the same time it is a programming language.
+Unlike most other programming languages, the program code is _graphical_ rather than text-based. You will _draw_ the programs.
 </p>
 <p>
 The tutorial assumes you have some experience with
-<a href="https://en.wikipedia.org/wiki/Vector_graphics_editor  target="_blank">vector graphics editors</a>.
+<a href="https://en.wikipedia.org/wiki/Vector_graphics_editor" target="_blank">vector graphics editors</a>.
 </p>
 <p>
 If you get stuck, please <b>read the <a href="../survival-guide.html" target="_blank">Survival Guide</a>!</b> as the tutorials and clip_8 are in an experimental state.
 </p>
 <p>
-<p>
 <a href="00_gettingStarted.html">Happy drawing!</a>
 </p>
-
 """
 
 backlinkHTML = TEM.LinkbackToProjectpage_str
