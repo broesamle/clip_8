@@ -71,11 +71,14 @@ for key, bodyHTML in exercises.iterateSeries(
 ### For the tutorials, index.html contains the TOC.
 mainHTML = """
 <p>
-Welcome to the `clip_8` tutorial.
+Welcome to the <b>clip_8</b> tutorial.
 </p>
 <p>
-`Clip_8` is an arts project. At the same time it is a programming language.
-Unlike most other programming languages, the program code is _graphical_ rather than text-based. You will _draw_ the programs.
+Clip_8 is an arts project. At the same time it is a programming language.
+Unlike most other programming languages, the program code is <i>graphical</i> rather than text-based. You will <i>draw</i> the programs.
+
+Please find more on <a href="https://broesamle.github.io/clip_8/#philosophy--inspiration" target="_blank">Philosophy and Inspiration</a>
+in the project's <a href="https://broesamle.github.io/clip_8/" target="_blank">README</a>.
 </p>
 <p>
 The tutorial assumes you have some experience with
