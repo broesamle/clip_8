@@ -11,7 +11,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="04_Controlflow_1.svg"
+   sodipodi:docname="05_OrderOfInstructions_a.svg"
    width="1200"
    height="700">
   <metadata
@@ -75,9 +75,9 @@
      inkscape:object-nodes="true"
      inkscape:snap-center="true"
      inkscape:snap-object-midpoints="true"
-     inkscape:zoom="0.70239276"
-     inkscape:cx="137.38808"
-     inkscape:cy="425.64184"
+     inkscape:zoom="0.99333336"
+     inkscape:cx="736.14796"
+     inkscape:cy="321.05842"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -93,32 +93,18 @@
      height="190.97"
      width="191.37875"
      stroke-miterlimit="10"
-     y="189.11472"
+     y="349.11472"
      x="44.709541" />
-  <circle
-     style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
-     id="circle6876"
-     r="12"
-     cy="86.854973"
-     cx="61.069847"
-     stroke-miterlimit="10" />
   <rect
      id="rect6890"
      height="144"
      width="92.639114"
-     y="322.71884"
+     y="482.71884"
      x="300.3526"
      style="fill:#000000;fill-opacity:1;stroke-width:1" />
-  <circle
-     style="fill:none;stroke:#000000;stroke-width:6;stroke-miterlimit:10;stroke-dasharray:none"
-     id="circle6876-3"
-     r="24"
-     cy="399.49802"
-     cx="588.85992"
-     stroke-miterlimit="10" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 61.069846,86.854971 c 6.93924,44.374349 50.379114,84.725599 175.018444,102.259749 v 0"
+     d="m 61.069846,273.02268 c 6.93924,33.0192 50.379114,63.04478 175.018444,76.09204 v 0"
      id="path4145"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccc" />
@@ -167,7 +153,7 @@
            sodipodi:role="line"
            id="tspan4517"
            x="696.64429"
-           y="563.57867">Connect instructions</tspan></text>
+           y="563.57867">Order of instructions</tspan></text>
     </g>
     <g
        id="instruction2_IGNORE"
@@ -181,43 +167,47 @@
          y="-32.285034" />
       <text
          xml:space="preserve"
-         style="font-style:normal;font-weight:normal;font-size:32px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          x="694.82141"
-         y="161.94638"
+         y="57.946381"
          id="text4523"><tspan
            sodipodi:role="line"
            x="694.82141"
-           y="161.94638"
-           id="tspan6434">Connect two MOVE</tspan><tspan
+           y="57.946381"
+           id="tspan5389">Reverse the control flow by exchanging</tspan><tspan
            sodipodi:role="line"
            x="694.82141"
-           y="201.94638"
-           id="tspan5391">instructions with a </tspan><tspan
+           y="84.613045"
+           id="tspan4560">INITIAL and TERMINAL element.</tspan><tspan
            sodipodi:role="line"
            x="694.82141"
-           y="241.94638"
-           id="tspan5389">CONTROLFLOW element.</tspan></text>
+           y="111.27972"
+           id="tspan5498" /></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          x="695.71722"
-         y="73.666229"
+         y="195.66623"
          id="text4527-4-5"><tspan
            sodipodi:role="line"
            x="695.71722"
-           y="73.666229"
-           id="tspan5378">Clip_8 will miss a controlflow element here.</tspan></text>
+           y="195.66623"
+           id="tspan5378">Program execution always starts at</tspan><tspan
+           sodipodi:role="line"
+           x="695.71722"
+           y="222.3329"
+           id="tspan5500">at an INITIAL element, a filled circle. . .</tspan></text>
       <g
-         transform="translate(270.5665,-468.00526)"
+         transform="translate(270.5665,-378.00526)"
          id="g4903-1-0">
         <path
            sodipodi:nodetypes="ccccc"
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 4.43164,551.16016 v 2 h 456.54872 v -2 z"
+           d="m -155.56836,551.16016 v 2 h 580.54872 v -2 z"
            id="path4561-5-4"
            inkscape:connector-curvature="0" />
         <path
-           d="m 14.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           d="m -145.10579,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
            style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
            id="path4909-3-8"
            inkscape:connector-curvature="0"
@@ -227,31 +217,23 @@
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          x="695.47766"
-         y="379.86755"
+         y="273.86755"
          id="text4527-4-5-5"><tspan
            sodipodi:role="line"
            x="695.47766"
-           y="379.86755"
-           id="tspan5401">Controlflow is always a curved, open `path` </tspan><tspan
-           sodipodi:role="line"
-           x="695.47766"
-           y="406.53421"
-           id="tspan5405">element.</tspan><tspan
-           sodipodi:role="line"
-           x="695.47766"
-           y="433.2009"
-           id="tspan5407">You can uses this green example.</tspan></text>
+           y="273.86755"
+           id="tspan5407">CONTROLFLOW travels along a curved path.</tspan></text>
       <g
-         transform="translate(270.5665,-108.00526)"
+         transform="translate(270.5665,-300.00526)"
          id="g4903-1-0-4">
         <path
            sodipodi:nodetypes="ccccc"
            style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-           d="m 344.43164,551.16016 v 2 h 116.54872 v -2 z"
+           d="m 84.43164,551.16016 v 2 h 340.54872 v -2 z"
            id="path4561-5-4-5"
            inkscape:connector-curvature="0" />
         <path
-           d="m 354.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           d="m 94.89421,557.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
            style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
            id="path4909-3-8-9"
            inkscape:connector-curvature="0"
@@ -261,41 +243,50 @@
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:21.33333397px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          x="695.71722"
-         y="513.66626"
-         id="text4527-4-5-3"><tspan
+         y="481.66623"
+         id="text4527-4-5-2"><tspan
            sodipodi:role="line"
            x="695.71722"
-           y="513.66626"
-           id="tspan5378-1">After fixing the control flow</tspan><tspan
+           y="481.66623"
+           id="tspan5500-5">. . . and stops at a TERMINAL,</tspan><tspan
            sodipodi:role="line"
            x="695.71722"
-           y="540.33295"
-           id="tspan5473">both boxes should move!</tspan></text>
+           y="508.33289"
+           id="tspan5559">a filled circle surrouned by an unfilled one.</tspan></text>
+      <g
+         transform="translate(270.5665,-258.00526)"
+         id="g4903-1-0-46">
+        <path
+           sodipodi:nodetypes="ccccc"
+           style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           d="m 364.43164,717.16016 v 2 h 60.54872 v -2 z"
+           id="path4561-5-4-59"
+           inkscape:connector-curvature="0" />
+        <path
+           d="m 374.89421,723.00155 -13.11106,-4.82126 13.11106,-4.82127 c -2.0946,2.84647 -2.08253,6.74094 0,9.64253 z"
+           style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.75;stroke-linejoin:round;stroke-opacity:1"
+           id="path4909-3-8-0"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccc" />
+      </g>
     </g>
   </g>
-  <circle
-     style="fill:#000000;stroke:#000000;stroke-width:6;stroke-miterlimit:10"
-     id="circle6876-4"
-     r="12"
-     cy="399.49802"
-     cx="588.85992"
-     stroke-miterlimit="10" />
   <rect
      id="rect6890-0"
      height="144"
      width="92.639"
-     y="211.66714"
+     y="371.66714"
      x="79.130447"
      style="fill:#000000;fill-opacity:1;stroke-width:1" />
   <path
      style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="M 588.85995,399.49803 C 583.64418,356.39431 550.99337,317.19848 457.31041,300.1664 v 0"
+     d="M 588.85995,559.49803 C 583.64418,516.39431 550.99337,477.19848 457.31041,460.1664 v 0"
      id="path4145-6"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="ccc" />
   <path
-     style="fill:none;fill-rule:evenodd;stroke:#00998f;stroke-width:7;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-     d="m 506.13772,552.13129 c 38.22835,-137.46644 91.22535,104.21855 159.35997,42.60921"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="M 236.08829,349.11472 C 274.31664,211.64828 389.1758,521.77575 457.31042,460.16641"
      id="path5326"
      inkscape:connector-curvature="0"
      sodipodi:nodetypes="cc" />
@@ -305,22 +296,43 @@
      height="190.97"
      width="191.37875"
      stroke-miterlimit="10"
-     y="300.16641"
+     y="460.16641"
      x="265.93167" />
   <line
      style="fill:none;stroke:#000000;stroke-width:17.99999809;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1"
      id="line6886"
-     y2="323.27438"
+     y2="483.27438"
      x2="200.14395"
-     y1="189.11472"
+     y1="349.11472"
      x1="236.08829"
      stroke-miterlimit="10" />
   <line
      style="fill:none;stroke:#000000;stroke-width:17.99999809;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1"
      id="line6886-8"
-     y2="434.32611"
+     y2="594.32611"
      x2="421.36609"
-     y1="300.16641"
+     y1="460.16641"
      x1="457.31042"
+     stroke-miterlimit="10" />
+  <circle
+     style="fill:#00998f;fill-opacity:1;stroke:#00998f;stroke-width:6;stroke-miterlimit:10;stroke-opacity:1"
+     id="circle6876"
+     r="12"
+     cy="273.02267"
+     cx="61.069847"
+     stroke-miterlimit="10" />
+  <circle
+     style="fill:#00998f;fill-opacity:1;stroke:#00998f;stroke-width:6;stroke-miterlimit:10;stroke-opacity:1"
+     id="circle6876-4"
+     r="12"
+     cy="559.49805"
+     cx="588.85992"
+     stroke-miterlimit="10" />
+  <circle
+     style="fill:none;stroke:#00998f;stroke-width:6;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+     id="circle6876-3-2"
+     r="24"
+     cy="559.49805"
+     cx="588.85992"
      stroke-miterlimit="10" />
 </svg>

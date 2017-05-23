@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>clip8 | Klippen</title>
+<title>clip8 | Tutorial</title>
 
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
@@ -25,12 +25,34 @@
 <body>
 <nav>
 <div class="leftlink"><a href="index.html">Tutorial Start Page<br>&lt;&lt;&lt;&lt;</a></div>
-<div class="chapternavtitle">Online Interpreter</div>
-
+<div class="chapternavtitle">[00_gettingStarted.svg]</div>
+<div class="rightlink"><a href="01_repairControlflow_a.html">Repair controlflow<br>&gt;&gt;&gt;&gt;</a></div>
 </nav>
-<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Klippen</h1>
+<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Getting started</h1>
+<ol>
+<li>
+<p>Download and install <a href="https://inkscape.org">Inkscape</a><br />
+   (or some other SVG editor).</p>
+</li>
+<li>
+<p><a href="exercises.zip">Download the Exercises</a> and <strong>unpack them</strong>.</p>
+</li>
+<li>
+<p><strong>Have the unpacked SVG files ready</strong> in an open a manager/explorer/finder window.</p>
+</li>
+<li>
+<p><strong>Drop the SVG file</strong> <code>00_gettingStarted.svg</code> in the test environment below.<br />
+<em>The SVG contains an iconic form of writing computer programs. Graphical elements express operations that can be executed.</em></p>
+</li>
+<li>
+<p><strong>Run the program</strong> by clicking the &#x25B6; button.<br />
+<em>The white flashing indicates the currently executed instruction (control flow).</em></p>
+</li>
+</ol>
+<div id="learner-feedback"></div>
+<a id="dynamic-nextlink" href="01_repairControlflow_a.html" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 
-<p class="pro">
+<p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
 <button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
@@ -44,7 +66,7 @@
 </div>
 <div id="hintoutput">
 </div>
-<p class="pro">
+<p class="tutorial">
 <svg id="clip8svgroot"  viewBox="0 0 1200 700">
 <g id="rect5212">
 	<g>
@@ -488,7 +510,23 @@
 </p>
 </footer>
 
+
+<script>
+termination_callback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+
+    feedbackelement.appendChild(document.createTextNode("Congratulations, you just executed a drawing!"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
+</script>
 <script src="../js/svgloader.js"></script>
+
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>clip8 | Klippen</title>
+<title>clip8 | Tutorial</title>
 
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
@@ -24,13 +24,27 @@
 
 <body>
 <nav>
-<div class="leftlink"><a href="index.html">Tutorial Start Page<br>&lt;&lt;&lt;&lt;</a></div>
-<div class="chapternavtitle">Online Interpreter</div>
-
+<div class="leftlink"><a href="03_selectThings_b.html">Select things (b)<br>&lt;&lt;&lt;&lt;</a></div>
+<div class="chapternavtitle">[04_connectInstructions_a.svg]</div>
+<div class="rightlink"><a href="05_OrderOfInstructions_a.html">Order of instructions<br>&gt;&gt;&gt;&gt;</a></div>
 </nav>
-<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Klippen</h1>
+<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Connect instructions</h1>
+<ol>
+<li>
+<p><strong>Drop and run</strong> <code>04_connectInstructions_a.svg</code> in the test area below.<br />
+<em>The controlflow between the two move instructions is missing.</em></p>
+</li>
+<li>
+<p><strong>Edit</strong> <code>04_connectInstructions_a.svg</code> so that one box moves after the other.</p>
+</li>
+<li>
+<p><strong>Save, and drop your solution below for testing</strong>.</p>
+</li>
+</ol>
+<div id="learner-feedback"></div>
+<a id="dynamic-nextlink" href="05_OrderOfInstructions_a.html" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 
-<p class="pro">
+<p class="tutorial">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
 <button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
@@ -44,7 +58,7 @@
 </div>
 <div id="hintoutput">
 </div>
-<p class="pro">
+<p class="tutorial">
 <svg id="clip8svgroot"  viewBox="0 0 1200 700">
 <g id="rect5212">
 	<g>
@@ -488,7 +502,39 @@
 </p>
 </footer>
 
+
+<script>
+termination_callback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED &&
+cycles == 4 &&
+history[history.length-1] &&
+history[history.length-2] &&
+history[history.length-1].opcode == OP.MOVE_REL &&
+history[history.length-2].opcode == OP.MOVE_REL &&
+history[history.length-1].resultset.length == 1 &&
+history[history.length-2].resultset.length == 1 &&
+history[history.length-1].resultset[0].tagName == "rect" &&
+history[history.length-2].resultset[0].tagName == "rect" ) {
+var instr1 = history[history.length-2];
+var instr2 = history[history.length-1];
+// check for the location of the last and the second last instruction
+if ( instr2.p0prime.x - instr1.p0prime.x > 200 &&
+instr2.p0prime.y - instr1.p0prime.y > 100 )
+display_success();
+}
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+
+    feedbackelement.appendChild(document.createTextNode("Exactly!"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
+</script>
 <script src="../js/svgloader.js"></script>
+
 </body>
 
 </html>

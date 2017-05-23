@@ -45,9 +45,13 @@ var Clip8 = {
     ip: undefined,                  // instruction pointer: the active control flow path
     pminus1_point: undefined,       // p0 of former round
     blocklist: [],                  // elements retrieved during current round
+    exec_history: [],               // keep the last instructions and affected objects
+    exec_history_maxlen: 8,         // how many items to keep in the execution history
     visualiseIP: false,             // visualise processing activity to the user
     highlightErr: true,             // hightlight dom elements related to the current terror
     highlighted: [],                // elements highlighted for visualization
+    _reportMarkerSize: 10,          // size of the rectangle that indicates error positions
+    _reportMarkerStroke: 2,         // stroke width for the error indicator
     _reduce: function (reduceable) {
         return reduceable.reduce( function(a,b) {return a.concat(b)} );
     },
@@ -97,8 +101,11 @@ var Clip8 = {
             for (var i=0; i<locations.length; i++) {
                 console.error (locations[i]);
                 if (Clip8.highlightErr) {
-                    locrect = Svgdom.newRectElement(locations[i].x-5, locations[i].y-5, 10, 10);
-                    locrect.style = "fill:none; stroke:#ee22cc; stroke-width: 1";
+                    locrect = Svgdom.newRectElement(locations[i].x-Clip8._reportMarkerSize,
+                                                    locations[i].y-Clip8._reportMarkerSize,
+                                                    Clip8._reportMarkerSize*2,
+                                                    Clip8._reportMarkerSize*2);
+                    locrect.style = "fill:none; stroke:#ff4422; stroke-width: "+Clip8._reportMarkerStroke;
                     Clip8.svgroot.appendChild (locrect);
                 }
             }
@@ -358,7 +365,7 @@ var Clip8 = {
                                   10,
                                   ['path'],
                                   Svgretrieve.C_collection);
-                    Clip8._reportError("initControlFlow", "Failed to identify intial path segment.",
+                    Clip8._reportError("initControlFlow", "Failed to identify initial controlflow path segment.",
                               candidates,
                               [centres_offilled[i]],
                               "An intitial element was found but there seems to be no control flow path close enough to its centre. If there are candidates nearby they are highlighted in red: Try using snap in your SVG editor to increase drawing precision.");
@@ -378,8 +385,10 @@ var Clip8 = {
         if (debug) console.log("[EXECUTEONEOPERATION] Clip8.ip, svgroot:", Clip8.ip);
 
         // initialise control flow if necessary
-        if (Clip8.ip == undefined)
+        if (Clip8.ip == undefined) {
             Clip8.ip = Clip8.initControlFlow();
+            return Clip8.EXECUTE;
+        }
 
         if (Clip8.ip.tagName == "path")
             p0candidates = Svgdom.getBothEndsOfPath(Clip8.ip);
@@ -428,8 +437,6 @@ var Clip8 = {
             }
         }
         var execstatus = Clip8.moveIP(C0, p0);
-
-        if (execstatus != Clip8.EXECUTE)
         if (execstatus != Clip8.EXECUTE)
             return execstatus;
 
@@ -454,6 +461,8 @@ var Clip8 = {
 
         if (debug) console.log("[executeOneOperation] decodedinstr:", decodedinstr);
 
+        decodedinstr.selectionset = []
+        decodedinstr.resultset = []
         switch(decodedinstr.opcode) {
             case OP.ALIGN:
                 if (debug) console.log("[executeOneOperation] ALIGN");
@@ -590,11 +599,13 @@ var Clip8 = {
                 var deltaX, deltaY;
                 deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
                 deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
+                decodedinstr.selectionset = selectedelements1;
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
                 Paperclip.moveBy(selectedelements1, deltaX, deltaY);
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.registerRectElement(selectedelements1[i]);
+                decodedinstr.resultset = selectedelements1;
                 break;
             case OP.CLONE:
                 if (debug) console.log("[executeOneOperation] CLONE");
@@ -616,6 +627,8 @@ var Clip8 = {
                                Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)),
                                [p0], INTERNAL_ERROR_HINT);
         }
+        Clip8.exec_history.push(decodedinstr);
+        Clip8.exec_history.shift();
         return Clip8.EXECUTE;
     },
 
@@ -644,6 +657,10 @@ var Clip8 = {
         }
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
+        for (var i = 0; i < Clip8.exec_history_maxlen; i++)
+            Clip8.exec_history.push(undefined);
+        Clip8._reportMarkerSize = Math.min(Svgretrieve.viewBoxW, Svgretrieve.viewBoxH) / 40;
+        Clip8._reportMarkerStroke = Math.min(Svgretrieve.viewBoxW, Svgretrieve.viewBoxH) / 200;
         return svgroot;
     }
 };
@@ -660,6 +677,7 @@ var Clip8controler = {
     maxcycles: 1000,
     cyclescounter: 0,
     exectimer: undefined,
+    terminationCallback: undefined,
 
     _execOneCycle: function () {
         var enginestatus;
@@ -674,6 +692,7 @@ var Clip8controler = {
                 Clip8controler._stopTimer();
                 Clip8controler.state = Clip8controler.TERMINATED;
                 console.log("TERMINATED-state.");
+                Clip8controler.terminationCallback(Clip8controler.TERMINATED, Clip8controler.cyclescounter, Clip8.exec_history);
             }
         }
         catch (exc) {
@@ -689,6 +708,7 @@ var Clip8controler = {
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
+            Clip8controler.terminationCallback(Clip8controler.ERROR, Clip8controler.cyclescounter, Clip8.exec_history);
         }
     },
 
@@ -702,7 +722,7 @@ var Clip8controler = {
     },
 
 
-    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
+    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback) {
         Clip8controler.cyclescounter = 0;
         if (Clip8controler.state == Clip8controler.ERROR) {
             while (Clip8controler.erroroutput.firstChild)
@@ -716,6 +736,14 @@ var Clip8controler = {
         Clip8controler.svgroot;
         Clip8controler.erroroutput = document.getElementById("erroroutput");
         Clip8controler.hintoutput = document.getElementById("hintoutput");
+        if (terminationCallback)
+            Clip8controler.terminationCallback = terminationCallback;
+        else {
+            Clip8controler.terminationCallback = function (exec_status, cycles, exec_history) {
+                    console.log("[Clip8controler.terminationCallback] exec_status, cycles, exec_history:",
+                                exec_status, cycles, exec_history);
+                };
+        }
 
         try {
             Clip8.init(svgroot, visualiseIP, highlightErr, highlightSyntax);

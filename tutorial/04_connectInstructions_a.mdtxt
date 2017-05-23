@@ -1,0 +1,29 @@
+chapter:        Connect instructions
+congratmsg:     Exactly!
+check:          function (status, cycles, history) {
+                    if (status == Clip8controler.TERMINATED &&
+                        cycles == 4 &&
+                        history[history.length-1] &&
+                        history[history.length-2] &&
+                        history[history.length-1].opcode == OP.MOVE_REL &&
+                        history[history.length-2].opcode == OP.MOVE_REL &&
+                        history[history.length-1].resultset.length == 1 &&
+                        history[history.length-2].resultset.length == 1 &&
+                        history[history.length-1].resultset[0].tagName == "rect" &&
+                        history[history.length-2].resultset[0].tagName == "rect" ) {
+                        var instr1 = history[history.length-2];
+                        var instr2 = history[history.length-1];
+                        // check for the location of the last and the second last instruction
+                        if ( instr2.p0prime.x - instr1.p0prime.x > 200 &&
+                             instr2.p0prime.y - instr1.p0prime.y > 100 )
+                            display_success();
+                    }
+                }
+
+
+1. **Drop and run** `$exerciseSVGfile` in the test area below.  
+   _The controlflow between the two move instructions is missing._
+
+1. **Edit** `$exerciseSVGfile` so that one box moves after the other.
+
+1. **Save, and drop your solution below for testing**.
