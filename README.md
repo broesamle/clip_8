@@ -2,9 +2,13 @@
 `Clip_8`
 ========
 
-The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter. `Move`, `align`, `cut`, `transform` are all operations that can be intuitively grasped.
+`clip_8` is an arts project.  
+It _creates_ the most poetic technical problems you have ever encountered : )
 
-Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form. During execution, instructions and data appear in the same view.
+`clip_8` is a programming language.  
+Instead of _typing_ source code you _draw_ it.
+
+Programs are given as SVG images. `clip_8` reads the graphics elements and interprets them as instructions; which, in turn, operate on graphics elements. _What you see is what you compute!_
 
 The present project implements an interpreter as a client-side web application. It operates on _inline SVG_ elements in the Document Object Model (DOM) of the web browser.
 
@@ -26,6 +30,15 @@ Workflow
 
 FIXME: Screenshot of workflow.
 
+
+Philosophy / Inspiration
+------------------------
+
+As an artist I wanted to create a programming language that can be understood in an intuitive way, just as cutting or folding paper.
+As a low tech material, paper recalls the fact that information processing ultimately relies on cause and effect in physical matter:
+Electrical chain reactions in silicon ... or cutting, moving, folding, and aligning pieces of cardboard.
+
+In `clip_8` all operations and data are graphical elements. During execution the user can observe program execution: Instructions and data appear in the same view. This follows from the desire to continuously observe the complete machine state during program execution.
 
 
 Language documentation / Integration tests
