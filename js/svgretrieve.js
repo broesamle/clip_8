@@ -305,7 +305,28 @@ var Svgretrieve = {
         }
     },
 
+    // FIXME: This is an experimental workaround to track a bug in inteval-tree-based retrieval.
+    // The fallback checks for the error and if it occurs it re-initializes the entire interval tree :-/
     unregisterRectElement: function(rect) {
+        try {
+            Svgretrieve._unregisterRectElement(rect)
+        }
+        catch (err) {
+            console.error("WORKAROUND: Re-registration of all rects!", rect);
+            var reregister = Svgretrieve.rect_intervals_doublecheck;
+            Svgretrieve.rect_intervals_doublecheck = []
+            Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init new interval tree for data rectangles
+            Svgretrieve.rect_intervals_doublecheck = [];
+            for (var i=0; i<reregister.length; i++) {
+                if ( ! Svgretrieve.registerRectElement(reregister[i]) ) {
+                    console.error("Re-registration failed:", reregister[i]);
+                    throw "Re-registration failed!"
+                }
+            }
+        }
+    },
+
+    _unregisterRectElement: function(rect) {
         var itv = Svgretrieve._getMainInterval(rect);
         var candidates = [], tobedeleted;
 
@@ -345,7 +366,7 @@ var Svgretrieve = {
                 return;
             }
             else {
-                console.error("[unregisterRectElement] rect_intervals.remove operation status", result);
+                console.error("[unregisterRectElement] rect_intervals.remove operation status", result, tobedeleted);
                 throw "[unregisterRectElement] rect_intervals.remove operation failed!";
             }
         }
