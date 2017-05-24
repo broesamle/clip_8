@@ -94,6 +94,16 @@ display_success = function() {
 <script src="../js/svgloader.js"></script>
 """)
 
+ScriptAutostart_str = """
+<script>
+termination_callback = undefined;
+Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback);
+Clip8controler.playAction();
+</script>
+<script src="../js/svgloader.js"></script>
+"""
+
+
 KlippenInitialSVG = Template("""
 <p class="$klippenmode">
 <button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>

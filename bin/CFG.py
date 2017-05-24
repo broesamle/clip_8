@@ -24,6 +24,9 @@ refsheetsvgDIR = "refsheet-svg"
 demosDIR = "demos"
 testsDIR = "tests"
 tutorialDIR = "tutorial"
+logoDIR = "tutorial"
+
+logofile = "logo.svg"
 
 testfile_ext = "html"
 demofile_ext = "html"
