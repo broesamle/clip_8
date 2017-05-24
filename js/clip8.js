@@ -657,6 +657,7 @@ var Clip8 = {
         }
         Clip8.cyclescounter = 0
         Clip8.svgroot = svgroot;
+        Clip8.exec_history = [];
         for (var i = 0; i < Clip8.exec_history_maxlen; i++)
             Clip8.exec_history.push(undefined);
         Clip8._reportMarkerSize = Math.min(Svgretrieve.viewBoxW, Svgretrieve.viewBoxH) / 40;
