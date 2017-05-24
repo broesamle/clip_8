@@ -28,6 +28,8 @@ var fileChooser = document.getElementById('filechooser');
 var highlightISCCheckbox = document.getElementById("hightlightISC");
 var lastloadedSVG = undefined;
 
+if (!termination_callback) var termination_callback = undefined;
+
 function insertSVG(newsvgroot) {
     var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
     // clear the existing svg root
