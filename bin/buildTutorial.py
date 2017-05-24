@@ -69,10 +69,21 @@ for key, bodyHTML in exercises.iterateSeries(
 
 ### index.html
 ### For the tutorials, index.html contains the TOC.
+inFN = os.path.join(CFG.rootDIRabs, CFG.logoDIR, CFG.logofile)
+input_file = codecs.open(inFN, "r", encoding="utf-8")
+logoSVG = input_file.read()
+input_file.close()
+
 mainHTML = """
+<p class="tutorial">
+</p>
 <p>
 Welcome to the <b>clip_8</b> tutorial.
 </p>
+<svg id="clip8svgroot" viewBox="0 0 512 512" style="width:512">
+%s
+</svg>
+<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;</button>
 <p>
 Clip_8 is an arts project. At the same time it is a programming language.
 Unlike most other programming languages, the program code is <i>graphical</i> rather than text-based. You will <i>draw</i> the programs.
@@ -90,7 +101,7 @@ If you get stuck, please <b>read the <a href="../survival-guide.html" target="_b
 <p>
 <a href="00_gettingStarted.html">Happy drawing!</a>
 </p>
-"""
+""" % logoSVG
 
 backlinkHTML = TEM.LinkbackToProjectpage_str
 nextlinkHTML = TEM.Linknext.substitute(ELEMENT_KEY="00_gettingStarted", chapter="Getting started")
@@ -100,7 +111,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                MAIN=mainHTML,
                                PREV_LINK=backlinkHTML, NEXT_LINK=nextlinkHTML,
                                FOOTER=footerHTML,
-                               SCRIPT="")
+                               SCRIPT=TEM.ScriptAutostart_str)
 headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
 documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
 
