@@ -75,12 +75,10 @@ logoSVG = input_file.read()
 input_file.close()
 
 mainHTML = """
-<p class="tutorial">
-</p>
 <p>
 Welcome to the <b>clip_8</b> tutorial.
 </p>
-<svg id="clip8svgroot" viewBox="0 0 512 512" style="width:512">
+<svg id="clip8svgroot" class="clip8logo" viewBox="0 0 512 512">
 %s
 </svg>
 <button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;</button>

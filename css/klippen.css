@@ -42,6 +42,10 @@ button {
     background: #ffff88;
 }
 
+.clip8logo {
+    width:512px;
+}
+
 .pro #clip8svgroot {
     min-width: 1024px;
 }
