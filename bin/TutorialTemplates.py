@@ -57,7 +57,6 @@ $SCRIPT
 </body>
 """ % exercisepage_ext)
 
-
 FooterIndexpage_str = """
 <footer>
 <p>
@@ -100,7 +99,6 @@ termination_callback = undefined;
 Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback);
 Clip8controler.playAction();
 </script>
-<script src="../js/svgloader.js"></script>
 """
 
 
