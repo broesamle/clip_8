@@ -81,7 +81,7 @@ Welcome to the <b>clip_8</b> tutorial.
 <svg id="clip8svgroot" class="clip8logo" viewBox="0 0 512 512">
 %s
 </svg>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;</button>
+<button onclick="Clip8controler.pauseAction()" class="smallbutton">&#x25fc;</button>
 <p>
 Clip_8 is an arts project. At the same time it is a programming language.
 Unlike most other programming languages, the program code is <i>graphical</i> rather than text-based. You will <i>draw</i> the programs.

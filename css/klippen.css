@@ -12,8 +12,14 @@ code {
     font-weight: normal;
 }
 
-button {
+.tutorial button {
 	font-size: 36px;
+	text-align: center;
+	vertical-align: bottom;
+}
+
+button.smallbutton {
+	font-size: 12px;
 	text-align: center;
 	vertical-align: bottom;
 }

@@ -57,7 +57,6 @@ $SCRIPT
 </body>
 """ % exercisepage_ext)
 
-
 FooterIndexpage_str = """
 <footer>
 <p>
