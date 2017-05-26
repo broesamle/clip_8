@@ -348,19 +348,8 @@ var Svgretrieve = {
         })
         if (tobedeleted.length == 1) {
             var result;
-            try {
-                result = Svgretrieve.rect_intervals.remove(tobedeleted[0]);
-                Svgretrieve.rect_intervals_doublecheck.splice(doublecheck_index, 1);
-            }
-            catch (err) {
-                console.error("[unregisterRectElement] catched:", err);
-                if (err instanceof ReferenceError) {
-                    console.error("  --ReferenceError:", err);
-                    return;
-                }
-                else
-                    throw err;
-            }
+            result = Svgretrieve.rect_intervals.remove(tobedeleted[0]);
+            Svgretrieve.rect_intervals_doublecheck.splice(doublecheck_index, 1);
             if (result) {
                 console.debug("  --unregistered:", rect);
                 return;
