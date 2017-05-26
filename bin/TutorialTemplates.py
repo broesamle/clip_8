@@ -57,7 +57,6 @@ $SCRIPT
 </body>
 """ % exercisepage_ext)
 
-
 FooterIndexpage_str = """
 <footer>
 <p>
@@ -93,6 +92,15 @@ display_success = function() {
 </script>
 <script src="../js/svgloader.js"></script>
 """)
+
+ScriptAutostart_str = """
+<script>
+termination_callback = undefined;
+Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback);
+Clip8controler.playAction();
+</script>
+"""
+
 
 KlippenInitialSVG = Template("""
 <p class="$klippenmode">

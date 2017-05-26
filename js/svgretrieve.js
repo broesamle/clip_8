@@ -37,6 +37,7 @@ var Svgretrieve = {
     S_collection: undefined,
     C_collection: undefined,
     rect_intervals: undefined,
+    rect_intervals_doublecheck: [],
 
     /** Tests whether an element is in an IGNORE subtree.
         Traverses from `el` to `root` and checks whether the elements id contains "IGNORE"
@@ -98,6 +99,7 @@ var Svgretrieve = {
         console.groupCollapsed("Register SVG graphics elements.");
         // RECT
         Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init interval tree for data rectangles
+        Svgretrieve.rect_intervals_doublecheck = [];
         var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
         var transformed = [];   // elements that could not registered due to a transformation
         var unreg = [];         // elements that were not registered for unspecific reasons
@@ -105,8 +107,10 @@ var Svgretrieve = {
             if ( ! Svgretrieve.registerRectElement(elems[i]) )
                 unreg.push(elems[i]);
         }
-        console.debug("[registerElements_fromDOM ] tree, elems:",
-                                 Svgretrieve.rect_intervals, elems);
+        console.debug("[registerElements_fromDOM ] tree, elems, double-check:",
+                                 Svgretrieve.rect_intervals,
+                                 elems,
+                                 Svgretrieve.rect_intervals_doublecheck);
         // CIRCLE
         elems = Svgretrieve.clip8root.getElementsByTagName("circle");
         if (debug) console.debug("CIRCLE elements:", elems);
@@ -278,6 +282,21 @@ var Svgretrieve = {
                 itv = Svgretrieve._getMainInterval(rect);  // get interval
                 itv.push(rect);                            // append pointer to rect element
                 Svgretrieve.rect_intervals.insert(itv);
+
+                var doublecheck_index = -1;
+                for (var i=0; i<Svgretrieve.rect_intervals_doublecheck.length; i++) {
+                    if (Svgretrieve.rect_intervals_doublecheck[i] === rect) {
+                        doublecheck_index = i;
+                        break;
+                    }
+                }
+                if(doublecheck_index != -1) {
+                    console.error("[registerRectElement] double registration of", rect, Svgretrieve.rect_intervals);
+                }
+                else {
+                    Svgretrieve.rect_intervals_doublecheck.push(rect);
+                    console.debug("[registerRectElement] registration:", rect, Svgretrieve.rect_intervals);
+                }
                 if (Svgretrieve.highlight_isc)
                     Svgretrieve.highlighterFn(rect, Svgretrieve.DATA_COLOUR);
                 return true;
@@ -286,19 +305,64 @@ var Svgretrieve = {
         }
     },
 
+    // FIXME: This is an experimental workaround to track a bug in inteval-tree-based retrieval.
+    // The fallback checks for the error and if it occurs it re-initializes the entire interval tree :-/
     unregisterRectElement: function(rect) {
+        try {
+            Svgretrieve._unregisterRectElement(rect)
+        }
+        catch (err) {
+            console.error("WORKAROUND: Re-registration of all rects!", rect);
+            var reregister = Svgretrieve.rect_intervals_doublecheck;
+            Svgretrieve.rect_intervals_doublecheck = []
+            Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init new interval tree for data rectangles
+            Svgretrieve.rect_intervals_doublecheck = [];
+            for (var i=0; i<reregister.length; i++) {
+                if ( ! Svgretrieve.registerRectElement(reregister[i]) ) {
+                    console.error("Re-registration failed:", reregister[i]);
+                    throw "Re-registration failed!"
+                }
+            }
+        }
+    },
+
+    _unregisterRectElement: function(rect) {
         var itv = Svgretrieve._getMainInterval(rect);
         var candidates = [], tobedeleted;
+
+        var doublecheck_index = -1;
+        for (var i=0; i<Svgretrieve.rect_intervals_doublecheck.length; i++) {
+            if (Svgretrieve.rect_intervals_doublecheck[i] === rect) {
+                doublecheck_index = i;
+                break;
+            }
+        }
+        if( doublecheck_index == -1) {
+            console.error("[unregisterRectElement] rect, double-check", rect, Svgretrieve.rect_intervals_doublecheck);
+            throw ("[unregisterRectElement] element not registered!");
+        }
         Svgretrieve.rect_intervals.queryPoint(itv[0],
             function(itv) { candidates.push(itv) } );
         tobedeleted = candidates.filter( function (can) {
             return can[2] === rect;
         })
-        if (tobedeleted.length == 1 && Svgretrieve.rect_intervals.remove(tobedeleted[0]))
-            //console.debug("unregistered rect element:", rect);
-            return;
-        else
-            throw "[unregisterRectElement] failed to remove"+rect;
+        if (tobedeleted.length == 1) {
+            var result;
+            result = Svgretrieve.rect_intervals.remove(tobedeleted[0]);
+            Svgretrieve.rect_intervals_doublecheck.splice(doublecheck_index, 1);
+            if (result) {
+                console.debug("  --unregistered:", rect);
+                return;
+            }
+            else {
+                console.error("[unregisterRectElement] rect_intervals.remove operation status", result, tobedeleted);
+                throw "[unregisterRectElement] rect_intervals.remove operation failed!";
+            }
+        }
+        else {
+            console.error("[unregisterRectElement] unexpected number of elements to be deleted:", tobedeleted);
+            throw "[unregisterRectElement] unexpected number of elements to be deleted." + tobedeleted;
+        }
     },
 
     getEnclosedRectangles: function (queryrect) {
