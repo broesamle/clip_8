@@ -8,7 +8,8 @@ check:          function (status, cycles, history) {
 1. Download and install [Inkscape](https://inkscape.org)  
    (or some other SVG editor).
 
-1. [Download the Exercises](exercises.zip) and **unpack them**.
+1. [Download the Exercises](exercises.zip) and **unpack them**.  
+   The [solutions](solutions.zip) are also available, in case you get stuck.
 
 1. **Have the unpacked SVG files ready** in an open a manager/explorer/finder window.
 
