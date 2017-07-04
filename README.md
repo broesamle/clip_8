@@ -2,15 +2,37 @@
 `Clip_8`
 ========
 
-`clip_8` is an arts project.  
-It _creates_ the most poetic technical problems you have ever encountered : )
 
-`clip_8` is a programming language.  
-Instead of _typing_ source code you _draw_ it.
 
-Programs are given as SVG images. `clip_8` reads the graphics elements and interprets them as instructions; which, in turn, operate on graphics elements. _What you see is what you compute!_
+**Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
 
-The present project implements an interpreter as a client-side web application. It operates on _inline SVG_ elements in the Document Object Model (DOM) of the web browser.
+`clip_8` is an arts project and programming language following that ideal.
+
++ No code to be written.
+
++ Instructions and data are expressed in terms of arranged geometric primitives.
+
++ What you see is what you compute.
+
++ The programmer can observe the entire <q>machine</q> state during program execution.
+
++ The interpreter is implemented JavaScript and operates on inline SVG in the DOM.
+
+
+Overview
+--------
+
+Instead of typing code in an editor the  programmer _draws_ an SVG image.
+
+The interpreter interprets the SVG image as follows:
+
+1. Decode the arrangement of elements (circles, lines, etc.) as _instructions_, _control flow_, and _data_.
+
+2. _Execute_ one instruction after the other.
+
+    a) _Instructions_ manipulate the _data_ elements, i.e. _cut_, _align_, _resize_, or _move_ them.
+
+    b) _Control flow_, defines order of instructions, alternatives etc.
 
 
 Getting Started
