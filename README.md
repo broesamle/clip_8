@@ -68,6 +68,16 @@ Language documentation / Integration tests
 
 The integration tests are provided in [Reference Test Sheets](https://broesamle.github.io/clip_8/tests/) which serve as _language reference_, simultaneously.
 
+Building
+--------
+
+For generating demos, tutorials and reference test pages checkout python scripts in `bin`.
+
+Building the WASM module from rust, in the project root:
+
+`rustc --target=wasm32-unknown-emscripten rs/iscd/src/lib.rs -o ./wasm/iscd.js`
+
+`./wasm` directory must exist.
 
 Copyright
 ---------

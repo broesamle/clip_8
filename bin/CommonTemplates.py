@@ -27,6 +27,7 @@ Footer_str = """
 """
 
 DependClip8_str = """
+<!-- CommonTemplates.DependClip8_str -->
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
 
@@ -39,6 +40,22 @@ DependClip8_str = """
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+<script>
+var Module = {
+	wasmBinaryFile: "../wasm/iscd.wasm",
+	onRuntimeInitialized: main
+};
+
+function main () {
+	var register_data_element = Module.cwrap(
+                                    'register_data_element',
+                                    'number',
+                                    ['number', 'number', 'number', 'number', 'number']);
+	var result = register_data_element(9999, 11, 22, 33, 44);
+	console.log("function `register_data_element` in `iscd.wasm` returned:", result);
+}
+</script>
+<script src="../wasm/iscd.js"></script>
 """
 
 Document = Template("""
