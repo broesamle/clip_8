@@ -42,7 +42,7 @@ DependClip8_str = """
 <script src="../js/clip8.js"></script>
 <script>
 var Module = {
-	wasmBinaryFile: "../wasm/iscd.wasm",
+	wasmBinaryFile: "../rs/wasm/iscd.wasm",
 	onRuntimeInitialized: main
 };
 
@@ -55,7 +55,7 @@ function main () {
 	console.log("function `register_data_element` in `iscd.wasm` returned:", result);
 }
 </script>
-<script src="../wasm/iscd.js"></script>
+<script src="../rs/wasm/iscd.js"></script>
 """
 
 Document = Template("""
