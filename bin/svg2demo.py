@@ -106,7 +106,7 @@ while len(SCT.demos) > 0:
 
         backhref, backlinktitle = outfile, chapter
     else:
-        print ("Sections.py mentions a non existing demo:", infile)
+        print ("Sections.py refers to a non existing demo:", infile, "at path", inDIRabs)
 
 ### index.html
 ### For the demos, index.html contains the TOC. There is no toc.html
