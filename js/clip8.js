@@ -722,7 +722,7 @@ var Clip8controler = {
             clearInterval(Clip8controler.exectimer);
     },
 
-    _init_postWASM: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback) {
+    _init_postWASM: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback) {
         if (! WASM_READY)
             throw "[_init_postWASM] WASM not ready after call to Clip8controler.init.";
         console.log("[_init_postWASM] WASM module magic number (should be 15432363):", Module._magic_number());
@@ -768,19 +768,20 @@ var Clip8controler = {
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
         }
+        initdoneCallback();
     },
 
-    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback) {
+    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback) {
         var retry_timer;
         console.log("Checking if WASM module is ready...");
         if (WASM_READY) {
             console.log("   READY.");
-            Clip8controler._init_postWASM(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback);
+            Clip8controler._init_postWASM(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback);
         }
         else {
             console.log("   retry soon...");
             retry_timer = window.setTimeout(function() {
-                Clip8controler.init(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback)
+                Clip8controler.init(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback)
             }, 50);
         }
     },
