@@ -1,4 +1,9 @@
 #[no_mangle]
+pub extern fn magic_number() -> i32 {
+    15432363
+}
+
+#[no_mangle]
 pub extern fn register_data_element(key: i32,
                                     minx: i32,
                                     miny: i32,

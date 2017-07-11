@@ -41,18 +41,16 @@ DependClip8_str = """
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
 <script>
+var WASM_READY = false;
 var Module = {
-	wasmBinaryFile: "../rs/wasm/iscd.wasm",
-	onRuntimeInitialized: main
+    wasmBinaryFile: "../rs/wasm/iscd.wasm",
+    onRuntimeInitialized: main,
+    noInitialRun: true,     // seems necessary to use the module after main
+    noExitRuntime: true
 };
 
 function main () {
-	var register_data_element = Module.cwrap(
-                                    'register_data_element',
-                                    'number',
-                                    ['number', 'number', 'number', 'number', 'number']);
-	var result = register_data_element(9999, 11, 22, 33, 44);
-	console.log("function `register_data_element` in `iscd.wasm` returned:", result);
+    WASM_READY = true;
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
