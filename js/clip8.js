@@ -768,7 +768,7 @@ var Clip8controler = {
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
         }
-        initdoneCallback();
+        if (initdoneCallback != undefined) initdoneCallback();
     },
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback) {
