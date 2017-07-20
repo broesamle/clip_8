@@ -145,7 +145,7 @@ describe("iscd.js, iscd.wasm", function () {
         });
         describe("Destroy data structures (free allocated memory):", function () {
             describe("._destroy_data_reg(data_reg_ptr)", function () {
-                it("destroys the registry (which must be cleared before to avoid memory leak).", function (done) {
+                it("destroys the registry (which must have been cleared to avoid memory leak).", function (done) {
                     expect(function () {
                         Module._destroy_data_reg(data_reg_ptr);
                     }).not.toThrow();
