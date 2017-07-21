@@ -45,11 +45,13 @@ describe("iscd.js, iscd.wasm", function () {
     });
     describe("USE CASE: Register and query data elements", function () {
         var elementid = 143;
+        var elementid2 = 144;
         var data_reg_ptr = 0;
         var vec_ptr = 0;
         var capacity_ptr = 0;
         var len_ptr = 0;
         var leaf_ptr = 0;
+        var leaf2_ptr = 0;
         describe("Create WASM data structures:", function () {
             describe("._new_data_reg()", function () {
                 it("creates a data element registry and returns a pointer to it.", function (done) {
@@ -92,7 +94,7 @@ describe("iscd.js, iscd.wasm", function () {
                 });
             });
             describe("._intersecting_data_elements(... , OUT vec_ptr, OUT capacity_ptr)", function () {
-                it("should return one element for query area 21, 31, 22, 32.", function (done) {
+                it("should return one element for query area 21, 41, 32, 52.", function (done) {
                     vec_ptr = Module._intersecting_data_elements(
                                               data_reg_ptr,
                                               21, 41, 32, 52,
@@ -103,6 +105,7 @@ describe("iscd.js, iscd.wasm", function () {
                     var capacity = getValue(capacity_ptr, 'i32');
                     expect(len).toBe(1);
                     expect(capacity).not.toBeLessThan(len);
+                    expect(getValue(vec_ptr, 'i32')).toBe(elementid);
                     done();
                 });
                 it("should return no element for query area 121, 131, 122, 132.", function (done) {
@@ -128,10 +131,110 @@ describe("iscd.js, iscd.wasm", function () {
                 });
             });
             describe("._intersecting_data_elements( ... )", function () {
-                it("should no longer return an element for query area 21, 31, 22, 32.", function (done) {
+                it("should no longer return an element for query area 21, 41, 32, 52,.", function (done) {
                     vec_ptr = Module._intersecting_data_elements(
                                               data_reg_ptr,
-                                              21, 31, 22, 32,
+                                              21, 41, 32, 52,
+                                              vec_ptr,
+                                              len_ptr,
+                                              capacity_ptr);
+                    var len = getValue(len_ptr, 'i32');
+                    var capacity = getValue(capacity_ptr, 'i32');
+                    expect(len).toBe(0);
+                    expect(capacity).not.toBeLessThan(len);
+                    done();
+                });
+            });
+        });
+        describe("Data Registry with two Elements.", function () {
+            describe("._register_data_element(data_reg_ptr, elementid, 20, 40, 30, 50);", function () {
+                it("registers an element with a bounding box; returns a pointer to the corresponding `leaf`.", function (done) {
+                    leaf_ptr = Module._register_data_element(
+                                              data_reg_ptr,
+                                              elementid,
+                                              20, 40, 30, 50);
+                    expect(typeof(leaf_ptr)).toBe("number");
+                    done();
+                });
+            });
+            describe("._register_data_element(data_reg_ptr, elementid2, 120, 140, 130, 150);", function () {
+                it("registers an element with a bounding box; returns a pointer to the corresponding `leaf`.", function (done) {
+                    leaf2_ptr = Module._register_data_element(
+                                              data_reg_ptr,
+                                              elementid2,
+                                              120, 140, 130, 150);
+                    expect(typeof(leaf2_ptr)).toBe("number");
+                    expect(leaf2_ptr).not.toBe(leaf_ptr);
+                    done();
+                });
+            });
+            describe("._intersecting_data_elements(... , OUT vec_ptr, OUT capacity_ptr)", function () {
+                it("should return one element for query area 21, 41, 32, 52.", function (done) {
+                    vec_ptr = Module._intersecting_data_elements(
+                                              data_reg_ptr,
+                                              21, 41, 32, 52,
+                                              vec_ptr,
+                                              len_ptr,
+                                              capacity_ptr);
+                    var len = getValue(len_ptr, 'i32');
+                    var capacity = getValue(capacity_ptr, 'i32');
+                    expect(len).toBe(1);
+                    expect(capacity).not.toBeLessThan(len);
+                    expect(getValue(vec_ptr, 'i32')).toBe(elementid);
+                    done();
+                });
+                it("should return one element for query area 121, 131, 132, 152.", function (done) {
+                    vec_ptr = Module._intersecting_data_elements(
+                                              data_reg_ptr,
+                                              121, 131, 132, 152,
+                                              vec_ptr,
+                                              len_ptr,
+                                              capacity_ptr);
+                    var len = getValue(len_ptr, 'i32');
+                    var capacity = getValue(capacity_ptr, 'i32');
+                    expect(len).toBe(1);
+                    expect(capacity).not.toBeLessThan(len);
+                    expect(getValue(vec_ptr, 'i32')).toBe(elementid2);
+                    done();
+                });
+                it("should return two elements for query area 21, 31, 132, 152.", function (done) {
+                    vec_ptr = Module._intersecting_data_elements(
+                                              data_reg_ptr,
+                                              21, 31, 132, 152,
+                                              vec_ptr,
+                                              len_ptr,
+                                              capacity_ptr);
+                    var len = getValue(len_ptr, 'i32');
+                    var capacity = getValue(capacity_ptr, 'i32');
+                    expect(len).toBe(2);
+                    expect(capacity).not.toBeLessThan(len);
+                    // this criterion is too strict as it depends on the order of lements
+                    expect(getValue(vec_ptr, 'i32')).toBe(elementid);
+                    expect(getValue(vec_ptr+Int32Array.BYTES_PER_ELEMENT, 'i32')).toBe(elementid2);
+                    done();
+                });
+            });
+            describe("._ungregister_and_destroy_leaf(data_reg_ptr, leaf_ptr)", function () {
+                it("removes a leaf from the registry and frees the allocated memory.", function (done) {
+                    expect(function () {
+                        Module._ungregister_and_destroy_leaf(data_reg_ptr, leaf_ptr);
+                    }).not.toThrow();
+                    done();
+                });
+            });
+            describe("._ungregister_and_destroy_leaf(data_reg_ptr, leaf_ptr)", function () {
+                it("removes a leaf from the registry and frees the allocated memory.", function (done) {
+                    expect(function () {
+                        Module._ungregister_and_destroy_leaf(data_reg_ptr, leaf2_ptr);
+                    }).not.toThrow();
+                    done();
+                });
+            });
+            describe("._intersecting_data_elements( ... )", function () {
+                it("should no longer return any element for query area 21, 31, 132, 152.", function (done) {
+                    vec_ptr = Module._intersecting_data_elements(
+                                              data_reg_ptr,
+                                              21, 31, 132, 152,
                                               vec_ptr,
                                               len_ptr,
                                               capacity_ptr);
