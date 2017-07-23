@@ -14,13 +14,8 @@ describe("getIntersectedElements", function() {
             circ.setAttribute("fill", "#000000;");
             circ.setAttribute("r", 0.999);
             svgroot.appendChild(circ);
-
-            arearect = svgroot.createSVGRect();
-            arearect.x = cx-1.0;
-            arearect.y = cy-1.0;
-            arearect.width = 2.0;
-            arearect.height = 2.0;
-            hitlist = Svgretrieve.getIntersectedElements(arearect, svgroot);
+            Svgretrieve.registerElements_fromDOM();
+            hitlist = Svgretrieve.getISCbyLocation({x: cx, y: cy}, 1.0, 2,  ['circle'], Svgretrieve.C_collection);
             expect(hitlist.length).toBe(1, "to find exactly one circle in the hitlist");
             expect(hitlist[0] instanceof SVGCircleElement).toBe(true, "retrieved element to be instance of SVGCircleElement");
             svgroot.removeChild(svgroot.firstChild);
@@ -35,6 +30,7 @@ describe("getIntersectedElements", function() {
         svgroot.setAttribute("width", 100);
         svgroot.setAttribute("height", 100);
         svgroot.setAttribute("viewBox", "0 0 100 100");
+        Svgdom.init(svgroot);
         Svgretrieve.init(svgroot);
     });
 
@@ -508,7 +504,7 @@ describe("retrieve randomised rect elements", function() {
             newrectelement.setAttribute("id", String(i));
             svgroot.appendChild(newrectelement);
         }
-        Svgretrieve.registerRectElements_fromDOM();
+        Svgretrieve.registerElements_fromDOM();
         var check_operation, retrieve_operation;
         if (intersect_or_enclose === "intersect") {
             check_operation = checkIntersection;
@@ -551,7 +547,7 @@ describe("retrieve randomised rect elements", function() {
         testRandomisedRects (    10, 1000, 'intersect');
         testRandomisedRects (   100, 1000, 'intersect');
         testRandomisedRects (  1000, 100, 'intersect');
-        testRandomisedRects ( 10000,  10, 'intersect');
+        testRandomisedRects (  5000,  10, 'intersect');
     });
 
     describe("enclose", function () {
@@ -559,6 +555,6 @@ describe("retrieve randomised rect elements", function() {
         testRandomisedRects (    10, 1000, 'enclose');
         testRandomisedRects (   100, 1000, 'enclose');
         testRandomisedRects (  1000, 100, 'enclose');
-        testRandomisedRects ( 10000,  10, 'enclose');
+        testRandomisedRects (  5000,  10, 'enclose');
     });
 });
