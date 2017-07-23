@@ -72,7 +72,7 @@ describe("iscd.js, iscd.wasm", function () {
             });
             describe("._new_vec(len_ptr, capacity_ptr)", function () {
                 it("creates an empty `Vec`, updates `len_ptr` and `capacity_ptr`, returns a pointer.", function (done) {
-                    vec_ptr = Module._new_vec(capacity_ptr, len_ptr);
+                    vec_ptr = Module._new_vec(len_ptr, capacity_ptr);
                     expect(typeof(vec_ptr)).toBe("number");
                     var len = getValue(len_ptr, 'i32');
                     var capacity = getValue(capacity_ptr, 'i32');
