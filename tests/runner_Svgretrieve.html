@@ -23,6 +23,20 @@
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
 <!-- include source files here... -->
+<script>
+var WASM_READY = false;
+var Module = {
+    wasmBinaryFile: "../rs/wasm/iscd.wasm",
+    onRuntimeInitialized: main,
+    noInitialRun: true,     // seems necessary to use the module after main
+    noExitRuntime: true
+};
+
+function main () {
+    WASM_READY = true;
+}
+</script>
+<script src="../rs/wasm/iscd.js"></script>
 <script src="../js/svgretrieve.js"></script>
 <!-- include spec files here... -->
 <script src="../spec/spec_svgretrieve.js"></script>

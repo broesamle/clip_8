@@ -22,7 +22,7 @@ describe("getIntersectedElements", function() {
         }
     };
 
-    beforeEach(function() {
+    beforeEach(function(done) {
         svgroot = document.getElementById("svgroot1");
         while (svgroot.firstChild) {
             svgroot.removeChild(svgroot.firstChild);
@@ -31,7 +31,11 @@ describe("getIntersectedElements", function() {
         svgroot.setAttribute("height", 100);
         svgroot.setAttribute("viewBox", "0 0 100 100");
         Svgdom.init(svgroot);
-        Svgretrieve.init(svgroot);
+        Svgretrieve.init(svgroot=svgroot,
+                         highlight_unregistered=false,
+                         highlight_isc=false,
+                         highlighterFn=function () {},
+                         initdoneCallback=done);
     });
 
     it("retreives elements from an SVG container", function() {
