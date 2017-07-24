@@ -346,10 +346,10 @@ var Svgretrieve = {
     unregisterRectElement: function(rect) {
         // FIXME: make a point-based query rather than using an epsilon-sized rect!
         var epsilon = 0.01;
-        var minsmaxs = getMinsAndMaxs_asArray(rect);
+        var minsmaxs = Svgdom.getMinsAndMaxs_asArray(rect);
         var tobedeleted = Svgretrieve._getIntersectingDataElements(
                                       minsmaxs[0], minsmaxs[1],
-                                      minsmaxs[0]+epsilon, minsmaxs[1]+epsilon,
+                                      epsilon, epsilon,
                                       function (id) {
                                           return Svgretrieve.data_IdToElement[id].dom_element === rect
                                       });
