@@ -59,19 +59,25 @@ var Svgretrieve = {
         return false;
     },
 
-    init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn, initdoneCallback) {
-        var retry_timer;
-        console.log("Checking if WASM module is ready...");
-        if (WASM_READY) {
-            console.log("   READY.");
-            Svgretrieve._init_postWASM(svgroot, highlight_unregistered, highlight_isc, highlighterFn);
-            if (initdoneCallback != undefined) initdoneCallback();
+    init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn, initdoneCallback, waittime) {
+        if (!waittime) waittime = 0;
+        if (waittime > 2500) {
+            alert("TIMEOUT! Failed to init WASM module!\n\nPlease ensure your browser supports Web Assembly\n(http://webassembly.org/).\n\nIf it does and you see this, please file an issue.");
         }
         else {
-            console.log("   retry soon...");
-            retry_timer = window.setTimeout(function() {
-                Svgretrieve.init(svgroot, highlight_unregistered, highlight_isc, highlighterFn, initdoneCallback);
-            }, 50);
+            var retry_timer;
+            console.log("Checking if WASM module is ready...");
+            if (WASM_READY) {
+                console.log("   READY.");
+                Svgretrieve._init_postWASM(svgroot, highlight_unregistered, highlight_isc, highlighterFn);
+                if (initdoneCallback != undefined) initdoneCallback();
+            }
+            else {
+                console.log("   retry soon...");
+                retry_timer = window.setTimeout(function() {
+                    Svgretrieve.init(svgroot, highlight_unregistered, highlight_isc, highlighterFn, initdoneCallback, waittime+50);
+                }, 50);
+            }
         }
     },
 
