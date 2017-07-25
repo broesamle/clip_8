@@ -35,6 +35,16 @@ The interpreter interprets the SVG image as follows:
     b) _Control flow_, defines order of instructions, alternatives etc.
 
 
+Web Assembly
+------------
+
++ An experimental [Web Assembly](http://webassembly.org/) module uses [ncollide](http://ncollide.org/) to retrieve rectangles based on their location.
+
++ Tested in Chrome, Firefox
+
++ Credits go to Andrew Hobden, whose article [The Path to Rust on the Web](http://asquera.de/blog/2017-04-10/the-path-to-rust-on-the-web/) helped a lot in getting Rust and JavaScript to talk to each other.
+
+
 Getting Started
 ---------------
 
