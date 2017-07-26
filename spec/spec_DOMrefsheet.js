@@ -139,7 +139,7 @@ function addTest_normal_execution(reftestElement, cycles) {
         expect(svgroot.id).toBe("clip8svgroot");
         expect(
             function () {
-                Clip8controler.init(svgroot, visualiseIP=false, highlightErr=false, highlightSyntax=false);
+                Clip8controler._init_postWASM(svgroot, visualiseIP=false, highlightErr=false, highlightSyntax=false);
                 Clip8controler.testRun(cycles+EXCESS_CYCLES);
             }).not.toThrow();
         jasmine.clock().tick(CLIP8_RUNNINGTIME);
@@ -238,13 +238,27 @@ function addTest_element_ISCDdetection (reftestElement, expectedDetection) {
 }
 
 describe("Reference Sheet Tester", function(){
-    beforeEach(function() {
-        jasmine.clock().install();
-        jasmine.addMatchers(customMatchers);
-        var oldroot = document.getElementById("clip8svgroot");
-        if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
-        spyOn(Clip8,"executeOneOperation").and.callThrough();
-        spyOn(Clip8controler,"_stopTimer").and.callThrough();
+    beforeEach(function(done) {
+        console.log("beforeEach, WASM_READY:", WASM_READY);
+        waitForWASM = function () {
+            var retry_timer;
+            console.log("[SPEC] checking if WASM module is ready.");
+            if (WASM_READY) {
+                console.log("    WASM READY.");
+                jasmine.clock().install();
+                jasmine.addMatchers(customMatchers);
+                var oldroot = document.getElementById("clip8svgroot");
+                if (oldroot) { oldroot.removeAttributeNS(null,"id"); }  // remove id from any leftover #clip8svgroot element
+                spyOn(Clip8,"executeOneOperation").and.callThrough();
+                spyOn(Clip8controler,"_stopTimer").and.callThrough();
+                done();
+            }
+            else {
+                console.log("    RETRY...");
+                retry_timer = window.setTimeout(waitForWASM, 50);
+            }
+        };
+        waitForWASM();
     });
     afterEach(function() {
         jasmine.clock().uninstall();

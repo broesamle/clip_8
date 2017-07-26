@@ -27,6 +27,7 @@ Footer_str = """
 """
 
 DependClip8_str = """
+<!-- CommonTemplates.DependClip8_str -->
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
 
@@ -39,6 +40,20 @@ DependClip8_str = """
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+<script>
+var WASM_READY = false;
+var Module = {
+    wasmBinaryFile: "../rs/wasm/iscd.wasm",
+    onRuntimeInitialized: main,
+    noInitialRun: true,     // seems necessary to use the module after main
+    noExitRuntime: true
+};
+
+function main () {
+    WASM_READY = true;
+}
+</script>
+<script src="../rs/wasm/iscd.js"></script>
 """
 
 Document = Template("""

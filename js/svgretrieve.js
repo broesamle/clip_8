@@ -36,8 +36,12 @@ var Svgretrieve = {
     I_collection: undefined,
     S_collection: undefined,
     C_collection: undefined,
-    rect_intervals: undefined,
-    rect_intervals_doublecheck: [],
+    data_reg_ptr: 0,            // pointers for data exchange with WASM module
+    data_vec_ptr: 0,
+    data_len_ptr: 0,
+    data_capacity_ptr: 0,
+    data_IdToElement: {},       // map numeric ids to dom elements and leaf pointers
+    data_nextId: 101,
 
     /** Tests whether an element is in an IGNORE subtree.
         Traverses from `el` to `root` and checks whether the elements id contains "IGNORE"
@@ -55,8 +59,30 @@ var Svgretrieve = {
         return false;
     },
 
-    init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn) {
-        console.log("[Svgretrieve.init]", svgroot, highlight_unregistered, highlight_isc, highlighterFn)
+    init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn, initdoneCallback, waittime) {
+        if (!waittime) waittime = 0;
+        if (waittime > 2500) {
+            throw "WASM init timeout in Svgretrieve.init.";
+        }
+        else {
+            var retry_timer;
+            console.log("Checking if WASM module is ready...");
+            if (WASM_READY) {
+                console.log("   READY.");
+                Svgretrieve._init_postWASM(svgroot, highlight_unregistered, highlight_isc, highlighterFn);
+                if (initdoneCallback != undefined) initdoneCallback();
+            }
+            else {
+                console.log("   retry soon...");
+                retry_timer = window.setTimeout(function() {
+                    Svgretrieve.init(svgroot, highlight_unregistered, highlight_isc, highlighterFn, initdoneCallback, waittime+50);
+                }, 50);
+            }
+        }
+    },
+
+    _init_postWASM: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn) {
+        console.log("[Svgretrieve] INIT", svgroot, highlight_unregistered, highlight_isc, highlighterFn);
         Svgretrieve.highlight_unregistered = highlight_unregistered;
         Svgretrieve.highlight_isc = highlight_isc;
         Svgretrieve.highlighterFn = highlighterFn;
@@ -98,8 +124,11 @@ var Svgretrieve = {
 
         console.groupCollapsed("Register SVG graphics elements.");
         // RECT
-        Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init interval tree for data rectangles
-        Svgretrieve.rect_intervals_doublecheck = [];
+        // init pointers on WASM module side
+        Svgretrieve.data_reg_ptr = Module._new_data_reg();
+        Svgretrieve.data_len_ptr = Module._new_element_count();
+        Svgretrieve.data_capacity_ptr = Module._new_element_count();
+        Svgretrieve.data_vec_ptr = _new_vec(Svgretrieve.data_len_ptr, Svgretrieve.data_capacity_ptr);
         var elems = Svgretrieve.clip8root.getElementsByTagName("rect");
         var transformed = [];   // elements that could not registered due to a transformation
         var unreg = [];         // elements that were not registered for unspecific reasons
@@ -107,10 +136,7 @@ var Svgretrieve = {
             if ( ! Svgretrieve.registerRectElement(elems[i]) )
                 unreg.push(elems[i]);
         }
-        console.debug("[registerElements_fromDOM ] tree, elems, double-check:",
-                                 Svgretrieve.rect_intervals,
-                                 elems,
-                                 Svgretrieve.rect_intervals_doublecheck);
+
         // CIRCLE
         elems = Svgretrieve.clip8root.getElementsByTagName("circle");
         if (debug) console.debug("CIRCLE elements:", elems);
@@ -279,24 +305,20 @@ var Svgretrieve = {
                     Svgretrieve.highlighterFn(rect, Svgretrieve.SELECTOR_COLOUR);
                 return true;
             case ISCD.DATA:
-                itv = Svgretrieve._getMainInterval(rect);  // get interval
-                itv.push(rect);                            // append pointer to rect element
-                Svgretrieve.rect_intervals.insert(itv);
+                var minsmaxs = Svgdom.getMinsAndMaxs_asArray(rect);
+                Svgretrieve.data_IdToElement[Svgretrieve.data_nextId] = {
+                    dom_element: rect,
+                    leaf_ptr: Module._register_data_element(
+                                              Svgretrieve.data_reg_ptr,
+                                              Svgretrieve.data_nextId,
+                                              minsmaxs[0],
+                                              minsmaxs[1],
+                                              minsmaxs[2],
+                                              minsmaxs[3])};
+                Svgretrieve.data_nextId += 1;
+                // and I close my eyes and do not think about error handling for now!
+                // FIXME: Find out how to check error conditions
 
-                var doublecheck_index = -1;
-                for (var i=0; i<Svgretrieve.rect_intervals_doublecheck.length; i++) {
-                    if (Svgretrieve.rect_intervals_doublecheck[i] === rect) {
-                        doublecheck_index = i;
-                        break;
-                    }
-                }
-                if(doublecheck_index != -1) {
-                    console.error("[registerRectElement] double registration of", rect, Svgretrieve.rect_intervals);
-                }
-                else {
-                    Svgretrieve.rect_intervals_doublecheck.push(rect);
-                    console.debug("[registerRectElement] registration:", rect, Svgretrieve.rect_intervals);
-                }
                 if (Svgretrieve.highlight_isc)
                     Svgretrieve.highlighterFn(rect, Svgretrieve.DATA_COLOUR);
                 return true;
@@ -305,59 +327,43 @@ var Svgretrieve = {
         }
     },
 
-    // FIXME: This is an experimental workaround to track a bug in inteval-tree-based retrieval.
-    // The fallback checks for the error and if it occurs it re-initializes the entire interval tree :-/
-    unregisterRectElement: function(rect) {
-        try {
-            Svgretrieve._unregisterRectElement(rect)
+    // filterFn and return value are numeric ids.
+    // leaf_ptr or dom element have to be retrieved from Svgretrieve.data_IdToElement
+    _getIntersectingDataElements: function(x, y, w, h, filterFn) {
+        Svgretrieve.data_vec_ptr = Module._intersecting_data_elements(
+                                              Svgretrieve.data_reg_ptr,
+                                              x, y, x+w, y+h,
+                                              Svgretrieve.data_vec_ptr,
+                                              Svgretrieve.data_len_ptr,
+                                              Svgretrieve.data_capacity_ptr);
+        var len = getValue(Svgretrieve.data_len_ptr, 'i32');
+        var capacity = getValue(Svgretrieve.data_capacity_ptr, 'i32');
+        var result = [];
+        // retrieve and filter returned elements
+        for (var i = 0; i < len; i++) {
+            var candidate_id = getValue(Svgretrieve.data_vec_ptr + i*Int32Array.BYTES_PER_ELEMENT, 'i32');
+            if (filterFn(candidate_id))
+                result.push(candidate_id);
         }
-        catch (err) {
-            console.error("WORKAROUND: Re-registration of all rects!", rect);
-            var reregister = Svgretrieve.rect_intervals_doublecheck;
-            Svgretrieve.rect_intervals_doublecheck = []
-            Svgretrieve.rect_intervals = new IntervalTree1D([]);         // init new interval tree for data rectangles
-            Svgretrieve.rect_intervals_doublecheck = [];
-            for (var i=0; i<reregister.length; i++) {
-                if ( ! Svgretrieve.registerRectElement(reregister[i]) ) {
-                    console.error("Re-registration failed:", reregister[i]);
-                    throw "Re-registration failed!"
-                }
-            }
-        }
+        return result;
     },
 
-    _unregisterRectElement: function(rect) {
-        var itv = Svgretrieve._getMainInterval(rect);
-        var candidates = [], tobedeleted;
-
-        var doublecheck_index = -1;
-        for (var i=0; i<Svgretrieve.rect_intervals_doublecheck.length; i++) {
-            if (Svgretrieve.rect_intervals_doublecheck[i] === rect) {
-                doublecheck_index = i;
-                break;
-            }
-        }
-        if( doublecheck_index == -1) {
-            console.error("[unregisterRectElement] rect, double-check", rect, Svgretrieve.rect_intervals_doublecheck);
-            throw ("[unregisterRectElement] element not registered!");
-        }
-        Svgretrieve.rect_intervals.queryPoint(itv[0],
-            function(itv) { candidates.push(itv) } );
-        tobedeleted = candidates.filter( function (can) {
-            return can[2] === rect;
-        })
+    unregisterRectElement: function(rect) {
+        // FIXME: make a point-based query rather than using an epsilon-sized rect!
+        var epsilon = 0.01;
+        var minsmaxs = Svgdom.getMinsAndMaxs_asArray(rect);
+        var tobedeleted = Svgretrieve._getIntersectingDataElements(
+                                      minsmaxs[0], minsmaxs[1],
+                                      epsilon, epsilon,
+                                      function (id) {
+                                          return Svgretrieve.data_IdToElement[id].dom_element === rect
+                                      });
         if (tobedeleted.length == 1) {
-            var result;
-            result = Svgretrieve.rect_intervals.remove(tobedeleted[0]);
-            Svgretrieve.rect_intervals_doublecheck.splice(doublecheck_index, 1);
-            if (result) {
-                console.debug("  --unregistered:", rect);
-                return;
-            }
-            else {
-                console.error("[unregisterRectElement] rect_intervals.remove operation status", result, tobedeleted);
-                throw "[unregisterRectElement] rect_intervals.remove operation failed!";
-            }
+            Module._ungregister_and_destroy_leaf(
+                        Svgretrieve.data_reg_ptr,
+                        Svgretrieve.data_IdToElement[tobedeleted[0]].leaf_ptr);
+            delete Svgretrieve.data_IdToElement[tobedeleted[0]];
+            console.debug("  --unregistered:", rect);
         }
         else {
             console.error("[unregisterRectElement] unexpected number of elements to be deleted:", tobedeleted);
@@ -368,24 +374,32 @@ var Svgretrieve = {
     getEnclosedRectangles: function (queryrect) {
         var qi = Svgretrieve._getMainInterval(queryrect);
         var oiv = Svgretrieve._getOrthoInterval(queryrect);
-        var candidates = Svgretrieve.getIntersectingRectangles(queryrect);
-        return candidates.filter(
-            function (can) {
-                return Svginterval.checkIntervalEnclosure(oiv, Svgretrieve._getOrthoInterval(can)) &&
-                       Svginterval.checkIntervalEnclosure(qi, Svgretrieve._getMainInterval(can));
-            } );
+        var xywh = Svgdom.getXYWH_asArray(queryrect)
+        var filterFn = function (can) {
+            return Svginterval.checkIntervalEnclosure(oiv,
+                        Svgretrieve._getOrthoInterval(Svgretrieve.data_IdToElement[can].dom_element))
+                   &&
+                   Svginterval.checkIntervalEnclosure(qi,
+                        Svgretrieve._getMainInterval(Svgretrieve.data_IdToElement[can].dom_element));
+            };
+        var result_ids = Svgretrieve._getIntersectingDataElements(
+                                xywh[0], xywh[1], xywh[2], xywh[3], filterFn);
+        var result = [];
+        for (var i = 0; i<result_ids.length; i++)
+            result.push(Svgretrieve.data_IdToElement[result_ids[i]].dom_element);
+        return result;
     },
 
     getIntersectingRectangles: function (queryrect) {
         var qi = Svgretrieve._getMainInterval(queryrect);
         var oiv = Svgretrieve._getOrthoInterval(queryrect);
-        var candidates = [];
-        var result = [];
-        Svgretrieve.rect_intervals.queryInterval(qi[0], qi[1],
-            function(itv) { candidates.push(itv[2]) } );
-        result = candidates.filter (
-            function (can) { return Svginterval.checkIntervalIntersection(oiv, Svgretrieve._getOrthoInterval(can)) } );
-        //console.debug("[getIntersectedRectangles] candidates", candidates, result);
+        var xywh = Svgdom.getXYWH_asArray(queryrect)
+        var filterFn = function (can) { return true };
+        var result_ids = Svgretrieve._getIntersectingDataElements(
+                                xywh[0], xywh[1], xywh[2], xywh[3], filterFn);
+        var result = []
+        for (var i = 0; i<result_ids.length; i++)
+            result.push(Svgretrieve.data_IdToElement[result_ids[i]].dom_element);
         return result;
     },
 

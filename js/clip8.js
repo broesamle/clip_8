@@ -722,8 +722,12 @@ var Clip8controler = {
             clearInterval(Clip8controler.exectimer);
     },
 
-
-    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback) {
+    _init_postWASM: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback) {
+        if (! WASM_READY)
+            throw "[_init_postWASM] WASM not ready after call to Clip8controler.init.";
+        console.log("[_init_postWASM] WASM module magic number (should be 15432363):", Module._magic_number());
+        if (Module._magic_number() != 15432363)
+            throw "[_init_postWASM] Incorrect WASM magic number.";
         Clip8controler.cyclescounter = 0;
         if (Clip8controler.state == Clip8controler.ERROR) {
             while (Clip8controler.erroroutput.firstChild)
@@ -763,6 +767,28 @@ var Clip8controler = {
             }
             Clip8controler.state = Clip8controler.ERROR;
             console.log("ERROR-state.", exc);
+        }
+        if (initdoneCallback != undefined) initdoneCallback();
+    },
+
+    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback, waittime) {
+        if (!waittime) waittime = 0;
+        if (waittime > 2500) {
+            alert("TIMEOUT! Failed to init WASM module!\n\nPlease ensure your browser supports Web Assembly\n(http://webassembly.org/).\n\nIf it does and you see this, please file an issue.");
+        }
+        else {
+            var retry_timer;
+            console.log("Checking if WASM module is ready...");
+            if (WASM_READY) {
+                console.log("   READY.");
+                Clip8controler._init_postWASM(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback);
+            }
+            else {
+                console.log("   retry soon...");
+                retry_timer = window.setTimeout(function() {
+                    Clip8controler.init(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback, waittime+50)
+                }, 50);
+            }
         }
     },
 
