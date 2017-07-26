@@ -203,15 +203,27 @@ pub extern fn ungregister_and_destroy_leaf(reg_ptr: *mut DataReg,
 
 /// Returns all elements intersecting with a query area `minx, miny, maxx, maxy`.
 ///
-/// Fills `vec_ptr` with the intersecting elements.
+/// Receives `vec_ptr` (technically a pointer to the buffer used by `Vec`)
+/// reconstructs the `Vec` using the values in `len_ptr`, and `capacity_ptr`.
+///
+/// Returns a new `Vec` (technically a buffer) with the result elements.
+///
 /// Sets appropriate `ElementCount` values for `len_ptr`, and `capacity_ptr`.
 ///
 /// # Safety
 ///
-/// None of the pointers are consumed, no new pointers are produced.
+/// Consumes `vec_ptr` and produces a new pointer to `Vec` and returns it.
+/// The returned pointer may point to a different location than `vec_ptr` does.
+/// The caller must update `vec_ptr` with the return value!
 ///
 /// `vec_ptr` needs to be valid pointer to `Vec`, i.e. produced by `new_vec`.
-/// `len_ptr` and `capacity_ptr` need to be valid pointers to `ElementCount`
+///
+/// `len_ptr` and `capacity_ptr`
+///
+///   + need to be valid pointers to `ElementCount`
+///
+///   + are not consumed
+///
 /// i.e. as produced by `new_element_count`.
 ///
 #[no_mangle]
