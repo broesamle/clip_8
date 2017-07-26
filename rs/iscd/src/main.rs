@@ -1,3 +1,13 @@
+/// A small subset of the functionality of `ncollide` as a WASM module.
+///
+/// + Register axis aligned rectangular areas
+///
+/// + Query registered areas that intersect with
+///   an axis aligned rectangular query area.
+///
+/// + Registered areas are identified via numeric `ElementId` and/or `Leaf` pointer.
+///
+
 extern crate nalgebra;
 extern crate ncollide;
 
@@ -21,17 +31,40 @@ pub extern fn magic_number() -> i32 {
     15432363
 }
 
+/// Produces a pointer to the magic number.
+///
+/// # Safety
+///
+/// Produces a pointer to an i32.
+/// Destroy it via `destroy_magic_number_ptr`.
+///
 #[no_mangle]
 pub extern fn magic_number_ptr() -> *mut i32 {
-    let magic_number: Box<i32> = Box::new(15432363);
-    Box::into_raw(magic_number)
+    let magic_number: Box<i32> = Box::new(15432363);   // create i32
+    Box::into_raw(magic_number)                        // forget i32
 }
 
+/// Destroys (consumes) a pointer to the magic number.
+///
+/// # Safety
+///
+/// Make sure pointer points to allocated memory for one i32.
+///
 #[no_mangle]
 pub extern fn destroy_magic_number_ptr(ptr: *mut i32) {
-    let _: Box<i32> = unsafe { Box::from_raw(ptr) };
+    let _: Box<i32> = unsafe {
+        assert!(!ptr.is_null());
+        Box::from_raw(ptr)               // remember and destroy i32
+    };
 }
 
+/// Produces a pointer to an empty `DataReg`.
+///
+/// # Safety
+///
+/// Produces a pointer to a `DataReg`.
+/// Destroy it via `destroy_data_reg`.
+///
 #[no_mangle]
 pub extern fn new_data_reg () -> *mut DataReg {
     let reg: Box<DataReg> = Box::new(DataReg::new());   // create reg
@@ -46,6 +79,13 @@ pub extern fn destroy_data_reg (reg_ptr: *mut DataReg) {
     };
 }
 
+/// Produces a pointer to an `ElementCount` (i.e. numbers of elements in `Vec`).
+///
+/// # Safety
+///
+/// Produces a pointer to an i32.
+/// Destroy it via `destroy_element_count`.
+///
 #[no_mangle]
 pub extern fn new_element_count () -> *mut ElementCount {
     let cnt: Box<ElementCount> = Box::new(0);           // create cnt
@@ -60,6 +100,15 @@ pub extern fn destroy_element_count (count_ptr: *mut ElementCount) {
     };
 }
 
+
+/// Produces a pointer to `Vec`; sets values for `len_ptr` and `capacity_ptr`.
+///
+/// # Safety
+///
+/// Produces a pointer to `Vec`.
+/// `len_ptr` and `capacity_ptr` need to be valid pointers to `ElementCount`
+/// i.e. have been produced via `new_element_count`.
+///
 #[no_mangle]
 pub extern fn new_vec(len_ptr: *mut ElementCount,
                       capacity_ptr: *mut ElementCount)
@@ -76,19 +125,45 @@ pub extern fn new_vec(len_ptr: *mut ElementCount,
     vec_ptr
 }
 
+/// Destroys and consumes a pointer to a `Vec`.
+///
+/// # Safety
+///
+/// Consumes a pointer to `Vec`.
+///
+/// `len_ptr` and `capacity_ptr`
+///
+///   + are not consumed
+///
+///   + need to be valid pointers to `ElementCount`
+///     containing appropriate values corresponding to `vec_ptr`
+///     as provided by `new_vec_ptr` or `intersecting_data_elements`.
+///
 #[no_mangle]
 pub extern fn destroy_vec(vec_ptr: *mut ElementId,
                           len_ptr: *mut ElementCount,
                           capacity_ptr: *mut ElementCount) {
     let len = unsafe { Box::from_raw(len_ptr) };                // remember len
     let capacity = unsafe { Box::from_raw(capacity_ptr) };      // remember capacity
-    let mut vec: Vec<ElementId> = unsafe  {
-        Vec::from_raw_parts(vec_ptr, *len as usize, *capacity as usize)
-    };                                    // remember and destroy vec
+    let _: Vec<ElementId> = unsafe  {                           // remember vec
+        Vec::from_raw_parts(
+            vec_ptr,
+            *len as usize,
+            *capacity as usize)
+    };                                                          // destroy vec
     Box::into_raw(len);                                         // forget len
     Box::into_raw(capacity);                                    // forget capacity
 }
 
+
+/// Register a numeric `ElementId` with its bounding box `minx, miny, maxx, maxy`.
+///
+/// # Safety
+///
+/// Produces a pointer to `Leaf`.
+/// The caller must keep the returned pointer and ensure its
+/// later destruction, i.e. via `ungregister_and_destroy_leaf`.
+///
 #[no_mangle]
 pub extern fn register_data_element(reg_ptr: *mut DataReg,
                                     key: ElementId,
@@ -106,6 +181,15 @@ pub extern fn register_data_element(reg_ptr: *mut DataReg,
     Rc::into_raw(reftoleaf)                                             // forget leaf
 }
 
+/// Unregister and destroy (consume) an element, a pointer to `Leaf`.
+///
+/// # Safety
+///
+/// Consumes a pointer to `Leaf`.
+///
+/// `reg_ptr` must be a pointer to the `DataReg`
+/// which previously registered the element.
+///
 #[no_mangle]
 pub extern fn ungregister_and_destroy_leaf(reg_ptr: *mut DataReg,
                                            leaf_ptr: *const RefCell<Leaf>) {
@@ -117,6 +201,19 @@ pub extern fn ungregister_and_destroy_leaf(reg_ptr: *mut DataReg,
                                                                         // leaf gets destroyed
 }
 
+/// Returns all elements intersecting with a query area `minx, miny, maxx, maxy`.
+///
+/// Fills `vec_ptr` with the intersecting elements.
+/// Sets appropriate `ElementCount` values for `len_ptr`, and `capacity_ptr`.
+///
+/// # Safety
+///
+/// None of the pointers are consumed, no new pointers are produced.
+///
+/// `vec_ptr` needs to be valid pointer to `Vec`, i.e. produced by `new_vec`.
+/// `len_ptr` and `capacity_ptr` need to be valid pointers to `ElementCount`
+/// i.e. as produced by `new_element_count`.
+///
 #[no_mangle]
 pub extern fn intersecting_data_elements(reg_ptr: *mut DataReg,
                                          minx: Scalar,
