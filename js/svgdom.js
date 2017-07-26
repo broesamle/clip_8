@@ -26,6 +26,7 @@ var Svgdom = {
     SVGNS: undefined,
 
     init: function (svgroot) {
+        console.log("[Svgdom] INIT");
         Svgdom.svgroot = svgroot;
         Svgdom.SVGNS = svgroot.namespaceURI;
     },
@@ -95,6 +96,20 @@ var Svgdom = {
 
     addRectElement_SVGRect (parentel, r) {
         return Svgdom.addRect(parentel, r.x, r.y, r.width, r.height);
+    },
+
+    getMinsAndMaxs_asArray: function (rect) {
+        return [rect.x.baseVal.value,
+                rect.y.baseVal.value,
+                rect.x.baseVal.value + rect.width.baseVal.value,
+                rect.y.baseVal.value + rect.height.baseVal.value];
+    },
+
+    getXYWH_asArray: function (rect) {
+        return [rect.x.baseVal.value,
+                rect.y.baseVal.value,
+                rect.width.baseVal.value,
+                rect.height.baseVal.value];
     },
 
     getCornersOfRectPoints: function (rect) {

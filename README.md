@@ -35,6 +35,16 @@ The interpreter interprets the SVG image as follows:
     b) _Control flow_, defines order of instructions, alternatives etc.
 
 
+Web Assembly
+------------
+
++ An experimental [Web Assembly](http://webassembly.org/) module uses [ncollide](http://ncollide.org/) to retrieve rectangles based on their location.
+
++ Tested in Chrome, Firefox
+
++ Credits go to Andrew Hobden, whose article [The Path to Rust on the Web](http://asquera.de/blog/2017-04-10/the-path-to-rust-on-the-web/) helped a lot in getting Rust and JavaScript to talk to each other.
+
+
 Getting Started
 ---------------
 
@@ -67,6 +77,14 @@ Language documentation / Integration tests
 ------------------------------------------
 
 The integration tests are provided in [Reference Test Sheets](https://broesamle.github.io/clip_8/tests/) which serve as _language reference_, simultaneously.
+
+
+Building
+--------
+
+For generating **demos**, **tutorials** and **reference test pages** checkout python the scripts in `bin`.
+
+For the **wasm** modules use `make` in the `rs` directory.
 
 
 Copyright

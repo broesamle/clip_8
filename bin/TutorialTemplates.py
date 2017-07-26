@@ -96,8 +96,7 @@ display_success = function() {
 ScriptAutostart_str = """
 <script>
 termination_callback = undefined;
-Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback);
-Clip8controler.playAction();
+Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback, Clip8controler.playAction);
 </script>
 """
 
