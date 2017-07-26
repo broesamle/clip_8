@@ -62,7 +62,7 @@ var Svgretrieve = {
     init: function (svgroot, highlight_unregistered, highlight_isc, highlighterFn, initdoneCallback, waittime) {
         if (!waittime) waittime = 0;
         if (waittime > 2500) {
-            alert("TIMEOUT! Failed to init WASM module!\n\nPlease ensure your browser supports Web Assembly\n(http://webassembly.org/).\n\nIf it does and you see this, please file an issue.");
+            throw "WASM init timeout in Svgretrieve.init.";
         }
         else {
             var retry_timer;

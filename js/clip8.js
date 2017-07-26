@@ -771,18 +771,24 @@ var Clip8controler = {
         if (initdoneCallback != undefined) initdoneCallback();
     },
 
-    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback) {
-        var retry_timer;
-        console.log("Checking if WASM module is ready...");
-        if (WASM_READY) {
-            console.log("   READY.");
-            Clip8controler._init_postWASM(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback);
+    init: function (svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback, waittime) {
+        if (!waittime) waittime = 0;
+        if (waittime > 2500) {
+            alert("TIMEOUT! Failed to init WASM module!\n\nPlease ensure your browser supports Web Assembly\n(http://webassembly.org/).\n\nIf it does and you see this, please file an issue.");
         }
         else {
-            console.log("   retry soon...");
-            retry_timer = window.setTimeout(function() {
-                Clip8controler.init(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback)
-            }, 50);
+            var retry_timer;
+            console.log("Checking if WASM module is ready...");
+            if (WASM_READY) {
+                console.log("   READY.");
+                Clip8controler._init_postWASM(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback);
+            }
+            else {
+                console.log("   retry soon...");
+                retry_timer = window.setTimeout(function() {
+                    Clip8controler.init(svgroot, visualiseIP, highlightErr, highlightSyntax, terminationCallback, initdoneCallback, waittime+50)
+                }, 50);
+            }
         }
     },
 
