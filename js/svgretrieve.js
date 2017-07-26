@@ -116,7 +116,6 @@ var Svgretrieve = {
             Svgretrieve._getMainInterval = Svginterval.getYIntervalRectElement;
             Svgretrieve._getOrthoInterval = Svginterval.getXIntervalRectElement;
         }
-        console.log("[Svgretrieve.registerElements_fromDOM] svgroot, clip8root", Svgretrieve.svgroot, Svgretrieve.clip8root);
         var referenceEl = Svgdom.addRect(Svgretrieve.clip8root, 0, 0, 1, 1);
         var refTrafo = referenceEl.getCTM();
         if (debug) console.log("Reference Transformation:", refTrafo, referenceEl);
@@ -385,7 +384,7 @@ var Svgretrieve = {
             };
         var result_ids = Svgretrieve._getIntersectingDataElements(
                                 xywh[0], xywh[1], xywh[2], xywh[3], filterFn);
-        var result = []
+        var result = [];
         for (var i = 0; i<result_ids.length; i++)
             result.push(Svgretrieve.data_IdToElement[result_ids[i]].dom_element);
         return result;
