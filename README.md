@@ -2,37 +2,31 @@
 `Clip_8`
 ========
 
+**What you see is what you compute.**
+
+`clip_8` is probably best described as a _visual virual machine_ operating on inline SVG in the DOM.
+
++ All instructions and data are graphical SVG elements.
+
++ The programmer can, hence, observe the entire machine state during program execution.
+
++ Implemented in JavaScript and Rust (via Web Assembly)
 
 
-**Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
+How it works
+------------
 
-`clip_8` is an arts project and programming language following that ideal.
+Instead of written (text-based) code, programs are SVG images with a particular arrangement of geometric elements.
 
-+ No code to be written.
+clip_8 interprets the SVG image:
 
-+ Instructions and data are expressed in terms of arranged geometric primitives.
-
-+ What you see is what you compute.
-
-+ The programmer can observe the entire <q>machine</q> state during program execution.
-
-+ The interpreter is implemented JavaScript and operates on inline SVG in the DOM.
-
-
-Overview
---------
-
-Instead of typing code in an editor the  programmer _draws_ an SVG image.
-
-The interpreter interprets the SVG image as follows:
-
-1. Decode the arrangement of elements (circles, lines, etc.) as _instructions_, _control flow_, and _data_.
+1. Decode the arrangement of circles, lines, rectangles, paths, polygones as _instructions_, _control flow_, and _data_.
 
 2. _Execute_ one instruction after the other.
 
     a) _Instructions_ manipulate the _data_ elements, i.e. _cut_, _align_, _resize_, or _move_ them.
 
-    b) _Control flow_, defines order of instructions, alternatives etc.
+    b) _Control flow_, defines the order of instructions, alternatives etc.
 
 
 Web Assembly
@@ -66,11 +60,13 @@ FIXME: Screenshot of workflow.
 Philosophy / Inspiration
 ------------------------
 
-As an artist I wanted to create a programming language that can be understood in an intuitive way, just as cutting or folding paper.
-As a low tech material, paper recalls the fact that information processing ultimately relies on cause and effect in physical matter:
-Electrical chain reactions in silicon ... or cutting, moving, folding, and aligning pieces of cardboard.
+**Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
 
-In `clip_8` all operations and data are graphical elements. During execution the user can observe program execution: Instructions and data appear in the same view. This follows from the desire to continuously observe the complete machine state during program execution.
++ No code to be written.
+
++ Instructions and data are expressed in an intuitive format.
+
++ Program expression and technical execution are close together, ideally in the same (graphic) medium.
 
 
 Language documentation / Integration tests
