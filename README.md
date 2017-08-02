@@ -57,14 +57,16 @@ Workflow
 FIXME: Screenshot of workflow.
 
 
-Philosophy / Inspiration
-------------------------
+Why?
+----
 
-**Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
+**Bring drawing and programming together.**
 
-+ No code to be written.
++ Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
 
-+ Instructions and data are expressed in an intuitive format.
++ No writing of code.
+
++ Instructions and data are expressed in a graphical format.
 
 + Program expression and technical execution are close together, ideally in the same (graphic) medium.
 
