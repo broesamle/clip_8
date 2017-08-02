@@ -41,7 +41,7 @@ For recent user information please check the [Tutorial and Getting Started Issue
 [Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html), the `clip_8` interpreter; online test environment.
 
 
-Web Assembly / Browser compatibility
+Web Assembly / Browser compatibility 
 ------------------------------------
 
 + An experimental [Web Assembly](http://webassembly.org/) module uses [ncollide](http://ncollide.org/) to retrieve rectangles based on their location.
