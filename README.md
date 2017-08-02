@@ -29,16 +29,6 @@ clip_8 interprets the SVG image:
     b) _Control flow_, defines the order of instructions, alternatives etc.
 
 
-Web Assembly
-------------
-
-+ An experimental [Web Assembly](http://webassembly.org/) module uses [ncollide](http://ncollide.org/) to retrieve rectangles based on their location.
-
-+ Tested in Chrome, Firefox
-
-+ Credits go to Andrew Hobden, whose article [The Path to Rust on the Web](http://asquera.de/blog/2017-04-10/the-path-to-rust-on-the-web/) helped a lot in getting Rust and JavaScript to talk to each other.
-
-
 Getting Started
 ---------------
 
@@ -49,6 +39,16 @@ Getting Started
 For recent user information please check the [Tutorial and Getting Started Issues](https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started).
 
 [Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html), the `clip_8` interpreter; online test environment.
+
+
+Web Assembly / Browser compatibility
+------------------------------------
+
++ An experimental [Web Assembly](http://webassembly.org/) module uses [ncollide](http://ncollide.org/) to retrieve rectangles based on their location.
+
++ Tested in Chrome, Firefox
+
++ Credits go to Andrew Hobden, whose article [The Path to Rust on the Web](http://asquera.de/blog/2017-04-10/the-path-to-rust-on-the-web/) helped a lot in getting Rust and JavaScript to talk to each other.
 
 
 Workflow
