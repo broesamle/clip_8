@@ -13,6 +13,20 @@
 + Implemented in JavaScript and Rust (via Web Assembly)
 
 
+Why?
+----
+
+**Bring drawing and programming together.**
+
++ Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
+
++ No writing of code.
+
++ Instructions and data are expressed in a graphical format.
+
++ Program expression and technical execution are close together, ideally in the same (graphic) medium.
+
+
 How it works
 ------------
 
@@ -55,20 +69,6 @@ Workflow
 --------
 
 FIXME: Screenshot of workflow.
-
-
-Why?
-----
-
-**Bring drawing and programming together.**
-
-+ Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
-
-+ No writing of code.
-
-+ Instructions and data are expressed in a graphical format.
-
-+ Program expression and technical execution are close together, ideally in the same (graphic) medium.
 
 
 Language documentation / Integration tests
