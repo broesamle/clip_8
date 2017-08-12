@@ -64,6 +64,12 @@ Web Assembly / Browser compatibility
 
 + Credits go to Andrew Hobden, whose article [The Path to Rust on the Web](http://asquera.de/blog/2017-04-10/the-path-to-rust-on-the-web/) helped a lot in getting Rust and JavaScript to talk to each other.
 
+To run on a local machine, please use a local http server, e.g.:
+
+```
+python -m http.server 8000 --bind 127.0.0.1
+```
+
 
 Workflow
 --------
@@ -71,8 +77,8 @@ Workflow
 FIXME: Screenshot of workflow.
 
 
-Language documentation / Integration tests
-------------------------------------------
+Tests / Language documentation
+------------------------------
 
 The integration tests are provided in [Reference Test Sheets](https://broesamle.github.io/clip_8/tests/) which serve as _language reference_, simultaneously.
 
