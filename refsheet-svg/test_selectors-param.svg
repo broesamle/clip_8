@@ -47,7 +47,7 @@
 	</g>
 	<g id="I_x5F_indirect1" display="inline">
 		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="55" y2="16"/>
-		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="39" height="34"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" width="39" height="34"/>
 		<g id="labels">
 			<g>
 				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
@@ -108,7 +108,7 @@
 	</g>
 	<g id="I_x5F_indirect2" display="inline">
 		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="55" y2="16"/>
-		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="39" height="34"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" width="39" height="34"/>
 		<g id="labels_1_">
 			<g>
 				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
@@ -169,7 +169,7 @@
 	</g>
 	<g id="I_x5F_indirect3_1_" display="inline">
 		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="11" y1="59" x2="63" y2="16"/>
-		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="47" height="34"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" width="47" height="34"/>
 		<g id="labels_Kopie">
 			<g>
 				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
@@ -230,7 +230,7 @@
 	</g>
 	<g id="I_x5F_indirect4" display="inline">
 		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="45" y2="16"/>
-		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="29" height="34"/>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" width="29" height="34"/>
 		<g id="labels_2_">
 			<g>
 				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
@@ -291,21 +291,22 @@
 	</g>
 	<g id="I_x5F_indirect5" display="inline">
 		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" x1="24" y1="6" x2="55" y2="50"/>
-		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="3,1" width="39" height="34"/>
-		<g id="labels_3_">
-			<g>
+		<rect x="16" y="16" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="4,1,1,1" width="39" height="34"/>
+		<g id="labels_3_" display="none">
+			<g display="inline">
 				<text transform="matrix(1 0 0 1 14 14)" font-family="'CourierNewPSMT'" font-size="4">p0</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text transform="matrix(1 0 0 1 13 54)" font-family="'CourierNewPSMT'" font-size="4">pY</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text transform="matrix(1 0 0 1 56 14)" font-family="'CourierNewPSMT'" font-size="4">pX</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text transform="matrix(1 0 0 1 56 54)" font-family="'CourierNewPSMT'" font-size="4">pXY</text>
 			</g>
-			<path fill="none" stroke="#9BC9C7" stroke-width="0.7" stroke-miterlimit="10" d="M4,4c0,0,6,18.625,12,12.125"/>
+			<path display="inline" fill="none" stroke="#9BC9C7" stroke-width="0.7" stroke-miterlimit="10" d="M4,4c0,0,6,18.625,12,12.125"
+				/>
 		</g>
 	</g>
 	<rect x="64" display="inline" fill="none" width="123" height="130"/>
@@ -317,18 +318,26 @@
 	<g id="I">
 		<g>
 			<g>
-				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="60,55.5 60,60 55.5,60 				"/>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="60,57 60,60 57,60 				"/>
 				
-					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="52.5" y1="60" x2="42" y2="60"/>
-				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="40.5,60 36,60 36,55.5 				"/>
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="55" y1="60" x2="52" y2="60"/>
 				
-					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="52.5" x2="36" y2="30"/>
-				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="36,28.5 36,24 40.5,24 				"/>
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="51" y1="60" x2="40" y2="60"/>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="39,60 36,60 36,57 				"/>
 				
-					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="43.5" y1="24" x2="54" y2="24"/>
-				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="55.5,24 60,24 60,28.5 				"/>
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="36" y1="55" x2="36" y2="52"/>
 				
-					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="60" y1="31.5" x2="60" y2="54"/>
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="36" y1="51" x2="36" y2="28"/>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="36,27 36,24 39,24 				"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="41" y1="24" x2="44" y2="24"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="45" y1="24" x2="56" y2="24"/>
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="57,24 60,24 60,27 				"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="60" y1="29" x2="60" y2="32"/>
+				
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="60" y1="33" x2="60" y2="56"/>
 			</g>
 		</g>
 		
