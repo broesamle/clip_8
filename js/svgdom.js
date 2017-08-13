@@ -50,6 +50,13 @@ var Svgdom = {
         return g;
     },
 
+    newSVGPoint: function (x, y) {
+        var point = Svgdom.svgroot.createSVGPoint();
+        point.x = x;
+        point.y = y;
+        return point;
+    },
+
     newSVGRect: function (x, y, width, height) {
         /** Create a new SVGRect.
         */
@@ -114,6 +121,8 @@ var Svgdom = {
 
     getCornersOfRectPoints: function (rect) {
         var points = [];
+        // init an array of four points
+        // FIXME: use svgroot instead of rect.ownerSVGElement
         for (var i = 0; i < 4; i++)
             points.push(rect.ownerSVGElement.createSVGPoint());
         points[0].x = rect.x.baseVal.value;
@@ -125,7 +134,10 @@ var Svgdom = {
         points[3].x = rect.x.baseVal.value
         points[3].y = rect.y.baseVal.value + rect.height.baseVal.value;
         return points;
+    },
 
+    getCornersOfRectPoints_arranged(point, rect) {
+        return { pOrig: {x:0, y:2}, pX: {x:3, y:5}, pY: {x:6, y:7}, pXY: {x:8, y:9} };
     },
 
     enclosesRectPoint(svgrect, svgpoint) {
