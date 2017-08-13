@@ -22,7 +22,7 @@ describe("Svgdom", function() {
             y1 = rndrange(-200,+200);
             x2 = rndrange(-200,+200);
             y2 = rndrange(-200,+200);
-            return Svgdom.newRectElement_fromSVGRect(Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2}));
+            return Svgdom.newSVGRect_fromPoints({x: x1, y: y1}, {x: x2, y: y2});
         };
         var rndSVGPoint = function () {
             return Svgdom.newSVGPoint(rndrange(-200,+200), rndrange(-200,+200));
@@ -34,11 +34,13 @@ describe("Svgdom", function() {
                 rect = Svgdom.newRectElement_fromSVGRect(rndSVGRect());
                 svgroot.appendChild(rect);
                 point = rndSVGPoint();
+                // pX is offset from pOrig parallel to the X axis.
+                // pY is offset from pOrig parallel to the Y axis.
                 corners = Svgdom.getCornersOfRectPoints_arranged(point, rect);
-                expect(corners.pOrig.x).toEqual(corners.pX.x);
-                expect(corners.pOrig.y).toEqual(corners.pY.y);
-                expect(corners.pXY.y).toEqual(corners.pX.y);
-                expect(corners.pXY.x).toEqual(corners.pY.x);
+                expect(corners.pOrig.y).toEqual(corners.pX.y);
+                expect(corners.pOrig.x).toEqual(corners.pY.x);
+                expect(corners.pXY.x).toEqual(corners.pX.x);
+                expect(corners.pXY.y).toEqual(corners.pY.y);
                 dist_PointOrig = Svgdom.euclidDistance(point, corners.pOrig);
                 dist_PointX = Svgdom.euclidDistance(point, corners.pX);
                 dist_PointY = Svgdom.euclidDistance(point, corners.pY);
