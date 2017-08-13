@@ -137,7 +137,42 @@ var Svgdom = {
     },
 
     getCornersOfRectPoints_arranged(point, rect) {
-        return { pOrig: {x:0, y:2}, pX: {x:3, y:5}, pY: {x:6, y:7}, pXY: {x:8, y:9} };
+        var result = {
+                pOrig: {x: undefined, y: undefined},
+                pX:    {x: undefined, y: undefined},
+                pY:    {x: undefined, y: undefined},
+                pXY:   {x: undefined, y: undefined} };
+        if ( Math.abs(point.x - rect.x.baseVal.value) <
+             Math.abs(point.x - (rect.x.baseVal.value+rect.width.baseVal.value)) ) {
+            // reference point is closer to left edge
+            result.pOrig.x = rect.x.baseVal.value;
+            result.pY.x    = rect.x.baseVal.value;
+            result.pX.x    = rect.x.baseVal.value+rect.width.baseVal.value;
+            result.pXY.x   = rect.x.baseVal.value+rect.width.baseVal.value;
+        }
+        else {
+            // reference point is closer to right edge
+            result.pOrig.x = rect.x.baseVal.value+rect.width.baseVal.value;
+            result.pY.x    = rect.x.baseVal.value+rect.width.baseVal.value;
+            result.pX.x    = rect.x.baseVal.value;
+            result.pXY.x   = rect.x.baseVal.value;
+        }
+        if ( Math.abs(point.y - rect.y.baseVal.value) <
+             Math.abs(point.y - (rect.y.baseVal.value+rect.height.baseVal.value)) ) {
+            // reference point is closer to top edge
+            result.pOrig.y = rect.y.baseVal.value;
+            result.pX.y    = rect.y.baseVal.value;
+            result.pY.y    = rect.y.baseVal.value+rect.height.baseVal.value;
+            result.pXY.y   = rect.y.baseVal.value+rect.height.baseVal.value;
+        }
+        else {
+            // reference point is closer to bottom edge
+            result.pOrig.y = rect.y.baseVal.value+rect.height.baseVal.value;
+            result.pX.y    = rect.y.baseVal.value+rect.height.baseVal.value;
+            result.pY.y    = rect.y.baseVal.value;
+            result.pXY.y   = rect.y.baseVal.value;
+        }
+        return result;
     },
 
     enclosesRectPoint(svgrect, svgpoint) {
