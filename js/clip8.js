@@ -294,11 +294,14 @@ var Clip8 = {
                     yoffset = paramObjects[0].height.baseVal.value;
                 }
             }
-            result = Svgretrieve.getRectanglesAtXY_epsilon(
+            if ( xoffset <= selectorcore[0].width.baseVal.value &&
+                 yoffset <= selectorcore[0].height.baseVal.value )
+                return Svgretrieve.getRectanglesAtXY_epsilon(
                         refpoint.x+xoffset,
                         refpoint.y+yoffset,
                         1.0*Clip8.STROKE_TOLERANCE_RATIO);
-            return result;
+            else
+                return [];
         }
         else
             Clip8._reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.",
