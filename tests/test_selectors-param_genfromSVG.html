@@ -96,7 +96,7 @@ function main () {
 <p>By using an object as a parameter, the dimensions of the parameter object modify the selection location.</p>
 </div>
 
-<p>Parameterise a selector: Unlike the ordinary selection, the selection location is determined by the dimensions of another object. (1) The selector area, as usual, restricts the set of objects (i.e. no objects outside the area will be affected). `pX`, `pY`, `pXY` can be used to attach a PARAMETER object. via a dash-dotted line. (2) A parameter object attached to `pX` will be evaluated based on its width. (3) The selection location will be offset from `p0` by the `width` of the parameter object. (4) Likewise, the selection location can be offset in y-direction by the `height` of an object by attaching it as a parameter to `pY`, or `pXY` for both directions. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Parameterise a selector: Unlike the ordinary selection, the selection location is determined by the dimensions of another object. (1) The selector area, as usual, restricts the set of objects (i.e. no objects outside the area will be affected). `pX`, `pY`, `pXY` can be used to attach a PARAMETER object. via a dash-dotted line. (2) A parameter object attached to `pX` will be evaluated based on its width. (3) The selection location will be offset from `p0` by the `width` of the parameter object. (4) Likewise, the selection location can be offset in y-direction by the `height` of an object by attaching it as a parameter to `pY`, or `pXY` for both directions. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect1">
 <span class="pre-reference">
@@ -159,7 +159,7 @@ function main () {
 </svg>
 </span>
 </p>
-<p>Same as above, this time the parameter object has a higher width. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Same as above, this time the parameter object has a higher width. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect2">
 <span class="pre-reference">
@@ -222,7 +222,7 @@ function main () {
 </svg>
 </span>
 </p>
-<p>Same as above. (1) Neither the x/y location of the parameter object nor the size of the primary selector area has an effect on the final selection locationhas. aOffset is always calculated from `p0` and in the direction towards the used attachment point `pX`, `pY`, `pXY` <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Same as above. (1) Neither the x/y location of the parameter object nor the size of the primary selector area has an effect on the final selection locationhas. aOffset is always calculated from `p0` and in the direction towards the used attachment point `pX`, `pY`, `pXY` <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect3">
 <span class="pre-reference">
@@ -285,7 +285,7 @@ function main () {
 </svg>
 </span>
 </p>
-<p>Even though the calculated selection location can be outside the area of the primary selector, there is no way of selecting an object that is outside the selection set defined by the primary selector (i.e. the upper-right box is a the tselection position but it is not in the set of elements that intersect with the dashed rectangle of the primary selector). <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Even though the calculated selection location can be outside the area of the primary selector, there is no way of selecting an object that is outside the selection set defined by the primary selector (i.e. the upper-right box is a the tselection position but it is not in the set of elements that intersect with the dashed rectangle of the primary selector). <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect4">
 <span class="pre-reference">
@@ -348,7 +348,7 @@ function main () {
 </svg>
 </span>
 </p>
-<p>A parameter at`pXY` uses an object‘s `width` in x-direction and its `height` in y-direction as an offset from `p0`. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>A parameter at`pXY` uses an object‘s `width` in x-direction and its `height` in y-direction as an offset from `p0`. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect5">
 <span class="pre-reference">
@@ -414,7 +414,7 @@ function main () {
 
 
 <footer>
-<p><b>Version 0.1.4</b></p>
+<p><b>Version 0.1.5</b></p>
 <p>
 Copyright 2016, 2017 Martin Brösamle.<br>
 All rights reserved.<br>
