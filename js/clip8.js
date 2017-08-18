@@ -239,7 +239,6 @@ var Clip8 = {
         var dashes = window.getComputedStyle(selectorcore[0])
                            .getPropertyValue('stroke-dasharray')
                            .split(",").map(parseFloat);
-        if (debug) console.log("[selectedElementSet] DASCHES", dashes);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
             return Svgretrieve.getEnclosedRectangles(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
@@ -249,46 +248,49 @@ var Clip8 = {
                  dashes[0] > dashes[1] &&
                  dashes[1] == dashes[3]) {
             // PARAMETER
-            var selparamX, selparamY, selparamXY, dimensionsWH,
-                xoffset=0, yoffset=0, result, corners;
+            var corners, paramelemsX, paramelemsY, paramelemsXY, dimensionsWH,
+                xoffset, yoffset, result;
+            xoffset = 0;
+            yoffset = 0;
             corners = Svgdom.getCornersOfRectPoints_arranged(refpoint, s);
-            selparamXY = Svgretrieve.getISCbyLocation(
+            paramelemsXY = Svgretrieve.getISCbyLocation(
                        corners.pXY,
                        Clip8.STROKE_TOLERANCE_RATIO,
                        Clip8.RETRIEVE_CPOINT_MAXNUM,
                        ['line'],
                        Svgretrieve.S_collection);
-            if (selparamXY.length == 1) {
+            if (paramelemsXY.length == 1) {
                 // argument for x and y directions from the same object
-                dimensionsWH = Clip8.getParameterObjectDimensions(selparamXY[0], corners.pXY);
+                dimensionsWH = Clip8.getParameterObjectDimensions(paramelemsXY[0], corners.pXY);
                 xoffset = dimensionsWH.width;
                 yoffset = dimensionsWH.height;
             }
             else {
                 // arguments for x and/or y directions from (two) object(s)
-                selparamX = Svgretrieve.getISCbyLocation(
+                paramelemsX = Svgretrieve.getISCbyLocation(
                            corners.pX,
                            Clip8.STROKE_TOLERANCE_RATIO,
                            Clip8.RETRIEVE_CPOINT_MAXNUM,
                            ['line'],
                            Svgretrieve.S_collection);
-                selparamY = Svgretrieve.getISCbyLocation(
+                paramelemsY = Svgretrieve.getISCbyLocation(
                            corners.pY,
                            Clip8.STROKE_TOLERANCE_RATIO,
                            Clip8.RETRIEVE_CPOINT_MAXNUM,
                            ['line'],
                            Svgretrieve.S_collection);
-                if (selparamX.length == 1) {
+                if (paramelemsX.length == 1) {
                     // parameter present for x
-                    dimensionsWH = Clip8.getParameterObjectDimensions(selparamX[0], corners.pX);
+                    dimensionsWH = Clip8.getParameterObjectDimensions(paramelemsX[0], corners.pX);
                     xoffset = dimensionsWH.width;
                 }
-                if (selparamY.length == 1) {
+                if (paramelemsY.length == 1) {
                     // parameter present for y
-                    dimensionsWH = Clip8.getParameterObjectDimensions(selparamY[0], corners.pY);
+                    dimensionsWH = Clip8.getParameterObjectDimensions(paramelemsY[0], corners.pY);
                     yoffset = dimensionsWH.height;
                 }
             }
+            // Is the position derived from the argument values within the boundary?
             if ( xoffset <= selectorcore[0].width.baseVal.value &&
                  yoffset <= selectorcore[0].height.baseVal.value )
                 return Svgretrieve.getRectanglesAtXY_epsilon(
