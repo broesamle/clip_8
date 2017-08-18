@@ -395,7 +395,7 @@ var Svgretrieve = {
         var filterFn = function (can) { return true };
         var result_ids = Svgretrieve._getIntersectingDataElements(
                                 xywh[0], xywh[1], xywh[2], xywh[3], filterFn);
-        var result = []
+        var result = [];
         for (var i = 0; i<result_ids.length; i++)
             result.push(Svgretrieve.data_IdToElement[result_ids[i]].dom_element);
         return result;
@@ -415,7 +415,7 @@ var Svgretrieve = {
         var filterFn = function (can) { return true };
         var result_ids = Svgretrieve._getIntersectingDataElements(
                                 x, y, epsilon, epsilon, filterFn);
-        var result = []
+        var result = [];
         for (var i = 0; i<result_ids.length; i++)
             result.push(Svgretrieve.data_IdToElement[result_ids[i]].dom_element);
         return result;

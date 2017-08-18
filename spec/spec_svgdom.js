@@ -15,7 +15,7 @@ describe("Svgdom", function() {
     describe("getCornersOfRectPoints_arranged", function() {
         var rndrange = function (min, max) {
             return Math.random()*Math.abs(max-min) + min;
-        }
+        };
         var rndSVGRect = function () {
             var x1, y1, x2, y2;
             x1 = rndrange(-200,+200);
@@ -32,7 +32,7 @@ describe("Svgdom", function() {
             var dist_PointOrig, dist_PointX, dist_PointY, dist_PointXY;
             for (var i = 0; i < 1000; i++) {
                 rect = Svgdom.newRectElement_fromSVGRect(rndSVGRect());
-                svgroot.appendChild(rect);
+                svgroot.appendChild(rect);  // FIXME: cf. #135
                 point = rndSVGPoint();
                 // pX is offset from pOrig parallel to the X axis.
                 // pY is offset from pOrig parallel to the Y axis.
