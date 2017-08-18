@@ -182,10 +182,33 @@ var Clip8 = {
                 return [Clip8.UNKNOWNSELECTOR];
     },
 
+    getParameterObjectDimensions: function (parametercore, refpoint) {
+        /** Returns the dimensions of the rect element indicated by a parameter.
+         *  `parametercore` is the dom element that describes the parameter
+         *  (e.g. the (dash-dotted) line that connects to a MOVE instruction,
+         *  which will later use the dimension(s) to determine the distance
+         *  of the movement).
+         *  Returns an object such as `{width: 22, height: 35}`.
+         */
+        var paramLocation = Svgdom.getBothEndsOfLine_arranged(refpoint, parametercore)[1];
+        var paramObjects = Svgretrieve.getRectanglesAtPoint_epsilon(
+                paramLocation,
+                1.0*Clip8.STROKE_TOLERANCE_RATIO);
+        // Check correct number of parameter objects
+        if (paramObjects.length != 1)
+            Clip8._reportError("selectedElementSet",
+                               "Multiple objecs at parameter target location.",
+                               paramObjects,
+                               [paramLocation],
+                               "A parameter uses the dimensions of EXACTLY ONE object per parameter target location. However, there are multiple or none.");
+        return { width: paramObjects[0].width.baseVal.value,
+                 height: paramObjects[0].height.baseVal.value };
+    },
+
     selectedElementSet: function (selectorcore, refpoint) {
         /** Determine the set of selected elements based on given selector core.
          *  `selectorcore` is the list of SVG DOM elments being the core selector
-         *  (excluding connectors). Typically these elements graphically depict an area.
+         *  (i.e. excluding connectors). Typically these elements graphically depict an area.
          *  Return value is a list of SVG DOM elements that are selected by the given selector.
          */
 
@@ -226,10 +249,9 @@ var Clip8 = {
                  dashes[0] > dashes[1] &&
                  dashes[1] == dashes[3]) {
             // PARAMETER
-            var selparamX, selparamY, selparamXY,
-                paramLocation, paramObjects,
-                xoffset=0, yoffset=0, result,
-                corners = Svgdom.getCornersOfRectPoints_arranged(refpoint, s);
+            var selparamX, selparamY, selparamXY, dimensionsWH,
+                xoffset=0, yoffset=0, result, corners;
+            corners = Svgdom.getCornersOfRectPoints_arranged(refpoint, s);
             selparamXY = Svgretrieve.getISCbyLocation(
                        corners.pXY,
                        Clip8.STROKE_TOLERANCE_RATIO,
@@ -237,22 +259,13 @@ var Clip8 = {
                        ['line'],
                        Svgretrieve.S_collection);
             if (selparamXY.length == 1) {
-                paramLocation = Svgdom.getBothEndsOfLine_arranged(corners.pXY,
-                                                          selparamXY[0])[1];
-                paramObjects = Svgretrieve.getRectanglesAtPoint_epsilon(
-                        paramLocation,
-                        1.0*Clip8.STROKE_TOLERANCE_RATIO);
-                // Check correct number of parameter objects
-                if (paramObjects.length != 1)
-                    Clip8._reportError("selectedElementSet",
-                                       "Multiple objecs at parameter location.",
-                                       paramObjects,
-                                       [paramLocation],
-                                       "A parameter uses the dimensions of EXACTLY ONE object per parameter location. However, there are multiple or none.");
-                xoffset = paramObjects[0].width.baseVal.value;
-                yoffset = paramObjects[0].height.baseVal.value;
+                // argument for x and y directions from the same object
+                dimensionsWH = Clip8.getParameterObjectDimensions(selparamXY[0], corners.pXY);
+                xoffset = dimensionsWH.width;
+                yoffset = dimensionsWH.height;
             }
             else {
+                // arguments for x and/or y directions from (two) object(s)
                 selparamX = Svgretrieve.getISCbyLocation(
                            corners.pX,
                            Clip8.STROKE_TOLERANCE_RATIO,
@@ -266,32 +279,14 @@ var Clip8 = {
                            ['line'],
                            Svgretrieve.S_collection);
                 if (selparamX.length == 1) {
-                    paramObjects = Svgretrieve.getRectanglesAtPoint_epsilon(
-                            Svgdom.getBothEndsOfLine_arranged(corners.pX,
-                                                              selparamX[0])[1],
-                            1.0*Clip8.STROKE_TOLERANCE_RATIO);
-                    // Check correct number of parameter objects
-                    if (paramObjects.length != 1)
-                        Clip8._reportError("selectedElementSet",
-                                           "Multiple objecs at parameter location.",
-                                           paramObjects,
-                                           [paramLocation],
-                                           "A parameter uses the dimensions of EXACTLY ONE object per parameter location. However, there are multiple or none.");
-                    xoffset = paramObjects[0].width.baseVal.value;
+                    // parameter present for x
+                    dimensionsWH = Clip8.getParameterObjectDimensions(selparamX[0], corners.pX);
+                    xoffset = dimensionsWH.width;
                 }
                 if (selparamY.length == 1) {
-                    paramObject = Svgretrieve.getRectanglesAtPoint_epsilon(
-                            Svgdom.getBothEndsOfLine_arranged(corners.pY,
-                                                              selparamY[0])[1],
-                            1.0*Clip8.STROKE_TOLERANCE_RATIO);
-                    // Check correct number of parameter objects
-                    if (paramObjects.length != 1)
-                        Clip8._reportError("selectedElementSet",
-                                           "Multiple objecs at parameter location.",
-                                           paramObjects,
-                                           [paramLocation],
-                                           "A parameter uses the dimensions of EXACTLY ONE object per parameter location. However, there are multiple or none.");
-                    yoffset = paramObjects[0].height.baseVal.value;
+                    // parameter present for y
+                    dimensionsWH = Clip8.getParameterObjectDimensions(selparamY[0], corners.pY);
+                    yoffset = dimensionsWH.height;
                 }
             }
             if ( xoffset <= selectorcore[0].width.baseVal.value &&
