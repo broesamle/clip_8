@@ -182,10 +182,33 @@ var Clip8 = {
                 return [Clip8.UNKNOWNSELECTOR];
     },
 
-    selectedElementSet: function (selectorcore) {
+    getParameterObjectDimensions: function (parametercore, refpoint) {
+        /** Returns the dimensions of the rect element indicated by a parameter.
+         *  `parametercore` is the dom element that describes the parameter
+         *  (e.g. the (dash-dotted) line that connects to a MOVE instruction,
+         *  which will later use the dimension(s) to determine the distance
+         *  of the movement).
+         *  Returns an object such as `{width: 22, height: 35}`.
+         */
+        var paramLocation = Svgdom.getBothEndsOfLine_arranged(refpoint, parametercore)[1];
+        var paramObjects = Svgretrieve.getRectanglesAtPoint_epsilon(
+                paramLocation,
+                1.0*Clip8.STROKE_TOLERANCE_RATIO);
+        // Check correct number of parameter objects
+        if (paramObjects.length != 1)
+            Clip8._reportError("selectedElementSet",
+                               "Multiple objecs at parameter target location.",
+                               paramObjects,
+                               [paramLocation],
+                               "A parameter uses the dimensions of EXACTLY ONE object per parameter target location. However, there are multiple or none.");
+        return { width: paramObjects[0].width.baseVal.value,
+                 height: paramObjects[0].height.baseVal.value };
+    },
+
+    selectedElementSet: function (selectorcore, refpoint) {
         /** Determine the set of selected elements based on given selector core.
          *  `selectorcore` is the list of SVG DOM elments being the core selector
-         *  (excluding connectors). Typically these elements graphically depict an area.
+         *  (i.e. excluding connectors). Typically these elements graphically depict an area.
          *  Return value is a list of SVG DOM elements that are selected by the given selector.
          */
 
@@ -216,10 +239,65 @@ var Clip8 = {
         var dashes = window.getComputedStyle(selectorcore[0])
                            .getPropertyValue('stroke-dasharray')
                            .split(",").map(parseFloat);
+        if (debug) console.log("[selectedElementSet] DASCHES", dashes);
         if (dashes.length == 2 && dashes[0] < dashes[1] )
             return Svgretrieve.getEnclosedRectangles(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
             return Svgretrieve.getIntersectingRectangles(s);
+        else if (dashes.length == 4 &&
+                 dashes[0] > dashes[2] &&
+                 dashes[0] > dashes[1] &&
+                 dashes[1] == dashes[3]) {
+            // PARAMETER
+            var selparamX, selparamY, selparamXY, dimensionsWH,
+                xoffset=0, yoffset=0, result, corners;
+            corners = Svgdom.getCornersOfRectPoints_arranged(refpoint, s);
+            selparamXY = Svgretrieve.getISCbyLocation(
+                       corners.pXY,
+                       Clip8.STROKE_TOLERANCE_RATIO,
+                       Clip8.RETRIEVE_CPOINT_MAXNUM,
+                       ['line'],
+                       Svgretrieve.S_collection);
+            if (selparamXY.length == 1) {
+                // argument for x and y directions from the same object
+                dimensionsWH = Clip8.getParameterObjectDimensions(selparamXY[0], corners.pXY);
+                xoffset = dimensionsWH.width;
+                yoffset = dimensionsWH.height;
+            }
+            else {
+                // arguments for x and/or y directions from (two) object(s)
+                selparamX = Svgretrieve.getISCbyLocation(
+                           corners.pX,
+                           Clip8.STROKE_TOLERANCE_RATIO,
+                           Clip8.RETRIEVE_CPOINT_MAXNUM,
+                           ['line'],
+                           Svgretrieve.S_collection);
+                selparamY = Svgretrieve.getISCbyLocation(
+                           corners.pY,
+                           Clip8.STROKE_TOLERANCE_RATIO,
+                           Clip8.RETRIEVE_CPOINT_MAXNUM,
+                           ['line'],
+                           Svgretrieve.S_collection);
+                if (selparamX.length == 1) {
+                    // parameter present for x
+                    dimensionsWH = Clip8.getParameterObjectDimensions(selparamX[0], corners.pX);
+                    xoffset = dimensionsWH.width;
+                }
+                if (selparamY.length == 1) {
+                    // parameter present for y
+                    dimensionsWH = Clip8.getParameterObjectDimensions(selparamY[0], corners.pY);
+                    yoffset = dimensionsWH.height;
+                }
+            }
+            if ( xoffset <= selectorcore[0].width.baseVal.value &&
+                 yoffset <= selectorcore[0].height.baseVal.value )
+                return Svgretrieve.getRectanglesAtXY_epsilon(
+                        refpoint.x+xoffset,
+                        refpoint.y+yoffset,
+                        1.0*Clip8.STROKE_TOLERANCE_RATIO);
+            else
+                return [];
+        }
         else
             Clip8._reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.",
                                selectorcore,
@@ -286,7 +364,7 @@ var Clip8 = {
                 var retrselector = Clip8.retrieveCoreSelector(condISC[1], condpoint);
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
-                var condselected = Clip8.selectedElementSet(coreselector);
+                var condselected = Clip8.selectedElementSet(coreselector, condpoint);
                 if (condselected.length > 0)
                     if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
@@ -446,7 +524,7 @@ var Clip8 = {
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         if      (selectortype == Clip8.RECTSELECTOR)
-            var selectedelements1 = Clip8.selectedElementSet(coreselector);
+            var selectedelements1 = Clip8.selectedElementSet(coreselector, p0);
         else if (selectortype == Clip8.UNKNOWNSELECTOR) {
             if (decodedinstr.needsselector) {
                 Clip8._reportError("executeOneOperation", "This instruction needs a selector but it was not found.",

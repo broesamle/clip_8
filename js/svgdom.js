@@ -50,6 +50,13 @@ var Svgdom = {
         return g;
     },
 
+    newSVGPoint: function (x, y) {
+        var point = Svgdom.svgroot.createSVGPoint();
+        point.x = x;
+        point.y = y;
+        return point;
+    },
+
     newSVGRect: function (x, y, width, height) {
         /** Create a new SVGRect.
         */
@@ -114,6 +121,8 @@ var Svgdom = {
 
     getCornersOfRectPoints: function (rect) {
         var points = [];
+        // init an array of four points
+        // FIXME: use svgroot instead of rect.ownerSVGElement
         for (var i = 0; i < 4; i++)
             points.push(rect.ownerSVGElement.createSVGPoint());
         points[0].x = rect.x.baseVal.value;
@@ -125,7 +134,45 @@ var Svgdom = {
         points[3].x = rect.x.baseVal.value
         points[3].y = rect.y.baseVal.value + rect.height.baseVal.value;
         return points;
+    },
 
+    getCornersOfRectPoints_arranged(point, rect) {
+        var result = {
+                pOrig: {x: undefined, y: undefined},
+                pX:    {x: undefined, y: undefined},
+                pY:    {x: undefined, y: undefined},
+                pXY:   {x: undefined, y: undefined} };
+        if ( Math.abs(point.x - rect.x.baseVal.value) <
+             Math.abs(point.x - (rect.x.baseVal.value+rect.width.baseVal.value)) ) {
+            // reference point is closer to left edge
+            result.pOrig.x = rect.x.baseVal.value;
+            result.pY.x    = rect.x.baseVal.value;
+            result.pX.x    = rect.x.baseVal.value+rect.width.baseVal.value;
+            result.pXY.x   = rect.x.baseVal.value+rect.width.baseVal.value;
+        }
+        else {
+            // reference point is closer to right edge
+            result.pOrig.x = rect.x.baseVal.value+rect.width.baseVal.value;
+            result.pY.x    = rect.x.baseVal.value+rect.width.baseVal.value;
+            result.pX.x    = rect.x.baseVal.value;
+            result.pXY.x   = rect.x.baseVal.value;
+        }
+        if ( Math.abs(point.y - rect.y.baseVal.value) <
+             Math.abs(point.y - (rect.y.baseVal.value+rect.height.baseVal.value)) ) {
+            // reference point is closer to top edge
+            result.pOrig.y = rect.y.baseVal.value;
+            result.pX.y    = rect.y.baseVal.value;
+            result.pY.y    = rect.y.baseVal.value+rect.height.baseVal.value;
+            result.pXY.y   = rect.y.baseVal.value+rect.height.baseVal.value;
+        }
+        else {
+            // reference point is closer to bottom edge
+            result.pOrig.y = rect.y.baseVal.value+rect.height.baseVal.value;
+            result.pX.y    = rect.y.baseVal.value+rect.height.baseVal.value;
+            result.pY.y    = rect.y.baseVal.value;
+            result.pXY.y   = rect.y.baseVal.value;
+        }
+        return result;
     },
 
     enclosesRectPoint(svgrect, svgpoint) {
