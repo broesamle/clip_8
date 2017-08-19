@@ -686,9 +686,19 @@ var Clip8 = {
                 if (paramelems.length == 1) {
                     // Determine the movement based on the dimensions of the parameter object
                     dimensionsWH = Clip8.getParameterObjectDimensions(paramelems[0], decodedinstr.p1);
-                    Clip8decode.directionFromPoints(decodedinstr.p0prime, decodedinstr.p1);
-                    deltaX = dimensionsWH.width;
-                    deltaY = dimensionsWH.height;
+                    linedir = Clip8decode.directionFromPoints(decodedinstr.p0prime, decodedinstr.p1);
+                    if (linedir & DIRECTION.UP)
+                        deltaY = -dimensionsWH.height;
+                    else if (linedir & DIRECTION.DOWN)
+                        deltaY = dimensionsWH.height;
+                    else
+                        deltaY = 0;
+                    if (linedir & DIRECTION.RIGHT)
+                        deltaX = dimensionsWH.width;
+                    else if (linedir & DIRECTION.LEFT)
+                        deltaX = -dimensionsWH.width;
+                    else
+                        deltaX = 0;
                 }
                 else {
                     // Determine the movement based on the length of the instruction
