@@ -38,14 +38,6 @@ sections = [
 
 expected_to_fail = [
     "selector-precision-similarrects3",
-    "move-bysize-up",
-    "move-bysize-down", "move-bysize-down2",
-    "move-bysize-right",
-    "move-bysize-left",
-    "move-bysize-upright",
-    "move-bysize-upleft",
-    "move-bysize-downright",
-    "move-bysize-downleft",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "cut-vertical",
     "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"

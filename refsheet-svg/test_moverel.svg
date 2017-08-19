@@ -160,13 +160,13 @@
 <g id="TEST-move-bysize-up" display="none">
 	<g id="t1_x5F_bysize_Kopie_Kopie" display="inline" opacity="0.5">
 		<rect x="56.385" y="35.5" width="2" height="7"/>
-		<rect x="30.385" y="24.5" width="12" height="8"/>
-		<rect x="15.385" y="15.5" width="12" height="12"/>
+		<rect x="30" y="24.5" width="12" height="8"/>
+		<rect x="15" y="15.5" width="12" height="12"/>
 	</g>
 	<g id="t0_x5F_bysize_Kopie_Kopie" display="inline" opacity="0.5">
 		<rect x="56.385" y="35.5" width="2" height="7"/>
-		<rect x="30.385" y="31.5" width="12" height="8"/>
-		<rect x="15.385" y="22.5" width="12" height="12"/>
+		<rect x="30" y="31.5" width="12" height="8"/>
+		<rect x="15" y="22.5" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_bysize_Kopie_Kopie" display="inline">
 		
@@ -187,13 +187,13 @@
 <g id="TEST-move-bysize-right" display="none">
 	<g id="t1_x5F_bysize_Kopie_Kopie_Kopie" display="inline" opacity="0.5">
 		<rect x="21.067" y="56.568" width="7" height="2"/>
-		<rect x="31.067" y="30.568" width="8" height="12"/>
-		<rect x="36.067" y="15.569" width="12" height="12"/>
+		<rect x="31" y="30" width="8" height="12"/>
+		<rect x="36" y="16" width="12" height="12"/>
 	</g>
 	<g id="t0_x5F_bysize_Kopie_Kopie_Kopie" display="inline" opacity="0.5">
 		<rect x="21.067" y="56.568" width="7" height="2"/>
-		<rect x="24.067" y="30.568" width="8" height="12"/>
-		<rect x="29.067" y="15.569" width="12" height="12"/>
+		<rect x="24" y="30" width="8" height="12"/>
+		<rect x="29" y="16" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_bysize_Kopie_Kopie_Kopie" display="inline">
 		
@@ -265,13 +265,13 @@
 <g id="TEST-move-bysize-upright" display="none">
 	<g id="t1_x5F_bysize_2_Kopie_Kopie_2" display="inline" opacity="0.5">
 		<rect x="57.386" y="20.313" width="5" height="35"/>
-		<rect x="36.385" y="9" width="12" height="8"/>
-		<rect x="21.385" y="1" width="12" height="12"/>
+		<rect x="36" y="9" width="12" height="8"/>
+		<rect x="21" y="1" width="12" height="12"/>
 	</g>
 	<g id="t0_x5F_bysize_2_Kopie_Kopie_2" display="inline" opacity="0.5">
 		<rect x="57.386" y="20.313" width="5" height="35"/>
-		<rect x="31.385" y="44" width="12" height="8"/>
-		<rect x="16.385" y="36" width="12" height="12"/>
+		<rect x="31" y="44" width="12" height="8"/>
+		<rect x="16" y="36" width="12" height="12"/>
 	</g>
 	<g id="I_x5F_bysize_2_Kopie_Kopie_2" display="inline">
 		
@@ -291,7 +291,7 @@
 <g id="TEST-move-bysize-downright" display="none">
 	<g id="t1_x5F_bysize_2_Kopie_Kopie" display="inline" opacity="0.5">
 		<rect x="8.687" y="56" width="35" height="5"/>
-		<rect x="47" y="34.999" width="8" height="12"/>
+		<rect x="47" y="35" width="8" height="12"/>
 		<rect x="51" y="20" width="12" height="12"/>
 	</g>
 	<g id="t0_x5F_bysize_2_Kopie_Kopie" display="inline" opacity="0.5">
