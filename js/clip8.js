@@ -675,10 +675,26 @@ var Clip8 = {
                 break;
             case OP.MOVE_REL:
                 if (debug) console.log("[executeOneOperation] MOVE_REL");
-                var tolerance = Clip8decode.deriveToleranceFromElementStroke(decodedinstr.primary);
-                var deltaX, deltaY;
-                deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
-                deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
+                var paramelems, dimensionsWH, deltaX, deltaY;
+                paramelems = Svgretrieve.getISCbyLocation(
+                           decodedinstr.p1,
+                           Clip8.STROKE_TOLERANCE_RATIO,
+                           Clip8.RETRIEVE_CPOINT_MAXNUM,
+                           ['line'],
+                           Svgretrieve.S_collection);
+                console.log("  ....", paramelems);
+                if (paramelems.length == 1) {
+                    // Determine the movement based on the dimensions of the parameter object
+                    dimensionsWH = Clip8.getParameterObjectDimensions(paramelems[0], decodedinstr.p1);
+                    Clip8decode.directionFromPoints(decodedinstr.p0prime, decodedinstr.p1);
+                    deltaX = dimensionsWH.width;
+                    deltaY = dimensionsWH.height;
+                }
+                else {
+                    // Determine the movement based on the length of the instruction
+                    deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
+                    deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
+                }
                 decodedinstr.selectionset = selectedelements1;
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
