@@ -26,7 +26,19 @@ var OP = {
     ALIGN:        0x0004,
     CUT:          0x0008,
     CLONE:        0x0010,
-    DEL:          0x0020,
+    DEL:          0x0020
+}
+
+var DIRECTION = {
+    NONE:         0X0000,
+    UP:           0X0001,
+    DOWN:         0X0002,
+    RIGHT:        0X0004,
+    LEFT:         0X0008,
+    UP_RIGHT:     0X0005,
+    UP_LEFT:      0X0009,
+    DOWN_RIGHT:   0X0006,
+    DOWN_LEFT:    0X000A
 }
 
 var Clip8decode = {
