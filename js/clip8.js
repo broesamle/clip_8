@@ -541,8 +541,8 @@ var Clip8 = {
 
         if (debug) console.log("[executeOneOperation] decodedinstr:", decodedinstr);
 
-        decodedinstr.selectionset = []
-        decodedinstr.resultset = []
+        decodedinstr.selectionset = [];
+        decodedinstr.resultset = [];
         switch(decodedinstr.opcode) {
             case OP.ALIGN:
                 if (debug) console.log("[executeOneOperation] ALIGN");

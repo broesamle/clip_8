@@ -27,19 +27,19 @@ var OP = {
     CUT:          0x0008,
     CLONE:        0x0010,
     DEL:          0x0020
-}
+};
 
 var DIRECTION = {
-    NONE:         0X0000,
-    UP:           0X0001,
-    DOWN:         0X0002,
-    RIGHT:        0X0004,
-    LEFT:         0X0008,
-    UP_RIGHT:     0X0005,
-    UP_LEFT:      0X0009,
-    DOWN_RIGHT:   0X0006,
-    DOWN_LEFT:    0X000A
-}
+    NONE:         0x0000,
+    UP:           0x0001,
+    DOWN:         0x0002,
+    RIGHT:        0x0004,
+    LEFT:         0x0008,
+    UP_RIGHT:     0x0005,
+    UP_LEFT:      0x0009,
+    DOWN_RIGHT:   0x0006,
+    DOWN_LEFT:    0x000A
+};
 
 var Clip8decode = {
     minlen:    0.5,        // minimal size of a graphics element to be "meaningful"
@@ -177,4 +177,4 @@ var Clip8decode = {
         }
         return instruction;
     }
-}
+};

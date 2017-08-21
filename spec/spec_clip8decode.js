@@ -42,12 +42,12 @@ describe("Clip8decode", function() {
                 fn(key);
             });
         };  
-        it("avoids invalid combinations to add up into any existing valid flag", function() {
+        it("prevent the invalid combinations UP+DOWN and LEFT+RIGHT to result in any valid flag", function() {
             applyToAllFlags( function (key) {
                 expect(DIRECTION.UP+DIRECTION.DOWN).not.toBe(DIRECTION[key]);
             });
             applyToAllFlags( function (key) {
-                expect(DIRECTION.LEFT+DIRECTION.RIGH).not.toBe(DIRECTION[key]);
+                expect(DIRECTION.LEFT+DIRECTION.RIGHT).not.toBe(DIRECTION[key]);
             });
         });
     });
