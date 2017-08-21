@@ -67,18 +67,26 @@ function main () {
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
 <g>
 			<g>
-				<polyline fill="none" points="60,55.5 60,60 55.5,60     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+				<polyline fill="none" points="60,57 60,60 57,60     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="2" x1="52.5" x2="42" y1="60" y2="60" />
-				<polyline fill="none" points="40.5,60 36,60 36,55.5     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="55" x2="52" y1="60" y2="60" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="2" x1="36" x2="36" y1="52.5" y2="30" />
-				<polyline fill="none" points="36,28.5 36,24 40.5,24     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="51" x2="40" y1="60" y2="60" />
+				<polyline fill="none" points="39,60 36,60 36,57     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="2" x1="43.5" x2="54" y1="24" y2="24" />
-				<polyline fill="none" points="55.5,24 60,24 60,28.5     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="36" x2="36" y1="55" y2="52" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="2" x1="60" x2="60" y1="31.5" y2="54" />
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="36" x2="36" y1="51" y2="28" />
+				<polyline fill="none" points="36,27 36,24 39,24     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+				
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="41" x2="44" y1="24" y2="24" />
+				
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="45" x2="56" y1="24" y2="24" />
+				<polyline fill="none" points="57,24 60,24 60,27     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+				
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="60" x2="60" y1="29" y2="32" />
+				
+					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="60" x2="60" y1="33" y2="56" />
 			</g>
 		</g><line fill="none" stroke="#E5B7B7" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="2" x1="36" x2="4.625" y1="24" y2="60.375" /><rect height="7" width="38" x="4" y="4" /><line fill="none" stroke="#990000" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="13" x2="60" y1="7" y2="24" />
 </svg>
@@ -88,12 +96,12 @@ function main () {
 <p>By using an object as a parameter, the dimensions of the parameter object modify the selection location.</p>
 </div>
 
-<p>Parameterise a selector: Unlike the ordinary selection, the selection location is determined by the dimensions of another object. (1) The selector area, as usual, restricts the set of objects (i.e. no objects outside the area will be affected). `pX`, `pY`, `pXY` can be used to attach a PARAMETER object. via a dash-dotted line. (2) A parameter object attached to `pX` will be evaluated based on its width. (3) The selection location will be offset from `p0` by the `width` of the parameter object. (4) Likewise, the selection location can be offset in y-direction by the `height` of an object by attaching it as a parameter to `pY`, or `pXY` for both directions. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Parameterise a selector: Unlike the ordinary selection, the selection location is determined by the dimensions of another object. (1) The selector area, as usual, restricts the set of objects (i.e. no objects outside the area will be affected). `pX`, `pY`, `pXY` can be used to attach a PARAMETER object. via a dash-dotted line. (2) A parameter object attached to `pX` will be evaluated based on its width. (3) The selection location will be offset from `p0` by the `width` of the parameter object. (4) Likewise, the selection location can be offset in y-direction by the `height` of an object by attaching it as a parameter to `pY`, or `pXY` for both directions. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect1">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="19" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="19" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -113,7 +121,7 @@ function main () {
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect fill="#9E005D" height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="19" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels">
+<rect height="6" width="6" x="24" y="13" /><rect fill="#9E005D" height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="19" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -133,7 +141,7 @@ function main () {
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="19" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="19" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -151,12 +159,12 @@ function main () {
 </svg>
 </span>
 </p>
-<p>Same as above, this time the parameter object has a higher width. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Same as above, this time the parameter object has a higher width. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect2">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_1_">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_1_">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -176,7 +184,7 @@ function main () {
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect fill="#9E005D" height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_1_">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect fill="#9E005D" height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_1_">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -196,7 +204,7 @@ function main () {
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_1_">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_1_">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -214,12 +222,12 @@ function main () {
 </svg>
 </span>
 </p>
-<p>Same as above. (1) Neither the x/y location of the parameter object nor the size of the primary selector area has an effect on the final selection locationhas. aOffset is always calculated from `p0` and in the direction towards the used attachment point `pX`, `pY`, `pXY` <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Same as above. (1) Neither the x/y location of the parameter object nor the size of the primary selector area has an effect on the final selection locationhas. aOffset is always calculated from `p0` and in the direction towards the used attachment point `pX`, `pY`, `pXY` <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect3">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="3" y="58" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="11" x2="63" y1="59" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="47" x="16" y="16" /><g id="labels_Kopie">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="3" y="58" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="11" x2="63" y1="59" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="47" x="16" y="16" /><g id="labels_Kopie">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -239,7 +247,7 @@ function main () {
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect fill="#9E005D" height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="3" y="58" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="11" x2="63" y1="59" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="47" x="16" y="16" /><g id="labels_Kopie">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect fill="#9E005D" height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="3" y="58" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="11" x2="63" y1="59" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="47" x="16" y="16" /><g id="labels_Kopie">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -259,7 +267,7 @@ function main () {
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="3" y="58" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="11" x2="63" y1="59" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="47" x="16" y="16" /><g id="labels_Kopie">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="3" y="58" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="11" x2="63" y1="59" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="47" x="16" y="16" /><g id="labels_Kopie">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -277,12 +285,12 @@ function main () {
 </svg>
 </span>
 </p>
-<p>Even though the calculated selection location can be outside the area of the primary selector, there is no way of selecting an object that is outside the selection set defined by the primary selector (i.e. the upper-right box is a the tselection position but it is not in the set of elements that intersect with the dashed rectangle of the primary selector). <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>Even though the calculated selection location can be outside the area of the primary selector, there is no way of selecting an object that is outside the selection set defined by the primary selector (i.e. the upper-right box is a the tselection position but it is not in the set of elements that intersect with the dashed rectangle of the primary selector). <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect4">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="45" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="29" x="16" y="16" /><g id="labels_2_">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="45" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="29" x="16" y="16" /><g id="labels_2_">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -302,7 +310,7 @@ function main () {
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="45" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="29" x="16" y="16" /><g id="labels_2_">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="45" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="29" x="16" y="16" /><g id="labels_2_">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -322,7 +330,7 @@ function main () {
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="45" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="29" x="16" y="16" /><g id="labels_2_">
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="2" width="35" x="16" y="5" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="45" y1="6" y2="16" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="29" x="16" y="16" /><g id="labels_2_">
 			<g>
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
@@ -340,65 +348,65 @@ function main () {
 </svg>
 </span>
 </p>
-<p>A parameter at`pXY` uses an object‘s `width` in x-direction and its `height` in y-direction as an offset from `p0`. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to fail.</span></p>
+<p>A parameter at`pXY` uses an object‘s `width` in x-direction and its `height` in y-direction as an offset from `p0`. <br><span class="testmetainfo">[selectionset 16,16 #9E005D] expected to pass.</span></p>
 <!-- NOTE: The first three items in class list define the test. Handle with care! -->
 <p class="DOMreftest selectionset 16,16 #9E005D" id="indirect5">
 <span class="pre-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="7" width="28" x="16" y="3" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="50" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_3_">
-			<g>
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="7" width="28" x="16" y="3" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="50" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g display="none" id="labels_3_">
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 13 54)">pY</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 56 14)">pX</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 56 54)">pXY</text>
 			</g>
-			<path d="M4,4c0,0,6,18.625,12,12.125" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.7" />
+			<path d="M4,4c0,0,6,18.625,12,12.125" display="inline" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.7" />
 		</g>
 </svg>
 </span>
 &nbsp;==&gt;&nbsp;
 <span class="post-reference">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect fill="#9E005D" height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="7" width="28" x="16" y="3" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="50" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_3_">
-			<g>
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect fill="#9E005D" height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="7" width="28" x="16" y="3" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="50" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g display="none" id="labels_3_">
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 13 54)">pY</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 56 14)">pX</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 56 54)">pXY</text>
 			</g>
-			<path d="M4,4c0,0,6,18.625,12,12.125" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.7" />
+			<path d="M4,4c0,0,6,18.625,12,12.125" display="inline" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.7" />
 		</g>
 </svg>
 </span>
 &nbsp;:&nbsp;&nbsp;&nbsp;
 <span class="testDOM">
 <svg viewbox="0 0 64 64" width="20%">
-<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="7" width="28" x="16" y="3" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="50" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="3,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g id="labels_3_">
-			<g>
+<rect height="6" width="6" x="24" y="13" /><rect height="6" width="6" x="32" y="13" /><rect height="6" width="6" x="40" y="13" /><rect height="6" width="6" x="48" y="13" /><rect height="6" width="6" x="24" y="21" /><rect height="6" width="6" x="32" y="21" /><rect height="6" width="6" x="40" y="21" /><rect height="6" width="6" x="48" y="21" /><rect height="6" width="6" x="24" y="29" /><rect height="6" width="6" x="32" y="29" /><rect height="6" width="6" x="40" y="29" /><rect height="6" width="6" x="48" y="29" /><rect height="6" width="6" x="24" y="37" /><rect height="6" width="6" x="32" y="37" /><rect height="6" width="6" x="40" y="37" /><rect height="6" width="6" x="48" y="37" /><rect height="7" width="28" x="16" y="3" /><line fill="none" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" x1="24" x2="55" y1="6" y2="50" /><rect fill="none" height="34" stroke="#E8ACAC" stroke-dasharray="4,1,1,1" stroke-miterlimit="10" width="39" x="16" y="16" /><g display="none" id="labels_3_">
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 14 14)">p0</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 13 54)">pY</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 56 14)">pX</text>
 			</g>
-			<g>
+			<g display="inline">
 				<text font-family="'CourierNewPSMT'" font-size="4" transform="matrix(1 0 0 1 56 54)">pXY</text>
 			</g>
-			<path d="M4,4c0,0,6,18.625,12,12.125" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.7" />
+			<path d="M4,4c0,0,6,18.625,12,12.125" display="inline" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="0.7" />
 		</g>
 </svg>
 </span>
@@ -406,7 +414,7 @@ function main () {
 
 
 <footer>
-<p><b>Version 0.1.4</b></p>
+<p><b>Version 0.1.6</b></p>
 <p>
 Copyright 2016, 2017 Martin Brösamle.<br>
 All rights reserved.<br>

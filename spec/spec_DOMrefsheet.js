@@ -193,7 +193,7 @@ function addTest_selectionset(reftestElement, p0x, p0y, color) {
         var retrselector = Clip8.retrieveCoreSelector(S0, p0)
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
-        var selectionset = Clip8.selectedElementSet(coreselector, svgroot);
+        var selectionset = Clip8.selectedElementSet(coreselector, p0); // FIXME: svgroot parameter not needed.
         for (var i = 0; i < selectionset.length; i++) {
             console.log("[addTest_selectionset] selectionset[i]:", selectionset[i]);
             if (selectionset[i] instanceof SVGElement)

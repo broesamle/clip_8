@@ -29,7 +29,7 @@
 		<rect x="28" y="8" fill="none" stroke="#FF8888" stroke-miterlimit="10" stroke-dasharray="3,1" width="8" height="16"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Cut the upper right rectancle along </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">a horizontal cut.</tspan><tspan x="0" y="14.399902" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Clone an object, offset by a fixed </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">distance from the location of the </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">original.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
 <g id="TEST-cut-vertical" display="none">
 	<g id="t1_x5F_cut-vertical_1_" display="inline" opacity="0.5">
@@ -100,7 +100,7 @@
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="27" y1="52" x2="55" y2="8"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects, enclosed by the </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">rectangular area described by the </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects that intersect with </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the rectangular area described by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
 <g id="TEST-delete2" display="none">
 	<g id="t1_x5F_delete2" display="inline" opacity="0.5">
@@ -124,7 +124,54 @@
 			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="27" y1="52" x2="55" y2="8"/>
 	</g>
 	<rect x="64" display="inline" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects, that intersect with </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the rectangular area described by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects that are enclosed by </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the rectangular area described by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-delete3" display="none">
+	<g id="t1_x5F_delete1_Kopie" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+	</g>
+	<g id="t0_x5F_delete1_Kopie" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+		<rect x="30" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="32"/>
+	</g>
+	<g id="I_x5F_delete1_Kopie" display="inline">
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M55,8c0-4-3-4,5-4"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c11,0,51,0,51,4"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="55" y1="52" x2="27" y2="8"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,3" x1="27" y1="52" x2="55" y2="8"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects that intersect with </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the rectangular area described by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-delete4" display="none">
+	<g id="t1_x5F_delete2_Kopie" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+	</g>
+	<g id="t0_x5F_delete2_Kopie" display="inline" opacity="0.5">
+		<rect x="2" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="40"/>
+		<rect x="32" y="48" stroke="#A0A0A0" stroke-miterlimit="10" width="12" height="12"/>
+		<rect x="30" y="12" stroke="#A0A0A0" stroke-miterlimit="10" width="22" height="32"/>
+	</g>
+	<g id="I_x5F_delete2_Kopie" display="inline">
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="4.012207" r="1"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="60" cy="4" r="2.25"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M55,8c0-4-3-4,5-4"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4,4c11,0,51,0,51,4"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="55" y1="52" x2="27" y2="8"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="1,5" x1="27" y1="52" x2="55" y2="8"/>
+	</g>
+	<rect x="64" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 64 2.452148)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Delete objects that are enclosed by </tspan><tspan x="0" y="4.799805" font-family="'CourierNewPSMT'" font-size="4">the rectangular area described by </tspan><tspan x="0" y="9.599609" font-family="'CourierNewPSMT'" font-size="4">the cross.</tspan><tspan x="0" y="19.199707" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="28.799805" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="33.599609" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
 <g id="SECTIONINFO">
 	<rect y="-82" fill="none" width="119" height="73"/>

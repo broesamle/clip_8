@@ -182,10 +182,33 @@ var Clip8 = {
                 return [Clip8.UNKNOWNSELECTOR];
     },
 
-    selectedElementSet: function (selectorcore) {
+    getParameterObjectDimensions: function (parametercore, refpoint) {
+        /** Returns the dimensions of the rect element indicated by a parameter.
+         *  `parametercore` is the dom element that describes the parameter
+         *  (e.g. the (dash-dotted) line that connects to a MOVE instruction,
+         *  which will later use the dimension(s) to determine the distance
+         *  of the movement).
+         *  Returns an object such as `{width: 22, height: 35}`.
+         */
+        var paramLocation = Svgdom.getBothEndsOfLine_arranged(refpoint, parametercore)[1];
+        var paramObjects = Svgretrieve.getRectanglesAtPoint_epsilon(
+                paramLocation,
+                1.0*Clip8.STROKE_TOLERANCE_RATIO);
+        // Check correct number of parameter objects
+        if (paramObjects.length != 1)
+            Clip8._reportError("selectedElementSet",
+                               "Multiple objecs at parameter target location.",
+                               paramObjects,
+                               [paramLocation],
+                               "A parameter uses the dimensions of EXACTLY ONE object per parameter target location. However, there are multiple or none.");
+        return { width: paramObjects[0].width.baseVal.value,
+                 height: paramObjects[0].height.baseVal.value };
+    },
+
+    selectedElementSet: function (selectorcore, refpoint) {
         /** Determine the set of selected elements based on given selector core.
          *  `selectorcore` is the list of SVG DOM elments being the core selector
-         *  (excluding connectors). Typically these elements graphically depict an area.
+         *  (i.e. excluding connectors). Typically these elements graphically depict an area.
          *  Return value is a list of SVG DOM elements that are selected by the given selector.
          */
 
@@ -220,6 +243,63 @@ var Clip8 = {
             return Svgretrieve.getEnclosedRectangles(s);
         else if (dashes.length == 2 && dashes[0] > dashes[1] )
             return Svgretrieve.getIntersectingRectangles(s);
+        else if (dashes.length == 4 &&
+                 dashes[0] > dashes[2] &&
+                 dashes[0] > dashes[1] &&
+                 dashes[1] == dashes[3]) {
+            // PARAMETER
+            var corners, paramelemsX, paramelemsY, paramelemsXY, dimensionsWH,
+                xoffset, yoffset, result;
+            xoffset = 0;
+            yoffset = 0;
+            corners = Svgdom.getCornersOfRectPoints_arranged(refpoint, s);
+            paramelemsXY = Svgretrieve.getISCbyLocation(
+                       corners.pXY,
+                       Clip8.STROKE_TOLERANCE_RATIO,
+                       Clip8.RETRIEVE_CPOINT_MAXNUM,
+                       ['line'],
+                       Svgretrieve.S_collection);
+            if (paramelemsXY.length == 1) {
+                // argument for x and y directions from the same object
+                dimensionsWH = Clip8.getParameterObjectDimensions(paramelemsXY[0], corners.pXY);
+                xoffset = dimensionsWH.width;
+                yoffset = dimensionsWH.height;
+            }
+            else {
+                // arguments for x and/or y directions from (two) object(s)
+                paramelemsX = Svgretrieve.getISCbyLocation(
+                           corners.pX,
+                           Clip8.STROKE_TOLERANCE_RATIO,
+                           Clip8.RETRIEVE_CPOINT_MAXNUM,
+                           ['line'],
+                           Svgretrieve.S_collection);
+                paramelemsY = Svgretrieve.getISCbyLocation(
+                           corners.pY,
+                           Clip8.STROKE_TOLERANCE_RATIO,
+                           Clip8.RETRIEVE_CPOINT_MAXNUM,
+                           ['line'],
+                           Svgretrieve.S_collection);
+                if (paramelemsX.length == 1) {
+                    // parameter present for x
+                    dimensionsWH = Clip8.getParameterObjectDimensions(paramelemsX[0], corners.pX);
+                    xoffset = dimensionsWH.width;
+                }
+                if (paramelemsY.length == 1) {
+                    // parameter present for y
+                    dimensionsWH = Clip8.getParameterObjectDimensions(paramelemsY[0], corners.pY);
+                    yoffset = dimensionsWH.height;
+                }
+            }
+            // Is the position derived from the argument values within the boundary?
+            if ( xoffset <= selectorcore[0].width.baseVal.value &&
+                 yoffset <= selectorcore[0].height.baseVal.value )
+                return Svgretrieve.getRectanglesAtXY_epsilon(
+                        refpoint.x+xoffset,
+                        refpoint.y+yoffset,
+                        1.0*Clip8.STROKE_TOLERANCE_RATIO);
+            else
+                return [];
+        }
         else
             Clip8._reportError("selectedElementSet", "Invalid `stroke-dasharray` in SELECTOR.",
                                selectorcore,
@@ -286,7 +366,7 @@ var Clip8 = {
                 var retrselector = Clip8.retrieveCoreSelector(condISC[1], condpoint);
                 var selectortype = retrselector[0];
                 var coreselector = retrselector[1];
-                var condselected = Clip8.selectedElementSet(coreselector);
+                var condselected = Clip8.selectedElementSet(coreselector, condpoint);
                 if (condselected.length > 0)
                     if (condISC[2][Clip8.PATHTAG].length == 1) {
                         Clip8.ip = condISC[2][Clip8.PATHTAG][0];   // move instruction pointer to cond side
@@ -446,7 +526,7 @@ var Clip8 = {
         var selectortype = retrselector[0];
         var coreselector = retrselector[1];
         if      (selectortype == Clip8.RECTSELECTOR)
-            var selectedelements1 = Clip8.selectedElementSet(coreselector);
+            var selectedelements1 = Clip8.selectedElementSet(coreselector, p0);
         else if (selectortype == Clip8.UNKNOWNSELECTOR) {
             if (decodedinstr.needsselector) {
                 Clip8._reportError("executeOneOperation", "This instruction needs a selector but it was not found.",
@@ -461,8 +541,8 @@ var Clip8 = {
 
         if (debug) console.log("[executeOneOperation] decodedinstr:", decodedinstr);
 
-        decodedinstr.selectionset = []
-        decodedinstr.resultset = []
+        decodedinstr.selectionset = [];
+        decodedinstr.resultset = [];
         switch(decodedinstr.opcode) {
             case OP.ALIGN:
                 if (debug) console.log("[executeOneOperation] ALIGN");
@@ -483,11 +563,11 @@ var Clip8 = {
                     // Add the absolute rectangle to the selected set.
                     selectedelements1.push(I1[Clip8.RECTTAG][0]);
                 switch (decodedinstr.linedir) {
-                    case 'UP':
-                    case 'DOWN':
-                        if (angledir == 'LEFT')         Paperclip.alignrelLeft (selectedelements1);
-                        else if (angledir == 'RIGHT')   Paperclip.alignrelRight (selectedelements1);
-                        else if (angledir == 'DOWN') {
+                    case DIRECTION.UP:
+                    case DIRECTION.DOWN:
+                        if (angledir == DIRECTION.LEFT)         Paperclip.alignrelLeft (selectedelements1);
+                        else if (angledir == DIRECTION.RIGHT)   Paperclip.alignrelRight (selectedelements1);
+                        else if (angledir == DIRECTION.DOWN) {
                             var deltaX, deltaY;
                             var distanceY = Math.abs(decodedinstr.p1.y-decodedinstr.p0prime.y);
                             Paperclip.shrinkFromTop (selectedelements1, distanceY);
@@ -500,10 +580,10 @@ var Clip8 = {
                                       [p0],
                                       "For an align operation, the line of alignment and the direction of the arrow must match. For instance, when aligning to the left, the line must be vertical and the arrow must point to the left. For up, the line must be horizontal and the arrow must point upwards.");
                         break;
-                    case 'LEFT':
-                    case 'RIGHT':
-                        if (angledir == 'UP')           Paperclip.alignrelTop (selectedelements1);
-                        else if (angledir == 'DOWN')    Paperclip.alignrelBottom (selectedelements1);
+                    case DIRECTION.LEFT:
+                    case DIRECTION.RIGHT:
+                        if (angledir == DIRECTION.UP)           Paperclip.alignrelTop (selectedelements1);
+                        else if (angledir == DIRECTION.DOWN)    Paperclip.alignrelBottom (selectedelements1);
                         else
                             Clip8._reportError("executeOneOperation",
                                       "Encountered invalid line arrow combination in ALIGN. (line: horizontal, arrow: "
@@ -527,12 +607,12 @@ var Clip8 = {
                 var linedir = Clip8decode.directionOfSVGLine(decodedinstr.primary);
                 var newelements;
                 switch (decodedinstr.linedir) {
-                    case 'UP':
-                    case 'DOWN':
+                    case DIRECTION.UP:
+                    case DIRECTION.DOWN:
 
                         break;
-                    case 'LEFT':
-                    case 'RIGHT':
+                    case DIRECTION.LEFT:
+                    case DIRECTION.RIGHT:
                         // CUT
                         var stripeNaboveNbelow = Svgretrieve.enclosingFullHeightStripe(decodedinstr.primary);
                         var stripe = stripeNaboveNbelow[0];
@@ -555,10 +635,10 @@ var Clip8 = {
                         for (var i=0; i<newelements.length; i++)
                             Svgretrieve.registerRectElement(newelements[i]);
                         break;
-                    case 'UP-RE':
-                    case 'UP-LE':
-                    case 'DO-RE':
-                    case 'DO-LE':
+                    case DIRECTION.UP_RIGHT:
+                    case DIRECTION.UP_LEFT:
+                    case DIRECTION.DOWN_RIGHT:
+                    case DIRECTION.DOWN_LEFT:
                         // DEL
                         var p3, p4, opposite_diagonals, selectedelements1, tolerance;
                         p3 = Clip8.svgroot.createSVGPoint();
@@ -595,10 +675,36 @@ var Clip8 = {
                 break;
             case OP.MOVE_REL:
                 if (debug) console.log("[executeOneOperation] MOVE_REL");
-                var tolerance = Clip8decode.deriveToleranceFromElementStroke(decodedinstr.primary);
-                var deltaX, deltaY;
-                deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
-                deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
+                var paramelems, dimensionsWH, deltaX, deltaY;
+                paramelems = Svgretrieve.getISCbyLocation(
+                           decodedinstr.p1,
+                           Clip8.STROKE_TOLERANCE_RATIO,
+                           Clip8.RETRIEVE_CPOINT_MAXNUM,
+                           ['line'],
+                           Svgretrieve.S_collection);
+                console.log("  ....", paramelems);
+                if (paramelems.length == 1) {
+                    // Determine the movement based on the dimensions of the parameter object
+                    dimensionsWH = Clip8.getParameterObjectDimensions(paramelems[0], decodedinstr.p1);
+                    linedir = Clip8decode.directionFromPoints(decodedinstr.p0prime, decodedinstr.p1);
+                    if (linedir & DIRECTION.UP)
+                        deltaY = -dimensionsWH.height;
+                    else if (linedir & DIRECTION.DOWN)
+                        deltaY = dimensionsWH.height;
+                    else
+                        deltaY = 0;
+                    if (linedir & DIRECTION.RIGHT)
+                        deltaX = dimensionsWH.width;
+                    else if (linedir & DIRECTION.LEFT)
+                        deltaX = -dimensionsWH.width;
+                    else
+                        deltaX = 0;
+                }
+                else {
+                    // Determine the movement based on the length of the instruction
+                    deltaX = decodedinstr.p1.x-decodedinstr.p0prime.x;
+                    deltaY = decodedinstr.p1.y-decodedinstr.p0prime.y;
+                }
                 decodedinstr.selectionset = selectedelements1;
                 for (var i=0; i<selectedelements1.length; i++)
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
