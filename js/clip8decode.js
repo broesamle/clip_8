@@ -26,8 +26,20 @@ var OP = {
     ALIGN:        0x0004,
     CUT:          0x0008,
     CLONE:        0x0010,
-    DEL:          0x0020,
-}
+    DEL:          0x0020
+};
+
+var DIRECTION = {
+    NONE:         0x0000,
+    UP:           0x0001,
+    DOWN:         0x0002,
+    RIGHT:        0x0004,
+    LEFT:         0x0008,
+    UP_RIGHT:     0x0005,
+    UP_LEFT:      0x0009,
+    DOWN_RIGHT:   0x0006,
+    DOWN_LEFT:    0x000A
+};
 
 var Clip8decode = {
     minlen:    0.5,        // minimal size of a graphics element to be "meaningful"
@@ -40,27 +52,27 @@ var Clip8decode = {
         }
         return tolerance;
     },
-
+    // FIXME: Could be refactored based on adding flags
     _directionBasedonDeltas: function (deltax, deltay) {
         if ( Math.abs(deltax) < Clip8decode.epsilon && Math.abs(deltay) > Clip8decode.minlen )
             // vertical
-            if (deltay > 0)     return 'DOWN';
-            else                return 'UP';
+            if (deltay > 0)     return DIRECTION.DOWN;
+            else                return DIRECTION.UP;
         else if ( Math.abs(deltay) < Clip8decode.epsilon && Math.abs(deltax) > Clip8decode.minlen )
             // horizontal
-            if (deltax > 0)     return 'RIGHT';
-            else                return 'LEFT';
+            if (deltax > 0)     return DIRECTION.RIGHT;
+            else                return DIRECTION.LEFT;
         else if (deltay < -Clip8decode.minlen)
             // UP
-            if      (deltax > Clip8decode.minlen) return 'UP-RE';
-            else if (deltax < -Clip8decode.minlen) return 'UP-LE';
+            if      (deltax > Clip8decode.minlen) return DIRECTION.UP_RIGHT;
+            else if (deltax < -Clip8decode.minlen) return DIRECTION.UP_LEFT;
             else throw "Unklar, me and logic :-)";
         else if (deltay > Clip8decode.minlen)
             // DOWN
-            if      (deltax > Clip8decode.minlen) return 'DO-RE';
-            else if (deltax < -Clip8decode.minlen) return 'DO-LE';
+            if      (deltax > Clip8decode.minlen) return DIRECTION.DOWN_RIGHT;
+            else if (deltax < -Clip8decode.minlen) return DIRECTION.DOWN_LEFT;
             else throw "Unklar, me and logic :-)";
-        else throw "This shoudl never happen, or, me and logic :-)";
+        else throw "This should never happen, or, 'me and logic never worked' :-)";
     },
 
     directionOfSVGLine: function (line) {
@@ -75,23 +87,23 @@ var Clip8decode = {
     },
 
     directionOfPolyAngle: function (polyline) {
-        if (!(polyline instanceof SVGPolylineElement)) { throw "[directionOfSVGLine] expected line element."; }
+        if (!(polyline instanceof SVGPolylineElement)) { throw "[directionOfPolyAngle] expected line element."; }
         var debug = true;
         if (debug) console.log("directionOfPolyAngle: line", polyline);
         var coords = polyline.getAttribute("points").trim().split(/[\s,]+/);
-        if (coords.length != 6) throw "[directionOfSVGLine] expected 3 points (6 coordinates)."+coords.length+polyline.getAttribute("points").trim();
+        if (coords.length != 6) throw "[directionOfPolyAngle] expected 3 points (6 coordinates)."+coords.length+polyline.getAttribute("points").trim();
 
         var absdeltax = Math.abs(coords[0] - coords[4]);
         var absdeltay = Math.abs(coords[1] - coords[5]);
         if (absdeltax < Clip8decode.epsilon && absdeltay > Clip8decode.minlen)
             // pointing left or right
-            if (coords[0] - coords[2] > Clip8decode.minlen) return 'LEFT';
-            else if (coords[0] - coords[2] < -Clip8decode.minlen) return 'RIGHT';
+            if (coords[0] - coords[2] > Clip8decode.minlen) return DIRECTION.LEFT;
+            else if (coords[0] - coords[2] < -Clip8decode.minlen) return DIRECTION.RIGHT;
             else throw "[directionOfPolyAngle] Angle to flat (l/r). "+coords;
         else if (absdeltay < Clip8decode.epsilon && absdeltax > Clip8decode.minlen)
             // pointing up or down
-            if (coords[1] - coords[3] > Clip8decode.minlen) return 'UP';
-            else if (coords[1] - coords[3] < -Clip8decode.minlen) return 'DOWN';
+            if (coords[1] - coords[3] > Clip8decode.minlen) return DIRECTION.UP;
+            else if (coords[1] - coords[3] < -Clip8decode.minlen) return DIRECTION.DOWN;
             else throw "[directionOfPolyAngle] Angle to flat (u/d). "+coords;
         else throw "[directionOfPolyAngle] Direction not detectable as left, right, up, down.";
     },
@@ -165,4 +177,4 @@ var Clip8decode = {
         }
         return instruction;
     }
-}
+};
