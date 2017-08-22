@@ -5,6 +5,11 @@ var CLIP8_RUNNINGTIME = 500
 // The test allows the clip8 interpreter to run for `cycles + EXCESS_CYCLES`.
 var EXCESS_CYCLES = 100
 
+
+// How many decimal digits to consider when matching approx. element dimensions
+// FIXME: avoid the global setting: custom matcher with a parameter
+var APPROX_PRECISION_DIGITS = 3;
+
 var customMatchers = {
     toBeElement: function (util, customEqualityTesters) {
         return {
@@ -26,7 +31,27 @@ var customMatchers = {
                 var cmpB = expected.outerHTML.replace(/\s+/gm, " ")
                 result.pass = cmpA==cmpB;
                 if (debug) console.log("tests: ", cmpA, "==", cmpB, result.pass);
-                result.message = "Expected " + cmpA + " to equal " + cmpB + ".";
+                result.message = "Expected " + cmpA + "\nto equal " + cmpB + ".";
+                return result;
+            }
+        };
+    },
+
+    toMatchReference_approxDim: function (util, customEqualityTesters) {
+        return {
+            compare: function(actual, expected) {
+                var cmpA, cmpB, result = {};
+                var fixDigits = function (match) {
+                    return parseFloat(match).toFixed(APPROX_PRECISION_DIGITS);
+                };
+                cmpA = actual.outerHTML
+                             .replace(/\s+/gm, " ")
+                             .replace(/\d+\.\d+/gm, fixDigits);
+                cmpB = expected.outerHTML
+                               .replace(/\s+/gm, " ")
+                               .replace(/\d+\.\d+/gm, fixDigits);
+                result.pass = cmpA==cmpB;
+                result.message = "Expected  " + cmpA + "\nto approx " + cmpB + ".";
                 return result;
             }
         };
@@ -282,9 +307,7 @@ describe("Reference Sheet Tester", function(){
             addTest_normal_execution(
                 tests[i],
                 cycles,
-                // FIXME: implement custom matcher for approx dimensions
-                // function (a,b) { expect(a).toMatchReference_approxDim(b); }
-                function (a,b) { expect(a).toMatchReference(b); }
+                function (a,b) { expect(a).toMatchReference_approxDim(b); }
                 );
         }
         else if (tests[i].classList[1] === "element_ISCDdetection") {
