@@ -6,9 +6,7 @@ var CLIP8_RUNNINGTIME = 500
 var EXCESS_CYCLES = 100
 
 var customMatchers = {
-
-toBeElement:
-    function (util, customEqualityTesters) {
+    toBeElement: function (util, customEqualityTesters) {
         return {
             compare: function(actual, expected) {
                 var result = {};
@@ -18,8 +16,8 @@ toBeElement:
             }
         };
     },
-toMatchReference:
-    function (util, customEqualityTesters) {
+
+    toMatchReference: function (util, customEqualityTesters) {
         return {
             compare: function(actual, expected) {
                 var debug = false;
@@ -34,29 +32,27 @@ toMatchReference:
         };
     },
 
-_toStringSortAttrs: function (el) {
-    var result = "";
-    for (var i = 0; i < el.childNodes.length; i++) {
-        if ((el.childNodes[i] instanceof SVGElement) || (el.childNodes[i] instanceof HTMLElement)) {
-            result += el.childNodes[i].tagName + ": ";
-            var attribsAsStrings = [];
-            for (var j = 0; j < el.childNodes[i].attributes.length ; j++)
-                attribsAsStrings.push( el.childNodes[i].attributes[j].name + "=" + el.childNodes[i].attributes[j].value );
-            attribsAsStrings.sort();
-            result += attribsAsStrings.toString() + "; ";
-        }
-    }
-    return result;
-},
-
-attributesOfChildrenToMatch:
-    function (util, customEqualityTesters) {
+    attributesOfChildrenToMatch: function (util, customEqualityTesters) {
+        var _toStringSortAttrs = function (el) {
+            var result = "";
+            for (var i = 0; i < el.childNodes.length; i++) {
+                if ((el.childNodes[i] instanceof SVGElement) || (el.childNodes[i] instanceof HTMLElement)) {
+                    result += el.childNodes[i].tagName + ": ";
+                    var attribsAsStrings = [];
+                    for (var j = 0; j < el.childNodes[i].attributes.length ; j++)
+                        attribsAsStrings.push( el.childNodes[i].attributes[j].name + "=" + el.childNodes[i].attributes[j].value );
+                    attribsAsStrings.sort();
+                    result += attribsAsStrings.toString() + "; ";
+                }
+            }
+            return result;
+        };
         return {
             compare: function(actual, expected) {
                 var result = {};
                 var debug = false;
-                var actualCmp = customMatchers._toStringSortAttrs(actual);
-                var expectedCmp = customMatchers._toStringSortAttrs(expected);
+                var actualCmp = _toStringSortAttrs(actual);
+                var expectedCmp = _toStringSortAttrs(expected);
                 result.pass = actualCmp==expectedCmp;
                 if (debug) console.log("tests: ", actualCmp, "==", expectedCmp, result.pass);
                 result.message = "Expected " + actualCmp + " to equal " + expectedCmp + ".";
