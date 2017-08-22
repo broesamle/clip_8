@@ -95,34 +95,35 @@ function getTestDOM(reftestElement) { return reftestElement.firstElementChild.ne
 function getTestSVG(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild }
 
 var GenericTestFns = {
-    matchPre: function (reftestElement) {
+    matchPre: function (reftestElement, expectToMatch) {
         var pre = getPrecondition(reftestElement);
         var proc = getTestDOM(reftestElement);
         expect(pre.classList).toContain("pre-reference");
         expect(proc.classList).toContain("testDOM");
         expect(proc.firstElementChild).toBeElement();
         expect(pre.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toMatchReference(pre.firstElementChild);
+        expectToMatch(proc.firstElementChild, pre.firstElementChild)
     },
 
-    matchPost: function (reftestElement) {
+    matchPost: function (reftestElement, expectToMatch) {
         var proc = getTestDOM(reftestElement);
         var post = getPostcondition(reftestElement);
         expect(proc.classList).toContain("testDOM");
         expect(post.classList).toContain("post-reference");
         expect(proc.firstElementChild).toBeElement();
         expect(post.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
+        expectToMatch(proc.firstElementChild, post.firstElementChild)
     }
 }
 
-function addTest_normal_execution(reftestElement, cycles) {
+function addTest_normal_execution(reftestElement, cycles, expectToMatch) {
+
     console.log("[TEST_NORMEXEC] cycles:", cycles );
     var spec;
 
     spec = it("["+reftestElement.id+"] PRE and TEST should be equal",
         function(done) {
-        GenericTestFns.matchPre(reftestElement);
+        GenericTestFns.matchPre(reftestElement, expectToMatch);
         done();
     });
 
@@ -153,7 +154,7 @@ function addTest_normal_execution(reftestElement, cycles) {
     test_domids.push(reftestElement.id);
 
     spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
-        GenericTestFns.matchPost(reftestElement);
+        GenericTestFns.matchPost(reftestElement, expectToMatch);
         done();
     });
     test_specids.push(spec.id);
@@ -268,13 +269,27 @@ describe("Reference Sheet Tester", function(){
     for (var i = 0; i < tests.length; i++) {
         if (tests[i].classList[1] === "normal_execution") {
             cycles = parseInt(tests[i].classList[2]);
-            addTest_normal_execution(tests[i], cycles);
+            addTest_normal_execution(
+                tests[i],
+                cycles,
+                function (a,b) { expect(a).toMatchReference(b); }
+                );
         }
         else if (tests[i].classList[1] === "selectionset") {
             p0x = parseFloat(tests[i].classList[2].split(",")[0]);
             p0y = parseFloat(tests[i].classList[2].split(",")[1]);
             color = tests[i].classList[3];
             addTest_selectionset(tests[i], p0x, p0y, color);
+        }
+        else if (tests[i].classList[1] === "exec_approx-dim") {
+            cycles = parseInt(tests[i].classList[2]);
+            addTest_normal_execution(
+                tests[i],
+                cycles,
+                // FIXME: implement custom matcher for approx dimensions
+                // function (a,b) { expect(a).toMatchReference_approxDim(b); }
+                function (a,b) { expect(a).toMatchReference(b); }
+                );
         }
         else if (tests[i].classList[1] === "element_ISCDdetection") {
             addTest_element_ISCDdetection(tests[i], tests[i].classList[2]);
