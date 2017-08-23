@@ -323,7 +323,6 @@ var Svgdom = {
     getPointsOfPoly: function (poly, referenceArea) {
     /** Returns the points of a polyline element as `SVGPoint`s.
      */
-        if (poly.tagName != "polyline") throw "[getBothEndsOfPoly] expected a polyline.";
         var debug = false;
         var points = [Svgdom.svgroot.createSVGPoint(),
                       Svgdom.svgroot.createSVGPoint(),
