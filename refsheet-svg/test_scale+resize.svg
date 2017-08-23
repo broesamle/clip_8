@@ -3,19 +3,47 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px"
 	 height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-<g id="Background" display="none">
-	<rect display="inline" fill="#606060" stroke="#9BC9C7" stroke-miterlimit="10" width="64" height="64"/>
+<g id="Background">
+	<rect fill="#606060" stroke="#990000" stroke-miterlimit="10" width="64" height="64"/>
 </g>
-<g id="TEST-scale1">
-	<g id="t1_x5F_scale1" opacity="0.5">
-		<rect x="41" y="37.167" fill="#990000" width="8" height="8"/>
-		<rect x="18" y="33.6" fill="#00998A" width="7" height="26.399"/>
+<g id="TEST-scale-twoels" display="none">
+	<g id="t1_x5F_scale1_Kopie" display="inline" opacity="0.5">
+		<rect x="29.267" y="2" fill="#333333" width="3.733" height="13.361"/>
+		<rect x="23.2" y="17.31" width="5.6" height="20.042"/>
 	</g>
-	<g id="t0_x5F_scale1" opacity="0.5">
-		<rect x="41" y="37.167" fill="#990000" width="8" height="8"/>
-		<rect x="28" y="24" fill="#00998A" width="12" height="12"/>
+	<g id="t0_x5F_scale1_Kopie_Kopie" display="inline" opacity="0.5">
+		<rect x="41" y="37.167" fill="#333333" width="8" height="8"/>
+		<rect x="28" y="24" width="12" height="12"/>
 	</g>
-	<g id="I_x5F_scale1">
+	<g id="I_x5F_scale1_Kopie" display="inline">
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
+		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
+		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M12,20c0-9.988,26.898-12,47.896-12.012"/>
+		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C12,8,12,13,12,20.001"/>
+		
+			<rect x="23.333" y="21.666" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2,4" width="27.667" height="24.334"/>
+		<polygon fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="12,28 
+			12,20 20,20 		"/>
+		<polygon fill="none" stroke="#11BFBF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+			15.733,30.671 15.733,44.032 19.467,44.032 		"/>
+		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1,1" x1="12" y1="20" x2="23.333" y2="21.666"/>
+		
+			<line fill="none" stroke="#E8ACAC" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="12" y1="20" x2="15.733" y2="44.032"/>
+	</g>
+	<rect x="65" display="inline" fill="none" width="86" height="85.333"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Scale the selected rectangles. The </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">(affine) transformation T is </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">defined by the two angular elements </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">(red and blue, in this example) in </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">the instruction as follows: If T is </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">applied to the angular element at </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">`p0` (red) it would transform it </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">into its counterpart (blue).</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">T is actually applied to the </tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">selected black `rect` elements in </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">the dashed selector area.</tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">testtype: exec_approx-dim;</tspan><tspan x="0" y="67.2" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="72" font-family="'CourierNewPSMT'" font-size="4">idcolors: noidcolorsnecessary;</tspan><tspan x="0" y="76.8" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+</g>
+<g id="TEST-scale-oneel" display="none">
+	<g id="t1_x5F_scale1" display="inline" opacity="0.5">
+		<rect x="41" y="37.167" width="8" height="8"/>
+		<rect x="18" y="33.6" fill="#990000" width="7" height="26.399"/>
+	</g>
+	<g id="t0_x5F_scale1" display="inline" opacity="0.5">
+		<rect x="41" y="37.167" width="8" height="8"/>
+		<rect x="28" y="24" fill="#990000" width="12" height="12"/>
+	</g>
+	<g id="I_x5F_scale1" display="inline">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
@@ -23,38 +51,31 @@
 		<path fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" d="M4.103,8.013C12,8,12,13,12,20.001"/>
 		
 			<rect x="23.333" y="21.666" fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="2,4" width="20.584" height="17.251"/>
-		<polyline fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="12,28 
+		<polygon fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="12,28 
 			12,20 20,20 		"/>
-		<polyline fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+		<polygon fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			8.667,42.399 8.667,24.8 13.333,24.8 		"/>
 		
 			<line fill="none" stroke="#E8ACAC" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="12" y1="20" x2="8.667" y2="24.8"/>
-		<g>
-			<g>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="12" y1="20" x2="12.495" y2="20.073"/>
-				
-					<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="0.9505,0.9505" x1="13.435" y1="20.211" x2="22.369" y2="21.524"/>
-				<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" x1="22.839" y1="21.593" x2="23.333" y2="21.666"/>
-			</g>
-		</g>
+		<line fill="none" stroke="#E8ACAC" stroke-miterlimit="10" stroke-dasharray="1,1" x1="12" y1="20" x2="23.333" y2="21.666"/>
 	</g>
-	<rect x="65" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Scale the selected rectangle </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">(blue). Operation transforms </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">objects so as to transform the </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">rectangular icon at `p0` into the </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">the sibling (attached via straignt </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">line).</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">testtype: exec_approx-dim;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">idcolors: #00998A, #990000;</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" display="inline" fill="none" width="86" height="83.5"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Scale the selected rectangle (red). </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">The (affine) transformation T is </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">defined by the two angular elements  </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">in the instruction as follows: If T </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">is applied to the angular element </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">at `p0` it would transform it into </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">its counterpart at `p1`.</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">T is actually applied to the </tspan><tspan x="0" y="43.2" font-family="'CourierNewPSMT'" font-size="4">selected black `rect` elements in </tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">the dashed selector area.</tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">testtype: exec_approx-dim;</tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="67.2" font-family="'CourierNewPSMT'" font-size="4">idcolors: noidcolorsnecessary;</tspan><tspan x="0" y="72" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-shrink-upper">
-	<g id="t1_x5F_shrink-upper" opacity="0.5">
+<g id="TEST-shrink-upper" display="none">
+	<g id="t1_x5F_shrink-upper" display="inline" opacity="0.5">
 		<rect x="14" y="35" width="4" height="2"/>
 		<rect x="23" y="34" width="10" height="2"/>
 		<rect x="38" y="31" width="6" height="5"/>
 		<rect x="49" y="42" width="1" height="2"/>
 	</g>
-	<g id="t0_x5F_shrink-upper" opacity="0.5">
+	<g id="t0_x5F_shrink-upper" display="inline" opacity="0.5">
 		<rect x="14" y="30" width="4" height="7"/>
 		<rect x="23" y="31" width="10" height="3"/>
 		<rect x="38" y="26" width="6" height="10"/>
 		<rect x="49" y="37" width="1" height="7"/>
 	</g>
-	<g id="I_x5F_shrink-upper">
+	<g id="I_x5F_shrink-upper" display="inline">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
@@ -67,23 +88,23 @@
 			<polyline fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			10,21 12,24 14,21 		"/>
 	</g>
-	<rect x="65" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Shrink selected objects by the </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">length of the arrow. Downward arrow </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">at the upper edge of the selecor </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">indicates to shrink the objects at </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">their respective upper edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" display="inline" font-family="'CourierNewPSMT'" font-size="4">Shrink selected objects by the </tspan><tspan x="0" y="4.8" display="inline" font-family="'CourierNewPSMT'" font-size="4">length of the arrow. Downward arrow </tspan><tspan x="0" y="9.6" display="inline" font-family="'CourierNewPSMT'" font-size="4">at the upper edge of the selecor </tspan><tspan x="0" y="14.4" display="inline" font-family="'CourierNewPSMT'" font-size="4">indicates to shrink the objects at </tspan><tspan x="0" y="19.2" display="inline" font-family="'CourierNewPSMT'" font-size="4">their respective upper edge.</tspan><tspan x="0" y="24" display="inline" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" display="inline" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" display="inline" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" display="inline" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-grow-upper">
-	<g id="t1_x5F_grow-upper" opacity="0.5">
+<g id="TEST-grow-upper" display="none">
+	<g id="t1_x5F_grow-upper" display="inline" opacity="0.5">
 		<rect x="14" y="18" width="4" height="19"/>
 		<rect x="23" y="19" width="10" height="15"/>
 		<rect x="38" y="14" width="6" height="22"/>
 		<rect x="49" y="25" width="1" height="19"/>
 	</g>
-	<g id="t0_x5F_grow-upper" opacity="0.5">
+	<g id="t0_x5F_grow-upper" display="inline" opacity="0.5">
 		<rect x="14" y="30" width="4" height="7"/>
 		<rect x="23" y="31" width="10" height="3"/>
 		<rect x="38" y="26" width="6" height="10"/>
 		<rect x="49" y="37" width="1" height="7"/>
 	</g>
-	<g id="I_x5F_grow-upper">
+	<g id="I_x5F_grow-upper" display="inline">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
@@ -96,23 +117,23 @@
 			<polyline fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			14,15 12,12 10,15 		"/>
 	</g>
-	<rect x="65" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Upward arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">upper edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective upper edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Upward arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">upper edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective upper edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="TEST-grow-right">
-	<g id="t1_x5F_grow-right" opacity="0.5">
+<g id="TEST-grow-right" display="none">
+	<g id="t1_x5F_grow-right" display="inline" opacity="0.5">
 		<rect x="14" y="30" width="12" height="7"/>
 		<rect x="23" y="31" width="19" height="3"/>
 		<rect x="38" y="26" width="14" height="10"/>
 		<rect x="49" y="37" width="9" height="7"/>
 	</g>
-	<g id="t0_x5F_grow-right" opacity="0.5">
+	<g id="t0_x5F_grow-right" display="inline" opacity="0.5">
 		<rect x="14" y="30" width="4" height="7"/>
 		<rect x="23" y="31" width="10" height="3"/>
 		<rect x="38" y="26" width="6" height="10"/>
 		<rect x="49" y="37" width="1" height="7"/>
 	</g>
-	<g id="I_x5F_grow-right">
+	<g id="I_x5F_grow-right" display="inline">
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="1"/>
 		<circle fill="none" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="59.896" cy="7.988" r="2.25"/>
 		<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="0.5" stroke-miterlimit="10" cx="4" cy="8" r="1"/>
@@ -125,13 +146,13 @@
 			<polyline fill="none" stroke="#E8ACAC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
 			57,48 60,46 57,44 		"/>
 	</g>
-	<rect x="65" fill="none" width="86" height="64"/>
-	<text transform="matrix(1 0 0 1 65 2.4521)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Right arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">right edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective right edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
+	<rect x="65" display="inline" fill="none" width="86" height="64"/>
+	<text transform="matrix(1 0 0 1 65 2.4521)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">Grow selected objects by the length </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">of the arrow. Right arrow at the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">right edge of the selecor indicates </tspan><tspan x="0" y="14.4" font-family="'CourierNewPSMT'" font-size="4">to grow the objects at their </tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">respective right edge.</tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">METADATA {</tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">testtype: normal_execution;</tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">cycles: 2;</tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">}</tspan></text>
 </g>
-<g id="SECTIONINFO" display="none">
-	<rect y="-76" display="inline" fill="none" width="99.875" height="72"/>
-	<text transform="matrix(1 0 0 1 0 -73.5479)" display="inline"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Scale objects by a certain </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">transformation, typically defined by the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">arrangement of the instruction elements.</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">+ Grow or shrink objects by a certain </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">amount. Compared to scaling, all objects </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">will change their dimensions by the same </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">amount, independent of their location or </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">size.</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ Set the width or height to a certain </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">size. Compared to grow/shrink, all objecs </tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">will have the same width/height, </tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">independent of their initial dimensions.</tspan></text>
-	<g id="I" display="inline">
+<g id="SECTIONINFO">
+	<rect y="-76" fill="none" width="99.875" height="72"/>
+	<text transform="matrix(1 0 0 1 0 -73.5479)"><tspan x="0" y="0" font-family="'CourierNewPSMT'" font-size="4">+ Scale objects by a certain </tspan><tspan x="0" y="4.8" font-family="'CourierNewPSMT'" font-size="4">transformation, typically defined by the </tspan><tspan x="0" y="9.6" font-family="'CourierNewPSMT'" font-size="4">arrangement of the instruction elements.</tspan><tspan x="0" y="19.2" font-family="'CourierNewPSMT'" font-size="4">+ Grow or shrink objects by a certain </tspan><tspan x="0" y="24" font-family="'CourierNewPSMT'" font-size="4">amount. Compared to scaling, all objects </tspan><tspan x="0" y="28.8" font-family="'CourierNewPSMT'" font-size="4">will change their dimensions by the same </tspan><tspan x="0" y="33.6" font-family="'CourierNewPSMT'" font-size="4">amount, independent of their location or </tspan><tspan x="0" y="38.399" font-family="'CourierNewPSMT'" font-size="4">size.</tspan><tspan x="0" y="48" font-family="'CourierNewPSMT'" font-size="4">+ Set the width or height to a certain </tspan><tspan x="0" y="52.8" font-family="'CourierNewPSMT'" font-size="4">size. Compared to grow/shrink, all objecs </tspan><tspan x="0" y="57.6" font-family="'CourierNewPSMT'" font-size="4">will have the same width/height, </tspan><tspan x="0" y="62.399" font-family="'CourierNewPSMT'" font-size="4">independent of their initial dimensions.</tspan></text>
+	<g id="I">
 		<g>
 			<g>
 				<polyline fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" points="56,31 56,28 53,28 				"/>
