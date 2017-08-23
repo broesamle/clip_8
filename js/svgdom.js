@@ -329,9 +329,9 @@ var Svgdom = {
                       Svgdom.svgroot.createSVGPoint(),
                       Svgdom.svgroot.createSVGPoint()];
         var pointdata = poly.getAttribute("points");
-        if (debug) console.log("[getBothEndsOfPoly] end:", coords);
+        if (debug) console.log("[getPointsOfPoly] end:", coords);
         var coords = pointdata.trim().split(/[\s,]+/);
-        if (debug) console.log("[getBothEndsOfPoly] coords:", coords);
+        if (debug) console.log("[getPointsOfPoly] coords:", coords);
         points[0].x = parseFloat(coords[0]);
         points[0].y = parseFloat(coords[1]);
         points[1].x = parseFloat(coords[2]);
