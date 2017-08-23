@@ -26,7 +26,8 @@ var OP = {
     ALIGN:        0x0004,
     CUT:          0x0008,
     CLONE:        0x0010,
-    DEL:          0x0020
+    DEL:          0x0020,
+    TRAFO:        0x0040
 };
 
 var DIRECTION = {
@@ -147,7 +148,19 @@ var Clip8decode = {
                 instruction.opcode = OP.ALIGN;
                 instruction.needsselector = true;
             }
-            else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
+            else if (I0[Clip8.RECTTAG].length == 1) {
+                // CLONE
+                if (verbose) console.log("CLONE");
+                instruction.opcode = OP.CLONE;
+                instruction.needsselector = true;
+            }
+            else if (I0[Clip8.POLYGONTAG].length == 1) {
+                // TRANSFORM
+                if (verbose) console.log("TRAFO");
+                instruction.opcode = OP.TRAFO;
+                instruction.needsselector = true;
+            }
+            else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0 && I0[Clip8.POLYGONTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
                 if ( ISCD.getExplicitProperty(instruction.primary, 'stroke-dasharray') ) {
                     if (verbose) console.log("CUT / DELETE");
@@ -159,12 +172,6 @@ var Clip8decode = {
                     instruction.opcode = OP.MOVE_REL;
                     instruction.needsselector = true;
                 }
-            }
-            else if (I0[Clip8.RECTTAG].length == 1) {
-                // CLONE
-                if (verbose) console.log("CLONE");
-                instruction.opcode = OP.CLONE;
-                instruction.needsselector = true;
             }
             else {
                 if (verbose) console.log("DECODE_ERROR");
