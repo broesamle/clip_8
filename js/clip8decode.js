@@ -141,11 +141,13 @@ var Clip8decode = {
             if (points[0].y == points[2].y)
                 // O = points[0], pY = points[1], pX = points[2]
                 return { x_leg: (points[2].x - points[0].x),
-                         y_leg: (points[1].y - points[0].y) };
+                         y_leg: (points[1].y - points[0].y),
+                         origin: points[0]};
             else if (points[1].y == points[2].y)
                 // O = points[1], pY = points[0], pX = points[2]
                 return { x_leg: (points[2].x - points[1].x),
-                         y_leg: (points[0].y - points[1].y) };
+                         y_leg: (points[0].y - points[1].y),
+                         origin: points[1] };
             else
                 throw { source:"getAxisAlignedXYLegs",
                         error: "Encountered unexpected coordinate combination." };
@@ -154,11 +156,13 @@ var Clip8decode = {
             if(points[1].y == points[0].y)
                 // O = points[1], pY = points[2], pX = points[0]
                 return { x_leg: (points[0].x - points[1].x),
-                         y_leg: (points[2].y - points[1].y) };
+                         y_leg: (points[2].y - points[1].y),
+                         origin: points[1] };
             else if (points[2].y == points[0].y)
                 // O = points[2], pY = points[1], pX = points[0]
                 return { x_leg: (points[0].x - points[2].x),
-                         y_leg: (points[1].y - points[2].y) };
+                         y_leg: (points[1].y - points[2].y),
+                         origin: points[2] };
             else
                 throw { source:"getAxisAlignedXYLegs",
                         error: "Encountered unexpected coordinate combination." };
@@ -167,11 +171,13 @@ var Clip8decode = {
             if(points[0].y == points[1].y)
                 // O = points[0], pY = points[2], pX = points[1]
                 return { x_leg: (points[1].x - points[0].x),
-                         y_leg: (points[2].y - points[0].y) };
+                         y_leg: (points[2].y - points[0].y),
+                         origin: points[0] };
             else if (points[2].y == points[1].y)
                 // O = points[2], pY = points[0], pX = points[1]
                 return { x_leg: (points[1].x - points[2].x),
-                         y_leg: (points[0].y - points[2].y) };
+                         y_leg: (points[0].y - points[2].y),
+                         origin: points[2] };
             else
                 throw { source:"getAxisAlignedXYLegs",
                         error: "Encountered unexpected coordinate combination." };
