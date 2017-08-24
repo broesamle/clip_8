@@ -58,21 +58,33 @@ describe("Clip8decode", function() {
             result = Clip8decode.getAxisAlignedXYLegs([O, pX, pY]);
             expect(result.x_leg).toBe(targetX);
             expect(result.y_leg).toBe(targetY);
+            expect(result.origin.x).toBe(O.x);
+            expect(result.origin.y).toBe(O.y);
             result = Clip8decode.getAxisAlignedXYLegs([O, pY, pX]);
             expect(result.x_leg).toBe(targetX);
             expect(result.y_leg).toBe(targetY);
+            expect(result.origin.x).toBe(O.x);
+            expect(result.origin.y).toBe(O.y);
             result = Clip8decode.getAxisAlignedXYLegs([pX, O, pY]);
             expect(result.x_leg).toBe(targetX);
             expect(result.y_leg).toBe(targetY);
+            expect(result.origin.x).toBe(O.x);
+            expect(result.origin.y).toBe(O.y);
             result = Clip8decode.getAxisAlignedXYLegs([pX, pY, O]);
             expect(result.x_leg).toBe(targetX);
             expect(result.y_leg).toBe(targetY);
+            expect(result.origin.x).toBe(O.x);
+            expect(result.origin.y).toBe(O.y);
             result = Clip8decode.getAxisAlignedXYLegs([pY, O, pX]);
             expect(result.x_leg).toBe(targetX);
             expect(result.y_leg).toBe(targetY);
+            expect(result.origin.x).toBe(O.x);
+            expect(result.origin.y).toBe(O.y);
             result = Clip8decode.getAxisAlignedXYLegs([pY, pX, O]);
             expect(result.x_leg).toBe(targetX);
             expect(result.y_leg).toBe(targetY);
+            expect(result.origin.x).toBe(O.x);
+            expect(result.origin.y).toBe(O.y);
         }
         describe("when both legs point along x and y axes (O.x < pX.x) and (O.y < pY.y)", function () {
             var dx = 25, dy = 13;
