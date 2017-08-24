@@ -109,6 +109,77 @@ var Clip8decode = {
         else throw "[directionOfPolyAngle] Direction not detectable as left, right, up, down.";
     },
 
+    getAxisAlignedXYLegs: function (points) {
+        /** Returns the length of the X and Y legs of an axis-aligned right triangle.
+         * Positive values indicate that the leg points in the direction of the corresponding axis,
+         * i.e. the right angle is at the lower coordinate value on this axis.
+         * `points` defines a rectangular, axis aligned right triangle as an array of points.
+         * returns `{ x_leg: pX.x - O.x, y_leg: (pY.y - O.y) }`
+         *
+         *     pointing
+         *     this
+         *     direction
+         *
+         *       ^
+         *       |      pY
+         *       |      |\
+         *       |      | \
+         *       |      |  \
+         *    y_leg     |   \
+         *       |      |    \
+         *       |      |     \
+         *       |      |      \
+         *       |      |       \
+         *       |      |        \
+         *       |      |         \
+         *       |      O---------pX
+         *
+         *              -- x_leg --->  pointing this direction
+         */
+        if (points[0].x == points[1].x)
+            // points[0, 1] create a vertical axis, one of them is O, and the other is pY
+            if (points[0].y == points[2].y)
+                // O = points[0], pY = points[1], pX = points[2]
+                return { x_leg: (points[2].x - points[0].x),
+                         y_leg: (points[1].y - points[0].y) };
+            else if (points[1].y == points[2].y)
+                // O = points[1], pY = points[0], pX = points[2]
+                return { x_leg: (points[2].x - points[1].x),
+                         y_leg: (points[0].y - points[1].y) };
+            else
+                throw { source:"getAxisAlignedXYLegs",
+                        error: "Encountered unexpected coordinate combination." };
+        else if (points[1].x == points[2].x)
+            // points[1, 2] create a vertical axis, one of them is O, and the other is pY
+            if(points[1].y == points[0].y)
+                // O = points[1], pY = points[2], pX = points[0]
+                return { x_leg: (points[0].x - points[1].x),
+                         y_leg: (points[2].y - points[1].y) };
+            else if (points[2].y == points[0].y)
+                // O = points[2], pY = points[1], pX = points[0]
+                return { x_leg: (points[0].x - points[2].x),
+                         y_leg: (points[1].y - points[2].y) };
+            else
+                throw { source:"getAxisAlignedXYLegs",
+                        error: "Encountered unexpected coordinate combination." };
+        else if (points[0].x == points[2].x)
+            // points[0, 2] create a vertical axis, one of them is O, and the other is pY
+            if(points[0].y == points[1].y)
+                // O = points[0], pY = points[2], pX = points[1]
+                return { x_leg: (points[1].x - points[0].x),
+                         y_leg: (points[2].y - points[0].y) };
+            else if (points[2].y == points[1].y)
+                // O = points[2], pY = points[0], pX = points[1]
+                return { x_leg: (points[1].x - points[2].x),
+                         y_leg: (points[0].y - points[2].y) };
+            else
+                throw { source:"getAxisAlignedXYLegs",
+                        error: "Encountered unexpected coordinate combination." };
+        else
+            throw { source:"getAxisAlignedXYLegs",
+                    error: "Encountered unexpected coordinate combination." };
+    },
+
     decodeInstruction: function (I0, p0) {
         var verbose = true;
         var instruction = {};
