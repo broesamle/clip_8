@@ -724,6 +724,57 @@ var Clip8 = {
                 for (var i=0; i<newelements.length; i++)
                     Svgretrieve.registerRectElement(newelements[i]);
                 break;
+            case OP.TRAFO:
+                var ISC1 = Clip8.retrieveISCElements(decodedinstr.p1, Clip8.TAGS, Clip8.TAGS, Clip8.TAGS);
+                if (debug) console.log("[executeOneOperation] I1:", I0.reduce(function(a,b) {return a.concat(b)}));
+                if (debug) console.log("[executeOneOperation] S1:", S0.reduce(function(a,b) {return a.concat(b)}));
+                if (debug) console.log("[executeOneOperation] C1:", C0.reduce(function(a,b) {return a.concat(b)}));
+                if (ISC1[0][Clip8.POLYGONTAG].length != 1)
+                    Clip8._reportError("executeOneOperation",
+                              "Invalid coordinate indicator in TRAFO instruction.",
+                              ISC1[0][Clip8.POLYGONTAG],
+                              [decodedinstr.p1],
+                              "There should be exactly one polygon element here to indicate how to transform the elements. Either there are too many or none.");
+                decodedinstr.target = Clip8decode.getAxisAlignedXYLegs(
+                        Svgdom.getPointsOfPoly(ISC1[0][Clip8.POLYGONTAG][0]) );
+
+                // THE TRANSFORMATION
+                // let WCS be the working coordinate system
+                // (of the window or the SVG group or whatever)
+                //
+                // read from last to first line:
+                //
+                // 4. undo the translation to the 0,0 of the WCS
+                // 3. now apply the translation defined by the two origin points (origin base, target base)
+                //      now everything should have the targed size
+                // 2. scale according to the x and y legs of origin and target base triangles
+                // 1. translate so that the origin point of the origin base triangle is at 0,0 (WCS)
+                var trafo, scale, p1, p2, p1prime, p2prime;
+                scale = Clip8.svgroot.createSVGTransform();
+                scale.setScale(decodedinstr.target.x_leg/decodedinstr.origin.x_leg,
+                               decodedinstr.target.y_leg/decodedinstr.origin.y_leg);
+                trafo = Clip8.svgroot.createSVGMatrix()
+                              .translate(decodedinstr.origin.origin.x, decodedinstr.origin.origin.y)
+                              .translate(decodedinstr.target.origin.x-decodedinstr.origin.origin.x,
+                                         decodedinstr.target.origin.y-decodedinstr.origin.origin.y)
+                              .multiply(scale.matrix)
+                              .translate(-decodedinstr.origin.origin.x, -decodedinstr.origin.origin.y);
+                for (var i=0; i<selectedelements1.length; i++) {
+                    Svgretrieve.unregisterRectElement(selectedelements1[i]);
+                    p1 = Svgdom.newSVGPoint(selectedelements1[i].x.baseVal.value,
+                                            selectedelements1[i].y.baseVal.value);
+                    p2 = Svgdom.newSVGPoint(
+                        selectedelements1[i].x.baseVal.value + selectedelements1[i].width.baseVal.value,
+                        selectedelements1[i].y.baseVal.value + selectedelements1[i].height.baseVal.value);
+                    p1prime = p1.matrixTransform(trafo);
+                    p2prime = p2.matrixTransform(trafo);
+                    selectedelements1[i].x.baseVal.value = Math.min(p1prime.x, p2prime.x);
+                    selectedelements1[i].y.baseVal.value = Math.min(p1prime.y, p2prime.y);
+                    selectedelements1[i].width.baseVal.value = Math.abs(p1prime.x - p2prime.x);
+                    selectedelements1[i].height.baseVal.value = Math.abs(p1prime.y - p2prime.y);
+                    Svgretrieve.registerRectElement(selectedelements1[i]);
+                }
+                break;
             case OP.DECODE_ERROR:
                 Clip8._reportError("exec", "Could not decode instruction.",
                                Clip8._reduce(I0).concat(Clip8._reduce(S0)).concat(Clip8._reduce(C0)),

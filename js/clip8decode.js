@@ -236,6 +236,8 @@ var Clip8decode = {
                 if (verbose) console.log("TRAFO");
                 instruction.opcode = OP.TRAFO;
                 instruction.needsselector = true;
+                instruction.origin = Clip8decode.getAxisAlignedXYLegs(
+                                         Svgdom.getPointsOfPoly(I0[Clip8.POLYGONTAG][0]) );
             }
             else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0 && I0[Clip8.POLYGONTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
