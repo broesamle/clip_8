@@ -282,26 +282,16 @@ var Svgretrieve = {
                     transformed.push(elems[i]);
                     continue
                 }
-            switch(ISCD.detect(elems[i])) {
-                case ISCD.INSTRUCTION:
-                    cpts = Svgdom.getPointsOfPoly(elems[i]);
-                    cpts.forEach( function (cpt) {
-                        cpt.ownerelement = elems[i];
-                        Svgretrieve.I_collection.insert(cpt) });
-                    if (Svgretrieve.highlight_isc)
-                        Svgretrieve.highlighterFn(elems[i], Svgretrieve.INSTRUCTION_COLOUR);
-                    break;
-                case ISCD.CONTROLFLOW:
-                    cpts = Svgdom.getPointsOfPoly(elems[i]);
-                    cpts.forEach( function (cpt) {
-                        cpt.ownerelement = elems[i];
-                        Svgretrieve.C_collection.insert(cpt) });
-                        if (Svgretrieve.highlight_isc)
-                            Svgretrieve.highlighterFn(elems[i], Svgretrieve.CONTROLFLOW_COLOUR);
-                    break;
-                default:
-                    unreg.push(elems[i]);
+            if (ISCD.detect(elems[i]) == ISCD.INSTRUCTION) {
+                cpts = Svgdom.getPointsOfPoly(elems[i]);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.I_collection.insert(cpt) });
+                if (Svgretrieve.highlight_isc)
+                    Svgretrieve.highlighterFn(elems[i], Svgretrieve.INSTRUCTION_COLOUR);
             }
+            else
+                unreg.push(elems[i]);
         }
         console.groupEnd();
         if (transformed.length > 0) {
