@@ -8,7 +8,7 @@ var EXCESS_CYCLES = 100
 
 // How many decimal digits to consider when matching approx. element dimensions
 // FIXME: avoid the global setting: custom matcher with a parameter
-var APPROX_PRECISION_DIGITS = 3;
+var APPROX_PRECISION_DIGITS = 2;
 
 var customMatchers = {
     toBeElement: function (util, customEqualityTesters) {
@@ -37,19 +37,19 @@ var customMatchers = {
         };
     },
 
-    toMatchReference_approxDim: function (util, customEqualityTesters) {
+    toMatchReference_approxXYWH: function (util, customEqualityTesters) {
         return {
             compare: function(actual, expected) {
                 var cmpA, cmpB, result = {};
-                var fixDigits = function (match) {
-                    return parseFloat(match).toFixed(APPROX_PRECISION_DIGITS);
+                var fixDigits = function (match, g1, g2) {
+                    return g1 + '="' + parseFloat(g2).toFixed(APPROX_PRECISION_DIGITS) + '"';
                 };
                 cmpA = actual.outerHTML
                              .replace(/\s+/gm, " ")
-                             .replace(/\d+\.\d+/gm, fixDigits);
+                             .replace(/(x|y|width|height)="(\d+\.?\d*)"/gm, fixDigits);
                 cmpB = expected.outerHTML
                                .replace(/\s+/gm, " ")
-                               .replace(/\d+\.\d+/gm, fixDigits);
+                               .replace(/(x|y|width|height)="(\d+\.?\d*)"/gm, fixDigits);
                 result.pass = cmpA==cmpB;
                 result.message = "Expected  " + cmpA + "\nto approx " + cmpB + ".";
                 return result;
@@ -307,7 +307,7 @@ describe("Reference Sheet Tester", function(){
             addTest_normal_execution(
                 tests[i],
                 cycles,
-                function (a,b) { expect(a).toMatchReference_approxDim(b); }
+                function (a,b) { expect(a).toMatchReference_approxXYWH(b); }
                 );
         }
         else if (tests[i].classList[1] === "element_ISCDdetection") {
