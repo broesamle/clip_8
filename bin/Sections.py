@@ -40,7 +40,6 @@ expected_to_fail = [
     "selector-precision-similarrects3",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "cut-vertical",
-    "scale-oneel", "scale-twoels",
     "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
 
