@@ -745,20 +745,20 @@ var Clip8 = {
                 // read from last to first line:
                 //
                 // 4. undo the translation to the 0,0 of the WCS
-                // 3. now apply the translation defined by the two origin points (origin base, target base)
+                // 3. now apply the translation defined by the points `o` of `origin` and `target`
                 //      now everything should have the targed size
-                // 2. scale according to the x and y legs of origin and target base triangles
-                // 1. translate so that the origin point of the origin base triangle is at 0,0 (WCS)
+                // 2. scale according to `x_leg`, `y_leg` of `origin` and `target` base triangles
+                // 1. translate so that point `o` of `origin` is at 0, 0 (WCS)
                 var trafo, scale, p1, p2, p1prime, p2prime;
                 scale = Clip8.svgroot.createSVGTransform();
                 scale.setScale(decodedinstr.target.x_leg/decodedinstr.origin.x_leg,
                                decodedinstr.target.y_leg/decodedinstr.origin.y_leg);
                 trafo = Clip8.svgroot.createSVGMatrix()
-                              .translate(decodedinstr.origin.origin.x, decodedinstr.origin.origin.y)
-                              .translate(decodedinstr.target.origin.x-decodedinstr.origin.origin.x,
-                                         decodedinstr.target.origin.y-decodedinstr.origin.origin.y)
+                              .translate(decodedinstr.origin.o.x, decodedinstr.origin.o.y)
+                              .translate(decodedinstr.target.o.x-decodedinstr.origin.o.x,
+                                         decodedinstr.target.o.y-decodedinstr.origin.o.y)
                               .multiply(scale.matrix)
-                              .translate(-decodedinstr.origin.origin.x, -decodedinstr.origin.origin.y);
+                              .translate(-decodedinstr.origin.o.x, -decodedinstr.origin.o.y);
                 for (var i=0; i<selectedelements1.length; i++) {
                     Svgretrieve.unregisterRectElement(selectedelements1[i]);
                     p1 = Svgdom.newSVGPoint(selectedelements1[i].x.baseVal.value,
