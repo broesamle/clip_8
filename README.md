@@ -4,7 +4,7 @@
 
 **What you see is what you compute.**
 
-`clip_8` is probably best described as a _visual virual machine_ operating on inline SVG in the DOM.
+`clip_8` is probably best described as a _visual virtual machine_ operating on inline SVG in the DOM.
 
 + All instructions and data are graphical SVG elements.
 
