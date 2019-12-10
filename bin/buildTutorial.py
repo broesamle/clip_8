@@ -85,11 +85,10 @@ Welcome to the <b>clip_8</b> tutorial.
 </svg>
 <button onclick="Clip8controler.pauseAction()" class="smallbutton">&#x25fc;</button>
 <p>
-Clip_8 is an arts project. At the same time it is a programming language.
-Unlike most other programming languages, the program code is <i>graphical</i> rather than text-based. You will <i>draw</i> the programs.
-
-Please find more on <a href="https://broesamle.github.io/clip_8/#philosophy--inspiration" target="_blank">Philosophy and Inspiration</a>
-in the project's <a href="https://broesamle.github.io/clip_8/" target="_blank">README</a>.
+clip_8 was designed as a visual thought experiment. <a href="http://visuelle-maschine.de/index-en.html" target="_blank">visuelle-maschine.de</a> gives some background on the <a href="http://visuelle-maschine.de/index-en.html" target="_blank">philosophy behind visual thought experiments</a>.
+</p>
+<p>
+For clip_8 the role of SVG graphics is twofold: (1) Graphics elements are visible to humans as any other SVG graphics. (2) The clip_8 interpreter will read them as instructions. The programs can be drawn in vector graphics editors which support SVG output.
 </p>
 <p>
 The tutorial assumes you have some experience with

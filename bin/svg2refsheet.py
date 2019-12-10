@@ -430,9 +430,9 @@ contentHTML = """
 The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter.
 Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form.
 </p>
+<p>
 The reference test sheets define the language. At the same time, they test the current engine in the browser at hand. For each feature you can see whether it is actually available in that particular configuration.
 <a href="passing">Appendix B</a> defines the tests that are <b>exected to pass</b>, given the current version of the engine.
-<p>
 </p>
 <img src="example1.png">
 <h3>How to read the language reference</h3>

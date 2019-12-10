@@ -112,17 +112,7 @@ while len(SCT.demos) > 0:
 ### For the demos, index.html contains the TOC. There is no toc.html
 tocsectionsHTML = """
 <p>
-What you see in the demos is not an animation. Despite the fact that there are graphical objects moving on an electronic display, at its core this is not an animation project. Information processing focuses exclusively on the visual elements.
-</p>
-<p>
-WysiwyC: What you see is what you compute.
-</p>
-<p>
-Nothing is invisible. A rectangle is a rectangle and a line is a line. No double click would open a dialog box to edit _preferences_ or _settings_. No invisible formulae connect table cells behind visible data. No databases in the background which we would access via program code or web interface.
-</p>
-<p>
-The programs can be drawn in vector graphics editors which support SVG output.
-The interpreter will read the graphics as instructions.
+What you see can be seen on two levels of interpretation: (1) Graphics elements are visible to humans as any other SVG graphics on the web. (2) clip_8 interprets them as instructions of a purely visual programming language.
 </p>
 """ + tocsectionsHTML
 
