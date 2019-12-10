@@ -1,36 +1,24 @@
 
-`Clip_8`
+`clip_8`
 ========
 
 **What you see is what you compute.**
 
 `clip_8` is probably best described as a _visual virtual machine_ operating on inline SVG in the DOM.
 
-+ All instructions and data are graphical SVG elements.
++ Instructions and data are implemented as graphical SVG elements.
 
-+ The programmer can, hence, observe the entire machine state during program execution.
++ Graphics elements are visible to humans, just as any other SVG graphics in a web page.
 
-+ Implemented in JavaScript and Rust (via Web Assembly)
++ `clip_8` interprets them as instructions of a purely visual programming language.
 
-
-Why?
-----
-
-**Bring drawing and programming together.**
-
-+ Programming should be as easy as cutting and folding paper or modelling a piece of clay.**
-
-+ No writing of code.
-
-+ Instructions and data are expressed in a graphical format.
-
-+ Program expression and technical execution are close together, ideally in the same (graphic) medium.
++ The programmer can observe the entire machine state during program execution.
 
 
 How it works
 ------------
 
-Instead of written (text-based) code, programs are SVG images with a particular arrangement of geometric elements.
+The programs can be drawn in vector graphics editors which support SVG output.
 
 clip_8 interprets the SVG image:
 
@@ -43,6 +31,12 @@ clip_8 interprets the SVG image:
     b) _Control flow_, defines the order of instructions, alternatives etc.
 
 
+Why?
+----
+
+`clip_8` was designed as a visual thought experiment. Please find more on the philosophy behind [visual thought experiments on visuelle-maschine.de](http://visuelle-maschine.de/index-en.html).
+
+
 Getting Started
 ---------------
 
@@ -52,11 +46,11 @@ Getting Started
 
 For recent user information please check the [Tutorial and Getting Started Issues](https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started).
 
-[Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html), the `clip_8` interpreter; online test environment.
+[Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html), try `clip_8` online (no installation required).
 
 
-Web Assembly / Browser compatibility 
-------------------------------------
+Browser compatibility
+---------------------
 
 + An experimental [Web Assembly](http://webassembly.org/) module uses [ncollide](http://ncollide.org/) to retrieve rectangles based on their location.
 
@@ -71,12 +65,6 @@ python -m http.server 8000 --bind 127.0.0.1
 ```
 
 
-Workflow
---------
-
-FIXME: Screenshot of workflow.
-
-
 Tests / Language documentation
 ------------------------------
 
@@ -86,9 +74,35 @@ The integration tests are provided in [Reference Test Sheets](https://broesamle.
 Building
 --------
 
-For generating **demos**, **tutorials** and **reference test pages** checkout python the scripts in `bin`.
+These steps are not necessary for [using `clip_8` online via Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html).
+
+If you want to install `clip_8` yourself you need to build the web assembly module. To make changes to the demos, tutorials, or tests, the html pages need to be rebuild.
+
+### Web Assemply module for `clip_8`
 
 For the **wasm** modules use `make` in the `rs` directory.
+
+### Page generators for clip_8 project
+
+The python scripts are located in `bin`.
+
+Build Demos: `python svg2demo.py`
+
+Build the Tutorials: `python buildTutorial.py`
+
+Build the Reference Test Sheets: `python svg2refsheet.py`
+
+
+Dependencies
+------------
+
++ [Python-Markdown](http://pythonhosted.org/Markdown/):
+`pip install Markdown` or `python -m pip install Markdown`
+
++ [tinycss](https://pypi.org/project/tinycss/)
+`pip install tinycss` or `python -m pip install tinycss`
+
++ The utilities in [PyBroeModules](https://github.com/broesamle/PyBroeModules) are currently available as a github project, only. You can clone the project and copy/link the project directory in your local python `site-packages`.
 
 
 Copyright
