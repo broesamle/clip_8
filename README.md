@@ -34,7 +34,10 @@ clip_8 interprets the SVG image:
 Why?
 ----
 
-`clip_8` was designed as a visual thought experiment. Please find more on the philosophy behind [visual thought experiments on visuelle-maschine.de](http://visuelle-maschine.de/index-en.html).
+`clip_8` was designed as a visual thought experiment. Please find more on the philosophy behind 
+
+[visuelle-maschine.de](http://visuelle-maschine.de/index-en.html)
+gives some background on the [philosophy behind visual thought experiments](http://visuelle-maschine.de/index-en.html).
 
 
 Getting Started
