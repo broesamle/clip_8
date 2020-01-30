@@ -34,7 +34,7 @@ clip_8 interprets the SVG image:
 Why?
 ----
 
-`clip_8` was designed as a visual thought experiment. Please find more on the philosophy behind 
+`clip_8` was designed as a [visual thought experiment](https://github.com/broesamle/clip8_materials/blob/master/visual-thought-experiments.md). 
 
 [visuelle-maschine.de](http://visuelle-maschine.de/index-en.html)
 gives some background on the [philosophy behind visual thought experiments](http://visuelle-maschine.de/index-en.html).
@@ -43,9 +43,11 @@ gives some background on the [philosophy behind visual thought experiments](http
 Getting Started
 ---------------
 
+[Demo session screenshots/slideshow](https://github.com/broesamle/clip8_materials/raw/master/demo-session-screenshots.pdf) (PDF) for a **very** first impression, START HERE!
+
 [Demos](https://broesamle.github.io/clip_8/demos/), for a first impression.
 
-[Tutorial](https://broesamle.github.io/clip_8/tutorial/), draw and execute an SVG.
+[Tutorial](https://broesamle.github.io/clip_8/tutorial/), learn the language and the tricks.
 
 For recent user information please check the [Tutorial and Getting Started Issues](https://github.com/broesamle/clip_8/labels/Tutorial%20%2B%20Getting%20Started).
 
