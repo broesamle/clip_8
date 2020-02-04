@@ -36,8 +36,8 @@ Why?
 
 `clip_8` was designed as a [visual thought experiment](https://github.com/broesamle/clip8_materials/blob/master/visual-thought-experiments.md). 
 
-[visuelle-maschine.de](http://visuelle-maschine.de/index-en.html)
-gives some background on the [philosophy behind visual thought experiments](http://visuelle-maschine.de/index-en.html).
+On [visuelle-maschine.de](https://visuelle-maschine.de/index-en.html)
+you will find more technical projects with a strong commitment on visual experimentation.
 
 
 Getting Started
