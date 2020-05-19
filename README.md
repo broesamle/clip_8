@@ -4,7 +4,11 @@
 
 **What you see is what you compute.**
 
-`clip_8` is probably best described as a _visual virtual machine_ operating on inline SVG in the DOM.
+[Demo session screenshots/slideshow](https://github.com/broesamle/clip8_materials/raw/master/demo-session-screenshots.pdf) (PDF) for a **very** first impression, START HERE!
+
+[Demos](https://broesamle.github.io/clip_8/demos/), for a first impression.
+
+`clip_8` is probably best described as a _visual virtual machine_ operating on inline SVG in the browser's DOM.
 
 + Instructions and data are implemented as graphical SVG elements.
 
@@ -42,10 +46,6 @@ you will find more technical projects with a strong commitment on visual experim
 
 Getting Started
 ---------------
-
-[Demo session screenshots/slideshow](https://github.com/broesamle/clip8_materials/raw/master/demo-session-screenshots.pdf) (PDF) for a **very** first impression, START HERE!
-
-[Demos](https://broesamle.github.io/clip_8/demos/), for a first impression.
 
 [Tutorial](https://broesamle.github.io/clip_8/tutorial/), learn the language and the tricks.
 
