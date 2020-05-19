@@ -35,16 +35,18 @@ class DemoPage(SVGGroupCollection):
             *args, **kwargs)
 
     def processElement(self, el):
-        print("processElement", el, el.tag)
         elid = el.get('id',"")
         try:
             key = self.keyFromId(elid)
         except ValueError:
-            return    # ignore any elements where the id could not be translated into a key       newitem = {}
+            # ignore any elements where the id could not be translated
+            print("    ...skipping:", el, el.tag)
+            return
         newitem = {}
         newitem['svgdata'] = allChildrenToSVG(el)
         self.addItem(key, newitem)
-        print("   ...ok")
+        print("OK! ", el, el.tag)
+        return
 
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
 outDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
