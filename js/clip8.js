@@ -47,6 +47,8 @@ var Clip8 = {
     blocklist: [],                  // elements retrieved during current round
     exec_history: [],               // keep the last instructions and affected objects
     exec_history_maxlen: 8,         // how many items to keep in the execution history
+    sonific: true,                  // Activate audio output
+    color_sound_table: undefined,   // Map colors '#AAFF12': "*.wav" filenames
     visualiseIP: false,             // visualise processing activity to the user
     highlightErr: true,             // hightlight dom elements related to the current terror
     highlighted: [],                // elements highlighted for visualization
@@ -55,6 +57,7 @@ var Clip8 = {
     _reduce: function (reduceable) {
         return reduceable.reduce( function(a,b) {return a.concat(b)} );
     },
+
 
     _isBlocklisted: function (el) {
         var debug = false;
@@ -65,6 +68,23 @@ var Clip8 = {
             }
         if (debug) console.log("[_isBlocklisted] FALSE ... el, Clip8.blocklist:", el, Clip8.blocklist);
         return false;
+    },
+
+    _init_sonific: function (svgroot) {
+        var _snd = function (wavfilename)  {
+                return new Audio("../sounds/" + wavfilename);
+            };
+        console.groupCollapsed("[_init_sonific]");
+        Clip8.color_sound_table = {};
+        var textelements = svgroot.getElementsByTagName("text");
+        for (var i=0; i<textelements.length; i++) {
+            var txt = textelements[i].textContent;
+            if (txt.endsWith(".wav") || txt.endsWith(".mp3"))
+                var color = textelements[i].getAttribute('fill')
+                console.log("sample:", txt, color)
+                Clip8.color_sound_table[color] = _snd(txt);
+        }
+        console.groupEnd();
     },
 
     _highlightElement: function(el) {
@@ -516,6 +536,24 @@ var Clip8 = {
                     Clip8._highlightElement(C0[i][j]);
             }
         }
+        // Experimental:
+        // Play a sound when specific instructions are executed
+        // currentlu, we only do move instructions (i.e. `<line ...` elements)
+        // their stroke color selects a sound file from a hardcoded table
+        if (Clip8.sonific && I0[0][0]) {
+            var sonicolor = I0[0][0].getAttribute("stroke");
+            console.groupCollapsed("sonific:", sonicolor)
+            console.log("instruction element", I0[0][0])
+            if (sonicolor in Clip8.color_sound_table) {
+                var sound = Clip8.color_sound_table[sonicolor];
+                console.log("Color refers to:", sonicolor, sound)
+                sound.currentTime = 0;
+                sound.play();
+            }
+            else
+                console.log("Color not found:", sonicolor)
+            console.groupEnd();
+        }
         var execstatus = Clip8.moveIP(C0, p0);
         if (execstatus != Clip8.EXECUTE)
             return execstatus;
@@ -740,6 +778,8 @@ var Clip8 = {
 
     init: function (svgroot, visualiseIP, highlightErr, highlightSyntax) {
         console.log("[clip8.init]", svgroot);
+        if (Clip8.sonific) Clip8._init_sonific(svgroot);
+
         Clip8.ip = undefined;   // invalidate old instruction pointer
                                 // This signals to executeOneOperation to init a new one
                                 // when executing the first instruction after init.

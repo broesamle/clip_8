@@ -50,9 +50,13 @@ exampleelements = [
     ("Invalid Control Flow Elements", "from inkskape", "example-elements_controlflow-nonvalid_inkscape.svg", "INVALID") ]
 
 demos = [
-    ("Counter Example", "counter3.svg"),
     ("Seasons Greetings", "christmas1.svg"),
+    ("Soundcheck", "soundcheck.svg"),
+    ("Happy La La (basic sequencer)", "happy-la-la.svg"),
+    ("Clong (heavy representationalist version)", "clong.svg"),
+    ("Counter Example", "counter3.svg"),
+    ("Analog Digital Converter", "ADConverter.svg"),
     ("Loom 1", "loom1.svg"),
     ("Loom 2", "loom2.svg"),
     ("Loom 3", "loom3.svg"),
-    ("Analog Digital Converter", "ADConverter.svg")]
+    ]

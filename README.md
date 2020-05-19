@@ -34,7 +34,7 @@ clip_8 interprets the SVG image:
 Why?
 ----
 
-`clip_8` was designed as a [visual thought experiment](https://github.com/broesamle/clip8_materials/blob/master/visual-thought-experiments.md). 
+`clip_8` was designed as a [visual thought experiment](https://github.com/broesamle/clip8_materials/blob/master/visual-thought-experiments.md).
 
 On [visuelle-maschine.de](https://visuelle-maschine.de/index-en.html)
 you will find more technical projects with a strong commitment on visual experimentation.
@@ -66,7 +66,7 @@ Browser compatibility
 To run on a local machine, please use a local http server, e.g.:
 
 ```
-python -m http.server 8000 --bind 127.0.0.1
+python -m http.server
 ```
 
 
@@ -79,17 +79,18 @@ The integration tests are provided in [Reference Test Sheets](https://broesamle.
 Building
 --------
 
-These steps are not necessary for [using `clip_8` online via Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html).
+If you want to make changes to `clip_8` yourself you might need to do some or all of the following:
 
-If you want to install `clip_8` yourself you need to build the web assembly module. To make changes to the demos, tutorials, or tests, the html pages need to be rebuild.
+**Note:** These steps are not necessary for [using `clip_8` online via Klippen](https://broesamle.github.io/clip_8/tutorial/klippen.html).
 
-### Web Assemply module for `clip_8`
+
+### build the web assembly module
 
 For the **wasm** modules use `make` in the `rs` directory.
 
-### Page generators for clip_8 project
+### build html pages
 
-The python scripts are located in `bin`.
+If you wand to make changes to the demos, tutorials, or tests, the html pages will need a rebuild. Python scripts in `bin` support these steps:
 
 Build Demos: `python svg2demo.py`
 
