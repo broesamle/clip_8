@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>clip8 | Clong (light-weight, decentral)</title>
+
+<!-- CommonTemplates.DependClip8_str -->
+<script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
+<script src="../lib/clip8dependencies.js"></script>
+
+<link rel="stylesheet" href="../css/refsheet.css">
+<link rel="stylesheet" href="../css/clip8.css">
+
+<script src="../js/svgdom.js"></script>
+<script src="../js/svginterval.js"></script>
+<script src="../js/svgretrieve.js"></script>
+<script src="../js/paperclip.js"></script>
+<script src="../js/clip8decode.js"></script>
+<script src="../js/clip8.js"></script>
+<script>
+var WASM_READY = false;
+var Module = {
+    wasmBinaryFile: "../rs/wasm/iscd.wasm",
+    onRuntimeInitialized: main,
+    noInitialRun: true,     // seems necessary to use the module after main
+    noExitRuntime: true
+};
+
+function main () {
+    WASM_READY = true;
+}
+</script>
+<script src="../rs/wasm/iscd.js"></script>
+
+</head>
+
+
+<body>
+<nav>
+
+<div class="leftlink">
+<a href="clong.html">Clong (heavy, centralist)<br>
+&lt;&lt;&lt;&lt;
+</a>
+</div>
+
+<div class="chapternavtitle">Demos</div>
+
+<div class="rightlink">
+<a href="counter3.html">Counter Example<br>
+&gt;&gt;&gt;&gt;</a>
+</div>
+
+</nav>
+<h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Clong (light-weight, decentral)</h1>
+
+<p>
+<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
+<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
+<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
+<button onclick="location.reload();"           >&#x25FC;           </button>
+</p>
+<p>
+<svg id="clip8svgroot" viewbox="0 0 4772 3467.744" width="100%" height="auto">
+<rect x="2173.993" y="1467.318" width="80" height="80" /><rect id="rect6874-1_1_" x="668.729" y="886.677" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="3383.032" height="2319.396" /><path fill="none" stroke="#B2B2B2" stroke-width="5" d="M591.386,917.677c9.248,193.089,2823.212,2178.067,3460.374,2288.394" /><path id="path5326_58_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M637.729,809.688   c-178.489-227.18-110.084-137.271-72.011,76.986" /><path id="path5326_61_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M4406.113,3207.744   C4436.318,1077.344,2046.5,718.372,668.729,784.018" /><path id="path5326_48_" fill="none" stroke="#B94ABC" stroke-width="5" d="M4469.111,888.351   C4798.462,609.898,1110.5,770.372,668.728,835.355" /><path id="path5326_78_" fill="none" stroke="#3DAA9D" stroke-width="5" d="M251.377,3259.08   c-893.692,281.596,2279.123,95.292,3800.383-1.334" /><path id="path5326_42_" fill="none" stroke="#B94ABC" stroke-width="5" d="M617.052,886.677   C618.5,1878.372,25.635,3145.61,251.378,3207.746" /><g>
+		<path id="path5326_4_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M282.377,3233.412    c-1.182,38.974,24.317,32.638,31.997-25.666" />
+		<path id="path5326_2_" fill="none" stroke="#B2B6D6" stroke-width="14.1732" d="M668.729,3206.071    c-326.739-363.695-236.188-143.114-323.354,27.341" />
+		<polyline fill="none" stroke="#D1A137" stroke-width="11.3386" points="251.377,3207.746 282.377,3233.412 251.377,3259.08   " />
+		<polyline fill="none" stroke="#D1A137" stroke-width="11.3386" points="314.374,3207.746 345.374,3233.412 314.374,3259.08   " />
+	</g><g>
+		<path id="path5326_9_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M282.377,914.018    c-1.182,38.975,24.317,32.639,31.997-25.666" />
+		<path id="path5326_8_" fill="none" stroke="#B2B6D6" stroke-width="14.1732" d="M668.729,886.677    c-326.739-363.694-236.188-143.113-323.354,27.341" />
+		<polyline fill="none" stroke="#B94ABC" stroke-width="11.3386" points="251.377,888.352 282.377,914.018 251.377,939.686   " />
+		<polyline fill="none" stroke="#B94ABC" stroke-width="11.3386" points="314.374,888.352 345.374,914.018 314.374,939.686   " />
+	</g><path id="path5326_7_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M4469.111,3259.078   c7.679,58.304,33.179,13.306,31.996-25.668" /><polyline fill="none" stroke="#D1A137" stroke-width="11.3386" points="4532.107,3259.078 4501.107,3233.41 4532.107,3207.744  " /><g>
+		<path id="path5326_6_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M4406.113,3259.078    c7.68,58.304,33.18,13.306,31.998-25.668" />
+		<path id="path5326_5_" fill="none" stroke="#B2B6D6" stroke-width="14.1732" d="M4375.113,3233.41    c-87.166-170.455,3.387-391.036-323.354-27.341" />
+		<polyline fill="none" stroke="#D1A137" stroke-width="11.3386" points="4469.111,3259.078 4438.111,3233.41 4469.111,3207.744       " />
+		<polyline fill="none" stroke="#D1A137" stroke-width="11.3386" points="4406.113,3259.078 4375.113,3233.41 4406.113,3207.744       " />
+	</g><g>
+		<path id="path5326_10_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M4406.115,888.351    c7.68,58.306,33.18,64.642,31.997,25.666" />
+		<path id="path5326_3_" fill="none" stroke="#B2B6D6" stroke-width="14.1732" d="M4375.115,914.017    c-87.166-170.455,3.387-391.035-323.354-27.34" />
+		<polyline fill="none" stroke="#95CE78" stroke-width="11.3386" points="4469.111,939.685 4438.111,914.017 4469.111,888.351   " />
+		<polyline fill="none" stroke="#95CE78" stroke-width="11.3386" points="4406.115,939.685 4375.115,914.017 4406.115,888.351   " />
+	</g><line fill="none" stroke="#28434C" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="789.221" y1="3085.577" x2="668.729" y2="3206.069" /><line fill="none" stroke="#28434C" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4051.761" y1="3206.067" x2="3931.27" y2="3085.576" /><line fill="none" stroke="#28434C" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4051.761" y1="886.677" x2="3931.27" y2="1007.169" /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="4103.439,886.682 4129.105,855.682    4154.773,886.682  " /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="4051.76,835.353 4020.76,809.687    4051.76,784.019  " /><text transform="matrix(1 0 0 1 4077.3096 106.4082)" fill="#E53068" font-family="'CourierNewPS-BoldMT'" font-size="48">beep-high.mp3</text><text transform="matrix(1 0 0 1 4077.3096 191.9355)" fill="#9DD329" font-family="'CourierNewPS-BoldMT'" font-size="48">beep-low.mp3</text><line fill="none" stroke="#28434C" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="789.22" y1="1007.168" x2="668.729" y2="886.677" /><path fill="none" stroke="#28434C" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M3931.27,1007.169" /><path fill="none" stroke="#28434C" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M4051.761,886.677" /><path id="path5326_62_" fill="none" stroke="#D1A137" stroke-width="5" d="M251.377,939.686   C-318.644,523.917,498.5,2610.372,617.052,3206.062" /><path id="path5326_60_" fill="none" stroke="#D1A137" stroke-width="5" d="M672.044,3257.746   c586.456,12.626,3890.268,258.933,3860.063,1.332" /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="672.044,3257.746 703.044,3283.412    672.044,3309.08  " /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="617.052,3206.062 591.386,3237.062    565.718,3206.062  " /><path fill="none" stroke="#B2B2B2" stroke-width="5" d="M4129.105,3175.063c9.492-287.319-3346.51-1671.319-3460.377-2288.39" /><path id="path5326_80_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M4082.761,3283.412   c178.49,227.176,110.087,136.911,72.013-77.348" /><path id="path5326_79_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M314.374,939.686   C-49.147,2287.917,1266.5,3318.372,4051.761,3309.08" /><path id="path5326_77_" fill="none" stroke="#3DAA9D" stroke-width="5" d="M4103.439,3206.063   c79.061-1355.691,1156.035-2521.74,365.672-2266.379" /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="4103.439,3206.063    4129.105,3175.063 4154.773,3206.063  " /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="4051.761,3257.746    4082.761,3283.412 4051.761,3309.08  " /><path fill="none" stroke="#B2B2B2" stroke-width="5" d="M4020.76,809.687c-342.162-1.94-2658.162,2214.06-3352.031,2396.385" /><path id="path5326_69_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M4129.105,855.682   c227.177-178.487,136.912-109.733-77.348-71.663" /><path id="path5326_68_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M314.374,3259.08   C2200.682,3812.676,4163.5,1177.374,4154.773,886.682" /><path id="path5326_67_" fill="none" stroke="#95CE78" stroke-width="5" d="M4469.111,3207.744   c282.056-7.371-314.609-1761.373-365.672-2321.063" /><path id="path5326_66_" fill="none" stroke="#95CE78" stroke-width="5" d="M4051.76,835.353   c-893.26-12.979-3889.26-646.979-3800.382,53" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" stroke-dasharray="22.6772,11.3386,11.3386,11.3386" x1="3931.27" y1="3085.576" x2="2254.127" y2="450.979" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" stroke-dasharray="22.6772,11.3386,11.3386,11.3386" x1="3931.27" y1="1007.169" x2="2254.127" y2="450.979" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" stroke-dasharray="22.6772,11.3386,11.3386,11.3386" x1="789.22" y1="1007.168" x2="2254.127" y2="450.979" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" stroke-dasharray="22.6772,11.3386,11.3386,11.3386" x1="789.221" y1="3085.577" x2="2254.127" y2="450.979" /><path id="path5326_56_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M565.718,3206.062   C254.5,1430.372,3083.465,685.231,4406.115,939.685" /><rect id="rect6874_4_" x="617.052" y="886.677" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="31.713" height="2319.385" /><rect id="rect6874_17_" x="668.729" y="835.354" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="3383.031" height="31.713" /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="617.052,886.677 591.386,917.677    565.718,886.677  " /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" stroke-miterlimit="10" points="668.729,835.354 637.729,809.688    668.729,784.021  " /><path fill="none" stroke="#B2B2B2" stroke-width="5" d="M703.044,3283.412c315.554,8.332,3067.554-2399.668,3348.717-2396.735" /><path id="path5326_65_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M591.386,3237.062   c-227.177,178.49-133.6,110.096,80.658,72.021" /><rect id="rect6874_18_" x="672.044" y="3226.033" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="3379.717" height="31.713" /><rect id="rect6874_19_" x="4071.727" y="886.682" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="31.713" height="2319.384" /><path id="path4145_1_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M4626.416,3236.435   c-6.938-33.021-12.919-104.063-94.309-28.689" /><circle id="circle6876_2_" fill="#28434C" stroke="#28434C" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="4626.416" cy="3236.435" r="12" /><rect id="rect6890-0_2_" x="2205.504" y="440.5" width="97.188" height="22.146" />
+</svg>
+</p>
+
+
+<footer>
+<p>
+© 2016, 2017 Martin Brösamle.<br>
+</p>
+</footer>
+
+
+<script>
+window.onload = function () {
+    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false);
+}
+</script>
+</body>
+
+</html>
