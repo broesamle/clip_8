@@ -57,6 +57,7 @@ demos = [
     ("Clong (light-weight, decentral)", "clong-decentral.svg"),
     ("Counter Example", "counter3.svg"),
     ("Analog Digital Converter", "ADConverter.svg"),
+    ("XOR / flipflop", "flip8.svg"),
     ("Pseudo Random Number Generator (LFSR)", "lfsr-fib.svg"),
     ("Loom 1", "loom1.svg"),
     ("Loom 2", "loom2.svg"),
