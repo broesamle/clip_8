@@ -41,13 +41,85 @@ describe("Clip8decode", function() {
             Object.keys(DIRECTION).forEach(function(key,index) {
                 fn(key);
             });
-        };  
+        };
         it("prevent the invalid combinations UP+DOWN and LEFT+RIGHT to result in any valid flag", function() {
             applyToAllFlags( function (key) {
                 expect(DIRECTION.UP+DIRECTION.DOWN).not.toBe(DIRECTION[key]);
             });
             applyToAllFlags( function (key) {
                 expect(DIRECTION.LEFT+DIRECTION.RIGHT).not.toBe(DIRECTION[key]);
+            });
+        });
+    });
+
+    describe("getAxisAlignedXYLegs", function() {
+        var expectLegsToBe_perm = function (O, pX, pY, targetX, targetY) {
+            var result;
+            result = Clip8decode.getAxisAlignedXYLegs([O, pX, pY]);
+            expect(result.x_leg).toBe(targetX);
+            expect(result.y_leg).toBe(targetY);
+            expect(result.o.x).toBe(O.x);
+            expect(result.o.y).toBe(O.y);
+            result = Clip8decode.getAxisAlignedXYLegs([O, pY, pX]);
+            expect(result.x_leg).toBe(targetX);
+            expect(result.y_leg).toBe(targetY);
+            expect(result.o.x).toBe(O.x);
+            expect(result.o.y).toBe(O.y);
+            result = Clip8decode.getAxisAlignedXYLegs([pX, O, pY]);
+            expect(result.x_leg).toBe(targetX);
+            expect(result.y_leg).toBe(targetY);
+            expect(result.o.x).toBe(O.x);
+            expect(result.o.y).toBe(O.y);
+            result = Clip8decode.getAxisAlignedXYLegs([pX, pY, O]);
+            expect(result.x_leg).toBe(targetX);
+            expect(result.y_leg).toBe(targetY);
+            expect(result.o.x).toBe(O.x);
+            expect(result.o.y).toBe(O.y);
+            result = Clip8decode.getAxisAlignedXYLegs([pY, O, pX]);
+            expect(result.x_leg).toBe(targetX);
+            expect(result.y_leg).toBe(targetY);
+            expect(result.o.x).toBe(O.x);
+            expect(result.o.y).toBe(O.y);
+            result = Clip8decode.getAxisAlignedXYLegs([pY, pX, O]);
+            expect(result.x_leg).toBe(targetX);
+            expect(result.y_leg).toBe(targetY);
+            expect(result.o.x).toBe(O.x);
+            expect(result.o.y).toBe(O.y);
+        }
+        describe("when both legs point along x and y axes (O.x < pX.x) and (O.y < pY.y)", function () {
+            var dx = 25, dy = 13;
+            var O  = { x: 39   , y: 33    };
+            var pX = { x: 39+dx, y: 33    };
+            var pY = { x: 39   , y: 33+dy };
+            it("returns positive distance in x and y direction", function() {
+                expectLegsToBe_perm(O, pX, pY, dx, dy);
+            });
+        });
+        describe("when the x leg points along and the y leg against its axis (O.x < pX.x) and (O.y > pY.y)", function () {
+            var dx = 25, dy = -13;
+            var O  = { x: 39   , y: 33    };
+            var pX = { x: 39+dx, y: 33    };
+            var pY = { x: 39   , y: 33+dy };
+            it("returns positive x and negative y direction", function() {
+                expectLegsToBe_perm(O, pX, pY, dx, dy);
+            });
+        });
+        describe("when the y leg points along and the x leg against its axis (O.x > pX.x) and (O.y < pY.y)", function () {
+            var dx = -25, dy = 13;
+            var O  = { x: 39   , y: 33    };
+            var pX = { x: 39+dx, y: 33    };
+            var pY = { x: 39   , y: 33+dy };
+            it("returns positive y and negative x direction", function() {
+                expectLegsToBe_perm(O, pX, pY, dx, dy);
+            });
+        });
+        describe("when both legs point against their axes (O.x > pX.x) and (O.y > pY.y)", function () {
+            var dx = -25, dy = -13;
+            var O  = { x: 39   , y: 33    };
+            var pX = { x: 39+dx, y: 33    };
+            var pY = { x: 39   , y: 33+dy };
+            it("returns negative x and y direction", function() {
+                expectLegsToBe_perm(O, pX, pY, dx, dy);
             });
         });
     });

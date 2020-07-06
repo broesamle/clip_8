@@ -271,6 +271,28 @@ var Svgretrieve = {
                     unreg.push(elems[i]);
             }
         }
+        // POLYGON
+        elems = Svgretrieve.clip8root.getElementsByTagName("polygon");
+        if (debug) console.debug("POLYGON elements:", elems);
+        for (var i=0; i<elems.length; i++) {
+            if ( Svgretrieve._excluded(elems[i]) ) continue;
+            if (debug) console.log("CTMs:", elems[i], elems[i].getCTM(), refTrafo);
+                if (!Svgdom.equalCTMs(elems[i].getCTM(), refTrafo)) {
+                    if (debug) console.log("ignore transformed element", elems[i]);
+                    transformed.push(elems[i]);
+                    continue
+                }
+            if (ISCD.detect(elems[i]) == ISCD.INSTRUCTION) {
+                cpts = Svgdom.getPointsOfPoly(elems[i]);
+                cpts.forEach( function (cpt) {
+                    cpt.ownerelement = elems[i];
+                    Svgretrieve.I_collection.insert(cpt) });
+                if (Svgretrieve.highlight_isc)
+                    Svgretrieve.highlighterFn(elems[i], Svgretrieve.INSTRUCTION_COLOUR);
+            }
+            else
+                unreg.push(elems[i]);
+        }
         console.groupEnd();
         if (transformed.length > 0) {
             console.warn("there were transformed elements:", unreg);

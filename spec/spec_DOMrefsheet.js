@@ -5,10 +5,13 @@ var CLIP8_RUNNINGTIME = 500
 // The test allows the clip8 interpreter to run for `cycles + EXCESS_CYCLES`.
 var EXCESS_CYCLES = 100
 
-var customMatchers = {
 
-toBeElement:
-    function (util, customEqualityTesters) {
+// How many decimal digits to consider when matching approx. element dimensions
+// FIXME: avoid the global setting: custom matcher with a parameter
+var APPROX_PRECISION_DIGITS = 2;
+
+var customMatchers = {
+    toBeElement: function (util, customEqualityTesters) {
         return {
             compare: function(actual, expected) {
                 var result = {};
@@ -18,8 +21,8 @@ toBeElement:
             }
         };
     },
-toMatchReference:
-    function (util, customEqualityTesters) {
+
+    toMatchReference: function (util, customEqualityTesters) {
         return {
             compare: function(actual, expected) {
                 var debug = false;
@@ -28,35 +31,53 @@ toMatchReference:
                 var cmpB = expected.outerHTML.replace(/\s+/gm, " ")
                 result.pass = cmpA==cmpB;
                 if (debug) console.log("tests: ", cmpA, "==", cmpB, result.pass);
-                result.message = "Expected " + cmpA + " to equal " + cmpB + ".";
+                result.message = "Expected " + cmpA + "\nto equal " + cmpB + ".";
                 return result;
             }
         };
     },
 
-_toStringSortAttrs: function (el) {
-    var result = "";
-    for (var i = 0; i < el.childNodes.length; i++) {
-        if ((el.childNodes[i] instanceof SVGElement) || (el.childNodes[i] instanceof HTMLElement)) {
-            result += el.childNodes[i].tagName + ": ";
-            var attribsAsStrings = [];
-            for (var j = 0; j < el.childNodes[i].attributes.length ; j++)
-                attribsAsStrings.push( el.childNodes[i].attributes[j].name + "=" + el.childNodes[i].attributes[j].value );
-            attribsAsStrings.sort();
-            result += attribsAsStrings.toString() + "; ";
-        }
-    }
-    return result;
-},
+    toMatchReference_approxXYWH: function (util, customEqualityTesters) {
+        return {
+            compare: function(actual, expected) {
+                var cmpA, cmpB, result = {};
+                var fixDigits = function (match, g1, g2) {
+                    return g1 + '="' + parseFloat(g2).toFixed(APPROX_PRECISION_DIGITS) + '"';
+                };
+                cmpA = actual.outerHTML
+                             .replace(/\s+/gm, " ")
+                             .replace(/(x|y|width|height)="(\d+\.?\d*)"/gm, fixDigits);
+                cmpB = expected.outerHTML
+                               .replace(/\s+/gm, " ")
+                               .replace(/(x|y|width|height)="(\d+\.?\d*)"/gm, fixDigits);
+                result.pass = cmpA==cmpB;
+                result.message = "Expected  " + cmpA + "\nto approx " + cmpB + ".";
+                return result;
+            }
+        };
+    },
 
-attributesOfChildrenToMatch:
-    function (util, customEqualityTesters) {
+    attributesOfChildrenToMatch: function (util, customEqualityTesters) {
+        var _toStringSortAttrs = function (el) {
+            var result = "";
+            for (var i = 0; i < el.childNodes.length; i++) {
+                if ((el.childNodes[i] instanceof SVGElement) || (el.childNodes[i] instanceof HTMLElement)) {
+                    result += el.childNodes[i].tagName + ": ";
+                    var attribsAsStrings = [];
+                    for (var j = 0; j < el.childNodes[i].attributes.length ; j++)
+                        attribsAsStrings.push( el.childNodes[i].attributes[j].name + "=" + el.childNodes[i].attributes[j].value );
+                    attribsAsStrings.sort();
+                    result += attribsAsStrings.toString() + "; ";
+                }
+            }
+            return result;
+        };
         return {
             compare: function(actual, expected) {
                 var result = {};
                 var debug = false;
-                var actualCmp = customMatchers._toStringSortAttrs(actual);
-                var expectedCmp = customMatchers._toStringSortAttrs(expected);
+                var actualCmp = _toStringSortAttrs(actual);
+                var expectedCmp = _toStringSortAttrs(expected);
                 result.pass = actualCmp==expectedCmp;
                 if (debug) console.log("tests: ", actualCmp, "==", expectedCmp, result.pass);
                 result.message = "Expected " + actualCmp + " to equal " + expectedCmp + ".";
@@ -95,34 +116,35 @@ function getTestDOM(reftestElement) { return reftestElement.firstElementChild.ne
 function getTestSVG(reftestElement) { return reftestElement.firstElementChild.nextElementSibling.nextElementSibling.firstElementChild }
 
 var GenericTestFns = {
-    matchPre: function (reftestElement) {
+    matchPre: function (reftestElement, expectToMatch) {
         var pre = getPrecondition(reftestElement);
         var proc = getTestDOM(reftestElement);
         expect(pre.classList).toContain("pre-reference");
         expect(proc.classList).toContain("testDOM");
         expect(proc.firstElementChild).toBeElement();
         expect(pre.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toMatchReference(pre.firstElementChild);
+        expectToMatch(proc.firstElementChild, pre.firstElementChild)
     },
 
-    matchPost: function (reftestElement) {
+    matchPost: function (reftestElement, expectToMatch) {
         var proc = getTestDOM(reftestElement);
         var post = getPostcondition(reftestElement);
         expect(proc.classList).toContain("testDOM");
         expect(post.classList).toContain("post-reference");
         expect(proc.firstElementChild).toBeElement();
         expect(post.firstElementChild).toBeElement();
-        expect(proc.firstElementChild).toMatchReference(post.firstElementChild);
+        expectToMatch(proc.firstElementChild, post.firstElementChild)
     }
 }
 
-function addTest_normal_execution(reftestElement, cycles) {
+function addTest_normal_execution(reftestElement, cycles, expectToMatch) {
+
     console.log("[TEST_NORMEXEC] cycles:", cycles );
     var spec;
 
     spec = it("["+reftestElement.id+"] PRE and TEST should be equal",
         function(done) {
-        GenericTestFns.matchPre(reftestElement);
+        GenericTestFns.matchPre(reftestElement, expectToMatch);
         done();
     });
 
@@ -153,7 +175,7 @@ function addTest_normal_execution(reftestElement, cycles) {
     test_domids.push(reftestElement.id);
 
     spec = it("["+reftestElement.id+"] TEST and POST should be equal", function(done) {
-        GenericTestFns.matchPost(reftestElement);
+        GenericTestFns.matchPost(reftestElement, expectToMatch);
         done();
     });
     test_specids.push(spec.id);
@@ -268,13 +290,25 @@ describe("Reference Sheet Tester", function(){
     for (var i = 0; i < tests.length; i++) {
         if (tests[i].classList[1] === "normal_execution") {
             cycles = parseInt(tests[i].classList[2]);
-            addTest_normal_execution(tests[i], cycles);
+            addTest_normal_execution(
+                tests[i],
+                cycles,
+                function (a,b) { expect(a).toMatchReference(b); }
+                );
         }
         else if (tests[i].classList[1] === "selectionset") {
             p0x = parseFloat(tests[i].classList[2].split(",")[0]);
             p0y = parseFloat(tests[i].classList[2].split(",")[1]);
             color = tests[i].classList[3];
             addTest_selectionset(tests[i], p0x, p0y, color);
+        }
+        else if (tests[i].classList[1] === "exec_approx-dim") {
+            cycles = parseInt(tests[i].classList[2]);
+            addTest_normal_execution(
+                tests[i],
+                cycles,
+                function (a,b) { expect(a).toMatchReference_approxXYWH(b); }
+                );
         }
         else if (tests[i].classList[1] === "element_ISCDdetection") {
             addTest_element_ISCDdetection(tests[i], tests[i].classList[2]);

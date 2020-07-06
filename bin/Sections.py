@@ -19,7 +19,7 @@
 
 from collections import OrderedDict
 
-refsheet_version = "0.1.6"
+refsheet_version = "0.1.7"
 refsheet_description = "In the process of developing a language standard."
 
 sections = [
@@ -40,7 +40,7 @@ expected_to_fail = [
     "selector-precision-similarrects3",
     "moveto-lowerleft", "moveto-lowerleft2", "moveto-upperleft",
     "cut-vertical",
-    "scale1", "grow-upper", "grow-right", "setheight", "setheight-indir"
+    "grow-upper", "grow-right", "setheight", "setheight-indir"
     ]
 
 exampleelements = [

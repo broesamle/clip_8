@@ -26,7 +26,8 @@ var OP = {
     ALIGN:        0x0004,
     CUT:          0x0008,
     CLONE:        0x0010,
-    DEL:          0x0020
+    DEL:          0x0020,
+    TRAFO:        0x0040
 };
 
 var DIRECTION = {
@@ -108,6 +109,83 @@ var Clip8decode = {
         else throw "[directionOfPolyAngle] Direction not detectable as left, right, up, down.";
     },
 
+    getAxisAlignedXYLegs: function (points) {
+        /** Returns the length of the X and Y legs of an axis-aligned right triangle.
+         * Positive values indicate that the leg points in the direction of the corresponding axis,
+         * i.e. the right angle is at the lower coordinate value on this axis.
+         * `points` defines a rectangular, axis aligned right triangle as an array of points.
+         * returns `{ x_leg: pX.x - O.x, y_leg: (pY.y - O.y) }`
+         *
+         *     pointing
+         *     this
+         *     direction
+         *
+         *       ^
+         *       |      pY
+         *       |      |\
+         *       |      | \
+         *       |      |  \
+         *    y_leg     |   \
+         *       |      |    \
+         *       |      |     \
+         *       |      |      \
+         *       |      |       \
+         *       |      |        \
+         *       |      |         \
+         *       |      O---------pX
+         *
+         *              -- x_leg --->  pointing this direction
+         */
+        if (points[0].x == points[1].x)
+            // points[0, 1] create a vertical axis, one of them is O, and the other is pY
+            if (points[0].y == points[2].y)
+                // O = points[0], pY = points[1], pX = points[2]
+                return { x_leg: (points[2].x - points[0].x),
+                         y_leg: (points[1].y - points[0].y),
+                         o: points[0]};
+            else if (points[1].y == points[2].y)
+                // O = points[1], pY = points[0], pX = points[2]
+                return { x_leg: (points[2].x - points[1].x),
+                         y_leg: (points[0].y - points[1].y),
+                         o: points[1] };
+            else
+                throw { source:"getAxisAlignedXYLegs",
+                        error: "Encountered unexpected coordinate combination." };
+        else if (points[1].x == points[2].x)
+            // points[1, 2] create a vertical axis, one of them is O, and the other is pY
+            if(points[1].y == points[0].y)
+                // O = points[1], pY = points[2], pX = points[0]
+                return { x_leg: (points[0].x - points[1].x),
+                         y_leg: (points[2].y - points[1].y),
+                         o: points[1] };
+            else if (points[2].y == points[0].y)
+                // O = points[2], pY = points[1], pX = points[0]
+                return { x_leg: (points[0].x - points[2].x),
+                         y_leg: (points[1].y - points[2].y),
+                         o: points[2] };
+            else
+                throw { source:"getAxisAlignedXYLegs",
+                        error: "Encountered unexpected coordinate combination." };
+        else if (points[0].x == points[2].x)
+            // points[0, 2] create a vertical axis, one of them is O, and the other is pY
+            if(points[0].y == points[1].y)
+                // O = points[0], pY = points[2], pX = points[1]
+                return { x_leg: (points[1].x - points[0].x),
+                         y_leg: (points[2].y - points[0].y),
+                         o: points[0] };
+            else if (points[2].y == points[1].y)
+                // O = points[2], pY = points[0], pX = points[1]
+                return { x_leg: (points[1].x - points[2].x),
+                         y_leg: (points[0].y - points[2].y),
+                         o: points[2] };
+            else
+                throw { source:"getAxisAlignedXYLegs",
+                        error: "Encountered unexpected coordinate combination." };
+        else
+            throw { source:"getAxisAlignedXYLegs",
+                    error: "Encountered unexpected coordinate combination." };
+    },
+
     decodeInstruction: function (I0, p0) {
         var verbose = true;
         var instruction = {};
@@ -147,7 +225,21 @@ var Clip8decode = {
                 instruction.opcode = OP.ALIGN;
                 instruction.needsselector = true;
             }
-            else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0) {
+            else if (I0[Clip8.RECTTAG].length == 1) {
+                // CLONE
+                if (verbose) console.log("CLONE");
+                instruction.opcode = OP.CLONE;
+                instruction.needsselector = true;
+            }
+            else if (I0[Clip8.POLYGONTAG].length == 1) {
+                // TRANSFORM
+                if (verbose) console.log("TRAFO");
+                instruction.opcode = OP.TRAFO;
+                instruction.needsselector = true;
+                instruction.origin = Clip8decode.getAxisAlignedXYLegs(
+                                         Svgdom.getPointsOfPoly(I0[Clip8.POLYGONTAG][0]) );
+            }
+            else if (I0[Clip8.POLYLINETAG].length == 0 && I0[Clip8.RECTTAG].length == 0 && I0[Clip8.POLYGONTAG].length == 0) {
                 // MOVE-REL, CUT, DEL
                 if ( ISCD.getExplicitProperty(instruction.primary, 'stroke-dasharray') ) {
                     if (verbose) console.log("CUT / DELETE");
@@ -159,12 +251,6 @@ var Clip8decode = {
                     instruction.opcode = OP.MOVE_REL;
                     instruction.needsselector = true;
                 }
-            }
-            else if (I0[Clip8.RECTTAG].length == 1) {
-                // CLONE
-                if (verbose) console.log("CLONE");
-                instruction.opcode = OP.CLONE;
-                instruction.needsselector = true;
             }
             else {
                 if (verbose) console.log("DECODE_ERROR");
