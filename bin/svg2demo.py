@@ -45,7 +45,7 @@ class DemoPage(SVGGroupCollection):
         newitem = {}
         newitem['svgdata'] = allChildrenToSVG(el)
         self.addItem(key, newitem)
-        print("OK! ", el, el.tag)
+        print("  OK!", el, el.tag)
         return
 
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
