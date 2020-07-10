@@ -19,7 +19,7 @@
 
 import os, io, codecs, fnmatch, functools
 from string import Template
-from docgen import Clip8Document
+from docgen import Classic_Clip8Page
 import TutorialTemplates as TEM
 from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
@@ -60,7 +60,7 @@ for key, bodyHTML in exercises.iterateSeries(
                       'FOOTER'     : TEM.Footer_str,
                       'pagetitle'  : "clip_8"}):
     print ("Processing:", key)
-    clip8doc = Clip8Document(title="clip8 | Tutorial",
+    clip8doc = Classic_Clip8Page(title="clip8 | Tutorial",
                              cssfiles=["../css/klippen.css"])
     outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
     print ("    output:", outFN)
@@ -110,7 +110,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                PREV_LINK=backlinkHTML, NEXT_LINK=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptAutostart_str)
-clip8doc = Clip8Document(title="clip8 | Tutorial",
+clip8doc = Classic_Clip8Page(title="clip8 | Tutorial",
                          cssfiles=["../css/klippen.css"])
 outFN = os.path.join(outDIRabs, "index.html")
 print ("    output:", outFN)
@@ -129,7 +129,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                NEXT_LINK=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptInBody_str)
-clip8doc = Clip8Document(title="clip8 | " + "Klippen",
+clip8doc = Classic_Clip8Page(title="clip8 | " + "Klippen",
                          cssfiles=["../css/klippen.css"])
 outFN = os.path.join(outDIRabs, "klippen.html")
 print ("    output:", outFN)

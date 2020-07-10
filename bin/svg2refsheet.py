@@ -21,12 +21,12 @@ import os, io, codecs, fnmatch
 from tinycss.css21 import CSS21Parser
 
 import RefsheetTemplates as TEM
-from docgen import Clip8Document
+from docgen import Classic_Clip8Page
 from SVGHandling import *
 import Sections as SCT
 import CFG
 
-class RefsheetDocument(Clip8Document):
+class RefsheetDocument(Classic_Clip8Page):
     _init_jasmine = """
 <link rel="shortcut icon" type="image/png" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine_favicon.png">
 <link rel="stylesheet" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine.css">

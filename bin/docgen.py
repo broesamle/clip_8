@@ -43,10 +43,6 @@ $body
 <!-- CommonTemplates.DependClip8_str -->
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
-
-<link rel="stylesheet" href="../css/refsheet.css">
-<link rel="stylesheet" href="../css/clip8.css">
-
 <script src="../js/svgdom.js"></script>
 <script src="../js/svginterval.js"></script>
 <script src="../js/svgretrieve.js"></script>
@@ -88,7 +84,6 @@ function main () {
 
     def as_html_str(self, body_html, supress_clip8scripts=False):
         """ Output the html document with a given body.
-
         `body_html`: String with body html with enclosing body tags.
             "<body>....</body>"
 
@@ -124,3 +119,9 @@ function main () {
                                   errors="xmlcharrefreplace")
         output_file.write(self.as_html_str(*args, **kwargs))
         output_file.close()
+
+class Classic_Clip8Page(Clip8Document):
+    def __init__(self, *args, cssfiles=[], **kwargs):
+        super().__init__(*args,
+                         cssfiles=["../css/refsheet.css", "../css/clip8.css"] + cssfiles,
+                         **kwargs)

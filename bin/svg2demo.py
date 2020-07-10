@@ -22,7 +22,7 @@ import os, io, codecs, fnmatch
 from tinycss.css21 import CSS21Parser
 
 import DemoTemplates as TEM
-from docgen import Clip8Document
+from docgen import Classic_Clip8Page
 from SVGHandling import *
 import Sections as SCT
 import CFG
@@ -96,7 +96,7 @@ while len(SCT.demos) > 0:
                                         link1=backlinkHTML, link2=nextlinkHTML,
                                         FOOTER=footerHTML,
                                         SCRIPT=TEM.ScriptInBody_str)
-        clip8doc = Clip8Document(title="clip8 | " + chapter)
+        clip8doc = Classic_Clip8Page(title="clip8 | " + chapter)
         print ("    output:", outFN)
         clip8doc.write_file(outFN, bodyHTML)
         tocsectionsHTML += TEM.TOCsection.substitute(
@@ -124,6 +124,6 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                FOOTER=footerHTML,
                                SCRIPT="")
 outFN = os.path.join(outDIRabs, "index.html")
-clip8doc = Clip8Document(title="clip8 | Demos")
+clip8doc = Classic_Clip8Page(title="clip8 | Demos")
 print ("    output:", outFN)
 clip8doc.write_file(outFN, bodyHTML)
