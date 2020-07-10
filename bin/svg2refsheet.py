@@ -163,7 +163,6 @@ while len(SCT.sections) > 0:
             sectioncnt = 1
             lastchapter = chapter
             tocsectionsHTML += TEM.TOCchapter.substitute(chapter=chapter, chaptercnt=chaptercnt)
-
         tests = TestSection(inFN, strictsubstitute=True)
         for thetest in tests.values():
             printid = thetest['testid'] + " "*max(0, 25-len(thetest['testid']))
@@ -171,7 +170,6 @@ while len(SCT.sections) > 0:
             printdescr += " "* max(0, (55-len(printdescr)))
             print ( "  [ %10s ] %s (%s) (%s)" % (printid, printdescr, thetest['testtype'], thetest['expectedto']) )
         alltests[infile] = tests
-
         testsectionsHTML = tests.generateSeries(
             itemTEM=TEM.ReftestWithIntro,
             seriesTEM=TEM.Testsection,
@@ -184,7 +182,6 @@ while len(SCT.sections) > 0:
                 'viewBox': tests.viewBox,
                 }
             )
-
         backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
         nextlinkHTML = TEM.Linknext.substitute(href=nexthref, linktext=nextlinktitle)
         bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
@@ -212,14 +209,12 @@ while len(SCT.sections) > 0:
             seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt},
             filterFn=lambda _test:(_test['expectedto'] == "pass")
             )
-
         failingtestsHTML += alltests[infile].generateSeries(
             itemTEM=TEM.ReftestCore,
             seriesTEM=TEM.Testsection_inclHref,
             seriesData={'testsectiontitle':section, 'testsectionhref':outfile, 'chaptercnt':chaptercnt, 'sectioncnt':sectioncnt},
             filterFn=lambda _test:(_test['expectedto'] == "fail")
             )
-
         tocsectionsHTML += TEM.TOCsection.substitute(
             testsectiontitle=section,
             testsectionhref=outfile,

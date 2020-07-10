@@ -16,12 +16,13 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+
 from string import Template
 
 Footer_str = """
 <footer>
 <p>
-© 2016, 2017 Martin Brösamle.<br>
+© 2016, 2017, 2020 Martin Brösamle.<br>
 </p>
 </footer>
 """

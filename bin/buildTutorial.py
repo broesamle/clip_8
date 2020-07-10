@@ -24,6 +24,9 @@ from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
 import CFG
 
+print("\nBuilding the clip_8 Tutorials")
+print("===================================================")
+
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.tutorialDIR)
 outDIRabs = inDIRabs
 
@@ -69,11 +72,11 @@ for key, bodyHTML in exercises.iterateSeries(
 
 ### index.html
 ### For the tutorials, index.html contains the TOC.
+print ("Processing: index.html (includes TOC)")
 inFN = os.path.join(CFG.rootDIRabs, CFG.logoDIR, CFG.logofile)
 input_file = codecs.open(inFN, "r", encoding="utf-8")
 logoSVG = input_file.read()
 input_file.close()
-
 mainHTML = """
 <p class="tutorial">
 </p>
@@ -101,7 +104,6 @@ If you get stuck, please <b>read the <a href="../survival-guide.html" target="_b
 <a href="00_gettingStarted.html">Happy drawing!</a>
 </p>
 """ % logoSVG
-
 backlinkHTML = TEM.LinkbackToProjectpage_str
 nextlinkHTML = TEM.Linknext.substitute(ELEMENT_KEY="00_gettingStarted", chapter="Getting started")
 footerHTML = TEM.FooterIndexpage_str
@@ -120,7 +122,7 @@ output_file.write(documentHTML)
 output_file.close()
 
 ### klippen.html
-
+print ("Generating: klippen.html")
 backlinkHTML = TEM.Linkback.substitute(ELEMENT_KEY="index", chapter="Tutorial Start Page")
 nextlinkHTML = ""
 klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="pro")

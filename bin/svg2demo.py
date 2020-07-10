@@ -48,10 +48,12 @@ class DemoPage(SVGGroupCollection):
         print("  OK!", el, el.tag)
         return
 
+print("\nBuilding the clip_8 Demo Pages")
+print("===================================================")
+
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
 outDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
 outext = CFG.demofile_ext
-
 tocsectionsHTML = ""
 alldemos = {}
 sectioncnt = 0
@@ -69,20 +71,17 @@ while len(SCT.demos) > 0:
     else:
         nextlinkHTML = ""
     backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
-
     if not firstoutfile:
         # running in first round, only
         firstoutfile = outfile
         firstsection = chapter      ## Chapter and Section unified (for the demos)
     inFN = os.path.join(inDIRabs, infile)
     outFN = os.path.join(outDIRabs, outfile)
-
     if os.path.isfile(inFN):
         print("Processing:", inFN)
         sectioncnt += 1
         demopage = DemoPage(inFN, strictsubstitute=True)
         alldemos[infile] = demopage
-
         demopageHTML = demopage.generateSeries(itemTEM=TEM.Demo,
                                                 seriesTEM=TEM.Demos,
                                                 itemData={'viewBox': demopage.viewBox,
@@ -117,7 +116,6 @@ tocsectionsHTML = """
 What you see can be seen on two levels of interpretation: (1) Graphics elements are visible to humans as any other SVG graphics on the web. (2) clip_8 interprets them as instructions of a purely visual programming language.
 </p>
 """ + tocsectionsHTML
-
 backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 footerHTML = TEM.FooterIndexpage_str
