@@ -412,10 +412,10 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerintroHTML,
                                SCRIPT="")
-refsheetdoc = RefsheetDocument(title="clip8 | Reference Tests")
+refsheetdoc = Clip8Document(title="clip8 | Reference Tests")
 outFN = os.path.join(outDIRabs, "index.html")
 print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML)
+refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)
 
 ### introduction.html
 # FIXME: Make a proper template rather than re-using the test section template.
@@ -460,7 +460,7 @@ bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerintroHTML,
                                SCRIPT="")
-refsheetdoc = RefsheetDocument(title="clip8 | Reference Tests")
+refsheetdoc = Clip8Document(title="clip8 | Reference Tests")
 outFN = os.path.join(outDIRabs, "introduction.html")
 print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML)
+refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)

@@ -86,11 +86,16 @@ function main () {
         self.jsfiles = jsfiles
         self.head_final = head_final
 
-    def as_html_str(self, body_html):
+    def as_html_str(self, body_html, supress_clip8scripts=False):
         """ Output the html document with a given body.
 
         `body_html`: String with body html with enclosing body tags.
             "<body>....</body>"
+
+        `supress_clip8scripts`: By default, this setting is `False` so that
+            clip8 init scripts will be included in the output.
+            By setting this option to `True` the output is suppressed, e.g.
+            for introductory text pages in the reference sheets.
         """
         cssfiles_str = "\n".join(
             [('<link rel="stylesheet" href="%s">' % s) for s in self.cssfiles])
@@ -102,11 +107,14 @@ function main () {
                                                   jsfiles_str,
                                                   self.head_final)
         self._doctemplate = Template(templatestring)
-        return self._doctemplate.substitute(
-                    body=body_html,
-                    initclip8scripts=Clip8Document._pretem_scripts)
+        if supress_clip8scripts:
+            scripts = ""
+        else:
+            scripts = Clip8Document._pretem_scripts
+        return self._doctemplate.substitute(body=body_html,
+                                            initclip8scripts=scripts)
 
-    def write_file(self, filename, body_html):
+    def write_file(self, filename, *args, **kwargs):
         """ Like `as_html_str`, output to a file.
 
         `filename`: Output file name as a string.
@@ -114,5 +122,5 @@ function main () {
         output_file = codecs.open(filename, "w",
                                   encoding="utf-8",
                                   errors="xmlcharrefreplace")
-        output_file.write(self.as_html_str(body_html))
+        output_file.write(self.as_html_str(*args, **kwargs))
         output_file.close()
