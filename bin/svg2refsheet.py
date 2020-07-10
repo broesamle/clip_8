@@ -21,15 +21,35 @@ import os, io, codecs, fnmatch
 from tinycss.css21 import CSS21Parser
 
 import RefsheetTemplates as TEM
+from docgen import Clip8Document
 from SVGHandling import *
 import Sections as SCT
 import CFG
+
+class RefsheetDocument(Clip8Document):
+    _init_jasmine = """
+<link rel="shortcut icon" type="image/png" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine_favicon.png">
+<link rel="stylesheet" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine.css">
+<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine.js"></script>
+<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine-html.js"></script>
+<script src="../lib/jasmine/lib/jasmine-2.5.2/boot.js"></script>
+"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args,
+                         head_opener=RefsheetDocument._init_jasmine,
+                         **kwargs)
+
+print("\nBuilding the clip_8 Reference Test Sheets")
+print("===================================================")
 
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.refsheetsvgDIR)
 outDIRabs = os.path.join(CFG.rootDIRabs, CFG.testsDIR)
 outprefix = ""
 outsuffix = CFG.testfile_generatedFromSVG_suffix
 outext = CFG.testfile_ext
+
+print("    in:", inDIRabs)
+print("   out:", outDIRabs)
 
 class TestSection(SVGGroupCollection):
     def __init__(self, filename, *args, **kwargs):
@@ -190,14 +210,10 @@ while len(SCT.sections) > 0:
                                         link1=backlinkHTML, link2=nextlinkHTML,
                                         FOOTER=footerHTML,
                                         SCRIPT=TEM.ScriptInBody_str)
-
-        headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter=chapter)
-        documentHTML = TEM.Document.substitute(HEADER=headerHTML,BODY=bodyHTML, chapter=chapter)
-        output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-        output_file.write(documentHTML)
-        output_file.close()
+        refsheetdoc = RefsheetDocument(title="clip8 | " + chapter)
+        print ("    output:", outFN)
+        refsheetdoc.write_file(outFN, bodyHTML)
         backhref, backlinktitle = outfile, section
-
         appendixsectionsHTML += alltests[infile].generateSeries(
             itemTEM=TEM.ReftestCore,
             seriesTEM=TEM.Testsection_inclHref,
@@ -234,14 +250,10 @@ bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptInBody_str)
-
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix A")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
+refsheetdoc = RefsheetDocument(title="clip8 | Appendix A")
 outFN = os.path.join(outDIRabs, "appendix.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+refsheetdoc.write_file(outFN, bodyHTML)
 
 ### passing.html
 backlinkHTML = TEM.Linkback.substitute(href="appendix.html", linktext="All Tests")
@@ -262,14 +274,10 @@ bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptInBody_str)
-
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix B")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
+refsheetdoc = RefsheetDocument(title="clip8 | Appendix B")
 outFN = os.path.join(outDIRabs, "passing.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+refsheetdoc.write_file(outFN, bodyHTML)
 
 ### failing.html
 backlinkHTML = TEM.Linkback.substitute(href="passing.html", linktext="Expected to pass")
@@ -289,14 +297,10 @@ bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptInBody_str)
-
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter="Appendix C")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
+refsheetdoc = RefsheetDocument(title="clip8 | Appendix C")
 outFN = os.path.join(outDIRabs, "failing.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+refsheetdoc.write_file(outFN, bodyHTML)
 
 ### Graphical elements
 ### gfxelems.html
@@ -359,12 +363,10 @@ bodyHTML = TEM.Body.substitute(pagetitle='<a href="index.html">clip_8</a>',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptInBody_str)
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependJasmine_str+TEM.DependClip8_str, chapter=chapter)
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
+refsheetdoc = RefsheetDocument(title="clip8 | Appendix D")
 outFN = os.path.join(outDIRabs, "gfxelems.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+refsheetdoc.write_file(outFN, bodyHTML)
 
 ### index.html
 tocsectionsHTML = TEM.TOCchapter.substitute(
@@ -410,13 +412,10 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerintroHTML,
                                SCRIPT="")
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Reference Tests")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
+refsheetdoc = RefsheetDocument(title="clip8 | Reference Tests")
 outFN = os.path.join(outDIRabs, "index.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+refsheetdoc.write_file(outFN, bodyHTML)
 
 ### introduction.html
 # FIXME: Make a proper template rather than re-using the test section template.
@@ -461,10 +460,7 @@ bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerintroHTML,
                                SCRIPT="")
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Introduction")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
+refsheetdoc = RefsheetDocument(title="clip8 | Reference Tests")
 outFN = os.path.join(outDIRabs, "introduction.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+refsheetdoc.write_file(outFN, bodyHTML)

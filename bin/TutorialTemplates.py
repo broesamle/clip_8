@@ -73,8 +73,6 @@ TOCsection = Template("""
 </p>
 """)
 
-DependClip8_str = DependClip8_str + """<link rel="stylesheet" href="../css/klippen.css">"""
-
 ScriptInBody_str = """<script src="../js/svgloader.js"></script>"""
 
 Script = Template("""

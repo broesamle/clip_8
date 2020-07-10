@@ -21,14 +21,6 @@ from string import Template
 
 from CommonTemplates import *
 
-DependJasmine_str = """
-<link rel="shortcut icon" type="image/png" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine_favicon.png">
-<link rel="stylesheet" href="../lib/jasmine/lib/jasmine-2.5.2/jasmine.css">
-<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine.js"></script>
-<script src="../lib/jasmine/lib/jasmine-2.5.2/jasmine-html.js"></script>
-<script src="../lib/jasmine/lib/jasmine-2.5.2/boot.js"></script>
-"""
-
 FooterRefsheet = Template("""
 <footer>
 <p><b>Version $refsheet_version</b></p>

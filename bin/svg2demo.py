@@ -18,9 +18,11 @@
 
 
 import os, io, codecs, fnmatch
+
 from tinycss.css21 import CSS21Parser
 
 import DemoTemplates as TEM
+from docgen import Clip8Document
 from SVGHandling import *
 import Sections as SCT
 import CFG
@@ -94,17 +96,13 @@ while len(SCT.demos) > 0:
                                         link1=backlinkHTML, link2=nextlinkHTML,
                                         FOOTER=footerHTML,
                                         SCRIPT=TEM.ScriptInBody_str)
-        headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
-        documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-        output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-        output_file.write(documentHTML)
-        output_file.close()
-
+        clip8doc = Clip8Document(title="clip8 | " + chapter)
+        print ("    output:", outFN)
+        clip8doc.write_file(outFN, bodyHTML)
         tocsectionsHTML += TEM.TOCsection.substitute(
             demotitle=chapter,
             demohref=outfile,
             sectioncnt=sectioncnt)
-
         backhref, backlinktitle = outfile, chapter
     else:
         print ("Sections.py refers to a non existing demo:", infile, "at path", inDIRabs)
@@ -125,10 +123,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT="")
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Demos")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
 outFN = os.path.join(outDIRabs, "index.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+clip8doc = Clip8Document(title="clip8 | Demos")
+print ("    output:", outFN)
+clip8doc.write_file(outFN, bodyHTML)

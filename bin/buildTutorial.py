@@ -19,6 +19,7 @@
 
 import os, io, codecs, fnmatch, functools
 from string import Template
+from docgen import Clip8Document
 import TutorialTemplates as TEM
 from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
@@ -59,16 +60,12 @@ for key, bodyHTML in exercises.iterateSeries(
                       'FOOTER'     : TEM.Footer_str,
                       'pagetitle'  : "clip_8"}):
     print ("Processing:", key)
-    headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
-    documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-    ## a bit hacky but it allows to use template fields in the instructions
-    documentHTML = Template(documentHTML).substitute(exercises[key])
-    ## write the file
+    clip8doc = Clip8Document(title="clip8 | Tutorial",
+                             cssfiles=["../css/klippen.css"])
     outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
-    print ("  --output:", outFN)
-    output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-    output_file.write(documentHTML)
-    output_file.close()
+    print ("    output:", outFN)
+    clip8doc.write_file(outFN, bodyHTML)
+
 
 ### index.html
 ### For the tutorials, index.html contains the TOC.
@@ -113,13 +110,11 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                PREV_LINK=backlinkHTML, NEXT_LINK=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptAutostart_str)
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Tutorial")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
+clip8doc = Clip8Document(title="clip8 | Tutorial",
+                         cssfiles=["../css/klippen.css"])
 outFN = os.path.join(outDIRabs, "index.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+clip8doc.write_file(outFN, bodyHTML)
 
 ### klippen.html
 print ("Generating: klippen.html")
@@ -134,10 +129,8 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                NEXT_LINK=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT=TEM.ScriptInBody_str)
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Klippen")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
+clip8doc = Clip8Document(title="clip8 | " + "Klippen",
+                         cssfiles=["../css/klippen.css"])
 outFN = os.path.join(outDIRabs, "klippen.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+print ("    output:", outFN)
+clip8doc.write_file(outFN, bodyHTML)
