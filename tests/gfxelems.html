@@ -21,6 +21,7 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+
 <script>
 var WASM_READY = false;
 var Module = {
@@ -30,8 +31,11 @@ var Module = {
     noExitRuntime: true
 };
 
+function clip8initinstructions () {  }
+
 function main () {
     WASM_READY = true;
+    clip8initinstructions();
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
