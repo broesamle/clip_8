@@ -15,7 +15,7 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
-<script src="../js/svgloader.js"></script>
+
 <script>
 var WASM_READY = false;
 var Module = {
@@ -25,7 +25,11 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { prepareLoader(); }
+function clip8initinstructions () { Clip8controler.init(
+                    document.getElementById("clip8svgroot"),
+                    true, true, false,
+                    function () {},
+                    Clip8controler.playAction); }
 
 function main () {
     WASM_READY = true;
@@ -491,12 +495,6 @@ All rights reserved.<br>
 The tutorial is explicitly excluded from the creative commons license statement. Please see COPYRIGHT and README for details.
 </p>
 </footer>
-
-
-<script>
-termination_callback = undefined;
-Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback, Clip8controler.playAction);
-</script>
 
 </body>
 
