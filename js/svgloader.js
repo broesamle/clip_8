@@ -22,16 +22,30 @@
 
 var CLIP8_SVG_ROOT_ID = "clip8svgroot";
 var CLIP8_EXECROOT_ID = "clip8"
-
-var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
-var fileChooser = document.getElementById('filechooser');
-var highlightISCCheckbox = document.getElementById("hightlightISC");
 var lastloadedSVG = undefined;
+
+function prepareLoader() {
+    console.log("prepareLoader")
+    var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
+    var fileChooser = document.getElementById('filechooser');
+
+    dropZone.addEventListener('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+    });
+    dropZone.addEventListener('drop', handleFileDrop);
+    fileChooser.addEventListener('change', handleFileChoice, false);
+    console.log("prepareLoader done.")
+}
 
 if (!termination_callback) var termination_callback = undefined;
 
 function insertSVG(newsvgroot) {
     var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
+    var highlightISCCheckbox = document.getElementById("hightlightISC");
+    if (highlightISCCheckbox) hightlightISC = highlightISCCheckbox.checked;
+    else hightlightISC = false;
     // clear the existing svg root
     Clip8controler.pauseAction(); // we do not wand a clip_8 engine to operate on a DOM we are just changing.
     while (svgroot.firstChild) {
@@ -44,7 +58,8 @@ function insertSVG(newsvgroot) {
         svgroot.appendChild(movingchild.cloneNode(true));
         movingchild = movingchild.nextSibling;
     }
-    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, highlightISCCheckbox.checked, termination_callback);
+    Clip8controler.init(document.getElementById("clip8svgroot"),
+                        true, true, hightlightISC, termination_callback);
 }
 
 function loadSVG(e2) {
@@ -95,12 +110,3 @@ function handleStop() {
         insertSVG(lastloadedSVG);
     }
 }
-
-dropZone.addEventListener('dragover', function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'copy';
-});
-
-dropZone.addEventListener('drop', handleFileDrop);
-fileChooser.addEventListener('change', handleFileChoice, false);

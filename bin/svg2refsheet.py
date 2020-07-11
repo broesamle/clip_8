@@ -38,6 +38,7 @@ class RefsheetDocument(Classic_Clip8Page):
         super().__init__(*args,
                          head_opener=RefsheetDocument._init_jasmine,
                          **kwargs)
+        self.clip8initinstruct = ""     # The test runner takes care of the init
 
 print("\nBuilding the clip_8 Reference Test Sheets")
 print("===================================================")
@@ -413,7 +414,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerintroHTML,
                                SCRIPT="")
-refsheetdoc = Clip8Document(title="clip8 | Reference Tests")
+refsheetdoc = Classic_Clip8Page(title="clip8 | Reference Tests")
 outFN = os.path.join(outDIRabs, "index.html")
 print ("    output:", outFN)
 refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)
@@ -461,7 +462,7 @@ bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerintroHTML,
                                SCRIPT="")
-refsheetdoc = Clip8Document(title="clip8 | Reference Tests")
+refsheetdoc = Classic_Clip8Page(title="clip8 | Reference Tests")
 outFN = os.path.join(outDIRabs, "introduction.html")
 print ("    output:", outFN)
 refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)

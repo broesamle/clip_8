@@ -53,7 +53,6 @@ $contentHTML
 <a id="dynamic-nextlink" href="$NEXT_ELEMENT_KEY.%s" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 $KLIPPEN
 $FOOTER
-$SCRIPT
 </body>
 """ % exercisepage_ext)
 
@@ -73,31 +72,12 @@ TOCsection = Template("""
 </p>
 """)
 
-ScriptInBody_str = """<script src="../js/svgloader.js"></script>"""
-
-Script = Template("""
-<script>
-termination_callback = $check;
-display_success = function() {
-    var feedbackelement = document.getElementById("learner-feedback");
-    while (feedbackelement.firstChild) {
-        feedbackelement.removeChild(feedbackelement.firstChild);
-    }
-
-    feedbackelement.appendChild(document.createTextNode("$congratmsg"));
-    document.getElementById("dynamic-nextlink").style.display="block";
-}
-</script>
-<script src="../js/svgloader.js"></script>
-""")
-
 ScriptAutostart_str = """
 <script>
 termination_callback = undefined;
 Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback, Clip8controler.playAction);
 </script>
 """
-
 
 KlippenInitialSVG = Template("""
 <p class="$klippenmode">

@@ -95,7 +95,7 @@ while len(SCT.demos) > 0:
                                         MAIN=demopageHTML,
                                         link1=backlinkHTML, link2=nextlinkHTML,
                                         FOOTER=footerHTML,
-                                        SCRIPT=TEM.ScriptInBody_str)
+                                        SCRIPT="")
         clip8doc = Classic_Clip8Page(title="clip8 | " + chapter)
         print ("    output:", outFN)
         clip8doc.write_file(outFN, bodyHTML)
@@ -126,4 +126,4 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
 outFN = os.path.join(outDIRabs, "index.html")
 clip8doc = Classic_Clip8Page(title="clip8 | Demos")
 print ("    output:", outFN)
-clip8doc.write_file(outFN, bodyHTML)
+clip8doc.write_file(outFN, bodyHTML, supress_clip8scripts=True)

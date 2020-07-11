@@ -25,6 +25,44 @@ from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
 import CFG
 
+class TutorialPage(Classic_Clip8Page):
+
+    _feedback_tem = """<script>
+termination_callback = $check;
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+    feedbackelement.appendChild(document.createTextNode("$congratmsg"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
+</script>"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, interactive_loader=True, **kwargs)
+        self.clip8initinstruct = "prepareLoader();"     # The test runner takes care of the init
+
+    def set_check(self, checkroutine, congratmsg):
+        """ Define a javascript routine for detecting leaner success.
+
+        Technically this defines a termination callback from clip_8, provided with
+        `status`, number of `cycles`, and `history` which can be used to distinguish
+        correct from incorrect solutions.
+
+        `checkroutine`: string with a valid javascript function, e.g.
+            ```
+            function (status, cycles, history) {
+               if (status == Clip8controler.TERMINATED && cycles == 2)
+                   display_success();
+             };```
+
+         `congratmsg`: What the lerarner will see when the exercise is solved.
+         """
+        self.head_final += Template(
+            TutorialPage._feedback_tem).substitute(check=checkroutine,
+                                                   congratmsg=congratmsg)
+
 print("\nBuilding the clip_8 Tutorials")
 print("===================================================")
 
@@ -44,8 +82,6 @@ exercises.tryReformatFields( ['chapter', 'check', 'congratmsg'],
 for mddatadict in exercises.values():
     if 'check' not in mddatadict or not mddatadict['check']:
         mddatadict['check'] = "undefined"
-    scriptblock = TEM.Script.substitute(mddatadict)
-    mddatadict['SCRIPT'] = scriptblock
     mddatadict['exerciseSVGfile'] = mddatadict['THIS_ELEMENT_KEY']+'.'+CFG.exerciseSVG_ext
     mddatadict['chaptercnt'] = "[" + mddatadict['exerciseSVGfile'] + "]"
 
@@ -60,8 +96,10 @@ for key, bodyHTML in exercises.iterateSeries(
                       'FOOTER'     : TEM.Footer_str,
                       'pagetitle'  : "clip_8"}):
     print ("Processing:", key)
-    clip8doc = Classic_Clip8Page(title="clip8 | Tutorial",
-                             cssfiles=["../css/klippen.css"])
+    clip8doc = TutorialPage(title="clip8 | Tutorial",
+                            cssfiles=["../css/klippen.css"]
+                            )
+    clip8doc.set_check(exercises[key]['check'], exercises[key]['congratmsg'])
     outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
     print ("    output:", outFN)
     clip8doc.write_file(outFN, bodyHTML)

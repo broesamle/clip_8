@@ -39,7 +39,7 @@ $body
 </html>
 """
 
-    _pretem_scripts = initclip8scripts = """
+    _initscripts_tem = """
 <!-- CommonTemplates.DependClip8_str -->
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
@@ -49,6 +49,7 @@ $body
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+$interactive_loader
 <script>
 var WASM_READY = false;
 var Module = {
@@ -58,15 +59,19 @@ var Module = {
     noExitRuntime: true
 };
 
+function clip8initinstructions () { $initinstruct }
+
 function main () {
     WASM_READY = true;
+    clip8initinstructions();
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 """
 
     def __init__(self, title,
-                 cssfiles=[], jsfiles=[], head_opener="", head_final=""):
+                 cssfiles=[], jsfiles=[], head_opener="", head_final="",
+                 interactive_loader=False):
         """ Create one document with title, included files, etc.
 
         `title`: The title for the meta info
@@ -75,12 +80,27 @@ function main () {
 
         `cssfiles`: List of additional js files to be included.
             The clip8 scripts are added automatically.
+
+        `head_opener`, `head_final`:
+            For additional code snippets at start/end of the <head>.
+
+        `interactive_loader`: If set to `True` the user will be able to
+            load own svg documents via drag+drop and via file choose dialogue.
+            Default is `False`.
         """
         self.title = title
         self.head_opener = head_opener
         self.cssfiles = cssfiles
         self.jsfiles = jsfiles
         self.head_final = head_final
+        if interactive_loader:
+            self.clip8initinstruct = "prepareLoader();"
+            self.interactive_loader = '<script src="../js/svgloader.js"></script>'
+        else:
+            self.clip8initinstruct = """Clip8controler.init(
+                    document.getElementById("clip8svgroot"),
+                    true, true, false);"""
+            self.interactive_loader = ''
 
     def as_html_str(self, body_html, supress_clip8scripts=False):
         """ Output the html document with a given body.
@@ -105,7 +125,9 @@ function main () {
         if supress_clip8scripts:
             scripts = ""
         else:
-            scripts = Clip8Document._pretem_scripts
+            scripts = Template(Clip8Document._initscripts_tem).substitute(
+                        initinstruct=self.clip8initinstruct,
+                        interactive_loader=self.interactive_loader)
         return self._doctemplate.substitute(body=body_html,
                                             initclip8scripts=scripts)
 
