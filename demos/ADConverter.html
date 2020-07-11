@@ -15,6 +15,7 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+
 <script>
 var WASM_READY = false;
 var Module = {
@@ -24,8 +25,13 @@ var Module = {
     noExitRuntime: true
 };
 
+function clip8initinstructions () { Clip8controler.init(
+                    document.getElementById("clip8svgroot"),
+                    true, true, false); }
+
 function main () {
     WASM_READY = true;
+    clip8initinstructions();
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
@@ -296,11 +302,6 @@ function main () {
 </footer>
 
 
-<script>
-window.onload = function () {
-    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false);
-}
-</script>
 </body>
 
 </html>
