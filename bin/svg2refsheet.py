@@ -68,6 +68,7 @@ class TestSection(SVGGroupCollection):
                 'cycles':"-1"},
             *args, **kwargs)
 
+
     def processElement(self, el):
         elid = el.get('id',"")
         if elid == "SECTIONINFO":
@@ -426,7 +427,7 @@ Each operation applies to graphical content. The instructions, in turn, are them
 </p>
 <p>
 The reference test sheets define the language. At the same time, they test the current engine in the browser at hand. For each feature you can see whether it is actually available in that particular configuration.
-<a href="passing">Appendix B</a> defines the tests that are <b>exected to pass</b>, given the current version of the engine.
+<a href="passing.html">Appendix B</a> defines the tests that are <b>exected to pass</b>, given the current version of the engine.
 </p>
 <img src="example1.png">
 <h3>How to read the language reference</h3>
