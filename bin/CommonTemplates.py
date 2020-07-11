@@ -27,7 +27,7 @@ Footer_str = """
 </footer>
 """
 
-Body = Template("""
+Body_withscript = Template("""
 <body>
 <nav>
 $link1
@@ -40,6 +40,8 @@ $FOOTER
 $SCRIPT
 </body>
 """)
+
+Body = Template(Body_withscript.safe_substitute(SCRIPT=""))
 
 Linkback = Template("""
 <div class="leftlink">

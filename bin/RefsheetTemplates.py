@@ -21,6 +21,9 @@ from string import Template
 
 from CommonTemplates import *
 
+Body_DOMrefsheet = Template(Body_withscript.safe_substitute(
+        SCRIPT='<script src="../spec/spec_DOMrefsheet.js"></script>'))
+
 FooterRefsheet = Template("""
 <footer>
 <p><b>Version $refsheet_version</b></p>
@@ -42,8 +45,6 @@ The graphical language reference is explicitly excluded from the creative common
 </p>
 </footer>
 """)
-
-ScriptInBody_str = """<script src="../spec/spec_DOMrefsheet.js"></script>"""
 
 Testsection = Template("""
 <h3>$chaptercnt.$sectioncnt&nbsp;&nbsp;$testsectiontitle</h3>
