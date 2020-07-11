@@ -36,7 +36,6 @@ $NEXT_LINK
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
 $MAIN
 $FOOTER
-$SCRIPT
 </body>
 """)
 
@@ -71,13 +70,6 @@ TOCsection = Template("""
 <b><a href="$tuthref">$tuttitle</a></b> [<a href="$solutionhref">$solutiontitle</a>]
 </p>
 """)
-
-ScriptAutostart_str = """
-<script>
-termination_callback = undefined;
-Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback, Clip8controler.playAction);
-</script>
-"""
 
 KlippenInitialSVG = Template("""
 <p class="$klippenmode">

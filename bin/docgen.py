@@ -71,7 +71,7 @@ function main () {
 
     def __init__(self, title,
                  cssfiles=[], jsfiles=[], head_opener="", head_final="",
-                 interactive_loader=False):
+                 interactive_loader=False, autoplay=False):
         """ Create one document with title, included files, etc.
 
         `title`: The title for the meta info
@@ -87,6 +87,10 @@ function main () {
         `interactive_loader`: If set to `True` the user will be able to
             load own svg documents via drag+drop and via file choose dialogue.
             Default is `False`.
+
+        `autoplay`: Play immedeately after loading page.
+            Cannot be combined with `interactive_loader=True`.
+            Default is `False`.`
         """
         self.title = title
         self.head_opener = head_opener
@@ -94,13 +98,22 @@ function main () {
         self.jsfiles = jsfiles
         self.head_final = head_final
         if interactive_loader:
-            self.clip8initinstruct = "prepareLoader();"
             self.interactive_loader = '<script src="../js/svgloader.js"></script>'
+            self.clip8initinstruct = "prepareLoader();"
+            if autoplay:
+                raise ValueError("autoplay=True has no effect together with interactive_loader=True.")
         else:
-            self.clip8initinstruct = """Clip8controler.init(
+            self.interactive_loader = ''
+            if autoplay:
+                self.clip8initinstruct = """Clip8controler.init(
+                    document.getElementById("clip8svgroot"),
+                    true, true, false,
+                    function () {},
+                    Clip8controler.playAction);"""
+            else:
+                self.clip8initinstruct = """Clip8controler.init(
                     document.getElementById("clip8svgroot"),
                     true, true, false);"""
-            self.interactive_loader = ''
 
     def as_html_str(self, body_html, supress_clip8scripts=False):
         """ Output the html document with a given body.

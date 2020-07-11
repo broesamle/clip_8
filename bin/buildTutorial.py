@@ -146,10 +146,10 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Tutorial", chaptercnt="",
                                MAIN=mainHTML,
                                PREV_LINK=backlinkHTML, NEXT_LINK=nextlinkHTML,
-                               FOOTER=footerHTML,
-                               SCRIPT=TEM.ScriptAutostart_str)
-clip8doc = TutorialPage(title="clip8 | Tutorial",
-                        cssfiles=["../css/klippen.css"])
+                               FOOTER=footerHTML)
+clip8doc = Classic_Clip8Page(title="clip8 | Tutorial",
+                             cssfiles=["../css/klippen.css"],
+                             autoplay=True)
 outFN = os.path.join(outDIRabs, "index.html")
 print ("    output:", outFN)
 clip8doc.write_file(outFN, bodyHTML)
