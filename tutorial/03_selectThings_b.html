@@ -15,6 +15,7 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+<script src="../js/svgloader.js"></script>
 <script>
 var WASM_READY = false;
 var Module = {
@@ -24,8 +25,11 @@ var Module = {
     noExitRuntime: true
 };
 
+function clip8initinstructions () { prepareLoader(); }
+
 function main () {
     WASM_READY = true;
+    clip8initinstructions();
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
@@ -34,7 +38,32 @@ function main () {
 <link rel="stylesheet" href="../css/clip8.css">
 <link rel="stylesheet" href="../css/klippen.css">
 
-
+<script>
+termination_callback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED &&
+cycles == 3 &&
+history[history.length-1] &&
+history[history.length-1].opcode == OP.MOVE_REL &&
+history[history.length-1].resultset.length == 2 &&
+history[history.length-1].resultset[0].tagName == "rect" &&
+history[history.length-1].resultset[1].tagName == "rect" ) {
+var rect1 = history[history.length-1].resultset[0];
+var rect2 = history[history.length-1].resultset[1];
+// check for a minimum distance (excludes the possibility of moving the boxes into the selector)
+// FIXME: stronger criterion for success?
+if ( Math.abs ( parseFloat(rect1.getAttribute("x"))-parseFloat(rect2.getAttribute("x")) ) > (290-64) )
+display_success();
+}
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+    feedbackelement.appendChild(document.createTextNode("Exactly!"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
+</script>
 </head>
 
 <body>
@@ -516,36 +545,6 @@ function main () {
 © 2016, 2017, 2020 Martin Brösamle.<br>
 </p>
 </footer>
-
-
-<script>
-termination_callback = function (status, cycles, history) {
-if (status == Clip8controler.TERMINATED &&
-cycles == 3 &&
-history[history.length-1] &&
-history[history.length-1].opcode == OP.MOVE_REL &&
-history[history.length-1].resultset.length == 2 &&
-history[history.length-1].resultset[0].tagName == "rect" &&
-history[history.length-1].resultset[1].tagName == "rect" ) {
-var rect1 = history[history.length-1].resultset[0];
-var rect2 = history[history.length-1].resultset[1];
-// check for a minimum distance (excludes the possibility of moving the boxes into the selector)
-// FIXME: stronger criterion for success?
-if ( Math.abs ( parseFloat(rect1.getAttribute("x"))-parseFloat(rect2.getAttribute("x")) ) > (290-64) )
-display_success();
-}
-};
-display_success = function() {
-    var feedbackelement = document.getElementById("learner-feedback");
-    while (feedbackelement.firstChild) {
-        feedbackelement.removeChild(feedbackelement.firstChild);
-    }
-
-    feedbackelement.appendChild(document.createTextNode("Exactly!"));
-    document.getElementById("dynamic-nextlink").style.display="block";
-}
-</script>
-<script src="../js/svgloader.js"></script>
 
 </body>
 

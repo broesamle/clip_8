@@ -15,6 +15,7 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+<script src="../js/svgloader.js"></script>
 <script>
 var WASM_READY = false;
 var Module = {
@@ -24,8 +25,11 @@ var Module = {
     noExitRuntime: true
 };
 
+function clip8initinstructions () { prepareLoader(); }
+
 function main () {
     WASM_READY = true;
+    clip8initinstructions();
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
@@ -34,7 +38,19 @@ function main () {
 <link rel="stylesheet" href="../css/clip8.css">
 <link rel="stylesheet" href="../css/klippen.css">
 
-
+<script>
+termination_callback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+    feedbackelement.appendChild(document.createTextNode("Congratulations, you just executed a drawing!"));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
+</script>
 </head>
 
 <body>
@@ -525,23 +541,6 @@ function main () {
 © 2016, 2017, 2020 Martin Brösamle.<br>
 </p>
 </footer>
-
-
-<script>
-termination_callback = function (status, cycles, history) {
-if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
-};
-display_success = function() {
-    var feedbackelement = document.getElementById("learner-feedback");
-    while (feedbackelement.firstChild) {
-        feedbackelement.removeChild(feedbackelement.firstChild);
-    }
-
-    feedbackelement.appendChild(document.createTextNode("Congratulations, you just executed a drawing!"));
-    document.getElementById("dynamic-nextlink").style.display="block";
-}
-</script>
-<script src="../js/svgloader.js"></script>
 
 </body>
 

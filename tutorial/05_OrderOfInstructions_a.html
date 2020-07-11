@@ -15,6 +15,7 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
+<script src="../js/svgloader.js"></script>
 <script>
 var WASM_READY = false;
 var Module = {
@@ -24,8 +25,11 @@ var Module = {
     noExitRuntime: true
 };
 
+function clip8initinstructions () { prepareLoader(); }
+
 function main () {
     WASM_READY = true;
+    clip8initinstructions();
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
@@ -34,7 +38,35 @@ function main () {
 <link rel="stylesheet" href="../css/clip8.css">
 <link rel="stylesheet" href="../css/klippen.css">
 
-
+<script>
+termination_callback = function (status, cycles, history) {
+if (status == Clip8controler.TERMINATED &&
+cycles == 4 &&
+history[history.length-1] &&
+history[history.length-2] &&
+history[history.length-1].opcode == OP.MOVE_REL &&
+history[history.length-2].opcode == OP.MOVE_REL &&
+history[history.length-1].resultset.length == 1 &&
+history[history.length-2].resultset.length == 1 &&
+history[history.length-1].resultset[0].tagName == "rect" &&
+history[history.length-2].resultset[0].tagName == "rect" ) {
+var instr1 = history[history.length-2];
+var instr2 = history[history.length-1];
+// check for the location of the last and the second last instruction
+if ( instr1.p0prime.x - instr2.p0prime.x > 200 &&
+instr1.p0prime.y - instr2.p0prime.y > 100 )
+display_success();
+}
+};
+display_success = function() {
+    var feedbackelement = document.getElementById("learner-feedback");
+    while (feedbackelement.firstChild) {
+        feedbackelement.removeChild(feedbackelement.firstChild);
+    }
+    feedbackelement.appendChild(document.createTextNode("Thank you for testing the Tutorial. Currently, there is no next exercise and the LINK IS BROKEN, apologies."));
+    document.getElementById("dynamic-nextlink").style.display="block";
+}
+</script>
 </head>
 
 <body>
@@ -513,39 +545,6 @@ function main () {
 © 2016, 2017, 2020 Martin Brösamle.<br>
 </p>
 </footer>
-
-
-<script>
-termination_callback = function (status, cycles, history) {
-if (status == Clip8controler.TERMINATED &&
-cycles == 4 &&
-history[history.length-1] &&
-history[history.length-2] &&
-history[history.length-1].opcode == OP.MOVE_REL &&
-history[history.length-2].opcode == OP.MOVE_REL &&
-history[history.length-1].resultset.length == 1 &&
-history[history.length-2].resultset.length == 1 &&
-history[history.length-1].resultset[0].tagName == "rect" &&
-history[history.length-2].resultset[0].tagName == "rect" ) {
-var instr1 = history[history.length-2];
-var instr2 = history[history.length-1];
-// check for the location of the last and the second last instruction
-if ( instr1.p0prime.x - instr2.p0prime.x > 200 &&
-instr1.p0prime.y - instr2.p0prime.y > 100 )
-display_success();
-}
-};
-display_success = function() {
-    var feedbackelement = document.getElementById("learner-feedback");
-    while (feedbackelement.firstChild) {
-        feedbackelement.removeChild(feedbackelement.firstChild);
-    }
-
-    feedbackelement.appendChild(document.createTextNode("Thank you for testing the Tutorial. Currently, there is no next exercise and the LINK IS BROKEN, apologies."));
-    document.getElementById("dynamic-nextlink").style.display="block";
-}
-</script>
-<script src="../js/svgloader.js"></script>
 
 </body>
 
