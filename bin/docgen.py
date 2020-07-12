@@ -24,6 +24,7 @@ class Clip8Document:
     """ Generate a minimal clip_8 document."""
 
     _pretem = """
+<!-- Clip8Document._pretem -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@ $body
 """
 
     _initscripts_tem = """
-<!-- CommonTemplates.DependClip8_str -->
+<!-- Clip8Document._initscripts_tem -->
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
 <script src="../js/svgdom.js"></script>
