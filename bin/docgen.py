@@ -100,7 +100,7 @@ function main () {
         self.head_final = head_final
         if interactive_loader:
             self.interactive_loader = '<script src="../js/svgloader.js"></script>'
-            self.clip8initinstruct = "prepareLoader();"
+            self.clip8initinstruct = "svgloader.init();"
             if autoplay:
                 raise ValueError("autoplay=True has no effect together with interactive_loader=True.")
         else:

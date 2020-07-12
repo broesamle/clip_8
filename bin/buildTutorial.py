@@ -27,8 +27,8 @@ import CFG
 
 class TutorialPage(Classic_Clip8Page):
 
-    _feedback_tem = """<script>
-termination_callback = $check;
+    _feedback_tem = Template("""<!-- TutorialPage._feedback_tem -->
+<script>
 display_success = function() {
     var feedbackelement = document.getElementById("learner-feedback");
     while (feedbackelement.firstChild) {
@@ -37,15 +37,16 @@ display_success = function() {
     feedbackelement.appendChild(document.createTextNode("$congratmsg"));
     document.getElementById("dynamic-nextlink").style.display="block";
 }
-</script>"""
+</script>""")
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, interactive_loader=True, **kwargs)
-        self.clip8initinstruct = "prepareLoader();"     # The test runner takes care of the init
+    def __init__(self, *args,
+                 check="function(){}",
+                 congratmsg="",
+                 head_final="",
+                 **kwargs):
+        """ Init a tutorial page document.
 
-    def set_check(self, checkroutine, congratmsg):
-        """ Define a javascript routine for detecting leaner success.
-
+        A javascript routine for detecting leaner success can be defined.
         Technically this defines a termination callback from clip_8, provided with
         `status`, number of `cycles`, and `history` which can be used to distinguish
         correct from incorrect solutions.
@@ -59,9 +60,13 @@ display_success = function() {
 
          `congratmsg`: What the lerarner will see when the exercise is solved.
          """
-        self.head_final += Template(
-            TutorialPage._feedback_tem).substitute(check=checkroutine,
-                                                   congratmsg=congratmsg)
+        feedback = TutorialPage._feedback_tem.substitute(congratmsg=congratmsg)
+        super().__init__(*args,
+                         head_final=head_final+feedback,
+                         interactive_loader=True,
+                         **kwargs)
+        self.clip8initinstruct = ("svgloader.init(termination_callback=%s);"
+                                  % check)
 
 print("\nBuilding the clip_8 Tutorials")
 print("===================================================")
@@ -97,9 +102,9 @@ for key, bodyHTML in exercises.iterateSeries(
                       'pagetitle'  : "clip_8"}):
     print ("Processing:", key)
     clip8doc = TutorialPage(title="clip8 | Tutorial",
-                            cssfiles=["../css/klippen.css"]
-                            )
-    clip8doc.set_check(exercises[key]['check'], exercises[key]['congratmsg'])
+                            cssfiles=["../css/klippen.css"],
+                            check=exercises[key]['check'],
+                            congratmsg=exercises[key]['congratmsg'])
     outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
     print ("    output:", outFN)
     clip8doc.write_file(outFN, bodyHTML)
