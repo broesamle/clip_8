@@ -58,7 +58,7 @@ display_success = function() {
                    display_success();
              };```
 
-         `congratmsg`: What the lerarner will see when the exercise is solved.
+         `congratmsg`: What the learner will see when the exercise is solved.
          """
         feedback = TutorialPage._feedback_tem.substitute(congratmsg=congratmsg)
         super().__init__(*args,
