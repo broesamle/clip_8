@@ -46,7 +46,7 @@ display_success = function() {
                  **kwargs):
         """ Init a tutorial page document.
 
-        A javascript routine for detecting leaner success can be defined.
+        A javascript routine for detecting learner success can be defined.
         Technically this defines a termination callback from clip_8, provided with
         `status`, number of `cycles`, and `history` which can be used to distinguish
         correct from incorrect solutions.
