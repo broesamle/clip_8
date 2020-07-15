@@ -323,24 +323,14 @@ if __name__ == "__main__":
                                         linktext="All Tests")
     nextlinkHTML = TEM.Linknext.substitute(href="failing.html",
                                         linktext="Expected to fail")
-    passingtestsExplainHTML = """
-<p>If you encounter a failing test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>. It may indicate several things:
-<br>(a) By accident, the test is not in the list of tests that are expected to fail.
-<br>(b) clip_8 has, in principle, the functionality to pass the test. Your browser's configuration may cause different results!
-<br>(c) Functionality is actually really broken and the test fails, for instance, because of recent disruptive changes.
-</p>
-<p>
-Thank you for your contribution!
-</p>
-"""
     bodyHTML = TEM.Body_DOMrefsheet.substitute(
-                                pagetitle='<a href="index.html">clip_8</a>',
-                                chapter="Expected to pass",
-                                chaptercnt="Appendix B",
-                                MAIN=passingtestsExplainHTML+passingtestsHTML,
-                                link1=backlinkHTML,
-                                link2=nextlinkHTML,
-                                FOOTER=footerHTML)
+                        pagetitle='<a href="index.html">clip_8</a>',
+                        chapter="Expected to pass",
+                        chaptercnt="Appendix B",
+                        MAIN=TEM.passingtestsExplainHTML+passingtestsHTML,
+                        link1=backlinkHTML,
+                        link2=nextlinkHTML,
+                        FOOTER=footerHTML)
     refsheetdoc = RefsheetDocument(title="clip8 | Appendix B")
     outFN = os.path.join(outDIRabs, "passing.html")
     print ("    output:", outFN)
@@ -351,23 +341,14 @@ Thank you for your contribution!
                                         linktext="Expected to pass")
     nextlinkHTML = TEM.Linknext.substitute(href="gfxelems.html",
                                         linktext="Graphical elemements")
-    failingtestsExplainHTML = """
-<p>
-If you encounter a passing (all three subtests are green) test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>.
-Most likely, it was forgotten to remove the test from the expected-to-fail list when a related feature was implemented.
-</p>
-<p>
-Thank you for your contribution!
-</p>
-"""
     bodyHTML = TEM.Body_DOMrefsheet.substitute(
-                                pagetitle='<a href="index.html">clip_8</a>',
-                                chapter="Expected to fail",
-                                chaptercnt="Appendix C",
-                                MAIN=failingtestsExplainHTML+failingtestsHTML,
-                                link1=backlinkHTML,
-                                link2=nextlinkHTML,
-                                FOOTER=footerHTML)
+                        pagetitle='<a href="index.html">clip_8</a>',
+                        chapter="Expected to fail",
+                        chaptercnt="Appendix C",
+                        MAIN=TEM.failingtestsExplainHTML+failingtestsHTML,
+                        link1=backlinkHTML,
+                        link2=nextlinkHTML,
+                        FOOTER=footerHTML)
     refsheetdoc = RefsheetDocument(title="clip8 | Appendix C")
     outFN = os.path.join(outDIRabs, "failing.html")
     print ("    output:", outFN)
@@ -485,37 +466,7 @@ Thank you for your contribution!
 
     ### introduction.html
     # FIXME: Make a proper template rather than re-using the test section template.
-    introHTML = """
-<p>
-The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter.
-Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form.
-</p>
-<p>
-The reference test sheets define the language. At the same time, they test the current engine in the browser at hand. For each feature you can see whether it is actually available in that particular configuration.
-<a href="passing.html">Appendix B</a> defines the tests that are <b>exected to pass</b>, given the current version of the engine.
-</p>
-<img src="example1.png">
-<h3>How to read the language reference</h3>
-<p>
-The first box shows the precondition, before the instruction.<br>
-The second box the desired result or postcondition.<br>
-The third box after the colon is the test itself.
-</p>
-<p>
-The interpreter will try to execute the contained program in the third box.
-What you will see is the actual result after the (successful?) execution.
-If you have slow hardware you might see the execution process: Some rectangle might be jumping or changing size, when reloading the test sheet.
-</p>
-<h3>How to read the test results</h3>
-<p>
-For each reference test there are three checks to be done. Each result is indicated by a green dot or a red cross, after the graphical reference test areas.<br>
-</p>
-<p>
-The first test is a selftest: it checks whether precondition and test area match before the execution.<br>
-The second test checks success of execution: It will fail on runtime errors or infinite execution.<br>
-The third  test checks whether test and postcondition match after execution.
-</p>
-"""
+
 
     backlinkHTML = TEM.Linkback.substitute(href="index.html",
                                         linktext="Table of Contents")
@@ -524,7 +475,7 @@ The third  test checks whether test and postcondition match after execution.
     bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
                                 chapter="Introduction",
                                 chaptercnt="Reference Tests",
-                                MAIN=introHTML,
+                                MAIN=TEM.introHTML,
                                 link1=backlinkHTML,
                                 link2=nextlinkHTML,
                                 FOOTER=footerintroHTML)
