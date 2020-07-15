@@ -18,9 +18,11 @@
 
 
 import os, io, codecs, fnmatch
+
 from tinycss.css21 import CSS21Parser
 
 import DemoTemplates as TEM
+from docgen import Classic_Clip8Page
 from SVGHandling import *
 import Sections as SCT
 import CFG
@@ -48,10 +50,12 @@ class DemoPage(SVGGroupCollection):
         print("  OK!", el, el.tag)
         return
 
+print("\nBuilding the clip_8 Demo Pages")
+print("===================================================")
+
 inDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
 outDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
 outext = CFG.demofile_ext
-
 tocsectionsHTML = ""
 alldemos = {}
 sectioncnt = 0
@@ -69,20 +73,17 @@ while len(SCT.demos) > 0:
     else:
         nextlinkHTML = ""
     backlinkHTML = TEM.Linkback.substitute(href=backhref, linktext=backlinktitle)
-
     if not firstoutfile:
         # running in first round, only
         firstoutfile = outfile
         firstsection = chapter      ## Chapter and Section unified (for the demos)
     inFN = os.path.join(inDIRabs, infile)
     outFN = os.path.join(outDIRabs, outfile)
-
     if os.path.isfile(inFN):
         print("Processing:", inFN)
         sectioncnt += 1
         demopage = DemoPage(inFN, strictsubstitute=True)
         alldemos[infile] = demopage
-
         demopageHTML = demopage.generateSeries(itemTEM=TEM.Demo,
                                                 seriesTEM=TEM.Demos,
                                                 itemData={'viewBox': demopage.viewBox,
@@ -94,18 +95,14 @@ while len(SCT.demos) > 0:
                                         MAIN=demopageHTML,
                                         link1=backlinkHTML, link2=nextlinkHTML,
                                         FOOTER=footerHTML,
-                                        SCRIPT=TEM.ScriptInBody_str)
-        headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter=chapter)
-        documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-        output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-        output_file.write(documentHTML)
-        output_file.close()
-
+                                        SCRIPT="")
+        clip8doc = Classic_Clip8Page(title="clip8 | " + chapter)
+        print ("    output:", outFN)
+        clip8doc.write_file(outFN, bodyHTML)
         tocsectionsHTML += TEM.TOCsection.substitute(
             demotitle=chapter,
             demohref=outfile,
             sectioncnt=sectioncnt)
-
         backhref, backlinktitle = outfile, chapter
     else:
         print ("Sections.py refers to a non existing demo:", infile, "at path", inDIRabs)
@@ -117,7 +114,6 @@ tocsectionsHTML = """
 What you see can be seen on two levels of interpretation: (1) Graphics elements are visible to humans as any other SVG graphics on the web. (2) clip_8 interprets them as instructions of a purely visual programming language.
 </p>
 """ + tocsectionsHTML
-
 backlinkHTML = TEM.Linkback.substitute(href="https://github.com/broesamle/clip_8", linktext="Project page on github")
 nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile, linktext=firstsection)
 footerHTML = TEM.FooterIndexpage_str
@@ -127,10 +123,7 @@ bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                link1=backlinkHTML, link2=nextlinkHTML,
                                FOOTER=footerHTML,
                                SCRIPT="")
-headerHTML = TEM.Header.substitute(dependencies=TEM.DependClip8_str, chapter="Demos")
-documentHTML = TEM.Document.substitute(HEADER=headerHTML, BODY=bodyHTML)
-
 outFN = os.path.join(outDIRabs, "index.html")
-output_file = codecs.open(outFN, "w", encoding="utf-8", errors="xmlcharrefreplace")
-output_file.write(documentHTML)
-output_file.close()
+clip8doc = Classic_Clip8Page(title="clip8 | Demos")
+print ("    output:", outFN)
+clip8doc.write_file(outFN, bodyHTML, supress_clip8scripts=True)

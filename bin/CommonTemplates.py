@@ -16,63 +16,18 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+
 from string import Template
 
 Footer_str = """
 <footer>
 <p>
-© 2016, 2017 Martin Brösamle.<br>
+© 2016, 2017, 2020 Martin Brösamle.<br>
 </p>
 </footer>
 """
 
-DependClip8_str = """
-<!-- CommonTemplates.DependClip8_str -->
-<script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
-<script src="../lib/clip8dependencies.js"></script>
-
-<link rel="stylesheet" href="../css/refsheet.css">
-<link rel="stylesheet" href="../css/clip8.css">
-
-<script src="../js/svgdom.js"></script>
-<script src="../js/svginterval.js"></script>
-<script src="../js/svgretrieve.js"></script>
-<script src="../js/paperclip.js"></script>
-<script src="../js/clip8decode.js"></script>
-<script src="../js/clip8.js"></script>
-<script>
-var WASM_READY = false;
-var Module = {
-    wasmBinaryFile: "../rs/wasm/iscd.wasm",
-    onRuntimeInitialized: main,
-    noInitialRun: true,     // seems necessary to use the module after main
-    noExitRuntime: true
-};
-
-function main () {
-    WASM_READY = true;
-}
-</script>
-<script src="../rs/wasm/iscd.js"></script>
-"""
-
-Document = Template("""
-<!DOCTYPE html>
-<html>
-$HEADER
-$BODY
-</html>
-""")
-
-Header = Template("""
-<head>
-<meta charset="utf-8">
-<title>clip8 | $chapter</title>
-$dependencies
-</head>
-""")
-
-Body = Template("""
+Body_withscript = Template("""
 <body>
 <nav>
 $link1
@@ -85,6 +40,8 @@ $FOOTER
 $SCRIPT
 </body>
 """)
+
+Body = Template(Body_withscript.safe_substitute(SCRIPT=""))
 
 Linkback = Template("""
 <div class="leftlink">

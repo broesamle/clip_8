@@ -21,7 +21,7 @@ check:          function (status, cycles, history) {
                 }
 
 
-1. Run `$exerciseSVGfile`.  
+1. Run `05_OrderOfInstructions_a.svg`.  
    _The upper-left box moves before the lower-right one does._
 
 1. Reverse the controlflow so that the lower-right box moves first.

@@ -1,6 +1,6 @@
 #
 #   clip_8 interpreter; iconic language for paper-inspired operations.
-#   Copyright (C) 2016, 2017  Martin Brösamle
+#   Copyright (C) 2016, 2017 Martin Brösamle
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -36,7 +36,6 @@ $NEXT_LINK
 <h1><span class="sndtitle">$pagetitle&nbsp;|</span>&nbsp;$chapter</h1>
 $MAIN
 $FOOTER
-$SCRIPT
 </body>
 """)
 
@@ -53,7 +52,6 @@ $contentHTML
 <a id="dynamic-nextlink" href="$NEXT_ELEMENT_KEY.%s" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
 $KLIPPEN
 $FOOTER
-$SCRIPT
 </body>
 """ % exercisepage_ext)
 
@@ -72,34 +70,6 @@ TOCsection = Template("""
 <b><a href="$tuthref">$tuttitle</a></b> [<a href="$solutionhref">$solutiontitle</a>]
 </p>
 """)
-
-DependClip8_str = DependClip8_str + """<link rel="stylesheet" href="../css/klippen.css">"""
-
-ScriptInBody_str = """<script src="../js/svgloader.js"></script>"""
-
-Script = Template("""
-<script>
-termination_callback = $check;
-display_success = function() {
-    var feedbackelement = document.getElementById("learner-feedback");
-    while (feedbackelement.firstChild) {
-        feedbackelement.removeChild(feedbackelement.firstChild);
-    }
-
-    feedbackelement.appendChild(document.createTextNode("$congratmsg"));
-    document.getElementById("dynamic-nextlink").style.display="block";
-}
-</script>
-<script src="../js/svgloader.js"></script>
-""")
-
-ScriptAutostart_str = """
-<script>
-termination_callback = undefined;
-Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false, termination_callback, Clip8controler.playAction);
-</script>
-"""
-
 
 KlippenInitialSVG = Template("""
 <p class="$klippenmode">

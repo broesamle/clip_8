@@ -1,41 +1,17 @@
 
+<!-- Clip8Document._pretem -->
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
 <title>clip8 | Reference Tests</title>
 
-<!-- CommonTemplates.DependClip8_str -->
-<script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
-<script src="../lib/clip8dependencies.js"></script>
 
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
 
-<script src="../js/svgdom.js"></script>
-<script src="../js/svginterval.js"></script>
-<script src="../js/svgretrieve.js"></script>
-<script src="../js/paperclip.js"></script>
-<script src="../js/clip8decode.js"></script>
-<script src="../js/clip8.js"></script>
-<script>
-var WASM_READY = false;
-var Module = {
-    wasmBinaryFile: "../rs/wasm/iscd.wasm",
-    onRuntimeInitialized: main,
-    noInitialRun: true,     // seems necessary to use the module after main
-    noExitRuntime: true
-};
-
-function main () {
-    WASM_READY = true;
-}
-</script>
-<script src="../rs/wasm/iscd.js"></script>
 
 </head>
-
 
 <body>
 <nav>
@@ -66,25 +42,25 @@ function main () {
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="-31.5 -95.5 992 1264">
-<path d="M35.58,490.51    c0,0,66.061-99.091,150.471-110.102c84.41-11.009,220.201,84.411,220.201,84.411" fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="14.6801" /><polyline fill="none" points="692.846,464.328 634.123,552.408     692.846,640.489   " stroke="#990000" stroke-miterlimit="10" stroke-width="29.3602" /><g>
+<path fill="none" stroke="#990000" stroke-width="14.6801" stroke-miterlimit="10" d="M35.58,490.51    c0,0,66.061-99.091,150.471-110.102c84.41-11.009,220.201,84.411,220.201,84.411" /><polyline fill="none" stroke="#990000" stroke-width="29.3602" stroke-miterlimit="10" points="692.846,464.328 634.123,552.408     692.846,640.489   " /><g>
 			<g>
 				
-					<line fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="14.6801" x1="503.715" x2="520.83" y1="827.313" y2="841.169" />
+					<line fill="none" stroke="#990000" stroke-width="14.6801" stroke-miterlimit="10" x1="503.715" y1="827.313" x2="520.83" y2="841.169" />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="44.7242,14.9081" stroke-miterlimit="10" stroke-width="14.6801" x1="532.417" x2="712.02" y1="850.549" y2="995.94" />
+					<line fill="none" stroke="#990000" stroke-width="14.6801" stroke-miterlimit="10" stroke-dasharray="44.7242,14.9081" x1="532.417" y1="850.549" x2="712.02" y2="995.94" />
 				
-					<line fill="none" stroke="#990000" stroke-miterlimit="10" stroke-width="14.6801" x1="717.813" x2="734.928" y1="1000.63" y2="1014.485" />
+					<line fill="none" stroke="#990000" stroke-width="14.6801" stroke-miterlimit="10" x1="717.813" y1="1000.63" x2="734.928" y2="1014.485" />
 			</g>
 		</g><g>
 			<g>
 				
-					<line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-width="29.3602" x1="634.278" x2="654.215" y1="-13.5" y2="17.313" />
+					<line fill="none" stroke="#990000" stroke-width="29.3602" stroke-linecap="round" stroke-linejoin="round" x1="634.278" y1="-13.5" x2="654.215" y2="17.313" />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="68.9765,41.386" stroke-linecap="round" stroke-linejoin="round" stroke-width="29.3602" x1="676.698" x2="845.322" y1="52.059" y2="312.656" />
+					<line fill="none" stroke="#990000" stroke-width="29.3602" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="68.9765,41.386" x1="676.698" y1="52.059" x2="845.322" y2="312.656" />
 				
-					<line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-width="29.3602" x1="856.563" x2="876.5" y1="330.029" y2="360.842" />
+					<line fill="none" stroke="#990000" stroke-width="29.3602" stroke-linecap="round" stroke-linejoin="round" x1="856.563" y1="330.029" x2="876.5" y2="360.842" />
 			</g>
-		</g><polygon fill="none" points="    412.784,12.918 354.064,247.799 412.784,189.079 471.503,247.799   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="29.3602" /><circle cx="117.818" cy="41.351" fill="#990000" r="33.03" stroke="#990000" stroke-miterlimit="10" stroke-width="3.67" /><circle cx="117.818" cy="41.351" fill="none" r="66.06" stroke="#990000" stroke-miterlimit="10" stroke-width="14.6801" /><polygon fill="none" points="    82.061,1051.006 9.019,860.652 159.531,738.916 327.75,747.77 183.878,873.934 285.696,1066.5   " stroke="#990000" stroke-dasharray="44.0403,14.6801" stroke-miterlimit="10" stroke-width="14.6801" />
+		</g><polygon fill="none" stroke="#990000" stroke-width="29.3602" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    412.784,12.918 354.064,247.799 412.784,189.079 471.503,247.799   " /><circle fill="#990000" stroke="#990000" stroke-width="3.67" stroke-miterlimit="10" cx="117.818" cy="41.351" r="33.03" /><circle fill="none" stroke="#990000" stroke-width="14.6801" stroke-miterlimit="10" cx="117.818" cy="41.351" r="66.06" /><polygon fill="none" stroke="#990000" stroke-width="14.6801" stroke-miterlimit="10" stroke-dasharray="44.0403,14.6801" points="    82.061,1051.006 9.019,860.652 159.531,738.916 327.75,747.77 183.878,873.934 285.696,1066.5   " />
 </svg>
 1.1&nbsp;&nbsp;<a href="tree-of-graphics-elements_genfromSVG.html">Elements by type</a>
 </h3>
@@ -95,7 +71,7 @@ function main () {
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<circle cx="4.143" cy="45.032" fill="#9BC9C7" r="2.143" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="57.179" cy="23.604" fill="#9BC9C7" r="2.143" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="57.179" cy="23.604" fill="none" r="4.821" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.5" /><path d="M4.143,45.007    c20.893,21.427,18.75-32.118,53.036-21.43" fill="none" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.5" />
+<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="4.143" cy="45.032" r="2.143" /><circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="57.179" cy="23.604" r="2.143" /><circle fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-miterlimit="10" cx="57.179" cy="23.604" r="4.821" /><path fill="none" stroke="#9BC9C7" stroke-width="1.5" stroke-miterlimit="10" d="M4.143,45.007    c20.893,21.427,18.75-32.118,53.036-21.43" />
 </svg>
 2.1&nbsp;&nbsp;<a href="test_controlflow_genfromSVG.html">Control flow</a>
 </h3>
@@ -104,35 +80,35 @@ function main () {
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
 <g>
 			<g>
-				<polyline fill="none" points="28,38.5 28,40 26.5,40     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="28,38.5 28,40 26.5,40     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="3.70588,8.647059" stroke-miterlimit="10" stroke-width="3" x1="17.853027" x2="9.82373" y1="40" y2="40" />
-				<polyline fill="none" points="5.5,40 4,40 4,38.5     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="3.70588,8.647059" x1="17.853027" y1="40" x2="9.82373" y2="40" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="5.5,40 4,40 4,38.5     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="2.67568,6.24324" stroke-miterlimit="10" stroke-width="3" x1="4" x2="4" y1="32.256836" y2="8.621582" />
-				<polyline fill="none" points="4,5.5 4,4 5.5,4     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="2.67568,6.24324" x1="4" y1="32.256836" x2="4" y2="8.621582" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="4,5.5 4,4 5.5,4     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="3.70588,8.647059" stroke-miterlimit="10" stroke-width="3" x1="14.146973" x2="22.17627" y1="4" y2="4" />
-				<polyline fill="none" points="26.5,4 28,4 28,5.5     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="3.70588,8.647059" x1="14.146973" y1="4" x2="22.17627" y2="4" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="26.5,4 28,4 28,5.5     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="2.67568,6.24324" stroke-miterlimit="10" stroke-width="3" x1="28" x2="28" y1="11.743164" y2="35.37793" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="2.67568,6.24324" x1="28" y1="11.743164" x2="28" y2="35.37793" />
 			</g>
 		</g><g>
 			<g>
-				<polyline fill="none" points="60,55.5 60,60 55.5,60     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="60,55.5 60,60 55.5,60     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="52.5" x2="42" y1="60" y2="60" />
-				<polyline fill="none" points="40.5,60 36,60 36,55.5     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="52.5" y1="60" x2="42" y2="60" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="40.5,60 36,60 36,55.5     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="36" x2="36" y1="52.5" y2="30" />
-				<polyline fill="none" points="36,28.5 36,24 40.5,24     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="52.5" x2="36" y2="30" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="36,28.5 36,24 40.5,24     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="43.5" x2="54" y1="24" y2="24" />
-				<polyline fill="none" points="55.5,24 60,24 60,28.5     " stroke="#990000" stroke-miterlimit="10" stroke-width="3" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="43.5" y1="24" x2="54" y2="24" />
+				<polyline fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" points="55.5,24 60,24 60,28.5     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="60" x2="60" y1="31.5" y2="54" />
+					<line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="60" y1="31.5" x2="60" y2="54" />
 			</g>
-		</g><line fill="none" stroke="#990000" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="3" x1="36" x2="60.625" y1="24" y2="2.375" />
+		</g><line fill="none" stroke="#990000" stroke-width="3" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="24" x2="60.625" y2="2.375" />
 </svg>
 2.2&nbsp;&nbsp;<a href="test_selectors_genfromSVG.html">Selectors</a>
 </h3>
@@ -141,42 +117,42 @@ function main () {
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
 <g>
 			<g>
-				<polyline fill="none" points="60,57 60,60 57,60     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="60,57 60,60 57,60     " />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="55" x2="52" y1="60" y2="60" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="55" y1="60" x2="52" y2="60" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="51" x2="40" y1="60" y2="60" />
-				<polyline fill="none" points="39,60 36,60 36,57     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="51" y1="60" x2="40" y2="60" />
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="39,60 36,60 36,57     " />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="36" x2="36" y1="55" y2="52" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="36" y1="55" x2="36" y2="52" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="36" x2="36" y1="51" y2="28" />
-				<polyline fill="none" points="36,27 36,24 39,24     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="36" y1="51" x2="36" y2="28" />
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="36,27 36,24 39,24     " />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="41" x2="44" y1="24" y2="24" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="41" y1="24" x2="44" y2="24" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="45" x2="56" y1="24" y2="24" />
-				<polyline fill="none" points="57,24 60,24 60,27     " stroke="#E5B7B7" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="45" y1="24" x2="56" y2="24" />
+				<polyline fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" points="57,24 60,24 60,27     " />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="2,2" stroke-miterlimit="10" stroke-width="2" x1="60" x2="60" y1="29" y2="32" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="2,2" x1="60" y1="29" x2="60" y2="32" />
 				
-					<line fill="none" stroke="#E5B7B7" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="60" x2="60" y1="33" y2="56" />
+					<line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="60" y1="33" x2="60" y2="56" />
 			</g>
-		</g><line fill="none" stroke="#E5B7B7" stroke-dasharray="9,3" stroke-miterlimit="10" stroke-width="2" x1="36" x2="4.625" y1="24" y2="60.375" /><rect height="7" width="38" x="4" y="4" /><line fill="none" stroke="#990000" stroke-dasharray="6,2,2,2" stroke-miterlimit="10" stroke-width="2" x1="13" x2="60" y1="7" y2="24" />
+		</g><line fill="none" stroke="#E5B7B7" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="9,3" x1="36" y1="24" x2="4.625" y2="60.375" /><rect x="4" y="4" width="38" height="7" /><line fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="6,2,2,2" x1="13" y1="7" x2="60" y2="24" />
 </svg>
 2.3&nbsp;&nbsp;<a href="test_selectors-param_genfromSVG.html">Parameters</a>
 </h3>
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<circle cx="5.161" cy="31.281" fill="#9BC9C7" r="2.143" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="56.16" cy="31.281" fill="#9BC9C7" r="2.143" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="56.161" cy="31.281" fill="none" r="4.821" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><path d="M5.161,31.256    c9.148,0.197,10.982,0,13.982,6.744" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><path d="M19.143,38c10.375-8.861,17.624-6,17.623,0" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><path d="M36.766,38    c8.127,7.166,7.377-6.719,19.395-6.719" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="19.143" x2="19.144" y1="38" y2="11.667" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="36.766" x2="36.766" y1="38" y2="52.333" />
+<circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="5.161" cy="31.281" r="2.143" /><circle fill="#9BC9C7" stroke="#9ACDCD" stroke-width="1.0714" stroke-miterlimit="10" cx="56.16" cy="31.281" r="2.143" /><circle fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" cx="56.161" cy="31.281" r="4.821" /><path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M5.161,31.256    c9.148,0.197,10.982,0,13.982,6.744" /><path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M19.143,38c10.375-8.861,17.624-6,17.623,0" /><path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M36.766,38    c8.127,7.166,7.377-6.719,19.395-6.719" /><line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="19.143" y1="38" x2="19.144" y2="11.667" /><line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="36.766" y1="38" x2="36.766" y2="52.333" />
 </svg>
 2.4&nbsp;&nbsp;<a href="test_combine-instructions_genfromSVG.html">Combining Instructions</a>
 </h3>
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<path d="M48.256,58.839    c0.197-9.148,0-10.981,6.744-13.982" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><path d="M55,44.856    C46.139,34.482,43.875,30.75,23.875,38" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="55" x2="28.667" y1="44.856" y2="44.856" /><circle cx="48.281" cy="58.839" fill="#9BC9C7" r="2.143" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="48.281" cy="7.84" fill="#9BC9C7" r="2.143" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="48.281" cy="7.839" fill="none" r="4.821" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><path d="M23.875,38    c9.375-6.875,24.406-18.143,24.406-30.16" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="23.875" x2="16" y1="38" y2="28.126" />
+<path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M48.256,58.839    c0.197-9.148,0-10.981,6.744-13.982" /><path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M55,44.856    C46.139,34.482,43.875,30.75,23.875,38" /><line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="55" y1="44.856" x2="28.667" y2="44.856" /><circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="48.281" cy="58.839" r="2.143" /><circle fill="#9BC9C7" stroke="#9ACDCD" stroke-width="1.0714" stroke-miterlimit="10" cx="48.281" cy="7.84" r="2.143" /><circle fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" cx="48.281" cy="7.839" r="4.821" /><path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M23.875,38    c9.375-6.875,24.406-18.143,24.406-30.16" /><line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="23.875" y1="38" x2="16" y2="28.126" />
 </svg>
 2.5&nbsp;&nbsp;<a href="test_orderofthings_genfromSVG.html">The order of things</a>
 </h3>
@@ -187,49 +163,49 @@ function main () {
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="5.871" x2="61.5" y1="33.572" y2="33.572" /><polyline fill="none" points="    9.243,38.629 5.871,33.572 2.5,38.629   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+<line fill="none" stroke="#FF8888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="5.871" y1="33.572" x2="61.5" y2="33.572" /><polyline fill="none" stroke="#FF8888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    9.243,38.629 5.871,33.572 2.5,38.629   " />
 </svg>
 3.1&nbsp;&nbsp;<a href="test_alignrel_genfromSVG.html">Align relative</a>
 </h3>
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<line fill="none" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="5.871" x2="61.5" y1="33.572" y2="33.572" /><polyline fill="none" points="    9.243,38.629 5.871,33.572 2.5,38.629   " stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><rect fill="#FF8888" height="8.428" stroke="#FF8888" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" width="8.428" x="53.072" y="33.572" />
+<line fill="none" stroke="#FF8888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="5.871" y1="33.572" x2="61.5" y2="33.572" /><polyline fill="none" stroke="#FF8888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    9.243,38.629 5.871,33.572 2.5,38.629   " /><rect x="53.072" y="33.572" fill="#FF8888" stroke="#FF8888" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8.428" height="8.428" />
 </svg>
 3.2&nbsp;&nbsp;<a href="test_alignabs_genfromSVG.html">Align absolute</a>
 </h3>
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<path d="M8,48c7,0,15-4,16-8" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><path d="M56,48c-17.733,0-29.467-4-32-8" fill="none" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" /><g>
+<path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M8,48c7,0,15-4,16-8" /><path fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" d="M56,48c-17.733,0-29.467-4-32-8" /><g>
 			
-				<line fill="none" stroke="#E5B7B7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="24" x2="52" y1="40" y2="8" />
-		</g><circle cx="8.143" cy="48.143" fill="#9BC9C7" r="2.143" stroke="#9BC9C7" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="56" cy="48" fill="#9BC9C7" r="2.143" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.0714" /><circle cx="56" cy="47.999" fill="none" r="4.821" stroke="#9ACDCD" stroke-miterlimit="10" stroke-width="1.5" />
+				<line fill="none" stroke="#E5B7B7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="24" y1="40" x2="52" y2="8" />
+		</g><circle fill="#9BC9C7" stroke="#9BC9C7" stroke-width="1.0714" stroke-miterlimit="10" cx="8.143" cy="48.143" r="2.143" /><circle fill="#9BC9C7" stroke="#9ACDCD" stroke-width="1.0714" stroke-miterlimit="10" cx="56" cy="48" r="2.143" /><circle fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-miterlimit="10" cx="56" cy="47.999" r="4.821" />
 </svg>
 3.3&nbsp;&nbsp;<a href="test_moverel_genfromSVG.html">Move by vector (relative)</a>
 </h3>
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<polygon fill="none" points="    8,56 30,12 30,34 52,34   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+<polygon fill="none" stroke="#990000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    8,56 30,12 30,34 52,34   " />
 </svg>
 3.4&nbsp;&nbsp;<a href="test_moveabs_genfromSVG.html">Move to location (absolute)</a>
 </h3>
 
 <h3>
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
-<line fill="none" stroke="#E8ACAC" stroke-dasharray="6,4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="56" x2="8.000488" y1="8" y2="8" /><g>
+<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="6,4" x1="56" y1="8" x2="8.000488" y2="8" /><g>
 			
-				<line fill="none" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="8.000488" x2="15.111816" y1="37" y2="51.222656" />
+				<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.000488" y1="37" x2="15.111816" y2="51.222656" />
 			
-				<rect fill="none" height="1.777344" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" width="8.888672" x="8.000488" y="37" />
+				<rect x="8.000488" y="37" fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8.888672" height="1.777344" />
 			
-				<rect fill="none" height="1.777344" stroke="#E8ACAC" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" width="8.888672" x="15.111816" y="51.222656" />
+				<rect x="15.111816" y="51.222656" fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="8.888672" height="1.777344" />
 		</g><g>
 			
-				<line fill="none" stroke="#E8ACAC" stroke-dasharray="2,7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="57" x2="39" y1="53" y2="21" />
+				<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="2,7" x1="57" y1="53" x2="39" y2="21" />
 			
-				<line fill="none" stroke="#E8ACAC" stroke-dasharray="2,7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="39" x2="57" y1="53" y2="21" />
+				<line fill="none" stroke="#E8ACAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-dasharray="2,7" x1="39" y1="53" x2="57" y2="21" />
 		</g>
 </svg>
 3.5&nbsp;&nbsp;<a href="test_create+destroy_genfromSVG.html">Create and destroy</a>
@@ -243,20 +219,20 @@ function main () {
 <svg class="sectioninstructionicon" viewbox="0 0 64 64">
 <g>
 			<g>
-				<polyline fill="none" points="56,31 56,28 53,28     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+				<polyline fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" points="56,31 56,28 53,28     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="3.6,1.2" stroke-miterlimit="10" stroke-width="2" x1="51.8" x2="47.6" y1="28" y2="28" />
-				<polyline fill="none" points="47,28 44,28 44,31     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="3.6,1.2" x1="51.8" y1="28" x2="47.6" y2="28" />
+				<polyline fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" points="47,28 44,28 44,31     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="5.0769,1.6923" stroke-miterlimit="10" stroke-width="2" x1="44" x2="44" y1="32.692" y2="52.154" />
-				<polyline fill="none" points="44,53 44,56 47,56     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="5.0769,1.6923" x1="44" y1="32.692" x2="44" y2="52.154" />
+				<polyline fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" points="44,53 44,56 47,56     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="3.6,1.2" stroke-miterlimit="10" stroke-width="2" x1="48.2" x2="52.4" y1="56" y2="56" />
-				<polyline fill="none" points="53,56 56,56 56,53     " stroke="#990000" stroke-miterlimit="10" stroke-width="2" />
+					<line fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="3.6,1.2" x1="48.2" y1="56" x2="52.4" y2="56" />
+				<polyline fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" points="53,56 56,56 56,53     " />
 				
-					<line fill="none" stroke="#990000" stroke-dasharray="5.0769,1.6923" stroke-miterlimit="10" stroke-width="2" x1="56" x2="56" y1="51.308" y2="31.846" />
+					<line fill="none" stroke="#990000" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="5.0769,1.6923" x1="56" y1="51.308" x2="56" y2="31.846" />
 			</g>
-		</g><line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="56" x2="56" y1="28" y2="12" /><polyline fill="none" points="    60,18 56,12 52,18   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" x1="28" x2="44" y1="56" y2="56" /><polyline fill="none" points="    38,60 44,56 38,52   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><polyline fill="none" points="    16,4 4,4 4,16   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><polyline fill="none" points="    35,8 16,8 16,51   " stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" /><line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4" x2="16" y1="4" y2="8" />
+		</g><line fill="none" stroke="#990000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="56" y1="28" x2="56" y2="12" /><polyline fill="none" stroke="#990000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    60,18 56,12 52,18   " /><line fill="none" stroke="#990000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="28" y1="56" x2="44" y2="56" /><polyline fill="none" stroke="#990000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    38,60 44,56 38,52   " /><polyline fill="none" stroke="#990000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    16,4 4,4 4,16   " /><polyline fill="none" stroke="#990000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="    35,8 16,8 16,51   " /><line fill="none" stroke="#990000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="4" y1="4" x2="16" y2="8" />
 </svg>
 4.1&nbsp;&nbsp;<a href="test_scale+resize_genfromSVG.html">Scale and resize</a>
 </h3>
@@ -298,7 +274,7 @@ D.&nbsp;&nbsp;<a href="gfxelems.html">Graphics Elements and SVG Editors</a>
 <p>
 <b>Version 0.1.6</b> In the process of developing a language standard.<br>
 <p>
-Copyright 2016, 2017 Martin Brösamle.<br>
+Copyright 2016, 2017, 2020 Martin Brösamle.<br>
 All rights reserved.<br>
 The graphical language reference is explicitly excluded from the creative commons license statement. Please see COPYRIGHT and README for details.
 </p>

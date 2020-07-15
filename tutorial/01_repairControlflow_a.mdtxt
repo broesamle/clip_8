@@ -4,12 +4,12 @@ check:          function (status, cycles, history) {
                     if (status == Clip8controler.TERMINATED && cycles == 2) display_success();
                 }
 
-1. **Drop the SVG file** `$exerciseSVGfile` in the test area below.  
+1. **Drop the SVG file** `01_repairControlflow_a.svg` in the test area below.  
    
 1. **Run the program** by clicking the &#x25B6; button.  
    _There will be an error._
    
-1. **Open and edit** `$exerciseSVGfile` in Inkskape (or some other SVG editor).
+1. **Open and edit** `01_repairControlflow_a.svg` in Inkskape (or some other SVG editor).
 
 1. Follow the instructions in the SVG file.
 

@@ -1,41 +1,17 @@
 
+<!-- Clip8Document._pretem -->
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="utf-8">
-<title>clip8 | Introduction</title>
+<title>clip8 | Reference Tests</title>
 
-<!-- CommonTemplates.DependClip8_str -->
-<script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
-<script src="../lib/clip8dependencies.js"></script>
 
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
 
-<script src="../js/svgdom.js"></script>
-<script src="../js/svginterval.js"></script>
-<script src="../js/svgretrieve.js"></script>
-<script src="../js/paperclip.js"></script>
-<script src="../js/clip8decode.js"></script>
-<script src="../js/clip8.js"></script>
-<script>
-var WASM_READY = false;
-var Module = {
-    wasmBinaryFile: "../rs/wasm/iscd.wasm",
-    onRuntimeInitialized: main,
-    noInitialRun: true,     // seems necessary to use the module after main
-    noExitRuntime: true
-};
-
-function main () {
-    WASM_READY = true;
-}
-</script>
-<script src="../rs/wasm/iscd.js"></script>
 
 </head>
-
 
 <body>
 <nav>
@@ -62,7 +38,7 @@ Each operation applies to graphical content. The instructions, in turn, are them
 </p>
 <p>
 The reference test sheets define the language. At the same time, they test the current engine in the browser at hand. For each feature you can see whether it is actually available in that particular configuration.
-<a href="passing">Appendix B</a> defines the tests that are <b>exected to pass</b>, given the current version of the engine.
+<a href="passing.html">Appendix B</a> defines the tests that are <b>exected to pass</b>, given the current version of the engine.
 </p>
 <img src="example1.png">
 <h3>How to read the language reference</h3>
@@ -91,7 +67,7 @@ The third  test checks whether test and postcondition match after execution.
 <p>
 <b>Version 0.1.6</b> In the process of developing a language standard.<br>
 <p>
-Copyright 2016, 2017 Martin Brösamle.<br>
+Copyright 2016, 2017, 2020 Martin Brösamle.<br>
 All rights reserved.<br>
 The graphical language reference is explicitly excluded from the creative commons license statement. Please see COPYRIGHT and README for details.
 </p>

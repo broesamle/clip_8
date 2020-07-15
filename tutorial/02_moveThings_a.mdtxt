@@ -16,10 +16,10 @@ check:          function (status, cycles, history) {
                 }
 
 
-1. **Drop and run** `$exerciseSVGfile` in the test area below.  
+1. **Drop and run** `02_moveThings_a.svg` in the test area below.  
    _The black filled box moves up-right._
 
-1. **Edit** `$exerciseSVGfile` so that the box will be moved down-right, as indicated by the arrow.
+1. **Edit** `02_moveThings_a.svg` so that the box will be moved down-right, as indicated by the arrow.
 
 1. **Save your solution** as SVG file.
 

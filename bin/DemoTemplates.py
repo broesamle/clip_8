@@ -31,13 +31,6 @@ Demos and Graphics are licensed under a <a href="https://creativecommons.org/lic
 </footer>
 """
 
-ScriptInBody_str = """
-<script>
-window.onload = function () {
-    Clip8controler.init(document.getElementById("clip8svgroot"), true, true, false);
-}
-</script>"""
-
 Demos = Template("$THEITEMS")
 
 Demo = Template("""
