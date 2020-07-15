@@ -171,158 +171,159 @@ class ExampleCollection(SVGGroupCollection):
         if self.debug: print("NEWITEM:", newitem)
         self.addItem("theonlyitem", newitem)
 
-print("\nBuilding the clip_8 Reference Test Sheets")
-print("===================================================")
-inDIRabs = os.path.join(CFG.rootDIRabs, CFG.refsheetsvgDIR)
-outDIRabs = os.path.join(CFG.rootDIRabs, CFG.testsDIR)
-outprefix = ""
-outsuffix = CFG.testfile_generatedFromSVG_suffix
-outext = CFG.testfile_ext
-print("    in:", inDIRabs)
-print("   out:", outDIRabs)
-appendixsectionsHTML = ""
-passingtestsHTML = ""
-failingtestsHTML = ""
-tocsectionsHTML = ""
-alltests = {}
-chaptercnt = 0
-lastchapter = None
-backlinktitle, backhref = "Introduction", "introduction.html"
-SCT.sections.reverse()
-firstoutfile = None
-firstsection = None
-footerHTML = TEM.FooterRefsheet.substitute(
-                refsheet_version=SCT.refsheet_version)
-while len(SCT.sections) > 0:
-    chapter, section, infile = SCT.sections.pop()
-    if len(SCT.sections) > 0:
-        _, nextlinktitle, nexthref = SCT.sections[-1]
-        nexthref = (outprefix +
-                    os.path.splitext(nexthref)[0] +
-                    outsuffix + '.' + outext)
-    else:
-        nexthref, nextlinktitle = "appendix.html", "Appendix"
-    outfile = (outprefix +
-               os.path.splitext(infile)[0] +
-               outsuffix + '.' + outext)
-    if not firstoutfile:
-        firstoutfile = outfile
-        firstsection = section
-    inFN = os.path.join(inDIRabs, infile)
-    outFN = os.path.join(outDIRabs, outfile)
-    if os.path.isfile(inFN):
-        print("Processing:", infile)
-        if chapter == lastchapter:
-            sectioncnt += 1
+if __name__ == "__main__":
+    print("\nBuilding the clip_8 Reference Test Sheets")
+    print("===================================================")
+    inDIRabs = os.path.join(CFG.rootDIRabs, CFG.refsheetsvgDIR)
+    outDIRabs = os.path.join(CFG.rootDIRabs, CFG.testsDIR)
+    outprefix = ""
+    outsuffix = CFG.testfile_generatedFromSVG_suffix
+    outext = CFG.testfile_ext
+    print("    in:", inDIRabs)
+    print("   out:", outDIRabs)
+    appendixsectionsHTML = ""
+    passingtestsHTML = ""
+    failingtestsHTML = ""
+    tocsectionsHTML = ""
+    alltests = {}
+    chaptercnt = 0
+    lastchapter = None
+    backlinktitle, backhref = "Introduction", "introduction.html"
+    SCT.sections.reverse()
+    firstoutfile = None
+    firstsection = None
+    footerHTML = TEM.FooterRefsheet.substitute(
+                    refsheet_version=SCT.refsheet_version)
+    while len(SCT.sections) > 0:
+        chapter, section, infile = SCT.sections.pop()
+        if len(SCT.sections) > 0:
+            _, nextlinktitle, nexthref = SCT.sections[-1]
+            nexthref = (outprefix +
+                        os.path.splitext(nexthref)[0] +
+                        outsuffix + '.' + outext)
         else:
-            chaptercnt += 1
-            sectioncnt = 1
-            lastchapter = chapter
-            tocsectionsHTML += TEM.TOCchapter.substitute(
-                                chapter=chapter, chaptercnt=chaptercnt)
-        tests = TestSection(inFN, strictsubstitute=True)
-        for thetest in tests.values():
-            printid = (thetest['testid'] +
-                       " "*max(0, 25-len(thetest['testid'])))
-            printdescr = thetest['testdescription'][:min(
-                            len(thetest['testdescription']), 55)]
-            printdescr += " "* max(0, (55-len(printdescr)))
-            print ("  [ %10s ] %s (%s) (%s)" % (printid,
-                                                printdescr,
-                                                thetest['testtype'],
-                                                thetest['expectedto']))
-        alltests[infile] = tests
-        sectdesc = ("\n<p>" +
-                    "</p>\n<p>".join(tests.sectiondescription) +
-                    "</p>")
-        testsectionsHTML = tests.generateSeries(
-            itemTEM=TEM.ReftestWithIntro,
-            seriesTEM=TEM.Testsection,
-            seriesData={
-                'testsectiontitle': section,
-                'chaptercnt': chaptercnt,
-                'sectioncnt': sectioncnt,
-                'sectiondescription': sectdesc,
-                'sectioninstructionicon': tests.sectioninstructionicon,
-                'viewBox': tests.viewBox})
-        backlinkHTML = TEM.Linkback.substitute(href=backhref,
-                                               linktext=backlinktitle)
-        nextlinkHTML = TEM.Linknext.substitute(href=nexthref,
-                                               linktext=nextlinktitle)
-        bodyHTML = TEM.Body_DOMrefsheet.substitute(
-                           pagetitle='<a href="index.html">clip_8</a>',
-                           chapter=chapter,
-                           chaptercnt="Reference Tests "+str(chaptercnt),
-                           MAIN=testsectionsHTML,
-                           link1=backlinkHTML,
-                           link2=nextlinkHTML,
-                           FOOTER=footerHTML)
-        refsheetdoc = RefsheetDocument(title="clip8 | " + chapter)
-        print ("    output:", outFN)
-        refsheetdoc.write_file(outFN, bodyHTML)
-        backhref, backlinktitle = outfile, section
-        appendixsectionsHTML += alltests[infile].generateSeries(
-                                    itemTEM=TEM.ReftestCore,
-                                    seriesTEM=TEM.Testsection_inclHref,
-                                    seriesData={
-                                        'testsectiontitle': section,
-                                        'testsectionhref': outfile,
-                                        'chaptercnt': chaptercnt,
-                                        'sectioncnt': sectioncnt})
-        passingtestsHTML += alltests[infile].generateSeries(
-                                    itemTEM=TEM.ReftestCore,
-                                    seriesTEM=TEM.Testsection_inclHref,
-                                    seriesData={
-                                        'testsectiontitle': section,
-                                        'testsectionhref': outfile,
-                                        'chaptercnt': chaptercnt,
-                                        'sectioncnt': sectioncnt},
-                                    filterFn=lambda _test:
-                                        (_test['expectedto'] == "pass"))
-        failingtestsHTML += alltests[infile].generateSeries(
-                                    itemTEM=TEM.ReftestCore,
-                                    seriesTEM=TEM.Testsection_inclHref,
-                                    seriesData={
-                                        'testsectiontitle': section,
-                                        'testsectionhref': outfile,
-                                        'chaptercnt': chaptercnt,
-                                        'sectioncnt': sectioncnt},
-                                    filterFn=lambda _test:
-                                        (_test['expectedto'] == "fail"))
-        tocsectionsHTML += TEM.TOCsection.substitute(
-                                    testsectiontitle=section,
-                                    testsectionhref=outfile,
-                                    chaptercnt=chaptercnt,
-                                    sectioncnt=sectioncnt,
-                                    sectioninstructionicon=
-                                        tests.sectioninstructionicon,
-                                    viewBox=tests.viewBox)
-    else:
-        print ("Sections.py mentions a non existing file:", infile)
-
-### Appendix
-backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
-nextlinkHTML = TEM.Linknext.substitute(href="passing.html",
-                                       linktext="Expected to pass")
-bodyHTML = TEM.Body_DOMrefsheet.substitute(
+            nexthref, nextlinktitle = "appendix.html", "Appendix"
+        outfile = (outprefix +
+                os.path.splitext(infile)[0] +
+                outsuffix + '.' + outext)
+        if not firstoutfile:
+            firstoutfile = outfile
+            firstsection = section
+        inFN = os.path.join(inDIRabs, infile)
+        outFN = os.path.join(outDIRabs, outfile)
+        if os.path.isfile(inFN):
+            print("Processing:", infile)
+            if chapter == lastchapter:
+                sectioncnt += 1
+            else:
+                chaptercnt += 1
+                sectioncnt = 1
+                lastchapter = chapter
+                tocsectionsHTML += TEM.TOCchapter.substitute(
+                                    chapter=chapter, chaptercnt=chaptercnt)
+            tests = TestSection(inFN, strictsubstitute=True)
+            for thetest in tests.values():
+                printid = (thetest['testid'] +
+                        " "*max(0, 25-len(thetest['testid'])))
+                printdescr = thetest['testdescription'][:min(
+                                len(thetest['testdescription']), 55)]
+                printdescr += " "* max(0, (55-len(printdescr)))
+                print ("  [ %10s ] %s (%s) (%s)" % (printid,
+                                                    printdescr,
+                                                    thetest['testtype'],
+                                                    thetest['expectedto']))
+            alltests[infile] = tests
+            sectdesc = ("\n<p>" +
+                        "</p>\n<p>".join(tests.sectiondescription) +
+                        "</p>")
+            testsectionsHTML = tests.generateSeries(
+                itemTEM=TEM.ReftestWithIntro,
+                seriesTEM=TEM.Testsection,
+                seriesData={
+                    'testsectiontitle': section,
+                    'chaptercnt': chaptercnt,
+                    'sectioncnt': sectioncnt,
+                    'sectiondescription': sectdesc,
+                    'sectioninstructionicon': tests.sectioninstructionicon,
+                    'viewBox': tests.viewBox})
+            backlinkHTML = TEM.Linkback.substitute(href=backhref,
+                                                linktext=backlinktitle)
+            nextlinkHTML = TEM.Linknext.substitute(href=nexthref,
+                                                linktext=nextlinktitle)
+            bodyHTML = TEM.Body_DOMrefsheet.substitute(
                             pagetitle='<a href="index.html">clip_8</a>',
-                            chapter="All Tests",
-                            chaptercnt="Appendix A",
-                            MAIN=appendixsectionsHTML,
+                            chapter=chapter,
+                            chaptercnt="Reference Tests "+str(chaptercnt),
+                            MAIN=testsectionsHTML,
                             link1=backlinkHTML,
                             link2=nextlinkHTML,
                             FOOTER=footerHTML)
-refsheetdoc = RefsheetDocument(title="clip8 | Appendix A")
-outFN = os.path.join(outDIRabs, "appendix.html")
-print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML)
+            refsheetdoc = RefsheetDocument(title="clip8 | " + chapter)
+            print ("    output:", outFN)
+            refsheetdoc.write_file(outFN, bodyHTML)
+            backhref, backlinktitle = outfile, section
+            appendixsectionsHTML += alltests[infile].generateSeries(
+                                        itemTEM=TEM.ReftestCore,
+                                        seriesTEM=TEM.Testsection_inclHref,
+                                        seriesData={
+                                            'testsectiontitle': section,
+                                            'testsectionhref': outfile,
+                                            'chaptercnt': chaptercnt,
+                                            'sectioncnt': sectioncnt})
+            passingtestsHTML += alltests[infile].generateSeries(
+                                        itemTEM=TEM.ReftestCore,
+                                        seriesTEM=TEM.Testsection_inclHref,
+                                        seriesData={
+                                            'testsectiontitle': section,
+                                            'testsectionhref': outfile,
+                                            'chaptercnt': chaptercnt,
+                                            'sectioncnt': sectioncnt},
+                                        filterFn=lambda _test:
+                                            (_test['expectedto'] == "pass"))
+            failingtestsHTML += alltests[infile].generateSeries(
+                                        itemTEM=TEM.ReftestCore,
+                                        seriesTEM=TEM.Testsection_inclHref,
+                                        seriesData={
+                                            'testsectiontitle': section,
+                                            'testsectionhref': outfile,
+                                            'chaptercnt': chaptercnt,
+                                            'sectioncnt': sectioncnt},
+                                        filterFn=lambda _test:
+                                            (_test['expectedto'] == "fail"))
+            tocsectionsHTML += TEM.TOCsection.substitute(
+                                        testsectiontitle=section,
+                                        testsectionhref=outfile,
+                                        chaptercnt=chaptercnt,
+                                        sectioncnt=sectioncnt,
+                                        sectioninstructionicon=
+                                            tests.sectioninstructionicon,
+                                        viewBox=tests.viewBox)
+        else:
+            print ("Sections.py mentions a non existing file:", infile)
 
-### passing.html
-backlinkHTML = TEM.Linkback.substitute(href="appendix.html",
-                                       linktext="All Tests")
-nextlinkHTML = TEM.Linknext.substitute(href="failing.html",
-                                       linktext="Expected to fail")
-passingtestsExplainHTML = """
+    ### Appendix
+    backlinkHTML = TEM.Linkback.substitute(href=outfile, linktext=section)
+    nextlinkHTML = TEM.Linknext.substitute(href="passing.html",
+                                        linktext="Expected to pass")
+    bodyHTML = TEM.Body_DOMrefsheet.substitute(
+                                pagetitle='<a href="index.html">clip_8</a>',
+                                chapter="All Tests",
+                                chaptercnt="Appendix A",
+                                MAIN=appendixsectionsHTML,
+                                link1=backlinkHTML,
+                                link2=nextlinkHTML,
+                                FOOTER=footerHTML)
+    refsheetdoc = RefsheetDocument(title="clip8 | Appendix A")
+    outFN = os.path.join(outDIRabs, "appendix.html")
+    print ("    output:", outFN)
+    refsheetdoc.write_file(outFN, bodyHTML)
+
+    ### passing.html
+    backlinkHTML = TEM.Linkback.substitute(href="appendix.html",
+                                        linktext="All Tests")
+    nextlinkHTML = TEM.Linknext.substitute(href="failing.html",
+                                        linktext="Expected to fail")
+    passingtestsExplainHTML = """
 <p>If you encounter a failing test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>. It may indicate several things:
 <br>(a) By accident, the test is not in the list of tests that are expected to fail.
 <br>(b) clip_8 has, in principle, the functionality to pass the test. Your browser's configuration may cause different results!
@@ -332,25 +333,25 @@ passingtestsExplainHTML = """
 Thank you for your contribution!
 </p>
 """
-bodyHTML = TEM.Body_DOMrefsheet.substitute(
-                            pagetitle='<a href="index.html">clip_8</a>',
-                            chapter="Expected to pass",
-                            chaptercnt="Appendix B",
-                            MAIN=passingtestsExplainHTML+passingtestsHTML,
-                            link1=backlinkHTML,
-                            link2=nextlinkHTML,
-                            FOOTER=footerHTML)
-refsheetdoc = RefsheetDocument(title="clip8 | Appendix B")
-outFN = os.path.join(outDIRabs, "passing.html")
-print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML)
+    bodyHTML = TEM.Body_DOMrefsheet.substitute(
+                                pagetitle='<a href="index.html">clip_8</a>',
+                                chapter="Expected to pass",
+                                chaptercnt="Appendix B",
+                                MAIN=passingtestsExplainHTML+passingtestsHTML,
+                                link1=backlinkHTML,
+                                link2=nextlinkHTML,
+                                FOOTER=footerHTML)
+    refsheetdoc = RefsheetDocument(title="clip8 | Appendix B")
+    outFN = os.path.join(outDIRabs, "passing.html")
+    print ("    output:", outFN)
+    refsheetdoc.write_file(outFN, bodyHTML)
 
-### failing.html
-backlinkHTML = TEM.Linkback.substitute(href="passing.html",
-                                       linktext="Expected to pass")
-nextlinkHTML = TEM.Linknext.substitute(href="gfxelems.html",
-                                       linktext="Graphical elemements")
-failingtestsExplainHTML = """
+    ### failing.html
+    backlinkHTML = TEM.Linkback.substitute(href="passing.html",
+                                        linktext="Expected to pass")
+    nextlinkHTML = TEM.Linknext.substitute(href="gfxelems.html",
+                                        linktext="Graphical elemements")
+    failingtestsExplainHTML = """
 <p>
 If you encounter a passing (all three subtests are green) test in this section, please consider <a href="https://github.com/broesamle/clip_8/issues">filing an issue</a>.
 Most likely, it was forgotten to remove the test from the expected-to-fail list when a related feature was implemented.
@@ -359,132 +360,132 @@ Most likely, it was forgotten to remove the test from the expected-to-fail list 
 Thank you for your contribution!
 </p>
 """
-bodyHTML = TEM.Body_DOMrefsheet.substitute(
-                            pagetitle='<a href="index.html">clip_8</a>',
-                            chapter="Expected to fail",
-                            chaptercnt="Appendix C",
-                            MAIN=failingtestsExplainHTML+failingtestsHTML,
-                            link1=backlinkHTML,
-                            link2=nextlinkHTML,
-                            FOOTER=footerHTML)
-refsheetdoc = RefsheetDocument(title="clip8 | Appendix C")
-outFN = os.path.join(outDIRabs, "failing.html")
-print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML)
+    bodyHTML = TEM.Body_DOMrefsheet.substitute(
+                                pagetitle='<a href="index.html">clip_8</a>',
+                                chapter="Expected to fail",
+                                chaptercnt="Appendix C",
+                                MAIN=failingtestsExplainHTML+failingtestsHTML,
+                                link1=backlinkHTML,
+                                link2=nextlinkHTML,
+                                FOOTER=footerHTML)
+    refsheetdoc = RefsheetDocument(title="clip8 | Appendix C")
+    outFN = os.path.join(outDIRabs, "failing.html")
+    print ("    output:", outFN)
+    refsheetdoc.write_file(outFN, bodyHTML)
 
-### Graphical elements
-### gfxelems.html
-exampledefinitions = SCT.exampleelements
-exampledefinitions.reverse()
-oldsection=""
-sectioncnt = 0
-mainHTML = ""
-print("Processing example collections:")
-while len(exampledefinitions) > 0:
-    section, collection, infile, expectedISCD = exampledefinitions.pop()
-    if section != oldsection:
-        sectioncnt += 1
-        mainHTML += TEM.Testsection_H3heading.substitute(
-                            chaptercnt="D",
-                            sectioncnt=sectioncnt,
-                            testsectiontitle=section)
-    inFN = os.path.join(inDIRabs, infile)
-    colID = os.path.splitext(infile)[0]
-    if os.path.isfile(inFN):
-        printid = colID + " "*max(0, 60-len(colID))
-        printdescr = collection[:min(len(colID), 40)]
-        printdescr += " "* max(0, (40-len(printdescr)))
-        print ("  [ %60s ] %s (exexpectedISCD=%s)"
-               % (printid, printdescr, expectedISCD))
-        excol = ExampleCollection(inFN, strictsubstitute=True)
-        mainHTML += excol.generateSeries(
-                            itemTEM=TEM.ExampleCollection,
-                            seriesTEM=TEM.ExampleCollections,
-                            itemData={
-                                'examplecollection_id': colID,
-                                'testdescription': collection,
-                                'testtype': "element_ISCDdetection",
-                                'expectedresult': expectedISCD,
-                                'viewBox': excol.viewBox,
-                                'width': "150px"})
-    else:
-        print("    ...ignored!", inFN)
-    oldsection = section
-nextlinkHTML = ""
-backlinkHTML = TEM.Linkback.substitute(href="failing.html",
-                                       linktext="Expected to fail")
-bodyHTML = TEM.Body_DOMrefsheet.substitute(
-                            pagetitle='<a href="index.html">clip_8</a>',
-                            chapter="Graphics Elements and SVG Editors",
-                            chaptercnt="Appendix D",
-                            MAIN=mainHTML,
-                            link1=backlinkHTML,
-                            link2=nextlinkHTML,
-                            FOOTER=footerHTML)
-refsheetdoc = RefsheetDocument(title="clip8 | Appendix D")
-outFN = os.path.join(outDIRabs, "gfxelems.html")
-print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML)
+    ### Graphical elements
+    ### gfxelems.html
+    exampledefinitions = SCT.exampleelements
+    exampledefinitions.reverse()
+    oldsection=""
+    sectioncnt = 0
+    mainHTML = ""
+    print("Processing example collections:")
+    while len(exampledefinitions) > 0:
+        section, collection, infile, expectedISCD = exampledefinitions.pop()
+        if section != oldsection:
+            sectioncnt += 1
+            mainHTML += TEM.Testsection_H3heading.substitute(
+                                chaptercnt="D",
+                                sectioncnt=sectioncnt,
+                                testsectiontitle=section)
+        inFN = os.path.join(inDIRabs, infile)
+        colID = os.path.splitext(infile)[0]
+        if os.path.isfile(inFN):
+            printid = colID + " "*max(0, 60-len(colID))
+            printdescr = collection[:min(len(colID), 40)]
+            printdescr += " "* max(0, (40-len(printdescr)))
+            print ("  [ %60s ] %s (exexpectedISCD=%s)"
+                % (printid, printdescr, expectedISCD))
+            excol = ExampleCollection(inFN, strictsubstitute=True)
+            mainHTML += excol.generateSeries(
+                                itemTEM=TEM.ExampleCollection,
+                                seriesTEM=TEM.ExampleCollections,
+                                itemData={
+                                    'examplecollection_id': colID,
+                                    'testdescription': collection,
+                                    'testtype': "element_ISCDdetection",
+                                    'expectedresult': expectedISCD,
+                                    'viewBox': excol.viewBox,
+                                    'width': "150px"})
+        else:
+            print("    ...ignored!", inFN)
+        oldsection = section
+    nextlinkHTML = ""
+    backlinkHTML = TEM.Linkback.substitute(href="failing.html",
+                                        linktext="Expected to fail")
+    bodyHTML = TEM.Body_DOMrefsheet.substitute(
+                                pagetitle='<a href="index.html">clip_8</a>',
+                                chapter="Graphics Elements and SVG Editors",
+                                chaptercnt="Appendix D",
+                                MAIN=mainHTML,
+                                link1=backlinkHTML,
+                                link2=nextlinkHTML,
+                                FOOTER=footerHTML)
+    refsheetdoc = RefsheetDocument(title="clip8 | Appendix D")
+    outFN = os.path.join(outDIRabs, "gfxelems.html")
+    print ("    output:", outFN)
+    refsheetdoc.write_file(outFN, bodyHTML)
 
-### index.html
-tocsectionsHTML = TEM.TOCchapter.substitute(
-    chapter="""<a href="introduction.html">Introduction</a>""",
-    chaptercnt="0") + tocsectionsHTML
-tocsectionsHTML += TEM.TOCchapter.substitute(
-    chapter="Appendix",
-    chaptercnt="_")
-tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="All Tests",
-    testsectionhref="appendix.html",
-    chaptercnt="A",
-    sectioncnt="",
-    sectioninstructionicon="",
-    viewBox="1 1 2 2")
-tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="Expected to pass",
-    testsectionhref="passing.html",
-    chaptercnt="B",
-    sectioncnt="",
-    sectioninstructionicon="",
-    viewBox="1 1 2 2")
-tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="Expected to fail",
-    testsectionhref="failing.html",
-    chaptercnt="C",
-    sectioncnt="",
-    sectioninstructionicon="",
-    viewBox="1 1 2 2")
-tocsectionsHTML += TEM.TOCsection.substitute(
-    testsectiontitle="Graphics Elements and SVG Editors",
-    testsectionhref="gfxelems.html",
-    chaptercnt="D",
-    sectioncnt="",
-    sectioninstructionicon="",
-    viewBox="1 1 2 2")
-backlinkHTML = TEM.Linkback.substitute(
-        href="https://github.com/broesamle/clip_8",
-        linktext="Project page on github")
-nextlinkHTML = TEM.Linknext.substitute(
-        href="introduction.html",
-        linktext="Introduction")
-footerintroHTML = TEM.FooterIntro.substitute(
-        refsheet_version=SCT.refsheet_version,
-        refsheet_description=SCT.refsheet_description)
-bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
-                               chapter="Table of Contents",
-                               chaptercnt="Reference Tests",
-                               MAIN=tocsectionsHTML,
-                               link1=backlinkHTML,
-                               link2=nextlinkHTML,
-                               FOOTER=footerintroHTML)
-refsheetdoc = Classic_Clip8Page(title="clip8 | Reference Tests")
-outFN = os.path.join(outDIRabs, "index.html")
-print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)
+    ### index.html
+    tocsectionsHTML = TEM.TOCchapter.substitute(
+        chapter="""<a href="introduction.html">Introduction</a>""",
+        chaptercnt="0") + tocsectionsHTML
+    tocsectionsHTML += TEM.TOCchapter.substitute(
+        chapter="Appendix",
+        chaptercnt="_")
+    tocsectionsHTML += TEM.TOCsection.substitute(
+        testsectiontitle="All Tests",
+        testsectionhref="appendix.html",
+        chaptercnt="A",
+        sectioncnt="",
+        sectioninstructionicon="",
+        viewBox="1 1 2 2")
+    tocsectionsHTML += TEM.TOCsection.substitute(
+        testsectiontitle="Expected to pass",
+        testsectionhref="passing.html",
+        chaptercnt="B",
+        sectioncnt="",
+        sectioninstructionicon="",
+        viewBox="1 1 2 2")
+    tocsectionsHTML += TEM.TOCsection.substitute(
+        testsectiontitle="Expected to fail",
+        testsectionhref="failing.html",
+        chaptercnt="C",
+        sectioncnt="",
+        sectioninstructionicon="",
+        viewBox="1 1 2 2")
+    tocsectionsHTML += TEM.TOCsection.substitute(
+        testsectiontitle="Graphics Elements and SVG Editors",
+        testsectionhref="gfxelems.html",
+        chaptercnt="D",
+        sectioncnt="",
+        sectioninstructionicon="",
+        viewBox="1 1 2 2")
+    backlinkHTML = TEM.Linkback.substitute(
+            href="https://github.com/broesamle/clip_8",
+            linktext="Project page on github")
+    nextlinkHTML = TEM.Linknext.substitute(
+            href="introduction.html",
+            linktext="Introduction")
+    footerintroHTML = TEM.FooterIntro.substitute(
+            refsheet_version=SCT.refsheet_version,
+            refsheet_description=SCT.refsheet_description)
+    bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
+                                chapter="Table of Contents",
+                                chaptercnt="Reference Tests",
+                                MAIN=tocsectionsHTML,
+                                link1=backlinkHTML,
+                                link2=nextlinkHTML,
+                                FOOTER=footerintroHTML)
+    refsheetdoc = Classic_Clip8Page(title="clip8 | Reference Tests")
+    outFN = os.path.join(outDIRabs, "index.html")
+    print ("    output:", outFN)
+    refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)
 
-### introduction.html
-# FIXME: Make a proper template rather than re-using the test section template.
-introHTML = """
+    ### introduction.html
+    # FIXME: Make a proper template rather than re-using the test section template.
+    introHTML = """
 <p>
 The iconic programming language `clip_8` is inspired by the principles of manipulating cardboard pieces with a cutter.
 Each operation applies to graphical content. The instructions, in turn, are themselves given in a graphical form.
@@ -516,18 +517,18 @@ The third  test checks whether test and postcondition match after execution.
 </p>
 """
 
-backlinkHTML = TEM.Linkback.substitute(href="index.html",
-                                       linktext="Table of Contents")
-nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile,
-                                       linktext=firstsection)
-bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
-                               chapter="Introduction",
-                               chaptercnt="Reference Tests",
-                               MAIN=introHTML,
-                               link1=backlinkHTML,
-                               link2=nextlinkHTML,
-                               FOOTER=footerintroHTML)
-refsheetdoc = Classic_Clip8Page(title="clip8 | Reference Tests")
-outFN = os.path.join(outDIRabs, "introduction.html")
-print ("    output:", outFN)
-refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)
+    backlinkHTML = TEM.Linkback.substitute(href="index.html",
+                                        linktext="Table of Contents")
+    nextlinkHTML = TEM.Linknext.substitute(href=firstoutfile,
+                                        linktext=firstsection)
+    bodyHTML = TEM.Body.substitute(pagetitle="clip_8",
+                                chapter="Introduction",
+                                chaptercnt="Reference Tests",
+                                MAIN=introHTML,
+                                link1=backlinkHTML,
+                                link2=nextlinkHTML,
+                                FOOTER=footerintroHTML)
+    refsheetdoc = Classic_Clip8Page(title="clip8 | Reference Tests")
+    outFN = os.path.join(outDIRabs, "introduction.html")
+    print ("    output:", outFN)
+    refsheetdoc.write_file(outFN, bodyHTML, supress_clip8scripts=True)
