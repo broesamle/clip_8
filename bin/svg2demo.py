@@ -79,7 +79,6 @@ if __name__ == "__main__":
         if not firstoutfile:
             # running in first round, only
             firstoutfile = outfile
-            ### FIXME: cleanup terminology _chapter_, etc.
             firstsection = chapter
         inFN = os.path.join(inDIRabs, infile)
         outFN = os.path.join(outDIRabs, outfile)
