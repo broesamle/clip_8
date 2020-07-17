@@ -17,7 +17,6 @@
 #
 
 
-import PyBroeModules.MultiTemplateA as MT
 from string import Template
 
 from CommonTemplates import *
