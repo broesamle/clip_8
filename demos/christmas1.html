@@ -28,12 +28,15 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-        document.getElementById("clip8svgroot"),
+function clip8initinstructions () {
+        c8root = document.getElementById("clip8svgroot");
+        Clip8controler.init(
+        c8root,
         true, true, false);
         Clip8UI.init(c8play=Clip8controler.playAction,
                       c8pause=Clip8controler.pauseAction,
                       c8step=Clip8controler.stepAction,
+                      c8root=c8root,
                       controls=document.getElementById("c8ui_controls")); }
 function main () {
     WASM_READY = true;
@@ -67,12 +70,12 @@ function main () {
 </nav>
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span> * * * This is an experimental demo page!</h1>
 
-<p id="c8ui_controls">
-<button id="c8ui_play_btn" >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn" style= "display: none;" onclick="location.reload();">&#x25FC;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn" style= "display: none;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
 <p>
 <svg id="clip8svgroot" viewbox="0 0 167.667 206" width="100%" height="auto">
 <g id="D">

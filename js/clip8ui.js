@@ -20,31 +20,47 @@
 
 var Clip8UI = {
     controls: undefined,
+    // Control styling/visibility
+    _btndisplayinitial: "initial",   // for resetting display property
+    _hide_btn: function (btn) {
+        btn.style.display = "none";
+    },
+    _unhide_btn: function (btn) {
+        btn.style.display = Clip8UI._btndisplayinitial;
+    },
+
     fsm: new StateMachine({
         init: 'ready',
         transitions: [
             { name: 'play',
-              from: ['ready', 'paused'], to: 'justrunning' },
-            { name: 'afterdelay',
-              from: ['justrunning'], to: 'running' },
+              from: ['ready', 'paused'], to: 'runningtimer' },
+            { name: 'step',
+              from: ['ready', 'paused'], to: 'paused' },
+            { name: 'pause',
+              from: ['running', 'runningtimer'], to: 'paused' },
+            { name: 'timeout',
+              from: ['runningtimer'], to: 'running' },
             { name: 'tap',
-              from: ['running'], to: 'justrunning' }
+              from: ['running', 'runningtimer'],
+              to: function() {
+                    if (this.state == 'running') return 'runningtimer';
+                    if (this.state == 'runningtimer') return 'running';
+                    return '-- tap invalid --';     // will cause an error
+                  } }
         ],
         data: {
             controls: undefined
         },
         methods: {
-            onInit: function() {
-                console.log("onInit handler method");
+            onRunningtimer: function() {
+                console.log("RUNNINGTIMER");
+                this.timer = window.setTimeout(
+                    function () { Clip8UI.fsm.timeout(); },
+                    5000);
             },
-            onRunning: function() {
-                console.log("onRunning handler method");
-            },
-            onJustrunning: function() {
-                console.log("onJustrunning handler method");
-                window.setTimeout(
-                    function () { Clip8UI.fsm.afterdelay(); },
-                    1000);
+            onLeaveRunningtimer: function () {
+                console.log("   leaving RUNNINGTIMER");
+                clearTimeout(this.timer);
             }
         }
     }),
@@ -52,30 +68,78 @@ var Clip8UI = {
     init: function(c8play=function(){},
                    c8pause=function(){},
                    c8step=function(){},
+                   c8root,
                    controls) {
         console.groupCollapsed("Clip8UI.init");
         if (! controls) throw { error: 'Clip8UI.init: invalid controls',
                                 controls: controls };
         Clip8UI.controls = controls;
+        Clip8UI._controlsdisplayinitial = controls.style.display;
+        // event listeners: user interface events trigger transitions
         var buttons = controls.childNodes;
         for (var i = 0; i < buttons.length; i++) {
             var bt = buttons.item(i);
             switch (bt.id) {
                 case "c8ui_play_btn":
+                    // keep initial visibility setting
+                    // use play button for all
+                    // (it is visible at loading time)
+                    Clip8UI._btndisplayinitial = bt.style.display;
                     bt.addEventListener('click',
                         function () { Clip8UI.fsm.play() });
                     console.log("now listening to", bt, "click");
+                    Clip8UI.playbtn = bt;   // keep a reference
+                    break;
+                case "c8ui_pause_btn":
+                    bt.addEventListener('click',
+                        function () { Clip8UI.fsm.pause() });
+                    console.log("now listening to", bt, "click");
+                    Clip8UI.pausebtn = bt;   // keep a reference
+                    break;
+                case "c8ui_step_btn":
+                    bt.addEventListener('click',
+                        function () { Clip8UI.fsm.step() });
+                    console.log("now listening to", bt, "click");
+                    Clip8UI.stepbtn = bt;   // keep a reference
+                    break;
+                case "c8ui_reload_btn":
+                    bt.addEventListener('click',
+                        function () { Clip8UI.fsm.step() });
+                    console.log("now listening to", bt, "click");
+                    Clip8UI.reloadbtn = bt;   // keep a reference
                     break;
             }
         }
+        Clip8UI.c8root = c8root;
+        var tapfn = function () {
+            if (Clip8UI.fsm.can('tap')) Clip8UI.fsm.tap();
+        }
+        c8root.addEventListener('click', tapfn);
         Clip8UI.fsm.observe({
-            onPlay: c8play,
+            onPlay: function () {
+                Clip8UI._hide_btn(Clip8UI.playbtn);
+                Clip8UI._hide_btn(Clip8UI.stepbtn);
+                Clip8UI._hide_btn(Clip8UI.reloadbtn);
+                Clip8UI._unhide_btn(Clip8UI.pausebtn);
+                c8play();
+            },
+            onPause: function () {
+                Clip8UI._unhide_btn(Clip8UI.playbtn);
+                Clip8UI._hide_btn(Clip8UI.pausebtn);
+                c8pause();
+            },
+            onStep: c8step,
             onRunning: function () {
                 Clip8UI.controls.style.visibility = "hidden";
             },
-            onJustrunning: function () {
-                Clip8UI.controls.style.visibility = "visible";
-            }
+            onRunningtimer: function () {
+                Clip8UI.controls.style.visibility =
+                    Clip8UI._controlsdisplayinitial;
+            },
+            onPaused: function () {
+                Clip8UI._unhide_btn(Clip8UI.reloadbtn);
+                Clip8UI._unhide_btn(Clip8UI.stepbtn);
+            },
         });
         console.groupEnd();
     }
