@@ -21,12 +21,13 @@
 var Clip8UI = {
     controls: undefined,
     // Control styling/visibility
-    _btndisplayinitial: "initial",   // for resetting display property
     _hide_btn: function (btn) {
-        btn.style.display = "none";
+        btn.style.opacity = "0";
+        btn.style.visibility = "hidden";
     },
     _unhide_btn: function (btn) {
-        btn.style.display = Clip8UI._btndisplayinitial;
+        btn.style.opacity = "1";
+        btn.style.visibility = "visible";
     },
 
     fsm: new StateMachine({
@@ -84,7 +85,6 @@ var Clip8UI = {
                     // keep initial visibility setting
                     // use play button for all
                     // (it is visible at loading time)
-                    Clip8UI._btndisplayinitial = bt.style.display;
                     bt.addEventListener('click',
                         function () { Clip8UI.fsm.play() });
                     console.log("now listening to", bt, "click");
@@ -118,22 +118,22 @@ var Clip8UI = {
         Clip8UI.fsm.observe({
             onPlay: function () {
                 Clip8UI._hide_btn(Clip8UI.playbtn);
+                Clip8UI._unhide_btn(Clip8UI.pausebtn);
                 Clip8UI._hide_btn(Clip8UI.stepbtn);
                 Clip8UI._hide_btn(Clip8UI.reloadbtn);
-                Clip8UI._unhide_btn(Clip8UI.pausebtn);
                 c8play();
             },
             onPause: function () {
-                Clip8UI._unhide_btn(Clip8UI.playbtn);
                 Clip8UI._hide_btn(Clip8UI.pausebtn);
+                Clip8UI._unhide_btn(Clip8UI.playbtn);
                 c8pause();
             },
             onStep: c8step,
             onRunning: function () {
-                Clip8UI.controls.style.visibility = "hidden";
+                Clip8UI.controls.style.display = "none";
             },
             onRunningtimer: function () {
-                Clip8UI.controls.style.visibility =
+                Clip8UI.controls.style.display =
                     Clip8UI._controlsdisplayinitial;
             },
             onPaused: function () {

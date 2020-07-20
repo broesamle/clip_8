@@ -68,19 +68,32 @@ svg {
     position: relative;
     top: 1em;
     font-size: 3em;
-    color: #e3ffe9;
-    text-shadow: #000 0px 0px 2px, #b6ff8dee .2em .9em 5px;
 }
 
 #c8ui_controls a {
-    cursor: pointer;
     position: absolute;
+    color: #e3ffe9;
+    text-shadow: #000 0px 0px 2px, #b6ff8dee .2em .9em 5px;
+    cursor: pointer;
     display: inline-block;
     width: 2em;
     text-align: center;
 }
 
-#c8ui_reload_btn { right: 7.5em; }
-#c8ui_play_btn { right: 4em; }
-#c8ui_pause_btn { right: 4em;  display: none; }
-#c8ui_step_btn{ right: .5em; }
+#c8ui_reload_btn {
+    right: 7.5em;
+    transition: visibility 1000ms, opacity 1200ms;
+    transition-timing-function: ease-in;
+}
+#c8ui_play_btn {
+    right: 4em;
+    transition: visibility 500ms, opacity 500ms;
+}
+#c8ui_pause_btn {
+    right: 4em;
+    transition: visibility 500ms, opacity 500ms;
+}
+#c8ui_step_btn{ right: .5em;
+    transition: visibility 1000ms, opacity 1200ms;
+    transition-timing-function: ease-in;
+}
