@@ -66,11 +66,10 @@ svg {
 
 #c8ui_controls {
     position: relative;
-    top: .5em;
+    top: 1em;
     font-size: 3em;
     color: #e3ffe9;
-    opacity: .8;
-    text-shadow: #b6ff8d 1px 2px 4px;
+    text-shadow: #000 0px 0px 2px, #b6ff8dee .2em .9em 5px;
 }
 
 #c8ui_controls a {
