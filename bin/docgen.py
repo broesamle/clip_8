@@ -43,12 +43,14 @@ $body
     _initscripts_tem = """
 <!-- Clip8Document._initscripts_tem -->
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
 <script src="../js/svgdom.js"></script>
 <script src="../js/svginterval.js"></script>
 <script src="../js/svgretrieve.js"></script>
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
+<script src="../js/clip8ui.js"></script>
 <script src="../js/clip8.js"></script>
 $interactive_loader
 <script>
@@ -68,6 +70,16 @@ function main () {
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
+"""
+
+    _initinstruct = """
+    var c8root = document.getElementById("clip8svgroot");
+    Clip8controler.init(c8root, true, true, false);
+    Clip8UI.init(c8play=Clip8controler.playAction,
+                 c8pause=Clip8controler.pauseAction,
+                 c8step=Clip8controler.stepAction,
+                 c8root=c8root,
+                 controls=document.getElementById("c8ui_controls"));
 """
 
     def __init__(self, title,
@@ -112,9 +124,7 @@ function main () {
                     function () {},
                     Clip8controler.playAction);"""
             else:
-                self.clip8initinstruct = """Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false);"""
+                self.clip8initinstruct = Clip8Document._initinstruct
 
     def as_html_str(self, body_html, supress_clip8scripts=False):
         """ Output the html document with a given body.

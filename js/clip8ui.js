@@ -141,6 +141,21 @@ var Clip8UI = {
                 Clip8UI._unhide_btn(Clip8UI.stepbtn);
             },
         });
+        let position_el =
+            document.querySelector("#c8config>#controls-position");
+        if (position_el) {
+            let x = parseFloat(position_el.getAttribute('cx'));
+            let y = parseFloat(position_el.getAttribute('cy'));
+            let [vx, vy, vw, vh] = Svgdom.getViewBox_asXYWH(c8root);
+            console.debug("Positioning:", x, y, "vbox:", vx, vy, vw, vh);
+            controls.style.left = String(100 * (x-vx) / vw ) + "%";
+            controls.style.top = String(100 * (y-vy) / vh ) + "%";
+        }
+        else {
+            console.log("no Position marker, using defaults.");
+            controls.style.right = "1em";
+            controls.style.top = "1em";
+        }
         console.groupEnd();
     }
 };
