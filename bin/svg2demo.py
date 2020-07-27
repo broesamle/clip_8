@@ -22,10 +22,18 @@ import os, io, codecs, fnmatch
 from tinycss.css21 import CSS21Parser
 
 import DemoTemplates as TEM
-from docgen import Classic_Clip8Page
+from docgen import Clip8UIDocument
 from SVGHandling import *
 import Sections as SCT
 import CFG
+
+class Clip8DemoDoc(Clip8UIDocument):
+    def __init__(self, *args, cssfiles=[], **kwargs):
+        super().__init__(*args,
+                cssfiles=cssfiles+[
+                    "../css/refsheet.css",
+                    "../css/clip8.css"],
+                **kwargs)
 
 class DemoPage(SVGGroupCollection):
     def __init__(self, filename, *args, **kwargs):
@@ -101,7 +109,7 @@ if __name__ == "__main__":
                                 link1=backlinkHTML, link2=nextlinkHTML,
                                 FOOTER=footerHTML,
                                 SCRIPT="")
-            clip8doc = Classic_Clip8Page(title="clip8 | " + chapter)
+            clip8doc = Clip8DemoDoc(title="clip8 | " + chapter)
             print ("    output:", outFN)
             clip8doc.write_file(outFN, bodyHTML)
             tocsectionsHTML += TEM.TOCsection.substitute(
@@ -130,6 +138,6 @@ if __name__ == "__main__":
                                    FOOTER=footerHTML,
                                    SCRIPT="")
     outFN = os.path.join(outDIRabs, "index.html")
-    clip8doc = Classic_Clip8Page(title="clip8 | Demos")
+    clip8doc = Clip8DemoDoc(title="clip8 | Demos")
     print ("    output:", outFN)
     clip8doc.write_file(outFN, bodyHTML, supress_clip8scripts=True)

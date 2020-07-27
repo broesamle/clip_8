@@ -19,13 +19,13 @@
 
 import os, io, codecs, fnmatch, functools
 from string import Template
-from docgen import Classic_Clip8Page
+from docgen import Classic_Clip8Page, Clip8UIDocument
 import TutorialTemplates as TEM
 from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
 import CFG
 
-class TutorialPage(Classic_Clip8Page):
+class TutorialPage(Clip8UIDocument):
 
     _feedback_tem = Template("""<!-- TutorialPage._feedback_tem -->
 <script>
@@ -39,7 +39,23 @@ display_success = function() {
 }
 </script>""")
 
+    _initinstruct = Template("""
+let _init = function () {
+    let c8root = document.getElementById("clip8svgroot");
+    Clip8controler.init(c8root,
+                        true, true, hightlightISC,
+                        svgloader.termination_callback);
+    Clip8UI.init(c8play=Clip8controler.playAction,
+                 c8pause=Clip8controler.pauseAction,
+                 c8step=Clip8controler.stepAction,
+                 c8root=c8root,
+                 controls=document.getElementById("c8ui_controls"));
+};
+svgloader.init(svgload_callback=_init, termination_callback=$check);
+""")
+
     def __init__(self, *args,
+                 cssfiles=[],
                  check="function(){}",
                  congratmsg="",
                  head_final="",
@@ -60,13 +76,17 @@ display_success = function() {
 
          `congratmsg`: What the learner will see when the exercise is solved.
          """
+         
+         
         feedback = TutorialPage._feedback_tem.substitute(congratmsg=congratmsg)
         super().__init__(*args,
+                         cssfiles=cssfiles+[
+                            "../css/refsheet.css", 
+                            "../css/clip8.css"],
                          head_final=head_final+feedback,
                          interactive_loader=True,
                          **kwargs)
-        self.clip8initinstruct = ("svgloader.init(termination_callback=%s);"
-                                  % check)
+        self.clip8initinstruct = self._initinstruct.substitute(check=check)
 
 print("\nBuilding the clip_8 Tutorials")
 print("===================================================")
@@ -90,7 +110,9 @@ for mddatadict in exercises.values():
     mddatadict['exerciseSVGfile'] = mddatadict['THIS_ELEMENT_KEY']+'.'+CFG.exerciseSVG_ext
     mddatadict['chaptercnt'] = "[" + mddatadict['exerciseSVGfile'] + "]"
 
-klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="tutorial")
+klippenHTML = TEM.KlippenInitialSVG.substitute(
+    klippenmode="tutorial",
+    controls=TEM.C8Controls_str)
 
 for key, bodyHTML in exercises.iterateSeries(
     template=TEM.Body_ExercisePage,
@@ -163,7 +185,9 @@ clip8doc.write_file(outFN, bodyHTML)
 print ("Generating: klippen.html")
 backlinkHTML = TEM.Linkback.substitute(ELEMENT_KEY="index", chapter="Tutorial Start Page")
 nextlinkHTML = ""
-klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="pro")
+klippenHTML = TEM.KlippenInitialSVG.substitute(
+    klippenmode="pro",
+    controls=TEM.C8Controls_str)
 footerHTML = TEM.Footer_str
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Klippen", chaptercnt="Online Interpreter",

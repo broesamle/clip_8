@@ -25,9 +25,10 @@ var svgloader = {
     lastloadedSVG: undefined,
     termination_callback: undefined,
 
-    init: function (termination_callback) {
+    init: function (svgload_callback, termination_callback) {
         console.log("prepare SVG loader")
-        svgloader.termination_callback = termination_callback
+        svgloader.svgload_callback = svgload_callback;
+        svgloader.termination_callback = termination_callback;
         var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
         var fileChooser = document.getElementById('filechooser');
 
@@ -57,9 +58,6 @@ var svgloader = {
                 svgroot.appendChild(movingchild.cloneNode(true));
                 movingchild = movingchild.nextSibling;
             }
-            Clip8controler.init(document.getElementById("clip8svgroot"),
-                                true, true, hightlightISC,
-                                svgloader.termination_callback);
     },
 
     loadSVG: function (e2) {
@@ -77,6 +75,7 @@ var svgloader = {
         if (newsvgroot instanceof SVGSVGElement) {
             svgloader.insertSVG(newsvgroot);
             svgloader.lastloadedSVG = newsvgroot;
+            svgloader.svgload_callback();
         } else {
             console.groupCollapsed("Could not load file content as SVG.");
             console.info("Content: ", svgraw);
@@ -100,7 +99,7 @@ var svgloader = {
         var files = e.target.files; // FileList object
         for (var i=0, file; file=files[i]; i++) {
             var reader = new FileReader();
-            reader.onload = loadSVG;
+            reader.onload = svgloader.loadSVG;
             reader.readAsText(file); // start reading the file data.
         }
     },
