@@ -26,11 +26,13 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false,
-                    function () {},
-                    Clip8controler.playAction); }
+function clip8initinstructions () { 
+    Clip8controler.init(
+                document.getElementById("clip8svgroot"),
+                true, true, false,
+                function () {},
+                Clip8controler.playAction);
+ }
 
 function main () {
     WASM_READY = true;
@@ -39,10 +41,10 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
 <link rel="stylesheet" href="../css/klippen.css">
-
 
 </head>
 
