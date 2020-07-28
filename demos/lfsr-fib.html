@@ -26,9 +26,20 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false); }
+function clip8initinstructions () { 
+    var c8root = document.getElementById("clip8svgroot");
+    let termination_callback = function () {
+        Clip8UI.terminate();
+    };
+    Clip8controler.init(c8root, true, true, false,
+                        termination_callback=termination_callback);
+    Clip8UI.init(c8play=Clip8controler.playAction,
+                 c8pause=Clip8controler.pauseAction,
+                 c8step=Clip8controler.stepAction,
+                 c8root=c8root,
+                 controls=document.getElementById("c8ui_controls"));
+    Clip8UI.getready();
+ }
 
 function main () {
     WASM_READY = true;
@@ -37,9 +48,11 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
+<script src="../js/clip8ui.js"></script>
+<link rel="stylesheet" href="../css/c8ui.css">
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-
 
 </head>
 
@@ -62,18 +75,23 @@ function main () {
 </nav>
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Pseudo Random Number Generator (LFSR)</h1>
 
-<p>
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
-<p>
+<div id="c8_container">
+
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn"
+    style="visibility: hidden;"
+    onclick="location.reload();">&larrhk;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn"
+    style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
+
 <svg id="clip8svgroot" viewbox="0 0 2908.023 5782.907" width="100%" height="auto">
-<rect x="234.694" y="410.385" fill="none" stroke="#8E7881" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2417.024" height="5271.441" /><rect x="194.894" y="5699.762" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2456.822" height="24.064" /><rect x="2530.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="300.27" y="176.592" fill="none" stroke="#9FBBBC" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2275.47" height="106.177" /><rect x="215.231" y="291.4" fill="none" stroke="#8E7881" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2436.486" height="90.177" /><path id="path5326_38_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M2628.54,316.523   c16.001-39.848-501.474,137.143-1640.637,25.668" /><path id="path5326_12_" fill="none" stroke="#0782A8" stroke-width="2.8346" d="M269.978,146.471   C643.292,99.376,2449.551,374.17,2628.54,367.857" /><rect x="858.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="872.704" y="184.096" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.316" /><rect x="554.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="568.704" y="184.096" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.316" /><rect x="402.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="416.704" y="184.096" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.316" /><g id="roller_1_">
+<rect x="234.694" y="410.385" fill="none" stroke="#8E7881" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2417.024" height="5271.442" /><rect x="194.894" y="5699.762" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2456.822" height="24.064" /><rect x="2530.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="300.27" y="176.592" fill="none" stroke="#9FBBBC" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2275.47" height="106.177" /><rect x="215.231" y="291.4" fill="none" stroke="#8E7881" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="2436.486" height="90.177" /><path id="path5326_38_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M2628.54,316.523   c16.002-39.848-501.474,137.143-1640.637,25.668" /><path id="path5326_12_" fill="none" stroke="#0782A8" stroke-width="2.8346" d="M269.978,146.471   C643.292,99.376,2449.552,374.17,2628.54,367.857" /><rect x="858.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="872.704" y="184.096" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.012" height="58.316" /><rect x="554.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="568.704" y="184.096" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.012" height="58.316" /><rect x="402.529" y="258.206" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.011" height="58.317" /><rect x="416.704" y="184.096" fill="none" stroke="#DBDBDB" stroke-width="5.6693" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="98.012" height="58.316" /><g id="roller_1_">
 		
 			<rect id="roller-sel" x="2672.934" y="118.899" fill="none" stroke="#B4DBCD" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="105.271" height="208.962" />
-		<path id="path5326_7_" fill="none" stroke="#B4DBCD" stroke-width="2.8346" d="M2672.934,118.899    c-58.422,72.581-2375.422-23.945-2372.664,57.693" />
+		<path id="path5326_7_" fill="none" stroke="#B4DBCD" stroke-width="2.8346" d="M2672.934,118.899    C2614.512,191.48,297.512,94.954,300.27,176.592" />
 		<path id="path5326_3_" fill="none" stroke="#B4DBCD" stroke-width="2.8346" d="M2672.934,118.899    C756.512,85.307-59.488-60.046,149.729,191.562" />
 		
 			<line fill="none" stroke="#59C692" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="2672.934" y1="118.899" x2="240.933" y2="118.899" />
@@ -85,29 +103,29 @@ function main () {
 		<path id="path5326_35_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M2659.903,342.191    c444.12,189.287-2286.392,5284.763-2465.009,5306.237" />
 		<path id="path4145_2_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M215.23,381.577    c32.323-40.787,11.323,10.215,19.463,28.811" />
 		<path id="path5326_10_" fill="none" stroke="#9FBBBC" stroke-width="5" d="M252.076,168.091    c-4.911,11.552,37.653,20.247,48.194,8.501" />
-		<path id="path5326_4_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M395.84,342.191    c-257.328-14.237-184.135-213.548-161.665-195.72" />
+		<path id="path5326_4_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M395.841,342.191    c-257.328-14.237-184.136-213.548-161.666-195.72" />
 	</g><g id="cable-flipflop">
-		<path id="path5326_34_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M956.54,316.523    c-28.986,14.953-39.486,30.453-98.011,0" />
-		<path id="path5326_33_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M970.715,184.096    c66.839,161.426-82.161,197.688-14.175,183.761" />
-		<path id="path5326_32_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M867.791,329.96    c24.586,2.959,39.263-40.984-9.262-13.437" />
-		<path id="path5326_31_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M970.715,184.096    c-58.161-6.574-42.838,166.073-102.924,170.328" />
-		<path id="path5326_29_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M652.54,316.523    c-28.986,14.953-39.486,30.453-98.011,0" />
-		<path id="path5326_28_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M666.715,184.096    c66.839,161.426-82.161,197.688-14.175,183.761" />
-		<path id="path5326_27_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M563.791,329.96    c24.586,2.959,39.263-40.984-9.262-13.437" />
-		<path id="path5326_26_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M666.715,184.096    c-58.161-6.574-42.838,166.073-102.924,170.328" />
-		<path id="path5326_25_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M500.54,316.523    c-28.986,14.953-39.486,30.453-98.011,0" />
-		<path id="path5326_9_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M514.715,184.096    c66.839,161.426-82.161,197.688-14.175,183.761" />
-		<path id="path5326_6_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M411.791,329.96    c24.586,2.959,39.263-40.984-9.262-13.437" />
-		<path id="path5326_5_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M514.715,184.096    c-58.161-6.574-42.838,166.073-102.924,170.328" />
-		<path id="path5326_30_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M851.84,342.191    c-28.206,24.48-143.7,34.979-167.937,0" />
-		<path id="path5326_1_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M547.84,342.191    c-2.995-9.571-13.661,12.096-15.937,0" />
+		<path id="path5326_34_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M956.54,316.523    c-28.985,14.953-39.485,30.453-98.011,0" />
+		<path id="path5326_33_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M970.716,184.096    c66.839,161.426-82.161,197.688-14.176,183.761" />
+		<path id="path5326_32_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M867.792,329.96    c24.586,2.959,39.263-40.984-9.263-13.437" />
+		<path id="path5326_31_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M970.716,184.096    c-58.161-6.574-42.838,166.073-102.924,170.328" />
+		<path id="path5326_29_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M652.54,316.523    c-28.985,14.953-39.485,30.453-98.011,0" />
+		<path id="path5326_28_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M666.716,184.096    c66.839,161.426-82.161,197.688-14.176,183.761" />
+		<path id="path5326_27_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M563.792,329.96    c24.586,2.959,39.263-40.984-9.263-13.437" />
+		<path id="path5326_26_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M666.716,184.096    c-58.161-6.574-42.838,166.073-102.924,170.328" />
+		<path id="path5326_25_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M500.54,316.523    c-28.985,14.953-39.485,30.453-98.011,0" />
+		<path id="path5326_9_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M514.716,184.096    c66.839,161.426-82.161,197.688-14.176,183.761" />
+		<path id="path5326_6_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M411.791,329.96    c24.587,2.959,39.264-40.984-9.262-13.437" />
+		<path id="path5326_5_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M514.716,184.096    c-58.161-6.574-42.838,166.073-102.924,170.328" />
+		<path id="path5326_30_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M851.841,342.191    c-28.206,24.48-143.7,34.979-167.938,0" />
+		<path id="path5326_1_" fill="none" stroke="#D3D3D3" stroke-width="1.4173" stroke-miterlimit="10" d="M547.841,342.191    c-2.995-9.571-13.661,12.096-15.938,0" />
 	</g><g id="alt_x2B_join-flipflop">
 		<polyline fill="none" stroke="#6D98AF" stroke-width="7.0866" points="956.54,367.857 987.903,342.191 956.54,316.523   " />
-		<polyline fill="none" stroke="#6D98AF" stroke-width="4.252" points="867.791,354.424 851.84,342.191 867.791,329.96   " />
-		<polyline fill="none" stroke="#6D98AF" stroke-width="4.252" points="563.791,354.424 547.84,342.191 563.791,329.96   " />
+		<polyline fill="none" stroke="#6D98AF" stroke-width="4.252" points="867.792,354.424 851.841,342.191 867.792,329.96   " />
+		<polyline fill="none" stroke="#6D98AF" stroke-width="4.252" points="563.792,354.424 547.841,342.191 563.792,329.96   " />
 		<polyline fill="none" stroke="#6D98AF" stroke-width="7.0866" points="652.54,367.857 683.903,342.191 652.54,316.523   " />
 		<polyline fill="none" stroke="#6D98AF" stroke-width="7.0866" points="500.54,367.857 531.903,342.191 500.54,316.523   " />
-		<polyline fill="none" stroke="#6D98AF" stroke-width="4.252" points="411.791,354.424 395.84,342.191 411.791,329.96   " />
+		<polyline fill="none" stroke="#6D98AF" stroke-width="4.252" points="411.791,354.424 395.841,342.191 411.791,329.96   " />
 	</g><g id="alt_x2B_join">
 		<polyline fill="none" stroke="#0782A8" stroke-width="8.5039" points="269.978,146.471 252.076,168.091 234.175,146.471   " />
 		<polyline fill="none" stroke="#0782A8" stroke-width="11.3386" points="2628.54,367.857 2659.903,342.191 2628.54,316.523   " />
@@ -117,7 +135,7 @@ function main () {
 		<polyline fill="none" stroke="#28434C" stroke-width="8.5039" points="194.894,5648.428 169.201,5674.094 194.894,5699.762   " />
 	</g><g id="instr">
 		
-			<rect x="126.884" y="498.256" fill="none" stroke="#471528" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="88.347" height="23" />
+			<rect x="126.884" y="498.256" fill="none" stroke="#471528" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="88.348" height="23" />
 		
 			<circle id="circle6876_1_" fill="#28434C" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="87.17" cy="53.186" r="12" />
 		
@@ -129,58 +147,60 @@ function main () {
 		
 			<line fill="none" stroke="#471528" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="234.694" y1="434.385" x2="234.694" y2="410.385" />
 		
-			<rect x="126.884" y="381.577" fill="none" stroke="#471528" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="88.347" height="23" />
+			<rect x="126.884" y="381.577" fill="none" stroke="#471528" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="88.348" height="23" />
 		
 			<line fill="none" stroke="#471528" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="215.23" y1="498.256" x2="215.23" y2="381.577" />
 		
 			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="858.529" y1="316.523" x2="858.529" y2="242.412" />
 		
-			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="970.715" y1="258.206" x2="970.715" y2="184.096" />
+			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="970.716" y1="258.206" x2="970.716" y2="184.096" />
 		
 			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="554.529" y1="316.523" x2="554.529" y2="242.412" />
 		
-			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="666.715" y1="258.206" x2="666.715" y2="184.096" />
+			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="666.716" y1="258.206" x2="666.716" y2="184.096" />
 		
 			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="402.529" y1="316.523" x2="402.529" y2="242.412" />
 		
-			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="514.715" y1="258.206" x2="514.715" y2="184.096" />
+			<line fill="none" stroke="#6D98AF" stroke-width="7.0866" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="514.716" y1="258.206" x2="514.716" y2="184.096" />
 	</g><g id="bits">
-		<rect id="rect6890-0_16_" x="2535.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_15_" x="2383.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_14_" x="2231.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_13_" x="2079.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_12_" x="1927.701" y="277.049" width="101.34" height="20.631" />
-		<rect id="rect6890-0_11_" x="1775.701" y="277.049" width="101.34" height="20.631" />
-		<rect id="rect6890-0_10_" x="1623.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_9_" x="1471.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_8_" x="1319.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_7_" x="1167.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_6_" x="1015.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_5_" x="863.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_4_" x="711.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_3_" x="559.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_2_" x="407.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_1_" x="255.701" y="277.049" width="101.342" height="20.631" />
-		<rect id="rect6890-0_34_" x="2535.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_33_" x="2383.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_32_" x="2231.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_31_" x="2079.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_30_" x="1927.701" y="-4.951" fill="#8E6E6E" width="101.34" height="20.631" />
-		<rect id="rect6890-0_29_" x="1775.701" y="-4.951" fill="#8E6E6E" width="101.34" height="20.631" />
-		<rect id="rect6890-0_28_" x="1623.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_27_" x="1471.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_26_" x="1319.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_25_" x="1167.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_24_" x="1015.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_23_" x="863.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_22_" x="711.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_21_" x="559.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_20_" x="407.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
-		<rect id="rect6890-0_19_" x="255.701" y="-4.951" fill="#8E6E6E" width="101.342" height="20.631" />
+		<rect id="rect6890-0_16_" x="2535.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_15_" x="2383.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_14_" x="2231.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_13_" x="2079.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_12_" x="1927.701" y="277.049" width="101.341" height="20.631" />
+		<rect id="rect6890-0_11_" x="1775.701" y="277.049" width="101.341" height="20.631" />
+		<rect id="rect6890-0_10_" x="1623.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_9_" x="1471.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_8_" x="1319.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_7_" x="1167.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_6_" x="1015.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_5_" x="863.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_4_" x="711.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_3_" x="559.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_2_" x="407.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_1_" x="255.701" y="277.049" width="101.343" height="20.631" />
+		<rect id="rect6890-0_34_" x="2535.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_33_" x="2383.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_32_" x="2231.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_31_" x="2079.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_30_" x="1927.701" y="-4.951" fill="#8E6E6E" width="101.341" height="20.631" />
+		<rect id="rect6890-0_29_" x="1775.701" y="-4.951" fill="#8E6E6E" width="101.341" height="20.631" />
+		<rect id="rect6890-0_28_" x="1623.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_27_" x="1471.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_26_" x="1319.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_25_" x="1167.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_24_" x="1015.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_23_" x="863.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_22_" x="711.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_21_" x="559.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_20_" x="407.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
+		<rect id="rect6890-0_19_" x="255.701" y="-4.951" fill="#8E6E6E" width="101.343" height="20.631" />
 		<rect id="rect6890-0_18_" x="103.702" y="-4.951" fill="#8E6E6E" width="101.338" height="20.631" />
+	</g><g id="c8config" display="none">
+		<circle id="controls-position" display="inline" fill="#B24747" cx="2124.373" cy="743.954" r="6" />
 	</g>
 </svg>
-</p>
+</div>
 
 
 <footer>

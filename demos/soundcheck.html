@@ -26,9 +26,20 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false); }
+function clip8initinstructions () { 
+    var c8root = document.getElementById("clip8svgroot");
+    let termination_callback = function () {
+        Clip8UI.terminate();
+    };
+    Clip8controler.init(c8root, true, true, false,
+                        termination_callback=termination_callback);
+    Clip8UI.init(c8play=Clip8controler.playAction,
+                 c8pause=Clip8controler.pauseAction,
+                 c8step=Clip8controler.stepAction,
+                 c8root=c8root,
+                 controls=document.getElementById("c8ui_controls"));
+    Clip8UI.getready();
+ }
 
 function main () {
     WASM_READY = true;
@@ -37,9 +48,11 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
+<script src="../js/clip8ui.js"></script>
+<link rel="stylesheet" href="../css/c8ui.css">
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-
 
 </head>
 
@@ -62,36 +75,44 @@ function main () {
 </nav>
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Soundcheck</h1>
 
-<p>
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
-<p>
+<div id="c8_container">
+
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn"
+    style="visibility: hidden;"
+    onclick="location.reload();">&larrhk;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn"
+    style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
+
 <svg id="clip8svgroot" viewbox="0 0 1540.422 1033.449" width="100%" height="auto">
-<path id="path4145-6_1_" fill="none" stroke="#000000" stroke-width="5" d="M49.504,947.855   c-5.216-43.104,18.586-29.334,94.411-13.334" /><circle id="circle6876-4" fill="#00998F" stroke="#00998F" stroke-width="6" stroke-miterlimit="10" cx="49.504" cy="947.855" r="12" /><rect id="rect6874" x="703.976" y="248.358" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="85.567" height="190.97" /><rect id="rect6874_4_" x="143.915" y="34.522" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="85.568" height="900" /><rect id="rect6874_1_" x="591.254" y="392.186" fill="none" stroke="#000000" stroke-width="2.8346" stroke-miterlimit="10" stroke-dasharray="2.8346,5.6693" width="33.041" height="32.97" /><path id="path4145_1_" fill="none" stroke="#999999" stroke-width="5" d="M477.213,66.083   c6.939,33.02,72.231,16.347,72.231,122.819" /><rect id="rect6890-0" x="1177.854" y="270.91" width="22.146" height="144" /><rect id="rect6890-0_1_" x="817.854" y="270.91" width="22.146" height="144" /><rect id="rect6890-0_7_" x="1097.317" y="270.91" width="22.146" height="144" /><path id="path5326" fill="none" stroke="#999999" stroke-width="5" d="M531.544,210.522c-6,100,146.765-89,146.765,6.836" /><path id="path5326_1_" fill="none" stroke="#999999" stroke-width="5" d="M703.976,248.358c21.568,32.164-41.432,190.97,0,190.97" /><path id="path5326_2_" fill="none" stroke="#999999" stroke-width="5" d="M624.295,425.156c41.432,0,6.778-144.634,28.347-176.798" /><path id="path5326_6_" fill="none" stroke="#999999" stroke-width="5" d="M696.209,462.912c-1.665-17.723,2.855-17.39,7.767-23.583   " /><path id="path5326_5_" fill="none" stroke="#999999" stroke-width="5" d="M678.309,526.203c17.9-25.087-9.765-20.836,0-41.671" /><path id="path5326_7_" fill="none" stroke="#999999" stroke-width="5" d="M660.409,462.912   c0.935-12.723-27.42-26.687-36.114-37.755" /><path id="path5326_9_" fill="none" stroke="#999999" stroke-width="5" d="M696.209,771.756   c-1.665-17.725,2.855-17.391,7.767-23.584" /><path id="path5326_8_" fill="none" stroke="#999999" stroke-width="5" d="M660.409,771.756   c0.935-12.723-27.42-26.688-36.114-37.756" /><rect id="rect6874-1_1_" x="249.449" y="34.522" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="985.095" height="900" /><path id="line6886_5_" fill="none" stroke="#429DDB" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M563.877,439.328" /><path id="line6886_4_" fill="none" stroke="#429DDB" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M703.976,439.328" /><line id="line6886_1_" fill="none" stroke="#B5B5B5" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="613.376" y1="414.237" x2="624.295" y2="425.156" /><circle id="circle6876" fill="#00998F" stroke="#00998F" stroke-width="6" stroke-miterlimit="10" cx="477.213" cy="66.083" r="12" /><circle id="circle6876-3-2" fill="none" stroke="#00998F" stroke-width="6" stroke-miterlimit="10" cx="49.504" cy="947.855" r="24" /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="652.642,248.358 678.309,217.358    703.976,248.358  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="549.444,188.902 531.544,210.522    513.644,188.902  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="696.209,462.912 678.309,484.531    660.409,462.912  " /><line id="line6886" fill="none" stroke="#429DDB" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="703.976" y1="439.328" x2="563.877" y2="439.328" /><rect id="rect6874_3_" x="703.976" y="557.203" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="85.567" height="190.971" /><rect id="rect6874_2_" x="591.254" y="701.031" fill="none" stroke="#000000" stroke-width="2.8346" stroke-miterlimit="10" stroke-dasharray="2.8346,5.6693" width="33.041" height="32.971" /><rect id="rect6890-0_2_" x="1017.854" y="579.754" width="22.146" height="144" /><rect id="rect6890-0_4_" x="1097.854" y="579.754" width="22.146" height="144" /><path id="path5326_4_" fill="none" stroke="#999999" stroke-width="5" d="M703.976,557.203c21.568,32.164-41.432,190.971,0,190.971   " /><path id="path5326_3_" fill="none" stroke="#999999" stroke-width="5" d="M624.295,734.002c41.432,0,6.778-144.634,28.347-176.798" /><path id="line6886_6_" fill="none" stroke="#429DDB" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M703.976,748.172" /><line id="line6886_3_" fill="none" stroke="#B5B5B5" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="613.376" y1="723.082" x2="624.295" y2="734.002" /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="652.642,557.204 678.309,526.203    703.976,557.203  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="143.924,934.52 174.925,960.188    143.925,985.854  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="696.209,771.756 678.309,793.377    660.409,771.756  " /><line id="line6886_2_" fill="none" stroke="#D3F445" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="703.976" y1="748.172" x2="563.877" y2="748.172" /><path fill="none" stroke="#999999" stroke-width="5" d="M678.309,793.377c-39.841,91.719,423.822,75.221,556.235,141.145" /><path fill="none" stroke="#999999" stroke-width="5" d="M513.644,188.902c0-360.697-549.299,834.389-369.719,796.952" /><path fill="none" stroke="#999999" stroke-width="5" d="M1234.544,934.521c14,51.334-1099.361,25.668-1059.619,25.666" /><line fill="none" stroke="#00998F" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1234.544" y1="934.521" x2="1194.544" y2="934.521" /><g id="palette">
+<path id="path4145-6_1_" fill="none" stroke="#000000" stroke-width="5" d="M49.504,947.854   c-5.216-43.104,18.586-29.334,94.411-13.334" /><circle id="circle6876-4" fill="#00998F" stroke="#00998F" stroke-width="6" stroke-miterlimit="10" cx="49.504" cy="947.854" r="12" /><rect id="rect6874" x="703.976" y="248.358" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="85.567" height="190.97" /><rect id="rect6874_4_" x="143.915" y="34.522" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="85.565" height="900" /><rect id="rect6874_1_" x="591.254" y="392.186" fill="none" stroke="#000000" stroke-width="2.8346" stroke-miterlimit="10" stroke-dasharray="2.8346,5.6693" width="33.041" height="32.97" /><path id="path4145_1_" fill="none" stroke="#999999" stroke-width="5" d="M477.213,66.083   c6.938,33.02,72.229,16.347,72.229,122.819" /><rect id="rect6890-0" x="1177.854" y="270.91" width="22.146" height="144" /><rect id="rect6890-0_1_" x="817.854" y="270.91" width="22.146" height="144" /><rect id="rect6890-0_7_" x="1097.317" y="270.91" width="22.146" height="144" /><path id="path5326" fill="none" stroke="#999999" stroke-width="5" d="M531.544,210.522c-6,100,146.765-89,146.765,6.836" /><path id="path5326_1_" fill="none" stroke="#999999" stroke-width="5" d="M703.976,248.358c21.568,32.164-41.432,190.97,0,190.97" /><path id="path5326_2_" fill="none" stroke="#999999" stroke-width="5" d="M624.295,425.156c41.432,0,6.775-144.634,28.347-176.798" /><path id="path5326_6_" fill="none" stroke="#999999" stroke-width="5" d="M696.209,462.912c-1.665-17.723,2.854-17.39,7.767-23.583   " /><path id="path5326_5_" fill="none" stroke="#999999" stroke-width="5" d="M678.309,526.203c17.9-25.087-9.765-20.836,0-41.671" /><path id="path5326_7_" fill="none" stroke="#999999" stroke-width="5" d="M660.406,462.912   c0.938-12.723-27.42-26.688-36.111-37.755" /><path id="path5326_9_" fill="none" stroke="#999999" stroke-width="5" d="M696.209,771.756   c-1.665-17.725,2.854-17.391,7.767-23.584" /><path id="path5326_8_" fill="none" stroke="#999999" stroke-width="5" d="M660.406,771.756   c0.938-12.723-27.42-26.688-36.111-37.756" /><rect id="rect6874-1_1_" x="249.449" y="34.522" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="985.094" height="900" /><path id="line6886_5_" fill="none" stroke="#429DDB" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M563.877,439.328" /><path id="line6886_4_" fill="none" stroke="#429DDB" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M703.976,439.328" /><line id="line6886_1_" fill="none" stroke="#B5B5B5" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="613.375" y1="414.237" x2="624.295" y2="425.156" /><circle id="circle6876" fill="#00998F" stroke="#00998F" stroke-width="6" stroke-miterlimit="10" cx="477.213" cy="66.083" r="12" /><circle id="circle6876-3-2" fill="none" stroke="#00998F" stroke-width="6" stroke-miterlimit="10" cx="49.504" cy="947.854" r="24" /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="652.642,248.358 678.309,217.358    703.976,248.358  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="549.444,188.902 531.544,210.522    513.644,188.902  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="696.209,462.912 678.309,484.531    660.406,462.912  " /><line id="line6886" fill="none" stroke="#429DDB" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="703.976" y1="439.328" x2="563.877" y2="439.328" /><rect id="rect6874_3_" x="703.976" y="557.203" fill="none" stroke="#000000" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="19.8425,5.6693" width="85.567" height="190.971" /><rect id="rect6874_2_" x="591.254" y="701.031" fill="none" stroke="#000000" stroke-width="2.8346" stroke-miterlimit="10" stroke-dasharray="2.8346,5.6693" width="33.041" height="32.971" /><rect id="rect6890-0_2_" x="1017.854" y="579.754" width="22.146" height="144" /><rect id="rect6890-0_4_" x="1097.854" y="579.754" width="22.146" height="144" /><path id="path5326_4_" fill="none" stroke="#999999" stroke-width="5" d="M703.976,557.203c21.568,32.164-41.432,190.971,0,190.971   " /><path id="path5326_3_" fill="none" stroke="#999999" stroke-width="5" d="M624.295,734.002c41.432,0,6.775-144.634,28.347-176.798" /><path id="line6886_6_" fill="none" stroke="#429DDB" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M703.976,748.172" /><line id="line6886_3_" fill="none" stroke="#B5B5B5" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="613.375" y1="723.082" x2="624.295" y2="734.002" /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="652.642,557.204 678.309,526.203    703.976,557.203  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="143.924,934.521 174.925,960.188    143.925,985.854  " /><polyline fill="none" stroke="#000000" stroke-width="8.5039" stroke-miterlimit="10" points="696.209,771.756 678.309,793.377    660.406,771.756  " /><line id="line6886_2_" fill="none" stroke="#D3F445" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="703.976" y1="748.172" x2="563.877" y2="748.172" /><path fill="none" stroke="#999999" stroke-width="5" d="M678.309,793.377c-39.841,91.719,423.822,75.221,556.234,141.146" /><path fill="none" stroke="#999999" stroke-width="5" d="M513.644,188.902c0-360.697-549.299,834.389-369.719,796.953" /><path fill="none" stroke="#999999" stroke-width="5" d="M1234.543,934.521c14,51.334-1099.36,25.668-1059.618,25.666" /><line fill="none" stroke="#00998F" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1234.543" y1="934.521" x2="1194.543" y2="934.521" /><g id="palette">
 		
-			<line fill="none" stroke="#D3F445" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="71.541" x2="1317.284" y2="71.541" />
+			<line fill="none" stroke="#D3F445" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="71.541" x2="1317.281" y2="71.541" />
 		
-			<line fill="none" stroke="#429DDB" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="142.048" x2="1317.284" y2="142.048" />
+			<line fill="none" stroke="#429DDB" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="142.048" x2="1317.281" y2="142.048" />
 		
-			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="212.555" x2="1317.284" y2="212.555" />
+			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="212.555" x2="1317.281" y2="212.555" />
 		
-			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="283.062" x2="1317.284" y2="283.062" />
+			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="283.062" x2="1317.281" y2="283.062" />
 		
-			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="353.569" x2="1317.284" y2="353.569" />
+			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="353.569" x2="1317.281" y2="353.569" />
 		
-			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="424.076" x2="1317.284" y2="424.076" />
+			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="424.076" x2="1317.281" y2="424.076" />
 		
-			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="494.583" x2="1317.284" y2="494.583" />
+			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="494.583" x2="1317.281" y2="494.583" />
 		
-			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="565.089" x2="1317.284" y2="565.089" />
+			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="565.089" x2="1317.281" y2="565.089" />
 		
-			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="635.596" x2="1317.284" y2="635.596" />
-	</g><text transform="matrix(1 0 0 1 1334.5151 69.9248)" fill="#D3F445" font-family="'CourierNewPS-BoldMT'" font-size="24">beep-high.mp3</text><text transform="matrix(1 0 0 1 1333.9849 142.0713)" fill="#429DDB" font-family="'CourierNewPS-BoldMT'" font-size="24">beep-low.mp3</text>
+			<line fill="none" stroke="#000000" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="1263.28" y1="635.596" x2="1317.281" y2="635.596" />
+	</g><text transform="matrix(1 0 0 1 1334.5149 69.9248)" fill="#D3F445" font-family="'CourierNewPS-BoldMT'" font-size="24">beep-high.mp3</text><text transform="matrix(1 0 0 1 1333.9846 142.0713)" fill="#429DDB" font-family="'CourierNewPS-BoldMT'" font-size="24">beep-low.mp3</text><g id="c8config" display="none">
+		
+			<circle id="controls-position" display="inline" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" cx="704.641" cy="96.002" r="6" />
+	</g>
 </svg>
-</p>
+</div>
 
 
 <footer>

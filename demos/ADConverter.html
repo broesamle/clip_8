@@ -26,9 +26,20 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false); }
+function clip8initinstructions () { 
+    var c8root = document.getElementById("clip8svgroot");
+    let termination_callback = function () {
+        Clip8UI.terminate();
+    };
+    Clip8controler.init(c8root, true, true, false,
+                        termination_callback=termination_callback);
+    Clip8UI.init(c8play=Clip8controler.playAction,
+                 c8pause=Clip8controler.pauseAction,
+                 c8step=Clip8controler.stepAction,
+                 c8root=c8root,
+                 controls=document.getElementById("c8ui_controls"));
+    Clip8UI.getready();
+ }
 
 function main () {
     WASM_READY = true;
@@ -37,9 +48,11 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
+<script src="../js/clip8ui.js"></script>
+<link rel="stylesheet" href="../css/c8ui.css">
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-
 
 </head>
 
@@ -62,13 +75,18 @@ function main () {
 </nav>
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Analog Digital Converter</h1>
 
-<p>
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
-<p>
+<div id="c8_container">
+
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn"
+    style="visibility: hidden;"
+    onclick="location.reload();">&larrhk;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn"
+    style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
+
 <svg id="clip8svgroot" viewbox="0 0 150.5 654.99" width="100%" height="auto">
 <g>
 		
@@ -293,7 +311,7 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" points="91.297,18.75     89.297,16.75 91.297,14.75   " />
 	</g>
 </svg>
-</p>
+</div>
 
 
 <footer>

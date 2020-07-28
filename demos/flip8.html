@@ -26,9 +26,20 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false); }
+function clip8initinstructions () { 
+    var c8root = document.getElementById("clip8svgroot");
+    let termination_callback = function () {
+        Clip8UI.terminate();
+    };
+    Clip8controler.init(c8root, true, true, false,
+                        termination_callback=termination_callback);
+    Clip8UI.init(c8play=Clip8controler.playAction,
+                 c8pause=Clip8controler.pauseAction,
+                 c8step=Clip8controler.stepAction,
+                 c8root=c8root,
+                 controls=document.getElementById("c8ui_controls"));
+    Clip8UI.getready();
+ }
 
 function main () {
     WASM_READY = true;
@@ -37,9 +48,11 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
+<script src="../js/clip8ui.js"></script>
+<link rel="stylesheet" href="../css/c8ui.css">
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-
 
 </head>
 
@@ -62,18 +75,23 @@ function main () {
 </nav>
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;XOR / flipflop</h1>
 
-<p>
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
-<p>
+<div id="c8_container">
+
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn"
+    style="visibility: hidden;"
+    onclick="location.reload();">&larrhk;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn"
+    style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
+
 <svg id="clip8svgroot" viewbox="0 0 1447.049 2264.628" width="100%" height="auto">
 <rect x="198.831" y="2128.071" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="1155.396" height="24.066" /><rect x="611.663" y="235.064" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="251.073" height="140.529" /><rect x="322.121" y="235.064" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="251.072" height="140.529" /><rect x="1052.07" y="1151.299" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="251.071" height="235.073" /><path fill="none" stroke="#9DD329" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M295.429,325.079" /><path fill="none" stroke="#9DD329" stroke-width="17.0079" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="   M295.429,557.928" /><g id="Ebene_4">
 	</g><polyline fill="none" stroke="#2B8ED8" stroke-width="8.5039" points="914.07,235.064 888.404,266.064 862.736,235.064  " /><path id="path4145_1_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M57.331,2114.778c39.5-11,23,50.5,57.88,5.527" /><circle id="circle6876_2_" fill="#28434C" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="57.331" cy="2114.779" r="12" /><path id="path4145_3_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M125.331,2176.778c31.5-55.5,96.5-20.5,73.5-48.707" /><path id="path5326_46_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M888.404,266.064   c3,107.995,222.427,778.308,163.666,885.234" /><rect id="rect6890-0_2_" x="687.2" y="299.579" width="100" height="20" /><rect x="238.631" y="469.909" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="1115.597" height="1640.225" /><path id="path5326_1_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M862.736,235.064   c-54.397-136.681-41.476,64.876,0,140.529" /><path id="path5326_81_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M322.121,235.064   c1.894-117.664,572.474-207.098,591.949,0" /><rect x="1146.324" y="565.318" width="80" height="250.08" /><rect x="295.429" y="294.079" fill="none" stroke="#DBDBDB" stroke-width="9.03" stroke-miterlimit="10" stroke-dasharray="17.0079,8.5039" width="594" height="31" /><rect x="207.082" y="557.928" fill="none" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="88.347" height="23" /><path id="path5326_2_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M252.245,209.319   c-19.594,107.548,359.418,166.274,610.491,166.274" /><path id="path5326_3_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M322.121,235.064   c-22.957-35.67-70.608-129.412-69.876-50.209" /><path id="path5326_4_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M159.95,305.535   c-11.598,18.987,120.881-0.163,135.479,19.543" /><path id="path5326_6_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M236.294,197.086   c-82.344,3.454-78.709,72.791-64.111,92.498" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="862.736" y1="375.593" x2="573.193" y2="375.593" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="611.665" y1="235.064" x2="322.121" y2="235.064" /><polyline fill="none" stroke="#3DAA9D" stroke-width="8.5039" points="172.183,289.584 159.95,305.535 147.718,289.584  " /><polyline fill="none" stroke="#2B8ED8" stroke-width="8.5039" points="252.245,209.319 236.294,197.086 252.245,184.855  " /><path id="path5326_10_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M238.631,469.909" /><path id="path4145_2_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M147.718,289.584   c-236.887,82.788,380.113,760.788,853.019,861.716" /><path id="path4145_7_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M115.211,2084.504   c0-81.233,467.426-1617.438,123.42-1614.595" /><path id="path5326_8_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M1026.404,1193.638   c1.427,242.767-763.388,652.258-827.573,883.1" /><polyline fill="none" stroke="#3DAA9D" stroke-width="8.5039" points="1052.07,1151.3 1026.404,1193.638 1000.736,1151.3  " /><path id="path4145_4_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M173.138,2102.403   c-6.938-33.021-11.307,20.875-36.307,0.002" /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" points="115.211,2084.504 136.831,2102.405 115.211,2120.306  " /><polyline fill="none" stroke="#28434C" stroke-width="8.5039" points="198.831,2076.737 173.138,2102.403 198.831,2128.071  " /><path id="path5326_9_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M295.429,325.079" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="238.631" y1="507.55" x2="238.631" y2="469.909" /><path id="path5326_5_" fill="none" stroke="#B2B2B2" stroke-width="5" d="M238.631,469.909   c-2.8-65.537,42.2-164.537,56.798-144.831" /><rect x="207.082" y="325.079" fill="none" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="88.347" height="23" /><line fill="none" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="295.429" y1="557.928" x2="295.429" y2="325.079" /><circle fill="#28434C" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="125.331" cy="2176.778" r="10.5" /><circle fill="none" stroke="#28434C" stroke-width="8.5039" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="125.331" cy="2176.778" r="25.5" />
 </svg>
-</p>
+</div>
 
 
 <footer>
