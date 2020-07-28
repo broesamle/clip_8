@@ -169,6 +169,7 @@ class Clip8UIDocument(Clip8Document):
                  c8step=Clip8controler.stepAction,
                  c8root=c8root,
                  controls=document.getElementById("c8ui_controls"));
+    Clip8UI.getready();
 """
 
     def __init__(self,

@@ -27,12 +27,15 @@ var Clip8UI = {
     },
     _unhide_btn: function (btn) {
         btn.style.opacity = "1";
-        btn.style.visibility = "visible";
+        btn.style.visibility = "inherit";
     },
 
     fsm: new StateMachine({
         init: 'ready',
         transitions: [
+            { name: 'getready',
+              from: ['unready', 'running', 'runningtimer', 'ready', 'paused'],
+              to: 'ready' },
             { name: 'play',
               from: ['ready', 'paused'], to: 'runningtimer' },
             { name: 'step',
@@ -75,7 +78,6 @@ var Clip8UI = {
         if (! controls) throw { error: 'Clip8UI.init: invalid controls',
                                 controls: controls };
         Clip8UI.controls = controls;
-        Clip8UI._controlsdisplayinitial = controls.style.display;
         // event listeners: user interface events trigger transitions
         var buttons = controls.childNodes;
         for (var i = 0; i < buttons.length; i++) {
@@ -116,6 +118,9 @@ var Clip8UI = {
         }
         c8root.addEventListener('click', tapfn);
         Clip8UI.fsm.observe({
+            onGetready: function () {
+                Clip8UI.controls.style.visibility = "visible";
+            },
             onPlay: function () {
                 Clip8UI._hide_btn(Clip8UI.playbtn);
                 Clip8UI._unhide_btn(Clip8UI.pausebtn);
@@ -130,11 +135,10 @@ var Clip8UI = {
             },
             onStep: c8step,
             onRunning: function () {
-                Clip8UI.controls.style.display = "none";
+                Clip8UI.controls.style.visibility = "hidden";
             },
             onRunningtimer: function () {
-                Clip8UI.controls.style.display =
-                    Clip8UI._controlsdisplayinitial;
+                Clip8UI.controls.style.visibility = "visible";
             },
             onPaused: function () {
                 Clip8UI._unhide_btn(Clip8UI.reloadbtn);
@@ -155,5 +159,9 @@ var Clip8UI = {
             console.log("no Position marker, using defaults.");
         }
         console.groupEnd();
+    },
+    getready: function () {
+        console.debug("Clip8UI.getready");
+        Clip8UI.fsm.getready();
     }
 };

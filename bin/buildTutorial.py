@@ -50,6 +50,7 @@ let _init = function () {
                  c8step=Clip8controler.stepAction,
                  c8root=c8root,
                  controls=document.getElementById("c8ui_controls"));
+    Clip8UI.getready();
 };
 svgloader.init(svgload_callback=_init, termination_callback=$check);
 """)

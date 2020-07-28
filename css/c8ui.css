@@ -11,6 +11,7 @@
     transform: translate(0,-2em);
     top: 1em;   /* Default positioning... */
     right: 1em; /* ...may be changed during c8ui init. */
+    visibility: hidden;
 }
 
 #c8ui_controls a {
