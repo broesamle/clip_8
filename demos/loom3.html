@@ -27,19 +27,26 @@ var Module = {
 };
 
 function clip8initinstructions () { 
-    var c8root = document.getElementById("clip8svgroot");
-    let termination_callback = function () {
+    let c8root = document.getElementById("clip8svgroot");
+    let c8controls = document.getElementById("c8ui_controls");
+    let termination_callback_user = function () {};
+    let termination_callback_c8ui = function (status, cycles, history) {
         Clip8UI.terminate();
+        termination_callback_user(status, cycles, history);
     };
-    Clip8controler.init(c8root, true, true, false,
-                        termination_callback=termination_callback);
-    Clip8UI.init(c8play=Clip8controler.playAction,
-                 c8pause=Clip8controler.pauseAction,
-                 c8step=Clip8controler.stepAction,
-                 c8root=c8root,
-                 controls=document.getElementById("c8ui_controls"));
-    Clip8UI.getready();
- }
+    let initloadedclip8 = function () {
+        Clip8controler.init(c8root, true, true, false,
+                            termination_callback=termination_callback_c8ui);
+        Clip8UI.init(c8play=Clip8controler.playAction,
+                     c8pause=Clip8controler.pauseAction,
+                     c8step=Clip8controler.stepAction,
+                     c8root=c8root,
+                     controls=c8controls);
+        Clip8UI.getready();
+    };
+    initloadedclip8();
+    
+     }
 
 function main () {
     WASM_READY = true;
@@ -73,12 +80,9 @@ function main () {
 <div id="c8_container">
 
 <div id="c8ui_controls">
-<a id="c8ui_reload_btn"
-    style="visibility: hidden;"
-    onclick="location.reload();">&larrhk;</a>
+<a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
 <a id="c8ui_play_btn">&#x25B6;</a>
-<a id="c8ui_pause_btn"
-    style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_pause_btn" style= "visibility: hidden;">&#x2759;&#x2759;</a>
 <a id="c8ui_step_btn">&#x276F;</a>
 </div>
 

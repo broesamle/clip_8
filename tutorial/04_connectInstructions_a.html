@@ -27,19 +27,9 @@ var Module = {
 };
 
 function clip8initinstructions () { 
-let _init = function () {
     let c8root = document.getElementById("clip8svgroot");
-    Clip8controler.init(c8root,
-                        true, true, hightlightISC,
-                        svgloader.termination_callback);
-    Clip8UI.init(c8play=Clip8controler.playAction,
-                 c8pause=Clip8controler.pauseAction,
-                 c8step=Clip8controler.stepAction,
-                 c8root=c8root,
-                 controls=document.getElementById("c8ui_controls"));
-    Clip8UI.getready();
-};
-svgloader.init(svgload_callback=_init, termination_callback=function (status, cycles, history) {
+    let c8controls = document.getElementById("c8ui_controls");
+    let termination_callback_user = function (status, cycles, history) {
 if (status == Clip8controler.TERMINATED &&
 cycles == 4 &&
 history[history.length-1] &&
@@ -57,8 +47,28 @@ if ( instr2.p0prime.x - instr1.p0prime.x > 200 &&
 instr2.p0prime.y - instr1.p0prime.y > 100 )
 display_success();
 }
-});
- }
+};
+    let termination_callback_c8ui = function (status, cycles, history) {
+        Clip8UI.terminate();
+        termination_callback_user(status, cycles, history);
+    };
+    let initloadedclip8 = function () {
+        Clip8controler.init(c8root, true, true, false,
+                            termination_callback=termination_callback_c8ui);
+        Clip8UI.init(c8play=Clip8controler.playAction,
+                     c8pause=Clip8controler.pauseAction,
+                     c8step=Clip8controler.stepAction,
+                     c8root=c8root,
+                     controls=c8controls);
+        Clip8UI.getready();
+    };
+    svgloader.init(svgload_callback=initloadedclip8);
+    
+    let reloadbt = document.getElementById("c8ui_reload_btn");
+    reloadbt.addEventListener('click', svgloader.reload);
+    reloadbt.onclick = null;
+    
+     }
 
 function main () {
     WASM_READY = true;
@@ -123,12 +133,9 @@ display_success = function() {
 <div id="c8_container">
 
 <div id="c8ui_controls">
-<a id="c8ui_reload_btn"
-    style="visibility: hidden;"
-    onclick="location.reload();">&larrhk;</a>
+<a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
 <a id="c8ui_play_btn">&#x25B6;</a>
-<a id="c8ui_pause_btn"
-    style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_pause_btn" style= "visibility: hidden;">&#x2759;&#x2759;</a>
 <a id="c8ui_step_btn">&#x276F;</a>
 </div>
 
