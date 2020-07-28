@@ -71,9 +71,7 @@ var Clip8UI = {
         }
     }),
 
-    init: function(c8play=function(){},
-                   c8pause=function(){},
-                   c8step=function(){},
+    init: function(c8play, c8pause, c8step,
                    c8root,
                    controls) {
         console.groupCollapsed("Clip8UI.init");
@@ -107,9 +105,6 @@ var Clip8UI = {
                     Clip8UI.stepbtn = bt;   // keep a reference
                     break;
                 case "c8ui_reload_btn":
-                    bt.addEventListener('click',
-                        function () { Clip8UI.fsm.step() });
-                    console.log("now listening to", bt, "click");
                     Clip8UI.reloadbtn = bt;   // keep a reference
                     break;
             }

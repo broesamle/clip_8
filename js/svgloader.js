@@ -23,12 +23,10 @@ var CLIP8_SVG_ROOT_ID = "clip8svgroot";
 var svgloader = {
     CLIP8_EXECROOT_ID: "clip8",
     lastloadedSVG: undefined,
-    termination_callback: undefined,
 
-    init: function (svgload_callback, termination_callback) {
+    init: function (svgload_callback) {
         console.log("prepare SVG loader")
         svgloader.svgload_callback = svgload_callback;
-        svgloader.termination_callback = termination_callback;
         var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
         var fileChooser = document.getElementById('filechooser');
 
@@ -104,9 +102,10 @@ var svgloader = {
         }
     },
 
-    handleStop: function () {
-        if (lastloadedSVG) {
-            insertSVG(lastloadedSVG);
+    reload: function () {
+        if (svgloader.lastloadedSVG) {
+            svgloader.insertSVG(svgloader.lastloadedSVG);
+            svgloader.svgload_callback();
         }
     }
 }

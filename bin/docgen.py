@@ -161,26 +161,40 @@ class Classic_Clip8Page(Clip8Document):
 class Clip8UIDocument(Clip8Document):
     """ A clip8 document with interactive user controls. """
 
-    _initinstruct = """
-    var c8root = document.getElementById("clip8svgroot");
-    let termination_callback = function () {
+    _initinstruct = Template ("""
+    let c8root = document.getElementById("clip8svgroot");
+    let c8controls = document.getElementById("c8ui_controls");
+    let termination_callback_user = $termination_callback;
+    let termination_callback_c8ui = function (status, cycles, history) {
         Clip8UI.terminate();
+        termination_callback_user(status, cycles, history);
     };
-    Clip8controler.init(c8root, true, true, false,
-                        termination_callback=termination_callback);
-    Clip8UI.init(c8play=Clip8controler.playAction,
-                 c8pause=Clip8controler.pauseAction,
-                 c8step=Clip8controler.stepAction,
-                 c8root=c8root,
-                 controls=document.getElementById("c8ui_controls"));
-    Clip8UI.getready();
-"""
+    let initloadedclip8 = function () {
+        Clip8controler.init(c8root, true, true, false,
+                            termination_callback=termination_callback_c8ui);
+        Clip8UI.init(c8play=Clip8controler.playAction,
+                     c8pause=Clip8controler.pauseAction,
+                     c8step=Clip8controler.stepAction,
+                     c8root=c8root,
+                     controls=c8controls);
+        Clip8UI.getready();
+    };
+    $load
+    $reload
+    """)
+
+    _reload_interactive = """
+    let reloadbt = document.getElementById("c8ui_reload_btn");
+    reloadbt.addEventListener('click', svgloader.reload);
+    reloadbt.onclick = null;
+    """
 
     def __init__(self,
                  *args,
                  interactive_loader=False,
                  jsfiles=[],
                  cssfiles=[],
+                 termination_callback="function () {}",
                  **kwargs):
         """
         `interactive_loader`: If set to `True` the user will be able to
@@ -192,15 +206,20 @@ class Clip8UIDocument(Clip8Document):
                 "../lib/javascript-state-machine/state-machine.min.js",
                 "../js/clip8ui.js",
                 "../js/svgloader.js"]
-            _initinstr = "svgloader.init();"
+            _reload = Clip8UIDocument._reload_interactive
+            _load = "svgloader.init(svgload_callback=initloadedclip8);"
         else:
             _jsfiles = [
                 "../lib/javascript-state-machine/state-machine.min.js",
                 "../js/clip8ui.js"]
-            _initinstr = Clip8UIDocument._initinstruct
+            _reload = ""    ## stick to the default
+            _load = "initloadedclip8();"
         _cssfiles = ["../css/c8ui.css"]
         super().__init__(*args,
                 jsfiles=jsfiles+_jsfiles,
                 cssfiles=_cssfiles+cssfiles,
                 **kwargs)
-        self.clip8initinstruct = _initinstr
+        self.clip8initinstruct = Clip8UIDocument._initinstruct.substitute(
+                            termination_callback=termination_callback,
+                            reload=_reload,
+                            load=_load);

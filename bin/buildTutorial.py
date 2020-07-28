@@ -39,25 +39,10 @@ display_success = function() {
 }
 </script>""")
 
-    _initinstruct = Template("""
-let _init = function () {
-    let c8root = document.getElementById("clip8svgroot");
-    Clip8controler.init(c8root,
-                        true, true, hightlightISC,
-                        svgloader.termination_callback);
-    Clip8UI.init(c8play=Clip8controler.playAction,
-                 c8pause=Clip8controler.pauseAction,
-                 c8step=Clip8controler.stepAction,
-                 c8root=c8root,
-                 controls=document.getElementById("c8ui_controls"));
-    Clip8UI.getready();
-};
-svgloader.init(svgload_callback=_init, termination_callback=$check);
-""")
+
 
     def __init__(self, *args,
                  cssfiles=[],
-                 check="function(){}",
                  congratmsg="",
                  head_final="",
                  **kwargs):
@@ -88,7 +73,6 @@ svgloader.init(svgload_callback=_init, termination_callback=$check);
                          head_final=head_final+feedback,
                          interactive_loader=True,
                          **kwargs)
-        self.clip8initinstruct = self._initinstruct.substitute(check=check)
 
 print("\nBuilding the clip_8 Tutorials")
 print("===================================================")
@@ -127,7 +111,7 @@ for key, bodyHTML in exercises.iterateSeries(
     print ("Processing:", key)
     clip8doc = TutorialPage(title="clip8 | Tutorial",
                             cssfiles=["../css/klippen.css"],
-                            check=exercises[key]['check'],
+                            termination_callback=exercises[key]['check'],
                             congratmsg=exercises[key]['congratmsg'])
     outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
     print ("    output:", outFN)

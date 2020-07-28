@@ -21,12 +21,9 @@ from string import Template
 
 C8Controls_str = """
 <div id="c8ui_controls">
-<a id="c8ui_reload_btn"
-    style="visibility: hidden;"
-    onclick="location.reload();">&larrhk;</a>
+<a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
 <a id="c8ui_play_btn">&#x25B6;</a>
-<a id="c8ui_pause_btn"
-    style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_pause_btn" style= "visibility: hidden;">&#x2759;&#x2759;</a>
 <a id="c8ui_step_btn">&#x276F;</a>
 </div>
 """
