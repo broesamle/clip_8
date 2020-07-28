@@ -31,10 +31,10 @@ var Clip8UI = {
     },
 
     fsm: new StateMachine({
-        init: 'ready',
+        init: 'unready',
         transitions: [
             { name: 'getready',
-              from: ['unready', 'running', 'runningtimer', 'ready', 'paused'],
+              from: ['unready', 'terminated'],
               to: 'ready' },
             { name: 'play',
               from: ['ready', 'paused'], to: 'runningtimer' },
@@ -42,6 +42,8 @@ var Clip8UI = {
               from: ['ready', 'paused'], to: 'paused' },
             { name: 'pause',
               from: ['running', 'runningtimer'], to: 'paused' },
+            { name: 'terminate',
+              from: ['running', 'runningtimer', 'paused'], to: 'terminated' },
             { name: 'timeout',
               from: ['runningtimer'], to: 'running' },
             { name: 'tap',
@@ -120,6 +122,11 @@ var Clip8UI = {
         Clip8UI.fsm.observe({
             onGetready: function () {
                 Clip8UI.controls.style.visibility = "visible";
+                Clip8UI._hide_btn(Clip8UI.pausebtn);
+                Clip8UI._hide_btn(Clip8UI.reloadbtn);
+                Clip8UI._unhide_btn(Clip8UI.playbtn);
+                Clip8UI._unhide_btn(Clip8UI.stepbtn);
+
             },
             onPlay: function () {
                 Clip8UI._hide_btn(Clip8UI.playbtn);
@@ -144,6 +151,14 @@ var Clip8UI = {
                 Clip8UI._unhide_btn(Clip8UI.reloadbtn);
                 Clip8UI._unhide_btn(Clip8UI.stepbtn);
             },
+            onTerminate: function () {
+                console.debug("TERMINATE");
+                Clip8UI.controls.style.visibility = "visible";
+                Clip8UI._hide_btn(Clip8UI.pausebtn);
+                Clip8UI._hide_btn(Clip8UI.playbtn);
+                Clip8UI._hide_btn(Clip8UI.stepbtn);
+                Clip8UI._unhide_btn(Clip8UI.reloadbtn);
+            }
         });
         let position_el =
             document.querySelector("#c8config>#controls-position");
@@ -163,5 +178,9 @@ var Clip8UI = {
     getready: function () {
         console.debug("Clip8UI.getready");
         Clip8UI.fsm.getready();
+    },
+    terminate: function () {
+        console.debug("Clip8UI.terminate");
+        Clip8UI.fsm.terminate();
     }
 };

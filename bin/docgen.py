@@ -163,7 +163,11 @@ class Clip8UIDocument(Clip8Document):
 
     _initinstruct = """
     var c8root = document.getElementById("clip8svgroot");
-    Clip8controler.init(c8root, true, true, false);
+    let termination_callback = function () {
+        Clip8UI.terminate();
+    };
+    Clip8controler.init(c8root, true, true, false,
+                        termination_callback=termination_callback);
     Clip8UI.init(c8play=Clip8controler.playAction,
                  c8pause=Clip8controler.pauseAction,
                  c8step=Clip8controler.stepAction,
