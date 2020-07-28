@@ -1,0 +1,51 @@
+#c8_container {
+    width: 100%;
+    position: relative;
+}
+
+#c8ui_controls {
+    font-size: 3em;
+    position: absolute;
+    width:5em;
+    height: 4em;
+    transform: translate(0,-2em);
+    top: 1em;   /* Default positioning... */
+    right: 1em; /* ...may be changed during c8ui init. */
+}
+
+#c8ui_controls a {
+    color: #e3ffe9;
+    text-shadow: #000 0px 0px 2px, #b6ff8dee .2em .9em 5px;
+    cursor: pointer;
+    position: absolute;
+}
+
+#c8ui_play_btn {
+    transition: visibility 500ms, opacity 500ms;
+    left: 55%;
+    top: 50%;
+    transform: translate(-55%, -50%);
+    margin-right: -55%;
+}
+#c8ui_pause_btn {
+    transition: visibility 500ms, opacity 500ms;
+    left: 52%;
+    top: 50%;
+    transform: translate(-52%, -50%);
+    margin-right: -52%;
+}
+
+#c8ui_reload_btn {
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    transition: visibility 1000ms, opacity 1200ms;
+    transition-timing-function: ease-in;
+}
+#c8ui_step_btn{
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    transition: visibility 1000ms, opacity 1200ms;
+    transition-timing-function: ease-in;
+}

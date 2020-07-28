@@ -82,7 +82,7 @@ KlippenInitialSVG = Template("""
 </div>
 <div id="hintoutput">
 </div>
-<p class="$klippenmode">
+<div id="c8_container">
 $controls
 <svg id="clip8svgroot"  viewBox="0 0 1200 700">
 <g id="rect5212">
@@ -518,5 +518,5 @@ $controls
 		c-1.572-1.285-3.443-1.927-5.613-1.927c-2.171,0-4.038,0.635-5.604,1.904c-1.564,1.27-2.539,2.945-2.923,5.027H1030.047z"/>
 </g>
 </svg>
-</p>
+</div>
 """)

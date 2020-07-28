@@ -175,6 +175,7 @@ class Clip8UIDocument(Clip8Document):
                  *args,
                  interactive_loader=False,
                  jsfiles=[],
+                 cssfiles=[],
                  **kwargs):
         """
         `interactive_loader`: If set to `True` the user will be able to
@@ -192,7 +193,9 @@ class Clip8UIDocument(Clip8Document):
                 "../lib/javascript-state-machine/state-machine.min.js",
                 "../js/clip8ui.js"]
             _initinstr = Clip8UIDocument._initinstruct
+        _cssfiles = ["../css/c8ui.css"]
         super().__init__(*args,
                 jsfiles=jsfiles+_jsfiles,
+                cssfiles=_cssfiles+cssfiles,
                 **kwargs)
         self.clip8initinstruct = _initinstr

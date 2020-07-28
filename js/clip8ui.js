@@ -153,8 +153,6 @@ var Clip8UI = {
         }
         else {
             console.log("no Position marker, using defaults.");
-            controls.style.right = "1em";
-            controls.style.top = "1em";
         }
         console.groupEnd();
     }

@@ -82,7 +82,8 @@ svgloader.init(svgload_callback=_init, termination_callback=$check);
         super().__init__(*args,
                          cssfiles=cssfiles+[
                             "../css/refsheet.css", 
-                            "../css/clip8.css"],
+                            "../css/clip8.css",
+                            "../css/tutorial.css"],
                          head_final=head_final+feedback,
                          interactive_loader=True,
                          **kwargs)
