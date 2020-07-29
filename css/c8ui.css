@@ -22,14 +22,12 @@
 }
 
 #c8ui_play_btn {
-    transition: visibility 500ms, opacity 500ms;
     left: 55%;
     top: 50%;
     transform: translate(-55%, -50%);
     margin-right: -55%;
 }
 #c8ui_pause_btn {
-    transition: visibility 500ms, opacity 500ms;
     left: 52%;
     top: 50%;
     transform: translate(-52%, -50%);
@@ -40,13 +38,9 @@
     left: 0;
     top: 50%;
     transform: translate(0, -50%);
-    transition: visibility 1000ms, opacity 1200ms;
-    transition-timing-function: ease-in;
 }
 #c8ui_step_btn{
     right: 0;
     top: 50%;
     transform: translate(0, -50%);
-    transition: visibility 1000ms, opacity 1200ms;
-    transition-timing-function: ease-in;
 }

@@ -34,7 +34,7 @@ var Clip8UI = {
         init: 'unready',
         transitions: [
             { name: 'getready',
-              from: ['unready', 'terminated'],
+              from: ['paused', 'unready', 'terminated'],
               to: 'ready' },
             { name: 'play',
               from: ['ready', 'paused'], to: 'runningtimer' },

@@ -1,0 +1,16 @@
+#c8ui_play_btn {
+    transition: visibility 400ms, opacity 400ms;
+}
+#c8ui_pause_btn {
+    transition: visibility 400ms, opacity 400ms;
+}
+
+#c8ui_reload_btn {
+    transition: visibility 8000ms, opacity 1000ms;
+    transition-timing-function: ease-in;
+
+}
+#c8ui_step_btn{
+    transition: visibility 8000ms, opacity 1000ms;
+    transition-timing-function: ease-in;
+}

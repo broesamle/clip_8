@@ -32,7 +32,8 @@ class Clip8DemoDoc(Clip8UIDocument):
         super().__init__(*args,
                 cssfiles=cssfiles+[
                     "../css/refsheet.css",
-                    "../css/clip8.css"],
+                    "../css/clip8.css",
+                    "../css/c8ui_demo.css"],
                 **kwargs)
 
 class DemoPage(SVGGroupCollection):
