@@ -59,7 +59,9 @@ display_success();
                      controls=c8controls);
         Clip8UI.getready();
     };
-    svgloader.init(svgload_callback=initloadedclip8);
+    svgloader.init(
+                document.getElementById("filechooser"),
+                initloadedclip8);
     
     let reloadbt = document.getElementById("c8ui_reload_btn");
     reloadbt.addEventListener('click', svgloader.reload);
