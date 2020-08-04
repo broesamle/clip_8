@@ -183,6 +183,10 @@ class Clip8UIDocument(Clip8Document):
     $reload
     """)
 
+    _load_interactive = """svgloader.init(
+                document.getElementById("filechooser"),
+                initloadedclip8);"""
+
     _reload_interactive = """
     let reloadbt = document.getElementById("c8ui_reload_btn");
     reloadbt.addEventListener('click', svgloader.reload);
@@ -207,7 +211,7 @@ class Clip8UIDocument(Clip8Document):
                 "../js/clip8ui.js",
                 "../js/svgloader.js"]
             _reload = Clip8UIDocument._reload_interactive
-            _load = "svgloader.init(svgload_callback=initloadedclip8);"
+            _load = Clip8UIDocument._load_interactive
         else:
             _jsfiles = [
                 "../lib/javascript-state-machine/state-machine.min.js",

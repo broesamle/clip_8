@@ -24,26 +24,21 @@ var svgloader = {
     CLIP8_EXECROOT_ID: "clip8",
     lastloadedSVG: undefined,
 
-    init: function (svgload_callback) {
+    init: function (svgfilechooser, svgload_callback) {
         console.log("prepare SVG loader")
         svgloader.svgload_callback = svgload_callback;
         var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
-        var fileChooser = document.getElementById('filechooser');
-
         dropZone.addEventListener('dragover', function(e) {
             e.stopPropagation();
             e.preventDefault();
             e.dataTransfer.dropEffect = 'copy';
         });
         dropZone.addEventListener('drop', svgloader.handleFileDrop);
-        fileChooser.addEventListener('change', svgloader.handleFileChoice, false);
+        svgfilechooser.addEventListener('change', svgloader.handleFileChoice, false);
     },
 
     insertSVG: function (newsvgroot) {
             var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
-            var highlightISCCheckbox = document.getElementById("hightlightISC");
-            if (highlightISCCheckbox) hightlightISC = highlightISCCheckbox.checked;
-            else hightlightISC = false;
             // clear the existing svg root
             Clip8controler.pauseAction(); // we do not wand a clip_8 engine to operate on a DOM we are just changing.
             while (svgroot.firstChild) {
@@ -52,7 +47,6 @@ var svgloader = {
             svgroot.setAttribute('viewBox', newsvgroot.getAttribute('viewBox'));
             var movingchild = newsvgroot.firstChild;
             while (movingchild) {
-                console.info("Moving child: ", movingchild)
                 svgroot.appendChild(movingchild.cloneNode(true));
                 movingchild = movingchild.nextSibling;
             }

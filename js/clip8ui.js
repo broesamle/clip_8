@@ -29,7 +29,6 @@ var Clip8UI = {
         btn.style.opacity = "1";
         btn.style.visibility = "inherit";
     },
-
     fsm: new StateMachine({
         init: 'unready',
         transitions: [
@@ -73,11 +72,13 @@ var Clip8UI = {
 
     init: function(c8play, c8pause, c8step,
                    c8root,
-                   controls) {
+                   controls,
+                   browsebtn=null) {
         console.groupCollapsed("Clip8UI.init");
         if (! controls) throw { error: 'Clip8UI.init: invalid controls',
                                 controls: controls };
         Clip8UI.controls = controls;
+        Clip8UI.browsebtn = browsebtn;
         // event listeners: user interface events trigger transitions
         var buttons = controls.childNodes;
         for (var i = 0; i < buttons.length; i++) {
@@ -121,7 +122,7 @@ var Clip8UI = {
                 Clip8UI._hide_btn(Clip8UI.reloadbtn);
                 Clip8UI._unhide_btn(Clip8UI.playbtn);
                 Clip8UI._unhide_btn(Clip8UI.stepbtn);
-
+                if (Clip8UI.browsebtn) Clip8UI._hide_btn(Clip8UI.browsebtn);
             },
             onPlay: function () {
                 Clip8UI._hide_btn(Clip8UI.playbtn);

@@ -1,0 +1,18 @@
+html, body {
+    font-family: "Courier New", monospace;
+    border: 0px;
+    padding: 0;
+    margin: 0;
+}
+
+svg {
+    width: 100%;
+    background-color:#666;
+}
+
+#svgfilechooser {
+	position: absolute;
+	top: 5em;
+	left: 50%;
+	transform: translate(-50%,0);
+}
