@@ -42,6 +42,7 @@ function clip8initinstructions () {
         Clip8UI.terminate();
         termination_callback_user(status, cycles, history);
     };
+    let svgfilechooser = document.getElementById("svgfilechooser");
     let initloadedclip8 = function () {
         Clip8controler.init(c8root, true, true, false,
                             termination_callback=termination_callback_c8ui);
@@ -50,16 +51,34 @@ function clip8initinstructions () {
                      Clip8controler.stepAction,
                      c8root,
                      c8controls,
-                     document.getElementById("svgfilechooser")
+                     svgfilechooser
                      );
         Clip8UI.getready();
     };
-    svgloader.init(svgfilechooser=document.getElementById("svgfilechooser"),
-                   svgload_callback=initloadedclip8);
-    
     let reloadbt = document.getElementById("c8ui_reload_btn");
     reloadbt.addEventListener('click', svgloader.reload);
     reloadbt.onclick = null;
+    svgloader.init(svgfilechooser, initloadedclip8);
+    let params = new URLSearchParams(window.location.search);
+    if (params.has('svgsource')) {
+        let svgsource = params.get('svgsource');
+        console.debug("svgsource:", svgsource);
+        let re = new RegExp('^[\\w\\.-]+$', "i");
+        if (re.test(svgsource)) {
+            let href = "../c8svg/"+svgsource+".svg";
+            console.log("clip8initinstructions: load", href);
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === xhttp.DONE &&
+                    xhttp.status === 200) {
+                    console.debug("request successful");
+                    svgloader.loadSVGRaw(xhttp.responseText)
+                }
+            };
+            xhttp.open("GET", href, true);
+            xhttp.send();
+        }
+    }
 }
 
 function main () {
@@ -78,7 +97,7 @@ function main () {
 
 <body >
 <div id="c8_container">
-<input type="file" id="svgfilechooser" name="files[]"/>	
+<input type="file" id="svgfilechooser" name="files[]"/>
 <div id="c8ui_controls">
 <a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
 <a id="c8ui_play_btn">&#x25B6;</a>
@@ -90,19 +109,19 @@ function main () {
 <g id="rect5212">
 	<g>
 		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="14,113.734 14,14 113.735,14 		"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="179.8396,50.6345" x1="164.369" y1="14" x2="1060.948" y2="14"/>
-		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1086.266,14 1186,14 1186,113.734 
+		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1086.266,14 1186,14 1186,113.734
 					"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="166.1116,46.7693" x1="1186" y1="160.504" x2="1186" y2="562.881"/>
-		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1186,586.266 1186,686 
+		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1186,586.266 1186,686
 			1086.266,686 		"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="179.8396,50.6345" x1="1035.631" y1="686" x2="139.052" y2="686"/>
-		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="113.735,686 14,686 14,586.266 		
+		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="113.735,686 14,686 14,586.266
 			"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="166.1116,46.7693" x1="14" y1="539.496" x2="14" y2="137.119"/>
 	</g>
 </g>

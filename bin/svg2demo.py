@@ -63,7 +63,7 @@ if __name__ == "__main__":
     print("\nBuilding the clip_8 Demo Pages")
     print("===================================================")
 
-    inDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
+    inDIRabs = os.path.join(CFG.rootDIRabs, CFG.svgsourceDIR)
     outDIRabs = os.path.join(CFG.rootDIRabs, CFG.demosDIR)
     outext = CFG.demofile_ext
     tocsectionsHTML = ""
