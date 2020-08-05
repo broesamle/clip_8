@@ -32,19 +32,16 @@ Demos and Graphics are licensed under a <a href="https://creativecommons.org/lic
 
 Demos = Template("$THEITEMS")
 
-Demo = Template("""
-<p>
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
-<p>
+_T1 = Template("""
+<div id="c8_container">
+$controls
 <svg id="clip8svgroot" viewbox="$viewBox" width="$width" height="$height">
 $svgdata
 </svg>
-</p>
+</div>
 """)
+
+Demo = Template(_T1.safe_substitute(controls=C8Controls_str))
 
 TOCsection = Template("""
 <h3>

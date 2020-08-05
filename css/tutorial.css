@@ -1,0 +1,10 @@
+#c8ui_controls {
+    left: 3em;
+    top: 1em;
+}
+
+#c8ui_controls a {
+    color: #a11852;
+    text-shadow: #000 0px 0px 2px, #FF00A8 .2em .9em 5px;
+    transition: visibility 200ms, opacity 200ms;
+}

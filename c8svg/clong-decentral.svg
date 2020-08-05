@@ -133,5 +133,8 @@
 	
 		<circle id="circle6876_2_" fill="#28434C" stroke="#28434C" stroke-width="11.3386" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="4626.416" cy="3236.435" r="12"/>
 	<rect id="rect6890-0_2_" x="2205.504" y="440.5" width="97.188" height="22.146"/>
+	<g id="c8config" display="none">
+		<circle id="controls-position" fill="#B24747" cx="294.11" cy="390.946" r="6"/>
+	</g>
 </g>
 </svg>

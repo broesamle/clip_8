@@ -16,7 +16,7 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
-<script src="../js/svgloader.js"></script>
+
 <script>
 var WASM_READY = false;
 var Module = {
@@ -26,7 +26,33 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { svgloader.init(termination_callback=function(){}); }
+function clip8initinstructions () { 
+    let c8root = document.getElementById("clip8svgroot");
+    let c8controls = document.getElementById("c8ui_controls");
+    let termination_callback_user = function () {};
+    let termination_callback_c8ui = function (status, cycles, history) {
+        Clip8UI.terminate();
+        termination_callback_user(status, cycles, history);
+    };
+    let initloadedclip8 = function () {
+        Clip8controler.init(c8root, true, true, false,
+                            termination_callback=termination_callback_c8ui);
+        Clip8UI.init(c8play=Clip8controler.playAction,
+                     c8pause=Clip8controler.pauseAction,
+                     c8step=Clip8controler.stepAction,
+                     c8root=c8root,
+                     controls=c8controls);
+        Clip8UI.getready();
+    };
+    svgloader.init(
+                document.getElementById("filechooser"),
+                initloadedclip8);
+    
+    let reloadbt = document.getElementById("c8ui_reload_btn");
+    reloadbt.addEventListener('click', svgloader.reload);
+    reloadbt.onclick = null;
+    
+     }
 
 function main () {
     WASM_READY = true;
@@ -35,10 +61,14 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
+<script src="../js/clip8ui.js"></script>
+<script src="../js/svgloader.js"></script>
+<link rel="stylesheet" href="../css/c8ui.css">
+<link rel="stylesheet" href="../css/klippen.css">
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-<link rel="stylesheet" href="../css/klippen.css">
-
+<link rel="stylesheet" href="../css/tutorial.css">
 <!-- TutorialPage._feedback_tem -->
 <script>
 display_success = function() {
@@ -61,10 +91,6 @@ display_success = function() {
 <h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Klippen</h1>
 
 <p class="pro">
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="handleStop()"                 >&#x23ee;          </button> &nbsp;&nbsp;&nbsp;
 <input type="file" id="filechooser" name="files[]"/>
 <span class="visible-for-pro">
 <input type="checkbox" id="hightlightISC">highlight I./S./C.
@@ -74,7 +100,15 @@ display_success = function() {
 </div>
 <div id="hintoutput">
 </div>
-<p class="pro">
+<div id="c8_container">
+
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn" style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
+
 <svg id="clip8svgroot"  viewBox="0 0 1200 700">
 <g id="rect5212">
 	<g>
@@ -509,7 +543,7 @@ display_success = function() {
 		c-1.572-1.285-3.443-1.927-5.613-1.927c-2.171,0-4.038,0.635-5.604,1.904c-1.564,1.27-2.539,2.945-2.923,5.027H1030.047z"/>
 </g>
 </svg>
-</p>
+</div>
 
 
 <footer>

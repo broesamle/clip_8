@@ -50,7 +50,7 @@ $body
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
-$interactive_loader
+$addscripts
 <script>
 var WASM_READY = false;
 var Module = {
@@ -71,50 +71,26 @@ function main () {
 """
 
     def __init__(self, title,
-                 cssfiles=[], jsfiles=[], head_opener="", head_final="",
-                 interactive_loader=False, autoplay=False):
+                 cssfiles=[], jsfiles=[], head_opener="", head_final=""):
         """ Create one document with title, included files, etc.
 
         `title`: The title for the meta info
 
         `cssfiles`: List of css files to be included via link in the header.
 
-        `cssfiles`: List of additional js files to be included.
+        `jsfiles`: List of additional js files to be included.
             The clip8 scripts are added automatically.
 
         `head_opener`, `head_final`:
             For additional code snippets at start/end of the <head>.
-
-        `interactive_loader`: If set to `True` the user will be able to
-            load own svg documents via drag+drop and via file choose dialogue.
-            Default is `False`.
-
-        `autoplay`: Play immedeately after loading page.
-            Cannot be combined with `interactive_loader=True`.
-            Default is `False`.`
         """
         self.title = title
         self.head_opener = head_opener
         self.cssfiles = cssfiles
         self.jsfiles = jsfiles
         self.head_final = head_final
-        if interactive_loader:
-            self.interactive_loader = '<script src="../js/svgloader.js"></script>'
-            self.clip8initinstruct = "svgloader.init();"
-            if autoplay:
-                raise ValueError("autoplay=True has no effect together with interactive_loader=True.")
-        else:
-            self.interactive_loader = ''
-            if autoplay:
-                self.clip8initinstruct = """Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false,
-                    function () {},
-                    Clip8controler.playAction);"""
-            else:
-                self.clip8initinstruct = """Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false);"""
+        self.clip8initinstruct = ""
+        self.addscripts = ""
 
     def as_html_str(self, body_html, supress_clip8scripts=False):
         """ Output the html document with a given body.
@@ -132,8 +108,8 @@ function main () {
             [('<script src="%s"></script>' % s) for s in self.jsfiles])
         templatestring = Clip8Document._pretem % (self.title,
                                                   self.head_opener,
-                                                  cssfiles_str,
                                                   jsfiles_str,
+                                                  cssfiles_str,
                                                   self.head_final)
         self._doctemplate = Template(templatestring)
         if supress_clip8scripts:
@@ -141,7 +117,7 @@ function main () {
         else:
             scripts = Template(Clip8Document._initscripts_tem).substitute(
                         initinstruct=self.clip8initinstruct,
-                        interactive_loader=self.interactive_loader)
+                        addscripts=self.addscripts)
         return self._doctemplate.substitute(body=body_html,
                                             initclip8scripts=scripts)
 
@@ -157,7 +133,98 @@ function main () {
         output_file.close()
 
 class Classic_Clip8Page(Clip8Document):
-    def __init__(self, *args, cssfiles=[], **kwargs):
+    _initinstr_autoplay = """
+    Clip8controler.init(
+                document.getElementById("clip8svgroot"),
+                true, true, false,
+                function () {},
+                Clip8controler.playAction);
+"""
+
+    def __init__(self, *args, cssfiles=[], autoplay=False, **kwargs):
+        """
+        `autoplay`: Play immedeately after loading page.
+            Cannot be combined with `interactive_loader=True`.
+            Default is `False`.`
+        """
+
         super().__init__(*args,
-                         cssfiles=["../css/refsheet.css", "../css/clip8.css"] + cssfiles,
+                         cssfiles=["../css/refsheet.css",
+                                   "../css/clip8.css"] + cssfiles,
                          **kwargs)
+        if autoplay:
+            self.clip8initinstruct = Classic_Clip8Page._initinstr_autoplay
+
+class Clip8UIDocument(Clip8Document):
+    """ A clip8 document with interactive user controls. """
+
+    _initinstruct = Template ("""
+    let c8root = document.getElementById("clip8svgroot");
+    let c8controls = document.getElementById("c8ui_controls");
+    let termination_callback_user = $termination_callback;
+    let termination_callback_c8ui = function (status, cycles, history) {
+        Clip8UI.terminate();
+        termination_callback_user(status, cycles, history);
+    };
+    let initloadedclip8 = function () {
+        Clip8controler.init(c8root, true, true, false,
+                            termination_callback=termination_callback_c8ui);
+        Clip8UI.init(c8play=Clip8controler.playAction,
+                     c8pause=Clip8controler.pauseAction,
+                     c8step=Clip8controler.stepAction,
+                     c8root=c8root,
+                     controls=c8controls);
+        Clip8UI.getready();
+    };
+    $load
+    $reload
+    """)
+
+    _load_interactive = """svgloader.init(
+                document.getElementById("filechooser"),
+                initloadedclip8);"""
+
+    _reload_interactive = """
+    let reloadbt = document.getElementById("c8ui_reload_btn");
+    reloadbt.addEventListener('click', svgloader.reload);
+    reloadbt.onclick = null;
+    """
+
+    def __init__(self,
+                 *args,
+                 interactive_loader=False,
+                 jsfiles=[],
+                 cssfiles=[],
+                 termination_callback="function () {}",
+                 **kwargs):
+        """
+        `interactive_loader`: If set to `True` the user will be able to
+            load own svg documents via drag+drop and via file choose dialogue.
+            Default is `False`.
+
+        `termination_callback`: Will be called when clip8 execution terminates.
+            Typically this is used to let the UI take notice of the
+            execution end (with or without error).
+        """
+        if interactive_loader:
+            _jsfiles = [
+                "../lib/javascript-state-machine/state-machine.min.js",
+                "../js/clip8ui.js",
+                "../js/svgloader.js"]
+            _reload = Clip8UIDocument._reload_interactive
+            _load = Clip8UIDocument._load_interactive
+        else:
+            _jsfiles = [
+                "../lib/javascript-state-machine/state-machine.min.js",
+                "../js/clip8ui.js"]
+            _reload = ""    ## stick to the default
+            _load = "initloadedclip8();"
+        _cssfiles = ["../css/c8ui.css"]
+        super().__init__(*args,
+                jsfiles=jsfiles+_jsfiles,
+                cssfiles=_cssfiles+cssfiles,
+                **kwargs)
+        self.clip8initinstruct = Clip8UIDocument._initinstruct.substitute(
+                            termination_callback=termination_callback,
+                            reload=_reload,
+                            load=_load);

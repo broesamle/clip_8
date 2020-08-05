@@ -26,9 +26,27 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false); }
+function clip8initinstructions () { 
+    let c8root = document.getElementById("clip8svgroot");
+    let c8controls = document.getElementById("c8ui_controls");
+    let termination_callback_user = function () {};
+    let termination_callback_c8ui = function (status, cycles, history) {
+        Clip8UI.terminate();
+        termination_callback_user(status, cycles, history);
+    };
+    let initloadedclip8 = function () {
+        Clip8controler.init(c8root, true, true, false,
+                            termination_callback=termination_callback_c8ui);
+        Clip8UI.init(c8play=Clip8controler.playAction,
+                     c8pause=Clip8controler.pauseAction,
+                     c8step=Clip8controler.stepAction,
+                     c8root=c8root,
+                     controls=c8controls);
+        Clip8UI.getready();
+    };
+    initloadedclip8();
+    
+     }
 
 function main () {
     WASM_READY = true;
@@ -37,9 +55,12 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
+<script src="../js/clip8ui.js"></script>
+<link rel="stylesheet" href="../css/c8ui.css">
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-
+<link rel="stylesheet" href="../css/c8ui_demo.css">
 
 </head>
 
@@ -62,13 +83,15 @@ function main () {
 </nav>
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Loom 1</h1>
 
-<p>
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
-<p>
+<div id="c8_container">
+
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn" style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
+
 <svg id="clip8svgroot" viewbox="0 0 94 243.5" width="100%" height="auto">
 <g id="D">
 		<rect x="40.458" y="21.292" width="7.75" height="7.75" />
@@ -210,7 +233,7 @@ function main () {
 			<rect x="28.5" y="64.334" fill="none" stroke="#E5B7B7" stroke-width="0.3" stroke-miterlimit="10" stroke-dasharray="1,0.5" width="51.667" height="178.041" />
 	</g>
 </svg>
-</p>
+</div>
 
 
 <footer>

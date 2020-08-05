@@ -26,9 +26,27 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { Clip8controler.init(
-                    document.getElementById("clip8svgroot"),
-                    true, true, false); }
+function clip8initinstructions () { 
+    let c8root = document.getElementById("clip8svgroot");
+    let c8controls = document.getElementById("c8ui_controls");
+    let termination_callback_user = function () {};
+    let termination_callback_c8ui = function (status, cycles, history) {
+        Clip8UI.terminate();
+        termination_callback_user(status, cycles, history);
+    };
+    let initloadedclip8 = function () {
+        Clip8controler.init(c8root, true, true, false,
+                            termination_callback=termination_callback_c8ui);
+        Clip8UI.init(c8play=Clip8controler.playAction,
+                     c8pause=Clip8controler.pauseAction,
+                     c8step=Clip8controler.stepAction,
+                     c8root=c8root,
+                     controls=c8controls);
+        Clip8UI.getready();
+    };
+    initloadedclip8();
+    
+     }
 
 function main () {
     WASM_READY = true;
@@ -37,9 +55,12 @@ function main () {
 </script>
 <script src="../rs/wasm/iscd.js"></script>
 
+<script src="../lib/javascript-state-machine/state-machine.min.js"></script>
+<script src="../js/clip8ui.js"></script>
+<link rel="stylesheet" href="../css/c8ui.css">
 <link rel="stylesheet" href="../css/refsheet.css">
 <link rel="stylesheet" href="../css/clip8.css">
-
+<link rel="stylesheet" href="../css/c8ui_demo.css">
 
 </head>
 
@@ -62,13 +83,15 @@ function main () {
 </nav>
 <h1><span class="sndtitle"><a href="index.html">clip_8</a>&nbsp;|</span>&nbsp;Counter Example</h1>
 
-<p>
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="location.reload();"           >&#x25FC;           </button>
-</p>
-<p>
+<div id="c8_container">
+
+<div id="c8ui_controls">
+<a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
+<a id="c8ui_play_btn">&#x25B6;</a>
+<a id="c8ui_pause_btn" style= "visibility: hidden;">&#x2759;&#x2759;</a>
+<a id="c8ui_step_btn">&#x276F;</a>
+</div>
+
 <svg id="clip8svgroot" viewbox="0 0 304 206" width="100%" height="auto">
 <g id="D" opacity="0.5">
 		<rect x="28.363" y="19.668" width="10" height="10" />
@@ -95,7 +118,7 @@ function main () {
 	</g><g id="I">
 		
 			<rect x="6.667" y="68.334" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="283" height="53" />
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M153.363,80.917    c11,0.25,63.137-22.417,34-49.75" />
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M153.363,80.917    c11,0.25,63.139-22.417,34-49.75" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M271.988,11.229    C277.238,10.167,296.875,12,296.875,5" />
 		
 			<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" cx="296.875" cy="5" r="1" />
@@ -107,12 +130,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    263.363,18.167 265.363,15.167 263.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    251.629,38.809 253.457,40.027 255.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    251.363,31.167 249.363,34.167 251.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M253.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M269.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M247.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M265.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M253.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M269.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M247.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M265.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="251.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -136,7 +159,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    267.629,38.809 269.457,40.027 271.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="247.363" y1="31.167" x2="249.363" y2="43.168" />
 		
@@ -144,8 +167,8 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    268.676,13.198 267.363,15.167 268.676,17.136   " />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M252.676,17.136    c5.377,0,25.824,12.865,14.688,14.031" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M236.676,17.136    c5.377,0,25.824,12.865,14.688,14.031" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,15.167    c0,0-0.737,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,15.167    c0,0-0.735,0.542-2,0" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,12.167    c0,0-7.063,1.531-10.688,1.031" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M247.363,12.167    c0,0-7.063,1.531-10.688,1.031" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M217.363,34.167    c-9.807,0,4.277,16.001-12,16.001" />
@@ -155,12 +178,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    231.363,18.167 233.363,15.167 231.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    219.629,38.809 221.457,40.027 223.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    219.363,31.167 217.363,34.167 219.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M221.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M237.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M215.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M231.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M233.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M221.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M237.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M215.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M231.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M233.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="219.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -184,7 +207,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    235.629,38.809 237.457,40.027 239.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="215.363" y1="31.167" x2="217.363" y2="43.168" />
 		
@@ -201,12 +224,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    39.363,18.167 41.363,15.167 39.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    27.629,38.809 29.457,40.027 31.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    27.363,31.167 25.363,34.167 27.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M29.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M45.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M23.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M39.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M41.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M29.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M45.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M23.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M39.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M41.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="27.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -230,7 +253,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    43.629,38.809 45.457,40.027 47.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="23.363" y1="31.167" x2="25.363" y2="43.168" />
 		
@@ -247,12 +270,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    199.363,18.167 201.363,15.167 199.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    187.629,38.809 189.457,40.027 191.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    187.363,31.167 185.363,34.167 187.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M189.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M205.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M183.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M199.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M201.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M189.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M205.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M183.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M199.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M201.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="187.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -276,7 +299,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    203.629,38.809 205.457,40.027 207.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="183.363" y1="31.167" x2="185.363" y2="43.168" />
 		
@@ -292,12 +315,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    167.363,18.167 169.363,15.167 167.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    155.629,38.809 157.457,40.027 159.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    155.363,31.167 153.363,34.167 155.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M157.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M173.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M151.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M167.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M169.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M157.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M173.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M151.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M167.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M169.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="155.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -321,7 +344,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    171.629,38.809 173.457,40.027 175.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="151.363" y1="31.167" x2="153.363" y2="43.168" />
 		
@@ -339,12 +362,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    135.363,18.167 137.363,15.167 135.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    123.629,38.809 125.457,40.027 127.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    123.363,31.167 121.363,34.167 123.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M125.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M141.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M119.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M135.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M137.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M125.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M141.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M119.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M135.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M137.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="123.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -368,7 +391,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    139.629,38.809 141.457,40.027 143.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="119.363" y1="31.167" x2="121.363" y2="43.168" />
 		
@@ -384,12 +407,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    103.363,18.167 105.363,15.167 103.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    91.629,38.809 93.457,40.027 95.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    91.363,31.167 89.363,34.167 91.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M93.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M109.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M87.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M103.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M105.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M93.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M109.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M87.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M103.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M105.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="91.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -413,7 +436,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    107.629,38.809 109.457,40.027 111.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="87.363" y1="31.167" x2="89.363" y2="43.168" />
 		
@@ -430,12 +453,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    71.363,18.167 73.363,15.167 71.363,12.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    59.629,38.809 61.457,40.027 63.285,38.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    59.363,31.167 57.363,34.167 59.363,37.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M61.457,40.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M77.457,40.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M55.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M71.363,18.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M73.363,34.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M61.457,40.027    c-0.063,1.785-6.146,2.577-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M77.457,40.027    c-0.063,1.785-2.146,9.577-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M55.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M71.363,18.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M73.363,34.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="59.363" y="18.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -459,7 +482,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    75.629,38.809 77.457,40.027 79.285,38.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,37.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,37.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="55.363" y1="31.167" x2="57.363" y2="43.168" />
 		
@@ -469,23 +492,23 @@ function main () {
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M44.676,17.136    c5.377,0,25.824,12.865,14.688,14.031" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M71.363,12.167    c0,0-7.063,1.531-10.688,1.031" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M55.363,12.167    c0,0-7.063,1.531-10.688,1.031" />
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M283.916,77.615    c1.834,20.635,10.186,29.454-14.553,38.303" />
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M271.988,15.167    c15.679-5.5,28.262,4.833,17.679,38.167" />
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M283.916,77.615    c1.834,20.635,10.186,29.453-14.555,38.303" />
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M271.988,15.167    c15.681-5.5,28.264,4.833,17.681,38.167" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M249.363,99.917    c-9.807,0,4.277,16.001-12,16.001" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    267.363,96.917 265.363,99.917 267.363,102.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    247.363,83.917 249.363,80.917 247.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    283.916,77.615 281.947,76.303 279.979,77.615   " />
-		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    298.666,69.646 296.697,68.334 294.729,69.646   " />
+		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    298.664,69.646 296.697,68.334 294.729,69.646   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    268.292,75.553 269.604,73.584 268.292,71.615   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    263.363,83.917 265.363,80.917 263.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    251.629,104.559 253.457,105.777 255.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    251.363,96.917 249.363,99.917 251.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M253.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M269.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M247.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M265.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M253.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M269.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M247.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M265.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="251.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -509,46 +532,46 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    267.629,104.559 269.457,105.777 271.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="247.363" y1="96.917" x2="249.363" y2="108.918" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="263.363" y1="96.917" x2="269.363" y2="115.918" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    271.988,11.229 270.676,13.198 271.988,15.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M268.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M279.979,77.615    c-4.645,1.052-2.979-0.948-10.374-4.031" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M268.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M279.979,77.615    c-4.645,1.052-2.979-0.948-10.373-4.031" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M294.729,69.646    C294,75.75,282.25,70.75,281.947,76.303" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M289.667,53.333    c-0.729,6.104,7.333,9.448,7.03,15" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M298.666,69.646    c0.584,23.104,1.334,46.854-8.999,51.688" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M289.667,53.333    c-0.729,6.104,7.333,9.448,7.028,15" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M298.664,69.646    c0.586,23.104,1.336,46.854-8.997,51.688" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    252.292,75.553 253.604,73.584 252.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M252.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M252.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    236.292,75.553 237.604,73.584 236.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M236.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M236.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    220.292,75.553 221.604,73.584 220.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M220.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M220.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    204.292,75.553 205.604,73.584 204.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M204.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M204.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    188.292,75.553 189.604,73.584 188.292,71.615   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    172.292,75.553 173.604,73.584 172.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M172.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M172.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    156.292,75.553 157.604,73.584 156.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M156.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M156.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    140.292,75.553 141.604,73.584 140.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M140.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M140.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    124.292,75.553 125.604,73.584 124.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M124.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M124.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    108.292,75.553 109.604,73.584 108.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M108.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M108.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    92.292,75.553 93.604,73.584 92.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M92.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M92.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    76.292,75.553 77.604,73.584 76.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M76.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M76.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    60.292,75.553 61.604,73.584 60.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M60.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M60.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    44.292,75.553 45.604,73.584 44.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M44.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M44.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    28.292,75.553 29.604,73.584 28.292,71.615   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M28.292,75.553    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M28.292,75.553    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M270.676,13.198    c0,0-0.759,0.677-2,0" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,77.917    c0,0-10.375,3.5-14,3" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M268.292,71.615    c0,0-11.063,2.469-14.688,1.969" />
@@ -586,12 +609,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    231.363,83.917 233.363,80.917 231.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    219.629,104.559 221.457,105.777 223.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    219.363,96.917 217.363,99.917 219.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M221.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M237.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M215.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M231.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M233.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M221.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M237.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M215.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M231.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M233.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="219.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -615,7 +638,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    235.629,104.559 237.457,105.777 239.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="215.363" y1="96.917" x2="217.363" y2="108.918" />
 		
@@ -626,12 +649,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    39.363,83.917 41.363,80.917 39.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    27.629,104.559 29.457,105.777 31.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    27.363,96.917 25.363,99.917 27.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M29.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M45.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M23.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M39.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M41.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M29.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M45.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M23.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M39.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M41.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="27.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -655,7 +678,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    43.629,104.559 45.457,105.777 47.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="23.363" y1="96.917" x2="25.363" y2="108.918" />
 		
@@ -668,12 +691,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    199.363,83.917 201.363,80.917 199.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    187.629,104.559 189.457,105.777 191.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    187.363,96.917 185.363,99.917 187.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M189.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M205.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M183.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M199.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M201.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M189.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M205.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M183.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M199.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M201.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="187.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -697,7 +720,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    203.629,104.559 205.457,105.777 207.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="183.363" y1="96.917" x2="185.363" y2="108.918" />
 		
@@ -708,12 +731,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    167.363,83.917 169.363,80.917 167.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    155.629,104.559 157.457,105.777 159.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    155.363,96.917 153.363,99.917 155.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M157.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M173.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M151.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M167.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M169.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M157.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M173.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M151.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M167.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M169.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="155.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -737,7 +760,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    171.629,104.559 173.457,105.777 175.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="151.363" y1="96.917" x2="153.363" y2="108.918" />
 		
@@ -748,12 +771,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    135.363,83.917 137.363,80.917 135.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    123.629,104.559 125.457,105.777 127.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    123.363,96.917 121.363,99.917 123.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M125.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M141.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M119.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M135.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M137.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M125.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M141.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M119.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M135.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M137.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="123.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -777,7 +800,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    139.629,104.559 141.457,105.777 143.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="119.363" y1="96.917" x2="121.363" y2="108.918" />
 		
@@ -788,12 +811,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    103.363,83.917 105.363,80.917 103.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    91.629,104.559 93.457,105.777 95.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    91.363,96.917 89.363,99.917 91.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M93.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M109.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M87.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M103.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M105.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M93.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M109.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M87.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M103.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M105.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="91.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -817,7 +840,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    107.629,104.559 109.457,105.777 111.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="87.363" y1="96.917" x2="89.363" y2="108.918" />
 		
@@ -828,12 +851,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    71.363,83.917 73.363,80.917 71.363,77.917   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    59.629,104.559 61.457,105.777 63.285,104.559   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    59.363,96.917 57.363,99.917 59.363,102.917   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M61.457,105.777    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M77.457,105.777    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M55.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M71.363,83.917    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M73.363,99.917    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M61.457,105.777    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M77.457,105.777    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M55.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M71.363,83.917    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M73.363,99.917    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="59.363" y="83.917" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -857,7 +880,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    75.629,104.559 77.457,105.777 79.285,104.559   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,102.917    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,102.917    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="55.363" y1="96.917" x2="57.363" y2="108.918" />
 		
@@ -869,7 +892,7 @@ function main () {
 				
 					<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" x1="289.667" y1="53.333" x2="161.667" y2="53.333" />
 				<g>
-					<polygon fill="#E5B7B7" points="164.564,50.791 162.02,53.333 164.564,55.876 162.405,55.876 159.862,53.333 162.405,50.791             " />
+					<polygon fill="#E5B7B7" points="164.564,50.791 162.02,53.333 164.564,55.876 162.404,55.876 159.861,53.333 162.404,50.791             " />
 				</g>
 			</g>
 		</g>
@@ -878,12 +901,12 @@ function main () {
 				
 					<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" x1="289.667" y1="121.334" x2="161.667" y2="121.334" />
 				<g>
-					<polygon fill="#E5B7B7" points="164.564,118.791 162.02,121.334 164.564,123.877 162.405,123.877 159.862,121.334        162.405,118.791      " />
+					<polygon fill="#E5B7B7" points="164.564,118.791 162.02,121.334 164.564,123.877 162.404,123.877 159.861,121.334        162.404,118.791      " />
 				</g>
 			</g>
 		</g>
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M153.363,152.167    c11,0.25,64.637-24.167,34-55.25" />
-		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M283.916,148.865    c1.834,20.635,10.186,29.454-14.553,38.303" />
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M153.363,152.167    c11,0.25,64.639-24.167,34-55.25" />
+		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M283.916,148.865    c1.834,20.635,10.186,29.453-14.555,38.303" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M249.363,171.167    c-9.807,0,4.277,16.001-12,16.001" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    267.363,168.167 265.363,171.167 267.363,174.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    247.363,155.167 249.363,152.167 247.363,149.167   " />
@@ -892,12 +915,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    263.363,155.167 265.363,152.167 263.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    251.629,175.809 253.457,177.027 255.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    251.363,168.167 249.363,171.167 251.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M253.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M269.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M247.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M265.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M253.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M269.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M251.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M247.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M265.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="251.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -921,44 +944,44 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    267.629,175.809 269.457,177.027 271.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M267.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="247.363" y1="168.167" x2="249.363" y2="180.168" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="263.363" y1="168.167" x2="269.363" y2="187.168" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M281.947,147.553    c1.053-16.053,8.386-12.053,7.72-26.219" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M268.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M279.979,148.865    c-4.645,1.052-2.979-0.948-10.374-4.031" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M281.947,147.553    c1.055-16.053,8.388-12.053,7.722-26.219" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M268.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M279.979,148.865    c-4.645,1.052-2.979-0.948-10.373-4.031" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    252.292,146.803 253.604,144.834 252.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M252.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M252.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    236.292,146.803 237.604,144.834 236.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M236.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M236.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    220.292,146.803 221.604,144.834 220.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M220.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M220.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    204.292,146.803 205.604,144.834 204.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M204.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M204.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    188.292,146.803 189.604,144.834 188.292,142.865   " />
 		<path fill="none" stroke="#990000" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M296.156,199.438    C180.25,198.75,211,194.75,187.363,168.167" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    172.292,146.803 173.604,144.834 172.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M172.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M172.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    156.292,146.803 157.604,144.834 156.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M156.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M156.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    140.292,146.803 141.604,144.834 140.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M140.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M140.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    124.292,146.803 125.604,144.834 124.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M124.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M124.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    108.292,146.803 109.604,144.834 108.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M108.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M108.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    92.292,146.803 93.604,144.834 92.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M92.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M92.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    76.292,146.803 77.604,144.834 76.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M76.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M76.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    60.292,146.803 61.604,144.834 60.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M60.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M60.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    44.292,146.803 45.604,144.834 44.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M44.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M44.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9844" stroke-linecap="square" stroke-miterlimit="10" points="    28.292,146.803 29.604,144.834 28.292,142.865   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M28.292,146.803    c-6.375-0.125,10.208,20.198-0.929,21.364" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M28.292,146.803    c-6.375-0.125,10.208,20.198-0.931,21.364" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M263.363,149.167    c0,0-10.375,3.5-14,3" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M268.292,142.865    c0,0-11.063,2.469-14.688,1.969" />
 		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M252.292,142.865    c0,0-11.063,2.469-14.688,1.969" />
@@ -995,12 +1018,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    231.363,155.167 233.363,152.167 231.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    219.629,175.809 221.457,177.027 223.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    219.363,168.167 217.363,171.167 219.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M221.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M237.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M215.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M231.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M233.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M221.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M237.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M215.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M231.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M233.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="219.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -1024,7 +1047,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    235.629,175.809 237.457,177.027 239.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="215.363" y1="168.167" x2="217.363" y2="180.168" />
 		
@@ -1035,12 +1058,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    39.363,155.167 41.363,152.167 39.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    27.629,175.809 29.457,177.027 31.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    27.363,168.167 25.363,171.167 27.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M29.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M45.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M23.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M39.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M41.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M29.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M45.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M23.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M39.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M41.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="27.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -1064,7 +1087,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    43.629,175.809 45.457,177.027 47.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="23.363" y1="168.167" x2="25.363" y2="180.168" />
 		
@@ -1077,12 +1100,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    199.363,155.167 201.363,152.167 199.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    187.629,175.809 189.457,177.027 191.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    187.363,168.167 185.363,171.167 187.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M189.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M205.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M183.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M199.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M201.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M189.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M205.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M183.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M199.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M201.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="187.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -1106,7 +1129,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    203.629,175.809 205.457,177.027 207.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="183.363" y1="168.167" x2="185.363" y2="180.168" />
 		
@@ -1117,12 +1140,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    167.363,155.167 169.363,152.167 167.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    155.629,175.809 157.457,177.027 159.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    155.363,168.167 153.363,171.167 155.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M157.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M173.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M151.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M167.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M169.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M157.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M173.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M151.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M167.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M169.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="155.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -1146,7 +1169,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    171.629,175.809 173.457,177.027 175.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="151.363" y1="168.167" x2="153.363" y2="180.168" />
 		
@@ -1157,12 +1180,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    135.363,155.167 137.363,152.167 135.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    123.629,175.809 125.457,177.027 127.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    123.363,168.167 121.363,171.167 123.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M125.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M141.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M119.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M135.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M137.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M125.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M141.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M119.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M135.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M137.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="123.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -1186,7 +1209,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    139.629,175.809 141.457,177.027 143.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="119.363" y1="168.167" x2="121.363" y2="180.168" />
 		
@@ -1197,12 +1220,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    103.363,155.167 105.363,152.167 103.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    91.629,175.809 93.457,177.027 95.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    91.363,168.167 89.363,171.167 91.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M93.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M109.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M87.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M103.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M105.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M93.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M109.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M87.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M103.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M105.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="91.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -1226,7 +1249,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    107.629,175.809 109.457,177.027 111.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="87.363" y1="168.167" x2="89.363" y2="180.168" />
 		
@@ -1237,12 +1260,12 @@ function main () {
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    71.363,155.167 73.363,152.167 71.363,149.167   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    59.629,175.809 61.457,177.027 63.285,175.809   " />
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="1.5" stroke-linecap="square" stroke-miterlimit="10" points="    59.363,168.167 57.363,171.167 59.363,174.167   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M61.457,177.027    c-0.062,1.785-6.145,2.577-4.094,3.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M77.457,177.027    c-0.062,1.785-2.145,9.577-0.094,10.141" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M55.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M71.363,155.167    c4.553,0-2.541,11.511,7.922,20.642" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M73.363,171.167    c-14.828-0.208,0,12.542-16,9.001" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M61.457,177.027    c-0.063,1.785-6.146,2.576-4.096,3.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M77.457,177.027    c-0.063,1.785-2.146,9.576-0.096,10.141" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M55.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M71.363,155.167    c4.555,0-2.541,11.511,7.924,20.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M73.363,171.167    c-14.826-0.208,0,12.542-16,9.001" />
 		
 			<rect x="59.363" y="155.167" fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.9014,1.8028" width="12" height="13" />
 		
@@ -1266,7 +1289,7 @@ function main () {
 			</g>
 		</g>
 		<polyline fill="none" stroke="#9ACDCD" stroke-width="0.9139" stroke-linecap="square" stroke-miterlimit="10" points="    75.629,175.809 77.457,177.027 79.285,175.809   " />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,174.167    c1.115-0.396,1.646-0.396,0.266,1.642" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.6177" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,174.167    c1.115-0.396,1.646-0.396,0.268,1.642" />
 		
 			<line fill="none" stroke="#E5B7B7" stroke-width="0.9014" stroke-miterlimit="10" stroke-dasharray="0.5,0.5" x1="55.363" y1="168.167" x2="57.363" y2="180.168" />
 		
@@ -1278,7 +1301,7 @@ function main () {
 				
 					<line fill="none" stroke="#E5B7B7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" x1="289.667" y1="192.584" x2="161.667" y2="192.584" />
 				<g>
-					<polygon fill="#E5B7B7" points="164.564,190.041 162.02,192.584 164.564,195.127 162.405,195.127 159.862,192.584        162.405,190.041      " />
+					<polygon fill="#E5B7B7" points="164.564,190.041 162.02,192.584 164.564,195.127 162.404,195.127 159.861,192.584        162.404,190.041      " />
 				</g>
 			</g>
 		</g>
@@ -1286,23 +1309,26 @@ function main () {
 			<circle fill="#9ACDCD" stroke="#9ACDCD" stroke-width="0.9475" stroke-linecap="square" stroke-miterlimit="10" cx="296.157" cy="199.438" r="1.895" />
 		
 			<circle fill="none" stroke="#9ACDCD" stroke-width="0.9475" stroke-linecap="square" stroke-miterlimit="10" cx="296.157" cy="199.438" r="3.79" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,15.167    c0,0-0.737,0.542-2,0" />
-		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,15.167    c0,0-0.737,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M235.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M219.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M203.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M187.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M171.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M155.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M139.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M123.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M107.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M91.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M75.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M59.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M43.363,15.167    c0,0-0.735,0.542-2,0" />
+		<path fill="none" stroke="#9ACDCD" stroke-width="0.5" stroke-linecap="square" stroke-miterlimit="10" d="M27.363,15.167    c0,0-0.735,0.542-2,0" />
+	</g><g id="c8config" display="none">
+		
+			<circle id="controls-position" display="inline" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" cx="13.363" cy="59.333" r="6" />
 	</g>
 </svg>
-</p>
+</div>
 
 
 <footer>

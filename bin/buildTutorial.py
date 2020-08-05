@@ -19,13 +19,13 @@
 
 import os, io, codecs, fnmatch, functools
 from string import Template
-from docgen import Classic_Clip8Page
+from docgen import Classic_Clip8Page, Clip8UIDocument
 import TutorialTemplates as TEM
 from PyBroeModules.ItemsCollectionA import MDFilesCollection
 import Sections as SCT
 import CFG
 
-class TutorialPage(Classic_Clip8Page):
+class TutorialPage(Clip8UIDocument):
 
     _feedback_tem = Template("""<!-- TutorialPage._feedback_tem -->
 <script>
@@ -39,8 +39,10 @@ display_success = function() {
 }
 </script>""")
 
+
+
     def __init__(self, *args,
-                 check="function(){}",
+                 cssfiles=[],
                  congratmsg="",
                  head_final="",
                  **kwargs):
@@ -60,13 +62,17 @@ display_success = function() {
 
          `congratmsg`: What the learner will see when the exercise is solved.
          """
+         
+         
         feedback = TutorialPage._feedback_tem.substitute(congratmsg=congratmsg)
         super().__init__(*args,
+                         cssfiles=cssfiles+[
+                            "../css/refsheet.css", 
+                            "../css/clip8.css",
+                            "../css/tutorial.css"],
                          head_final=head_final+feedback,
                          interactive_loader=True,
                          **kwargs)
-        self.clip8initinstruct = ("svgloader.init(termination_callback=%s);"
-                                  % check)
 
 print("\nBuilding the clip_8 Tutorials")
 print("===================================================")
@@ -90,7 +96,9 @@ for mddatadict in exercises.values():
     mddatadict['exerciseSVGfile'] = mddatadict['THIS_ELEMENT_KEY']+'.'+CFG.exerciseSVG_ext
     mddatadict['chaptercnt'] = "[" + mddatadict['exerciseSVGfile'] + "]"
 
-klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="tutorial")
+klippenHTML = TEM.KlippenInitialSVG.substitute(
+    klippenmode="tutorial",
+    controls=TEM.C8Controls_str)
 
 for key, bodyHTML in exercises.iterateSeries(
     template=TEM.Body_ExercisePage,
@@ -103,7 +111,7 @@ for key, bodyHTML in exercises.iterateSeries(
     print ("Processing:", key)
     clip8doc = TutorialPage(title="clip8 | Tutorial",
                             cssfiles=["../css/klippen.css"],
-                            check=exercises[key]['check'],
+                            termination_callback=exercises[key]['check'],
                             congratmsg=exercises[key]['congratmsg'])
     outFN = os.path.join(outDIRabs, key+'.'+CFG.exercisepage_ext)
     print ("    output:", outFN)
@@ -163,7 +171,9 @@ clip8doc.write_file(outFN, bodyHTML)
 print ("Generating: klippen.html")
 backlinkHTML = TEM.Linkback.substitute(ELEMENT_KEY="index", chapter="Tutorial Start Page")
 nextlinkHTML = ""
-klippenHTML = TEM.KlippenInitialSVG.substitute(klippenmode="pro")
+klippenHTML = TEM.KlippenInitialSVG.substitute(
+    klippenmode="pro",
+    controls=TEM.C8Controls_str)
 footerHTML = TEM.Footer_str
 bodyHTML = TEM.Body.substitute(pagetitle='clip_8',
                                chapter="Klippen", chaptercnt="Online Interpreter",

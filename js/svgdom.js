@@ -35,6 +35,14 @@ var Svgdom = {
         return Math.sqrt ( Math.pow(p1.x - p2.x, 2) +  Math.pow(p1.y - p2.y, 2) );
     },
 
+    getViewBox_asXYWH(svgelement) {
+        return [svgelement.viewBox.baseVal.x,
+                svgelement.viewBox.baseVal.y,
+                svgelement.viewBox.baseVal.width,
+                svgelement.viewBox.baseVal.height];
+
+    },
+
     equalCTMs: function (ctm1, ctm2) {
         return ( ctm1.a == ctm2.a &&
                  ctm1.b == ctm2.b &&

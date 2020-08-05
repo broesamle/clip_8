@@ -23,28 +23,22 @@ var CLIP8_SVG_ROOT_ID = "clip8svgroot";
 var svgloader = {
     CLIP8_EXECROOT_ID: "clip8",
     lastloadedSVG: undefined,
-    termination_callback: undefined,
 
-    init: function (termination_callback) {
+    init: function (svgfilechooser, svgload_callback) {
         console.log("prepare SVG loader")
-        svgloader.termination_callback = termination_callback
+        svgloader.svgload_callback = svgload_callback;
         var dropZone = document.getElementById(CLIP8_SVG_ROOT_ID);
-        var fileChooser = document.getElementById('filechooser');
-
         dropZone.addEventListener('dragover', function(e) {
             e.stopPropagation();
             e.preventDefault();
             e.dataTransfer.dropEffect = 'copy';
         });
         dropZone.addEventListener('drop', svgloader.handleFileDrop);
-        fileChooser.addEventListener('change', svgloader.handleFileChoice, false);
+        svgfilechooser.addEventListener('change', svgloader.handleFileChoice, false);
     },
 
     insertSVG: function (newsvgroot) {
             var svgroot = document.getElementById(CLIP8_SVG_ROOT_ID);
-            var highlightISCCheckbox = document.getElementById("hightlightISC");
-            if (highlightISCCheckbox) hightlightISC = highlightISCCheckbox.checked;
-            else hightlightISC = false;
             // clear the existing svg root
             Clip8controler.pauseAction(); // we do not wand a clip_8 engine to operate on a DOM we are just changing.
             while (svgroot.firstChild) {
@@ -53,36 +47,37 @@ var svgloader = {
             svgroot.setAttribute('viewBox', newsvgroot.getAttribute('viewBox'));
             var movingchild = newsvgroot.firstChild;
             while (movingchild) {
-                console.info("Moving child: ", movingchild)
                 svgroot.appendChild(movingchild.cloneNode(true));
                 movingchild = movingchild.nextSibling;
             }
-            Clip8controler.init(document.getElementById("clip8svgroot"),
-                                true, true, hightlightISC,
-                                svgloader.termination_callback);
     },
 
-    loadSVG: function (e2) {
+    loadSVGUpload: function (e2) {
         var svgraw = e2.target.result;
+        svgloader.loadSVGRaw(svgraw);
+    },
+
+    loadSVGRaw: function (svgraw) {
         var parseXml;
         if (typeof window.DOMParser != "undefined") {
-            parseXml = function(xmlStr) {
-                return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");
-            };
-        } else {
+            let parser = new window.DOMParser()
+            let svgdocument =
+                parser.parseFromString(svgraw, "text/xml");
+            let newsvgroot = svgdocument.rootElement;
+            if (newsvgroot instanceof SVGSVGElement) {
+                svgloader.insertSVG(newsvgroot);
+                svgloader.lastloadedSVG = newsvgroot;
+                svgloader.svgload_callback();
+            }
+            else {
+                console.groupCollapsed("Could not load file content as SVG.");
+                console.info("Content: ", svgraw);
+                console.info("Document: ", svgdocument);
+                console.groupEnd();
+            }
+        }
+        else
             throw new Error("No XML parser found");
-        }
-        var svgdocument = parseXml(svgraw);
-        var newsvgroot = svgdocument.rootElement;
-        if (newsvgroot instanceof SVGSVGElement) {
-            svgloader.insertSVG(newsvgroot);
-            svgloader.lastloadedSVG = newsvgroot;
-        } else {
-            console.groupCollapsed("Could not load file content as SVG.");
-            console.info("Content: ", svgraw);
-            console.info("Document: ", svgdocument);
-            console.groupEnd();
-        }
     },
 
     handleFileDrop: function (e) {
@@ -91,7 +86,7 @@ var svgloader = {
         var files = e.dataTransfer.files; // Array of all files
         for (var i=0, file; file=files[i]; i++) {
             var reader = new FileReader();
-            reader.onload = svgloader.loadSVG;
+            reader.onload = svgloader.loadSVGUpload;
             reader.readAsText(file); // start reading the file data.
         }
     },
@@ -100,14 +95,15 @@ var svgloader = {
         var files = e.target.files; // FileList object
         for (var i=0, file; file=files[i]; i++) {
             var reader = new FileReader();
-            reader.onload = loadSVG;
+            reader.onload = svgloader.loadSVGUpload;
             reader.readAsText(file); // start reading the file data.
         }
     },
 
-    handleStop: function () {
-        if (lastloadedSVG) {
-            insertSVG(lastloadedSVG);
+    reload: function () {
+        if (svgloader.lastloadedSVG) {
+            svgloader.insertSVG(svgloader.lastloadedSVG);
+            svgloader.svgload_callback();
         }
     }
 }

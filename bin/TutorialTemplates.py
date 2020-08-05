@@ -73,10 +73,6 @@ TOCsection = Template("""
 
 KlippenInitialSVG = Template("""
 <p class="$klippenmode">
-<button onclick="Clip8controler.playAction()"  >&#x25B6;           </button>
-<button onclick="Clip8controler.pauseAction()" >&#x2759;&#x2759;   </button>
-<button onclick="Clip8controler.stepAction()"  >&#x276F;           </button>
-<button onclick="handleStop()"                 >&#x23ee;          </button> &nbsp;&nbsp;&nbsp;
 <input type="file" id="filechooser" name="files[]"/>
 <span class="visible-for-pro">
 <input type="checkbox" id="hightlightISC">highlight I./S./C.
@@ -86,7 +82,8 @@ KlippenInitialSVG = Template("""
 </div>
 <div id="hintoutput">
 </div>
-<p class="$klippenmode">
+<div id="c8_container">
+$controls
 <svg id="clip8svgroot"  viewBox="0 0 1200 700">
 <g id="rect5212">
 	<g>
@@ -521,5 +518,5 @@ KlippenInitialSVG = Template("""
 		c-1.572-1.285-3.443-1.927-5.613-1.927c-2.171,0-4.038,0.635-5.604,1.904c-1.564,1.27-2.539,2.945-2.923,5.027H1030.047z"/>
 </g>
 </svg>
-</p>
+</div>
 """)

@@ -1,13 +1,10 @@
-
-<!-- Clip8Document._pretem -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>clip8 | Tutorial</title>
 
+<title>screen_8 | presenter</title>
 
-<!-- Clip8Document._initscripts_tem -->
 <script src="../lib/kd-tree-javascript/kdTree-min.js"></script>
 <script src="../lib/clip8dependencies.js"></script>
 <script src="../js/svgdom.js"></script>
@@ -16,8 +13,19 @@
 <script src="../js/paperclip.js"></script>
 <script src="../js/clip8decode.js"></script>
 <script src="../js/clip8.js"></script>
-
 <script>
+var width_updater = {
+    initialpixelratio: window.devicePixelRatio,
+    updatewidth: function () {
+        if (width_updater.initialpixelratio == window.devicePixelRatio) {
+            let widthstr = String(document.documentElement.clientWidth)+"px";
+            document.body.style.width = widthstr;
+        }
+        width_updater.initialpixelratio = window.devicePixelRatio;
+    },
+};
+window.onresize = width_updater.updatewidth;
+
 var WASM_READY = false;
 var Module = {
     wasmBinaryFile: "../rs/wasm/iscd.wasm",
@@ -26,51 +34,52 @@ var Module = {
     noExitRuntime: true
 };
 
-function clip8initinstructions () { 
+function clip8initinstructions () {
     let c8root = document.getElementById("clip8svgroot");
     let c8controls = document.getElementById("c8ui_controls");
-    let termination_callback_user = function (status, cycles, history) {
-if (status == Clip8controler.TERMINATED &&
-cycles == 4 &&
-history[history.length-1] &&
-history[history.length-2] &&
-history[history.length-1].opcode == OP.MOVE_REL &&
-history[history.length-2].opcode == OP.MOVE_REL &&
-history[history.length-1].resultset.length == 1 &&
-history[history.length-2].resultset.length == 1 &&
-history[history.length-1].resultset[0].tagName == "rect" &&
-history[history.length-2].resultset[0].tagName == "rect" ) {
-var instr1 = history[history.length-2];
-var instr2 = history[history.length-1];
-// check for the location of the last and the second last instruction
-if ( instr2.p0prime.x - instr1.p0prime.x > 200 &&
-instr2.p0prime.y - instr1.p0prime.y > 100 )
-display_success();
-}
-};
+    let termination_callback_user = function () {};
     let termination_callback_c8ui = function (status, cycles, history) {
         Clip8UI.terminate();
         termination_callback_user(status, cycles, history);
     };
+    let svgfilechooser = document.getElementById("svgfilechooser");
     let initloadedclip8 = function () {
         Clip8controler.init(c8root, true, true, false,
                             termination_callback=termination_callback_c8ui);
-        Clip8UI.init(c8play=Clip8controler.playAction,
-                     c8pause=Clip8controler.pauseAction,
-                     c8step=Clip8controler.stepAction,
-                     c8root=c8root,
-                     controls=c8controls);
+        Clip8UI.init(Clip8controler.playAction,
+                     Clip8controler.pauseAction,
+                     Clip8controler.stepAction,
+                     c8root,
+                     c8controls,
+                     svgfilechooser
+                     );
         Clip8UI.getready();
     };
-    svgloader.init(
-                document.getElementById("filechooser"),
-                initloadedclip8);
-    
     let reloadbt = document.getElementById("c8ui_reload_btn");
     reloadbt.addEventListener('click', svgloader.reload);
     reloadbt.onclick = null;
-    
-     }
+    svgloader.init(svgfilechooser, initloadedclip8);
+    let params = new URLSearchParams(window.location.search);
+    if (params.has('svgsource')) {
+        let svgsource = params.get('svgsource');
+        console.debug("svgsource:", svgsource);
+        let re = new RegExp('^[\\w\\.-]+$', "i");
+        if (re.test(svgsource)) {
+            let href = "../c8svg/"+svgsource+".svg";
+            console.log("clip8initinstructions: load", href);
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === xhttp.DONE &&
+                    xhttp.status === 200) {
+                    console.debug("request successful");
+                    svgloader.loadSVGRaw(xhttp.responseText)
+                }
+            };
+            xhttp.open("GET", href, true);
+            xhttp.send();
+        }
+    }
+}
 
 function main () {
     WASM_READY = true;
@@ -78,62 +87,17 @@ function main () {
 }
 </script>
 <script src="../rs/wasm/iscd.js"></script>
-
 <script src="../lib/javascript-state-machine/state-machine.min.js"></script>
 <script src="../js/clip8ui.js"></script>
 <script src="../js/svgloader.js"></script>
 <link rel="stylesheet" href="../css/c8ui.css">
-<link rel="stylesheet" href="../css/klippen.css">
-<link rel="stylesheet" href="../css/refsheet.css">
-<link rel="stylesheet" href="../css/clip8.css">
-<link rel="stylesheet" href="../css/tutorial.css">
-<!-- TutorialPage._feedback_tem -->
-<script>
-display_success = function() {
-    var feedbackelement = document.getElementById("learner-feedback");
-    while (feedbackelement.firstChild) {
-        feedbackelement.removeChild(feedbackelement.firstChild);
-    }
-    feedbackelement.appendChild(document.createTextNode("Exactly!"));
-    document.getElementById("dynamic-nextlink").style.display="block";
-}
-</script>
+<link rel="stylesheet" href="../css/c8ui_demo.css">
+<link rel="stylesheet" href="../css/c8presenter.css">
 </head>
 
-<body>
-<nav>
-<div class="leftlink"><a href="03_selectThings_b.html">Select things (b)<br>&lt;&lt;&lt;&lt;</a></div>
-<div class="chapternavtitle">[04_connectInstructions_a.svg]</div>
-<div class="rightlink"><a href="05_OrderOfInstructions_a.html">Order of instructions<br>&gt;&gt;&gt;&gt;</a></div>
-</nav>
-<h1><span class="sndtitle">clip_8&nbsp;|</span>&nbsp;Connect instructions</h1>
-<ol>
-<li>
-<p><strong>Drop and run</strong> <code>04_connectInstructions_a.svg</code> in the test area below.<br />
-<em>The controlflow between the two move instructions is missing.</em></p>
-</li>
-<li>
-<p><strong>Edit</strong> <code>04_connectInstructions_a.svg</code> so that one box moves after the other.</p>
-</li>
-<li>
-<p><strong>Save, and drop your solution below for testing</strong>.</p>
-</li>
-</ol>
-<div id="learner-feedback"></div>
-<a id="dynamic-nextlink" href="05_OrderOfInstructions_a.html" style="display:none">Take me to the next exercise! &gt;&gt;&gt;&gt;</a>
-
-<p class="tutorial">
-<input type="file" id="filechooser" name="files[]"/>
-<span class="visible-for-pro">
-<input type="checkbox" id="hightlightISC">highlight I./S./C.
-</span>
-</p>
-<div id="erroroutput">
-</div>
-<div id="hintoutput">
-</div>
+<body >
 <div id="c8_container">
-
+<input type="file" id="svgfilechooser" name="files[]"/>
 <div id="c8ui_controls">
 <a id="c8ui_reload_btn" style="visibility: hidden;" onclick="location.reload()">&larrhk;</a>
 <a id="c8ui_play_btn">&#x25B6;</a>
@@ -141,23 +105,23 @@ display_success = function() {
 <a id="c8ui_step_btn">&#x276F;</a>
 </div>
 
-<svg id="clip8svgroot"  viewBox="0 0 1200 700">
+<svg id="clip8svgroot" viewBox="0 0 1200 700">
 <g id="rect5212">
 	<g>
 		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="14,113.734 14,14 113.735,14 		"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="179.8396,50.6345" x1="164.369" y1="14" x2="1060.948" y2="14"/>
-		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1086.266,14 1186,14 1186,113.734 
+		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1086.266,14 1186,14 1186,113.734
 					"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="166.1116,46.7693" x1="1186" y1="160.504" x2="1186" y2="562.881"/>
-		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1186,586.266 1186,686 
+		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="1186,586.266 1186,686
 			1086.266,686 		"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="179.8396,50.6345" x1="1035.631" y1="686" x2="139.052" y2="686"/>
-		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="113.735,686 14,686 14,586.266 		
+		<polyline fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" points="113.735,686 14,686 14,586.266
 			"/>
-		
+
 			<line fill="none" stroke="#FF00A8" stroke-width="28.3992" stroke-miterlimit="10" stroke-dasharray="166.1116,46.7693" x1="14" y1="539.496" x2="14" y2="137.119"/>
 	</g>
 </g>
@@ -577,10 +541,9 @@ display_success = function() {
 </svg>
 </div>
 
-
 <footer>
 <p>
-© 2016, 2017, 2020 Martin Brösamle.<br>
+© 2020 Martin Brösamle.<br>
 </p>
 </footer>
 
