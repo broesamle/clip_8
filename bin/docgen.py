@@ -78,15 +78,11 @@ function main () {
 
         `cssfiles`: List of css files to be included via link in the header.
 
-        `cssfiles`: List of additional js files to be included.
+        `jsfiles`: List of additional js files to be included.
             The clip8 scripts are added automatically.
 
         `head_opener`, `head_final`:
             For additional code snippets at start/end of the <head>.
-
-        `autoplay`: Play immedeately after loading page.
-            Cannot be combined with `interactive_loader=True`.
-            Default is `False`.`
         """
         self.title = title
         self.head_opener = head_opener
@@ -137,7 +133,7 @@ function main () {
         output_file.close()
 
 class Classic_Clip8Page(Clip8Document):
-    _initinstr = """
+    _initinstr_autoplay = """
     Clip8controler.init(
                 document.getElementById("clip8svgroot"),
                 true, true, false,
@@ -145,18 +141,19 @@ class Classic_Clip8Page(Clip8Document):
                 Clip8controler.playAction);
 """
 
-    def __init__(self,
-                 *args,
-                 cssfiles=[],
-                 autoplay=False,
-                 **kwargs):
-
+    def __init__(self, *args, cssfiles=[], autoplay=False, **kwargs):
+        """
+        `autoplay`: Play immedeately after loading page.
+            Cannot be combined with `interactive_loader=True`.
+            Default is `False`.`
+        """
 
         super().__init__(*args,
-                         cssfiles=["../css/refsheet.css", "../css/clip8.css"] + cssfiles,
+                         cssfiles=["../css/refsheet.css",
+                                   "../css/clip8.css"] + cssfiles,
                          **kwargs)
         if autoplay:
-            self.clip8initinstruct = Classic_Clip8Page._initinstr
+            self.clip8initinstruct = Classic_Clip8Page._initinstr_autoplay
 
 class Clip8UIDocument(Clip8Document):
     """ A clip8 document with interactive user controls. """
@@ -204,6 +201,10 @@ class Clip8UIDocument(Clip8Document):
         `interactive_loader`: If set to `True` the user will be able to
             load own svg documents via drag+drop and via file choose dialogue.
             Default is `False`.
+
+        `termination_callback`: Will be called when clip8 execution terminates.
+            Typically this is used to let the UI take notice of the
+            execution end (with or without error).
         """
         if interactive_loader:
             _jsfiles = [
