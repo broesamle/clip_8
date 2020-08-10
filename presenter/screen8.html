@@ -15,7 +15,11 @@
 <script src="../js/clip8.js"></script>
 <script>
 var width_updater = {
-    initialpixelratio: window.devicePixelRatio,
+    init: function () {
+        width_updater.initialpixelratio = window.devicePixelRatio;
+        let widthstr = String(document.documentElement.clientWidth)+"px";
+        document.body.style.width = widthstr;
+    },
     updatewidth: function () {
         if (width_updater.initialpixelratio == window.devicePixelRatio) {
             let widthstr = String(document.documentElement.clientWidth)+"px";
@@ -24,7 +28,6 @@ var width_updater = {
         width_updater.initialpixelratio = window.devicePixelRatio;
     },
 };
-window.onresize = width_updater.updatewidth;
 
 var WASM_READY = false;
 var Module = {
@@ -79,6 +82,8 @@ function clip8initinstructions () {
             xhttp.send();
         }
     }
+    width_updater.init();
+    window.onresize = width_updater.updatewidth;
 }
 
 function main () {
