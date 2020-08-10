@@ -11,8 +11,7 @@ svg {
 }
 
 #svgfilechooser {
-	position: absolute;
-	top: 5em;
-	left: 50%;
-	transform: translate(-50%,0);
+    position: absolute;
+    top: 5em;
+    left: 5em;
 }
