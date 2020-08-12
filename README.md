@@ -4,9 +4,9 @@
 
 **What you see is what you compute.**
 
-[Demo session screenshots/slideshow](https://github.com/broesamle/clip8_materials/raw/master/demo-session-screenshots.pdf) (PDF) for a **very** first impression, START HERE!
+[Demos](https://martinbroesamle.de/clip8/), for a first impression. 
 
-[Demos](https://broesamle.github.io/clip_8/demos/), for a first impression.
+[Workflow example session PDF](https://github.com/broesamle/clip8_materials/raw/master/demo-session-screenshots.pdf) (PDF) for a **very** first impression, START HERE!
 
 `clip_8` is probably best described as a _visual virtual machine_ operating on inline SVG in the browser's DOM.
 
